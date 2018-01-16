@@ -1,0 +1,13 @@
+tags
+tags.meta
+*.tmp
+*.suo
+*.swp
+*.swo
+*.csproj
+*.sln
+~*
+Library/
+Temp/
+Builds/
+.vscode
