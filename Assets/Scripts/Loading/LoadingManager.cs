@@ -2,6 +2,7 @@
 
 using ggj2018.Audio;
 using ggj2018.Data;
+using ggj2018.Scenes;
 using ggj2018.Util;
 using ggj2018.Util.ObjectPool;
 
@@ -23,6 +24,9 @@ namespace ggj2018.Loading
 
         [SerializeField]
         private AudioManager _audioManagerPrefab;
+
+        [SerializeField]
+        private GameSceneManager _gameSceneManagerPrefab;
 #endregion
 
         [SerializeField]
@@ -43,10 +47,14 @@ namespace ggj2018.Loading
             yield return null;
 
             CreateManagers();
+            yield return null;
+
+// TODO: load the "main" scene
 
             _loadingScreen.Progress.Percent = 1.0f;
             _loadingScreen.ProgressText = "Loading complete!";
-            yield return null;
+
+            Destroy();
         }
 
         private void CreateManagers()
@@ -56,6 +64,7 @@ namespace ggj2018.Loading
             ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
             DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, _managersObject);
             AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, _managersObject);
+            GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, _managersObject);
         }
 
         private void Destroy()
