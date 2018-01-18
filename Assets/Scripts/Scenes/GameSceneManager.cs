@@ -9,35 +9,50 @@ using UnityEngine.SceneManagement;
 
 namespace ggj2018.Scenes
 {
-    public /*abstract*/ class GameSceneManager : SingletonBehavior<GameSceneManager>
+    public sealed class GameSceneManager : SingletonBehavior<GameSceneManager>
     {
+        [SerializeField]
+        private string _mainSceneName = "main";
+
         private readonly List<string> _loadedScenes = new List<string>();
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _isGameStarted;
+        public void LoadScene(string sceneName, Action callback, bool setActive=false)
+        {
+            StartCoroutine(LoadSceneRoutine(sceneName, () => {
+                callback?.Invoke();
+            }));
+        }
 
-        public bool IsGameStarted { get { return _isGameStarted; } set { _isGameStarted = value; } }
-
-        protected IEnumerator LoadSceneRoutine(string sceneName, Action callback)
+        public IEnumerator LoadSceneRoutine(string sceneName, Action callback, bool setActive=false)
         {
             AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while(!asyncOp.isDone) {
                 yield return null;
             }
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+
+            if(setActive) {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+            }
 
             _loadedScenes.Add(sceneName);
 
             callback?.Invoke();
         }
 
-        protected IEnumerator UnloadScene(string sceneName, Action callback)
+        public void UnloadScene(string sceneName, Action callback)
+        {
+            StartCoroutine(UnloadSceneRoutine(sceneName, () => {
+                callback?.Invoke();
+            }));
+        }
+
+        public IEnumerator UnloadSceneRoutine(string sceneName, Action callback)
         {
             AsyncOperation asyncOp = SceneManager.UnloadSceneAsync(sceneName);
             while(!asyncOp.isDone) {
                 yield return null;
             }
+
             // TODO: active scene?
 
             _loadedScenes.Remove(sceneName);
@@ -45,14 +60,14 @@ namespace ggj2018.Scenes
             callback?.Invoke();
         }
 
-        protected void UnloadScenes()
+        public void UnloadAllScenes()
         {
             foreach(string sceneName in _loadedScenes) {
                 SceneManager.UnloadSceneAsync(sceneName);
             }
             _loadedScenes.Clear();
 
-            // TODO: active scene?
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_mainSceneName));
         }
     }
 }

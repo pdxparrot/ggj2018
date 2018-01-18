@@ -562,6 +562,7 @@ MonoBehaviour:
   _gameSceneManagerPrefab: {fileID: 114817921798825586, guid: 82c79c19e92134448a04fa85e1c6a0f7,
     type: 2}
   _managersObject: {fileID: 0}
+  _defaultSceneName: test
 --- !u!4 &1541085457
 Transform:
   m_ObjectHideFlags: 0

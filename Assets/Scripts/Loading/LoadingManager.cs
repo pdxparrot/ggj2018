@@ -33,6 +33,9 @@ namespace ggj2018.Loading
         [ReadOnly]
         private GameObject _managersObject;
 
+        [SerializeField]
+        private string _defaultSceneName;
+
 #region Unity Lifecycle
         private void Start()
         {
@@ -49,12 +52,14 @@ namespace ggj2018.Loading
             CreateManagers();
             yield return null;
 
-// TODO: load the "main" scene
+            _loadingScreen.Progress.Percent = 0.5f;
+            _loadingScreen.ProgressText = "Loading default scene...";
+            GameSceneManager.Instance.LoadScene(_defaultSceneName, () => {
+                _loadingScreen.Progress.Percent = 1.0f;
+                _loadingScreen.ProgressText = "Loading complete!";
 
-            _loadingScreen.Progress.Percent = 1.0f;
-            _loadingScreen.ProgressText = "Loading complete!";
-
-            Destroy();
+                Destroy();
+            });
         }
 
         private void CreateManagers()
