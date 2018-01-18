@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 
+using ggj2018.Assets;
 using ggj2018.Audio;
 using ggj2018.Data;
 using ggj2018.Scenes;
@@ -66,6 +67,7 @@ namespace ggj2018.Loading
         {
             _managersObject = new GameObject("Managers");
 
+            AssetManager.Create(_managersObject);
             ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
             DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, _managersObject);
             AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, _managersObject);
