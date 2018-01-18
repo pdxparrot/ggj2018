@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -136,7 +137,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 115340211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -250, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1642128638}
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 500326760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a41a948465dd294881128fdc43938ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 6141cb6c4d538b2408c81a7a0ddf30f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _aspectWidth: 16
@@ -332,6 +333,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -432,18 +434,18 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 701059858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 388, y: 214.5, z: 0}
-  m_LocalScale: {x: 0.65062225, y: 0.65062225, z: 0.65062225}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1642128638}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &701059863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 701059858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2262ea8265959b44091751e13a215231, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e2f7e84086848841bcaf5db0bcb2ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _progressBar: {fileID: 1680975396}
@@ -549,17 +551,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1541085455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0b8ea4f2115739469a0bb8de013613d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a3650409d5ae174485e99d13be7e793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingScreen: {fileID: 701059863}
-  _objectPoolManagerPrefab: {fileID: 114784794280309542, guid: e7c7961b073000549bd13de409e02fcb,
+  _objectPoolManagerPrefab: {fileID: 114208383095443916, guid: 5c039947a83a20d42b9ac35020f6305a,
     type: 2}
-  _dataManagerPrefab: {fileID: 114940695629788304, guid: 666b140f0842270478998f37bb262568,
+  _dataManagerPrefab: {fileID: 114090749655593150, guid: b0c7d242b7d461e41a4d5ae24bbdb8f2,
     type: 2}
-  _audioManagerPrefab: {fileID: 114310933827529662, guid: 0d67d755ab4b70d459ce49233fdaee4c,
+  _audioManagerPrefab: {fileID: 114645275030904352, guid: 272ec38cef01bae41998836472da210e,
     type: 2}
-  _gameSceneManagerPrefab: {fileID: 114817921798825586, guid: 82c79c19e92134448a04fa85e1c6a0f7,
+  _gameSceneManagerPrefab: {fileID: 114993109945140696, guid: 001813623a138b644b2aabbbdfc09b3d,
     type: 2}
   _managersObject: {fileID: 0}
   _defaultSceneName: test
@@ -669,7 +671,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1680975394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -200, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 168409224}
@@ -690,7 +692,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1680975394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc948b4bc8633ec40909ecfb9690a173, type: 3}
+  m_Script: {fileID: 11500000, guid: 143dd5e83681c3e469253a1574182c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _background: {fileID: 168409225}
