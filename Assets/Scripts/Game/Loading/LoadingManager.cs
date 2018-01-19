@@ -17,6 +17,9 @@ namespace ggj2018.Game.Loading
         private LoadingScreen _loadingScreen;
 
 #region Manager Prefabs
+        [SerializeField]    
+        private AssetManager _assetManagerPrefab;
+
         [SerializeField]
         private ObjectPoolManager _objectPoolManagerPrefab;
 
@@ -53,7 +56,16 @@ namespace ggj2018.Game.Loading
             CreateManagers();
             yield return null;
 
-            _loadingScreen.Progress.Percent = 0.5f;
+            _loadingScreen.Progress.Percent = 0.25f;
+            _loadingScreen.ProgressText = "Loading assets...";
+            yield return null;
+
+            IEnumerator routine = AssetManager.Instance.LoadAssetsRoutine();
+            while(routine.MoveNext()) {
+                yield return null;
+            }
+
+            _loadingScreen.Progress.Percent = 0.75f;
             _loadingScreen.ProgressText = "Loading default scene...";
             GameSceneManager.Instance.LoadScene(_defaultSceneName, () => {
                 _loadingScreen.Progress.Percent = 1.0f;
@@ -67,7 +79,7 @@ namespace ggj2018.Game.Loading
         {
             _managersObject = new GameObject("Managers");
 
-            AssetManager.Create(_managersObject);
+            AssetManager.CreateFromPrefab(_assetManagerPrefab.gameObject, _managersObject);
             ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
             DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, _managersObject);
             AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, _managersObject);
