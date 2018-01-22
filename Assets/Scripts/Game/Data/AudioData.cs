@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.Core.Util;
-
 using UnityEngine;
 
 namespace ggj2018.Game.Data
@@ -11,14 +9,6 @@ namespace ggj2018.Game.Data
     [Serializable]
     public sealed class AudioData : ScriptableObject
     {
-#region UNITY_EDITOR
-        [UnityEditor.MenuItem("Assets/Create/ggj2018/Data/Audio Data")]
-        private static void Create()
-        {
-            ScriptableObjectUtility.CreateAsset<AudioData>();
-        }
-#endregion
-
         [Serializable]
         public sealed class AudioDataEntry
         {

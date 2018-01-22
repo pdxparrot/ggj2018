@@ -11,8 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e558ff792f0aaa4d8dd6b14cc295471, type: 3}
   m_Name: AssetManifest
   m_EditorClassIdentifier: 
-  _assets:
-  - _id: main_mixer
-    _asset: {fileID: 24100000, guid: f07da2a8eb787344783153fc3cf520de, type: 2}
-  - _id: game_data
-    _asset: {fileID: 11400000, guid: 8ca628f4be70ff1478869e531fa4a87f, type: 2}
+  _assetBundles:
+  - base

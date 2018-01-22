@@ -50,18 +50,18 @@ namespace ggj2018.Game.Loading
         private IEnumerator Load()
         {
             _loadingScreen.Progress.Percent = 0.0f;
-            _loadingScreen.ProgressText = "Creating Managers...";
+            _loadingScreen.ProgressText = "Creating managers...";
             yield return null;
 
             CreateManagers();
             yield return null;
 
             _loadingScreen.Progress.Percent = 0.25f;
-            _loadingScreen.ProgressText = "Loading assets...";
+            _loadingScreen.ProgressText = "Initializing managers...";
             yield return null;
 
-            IEnumerator routine = AssetManager.Instance.LoadAssetsRoutine();
-            while(routine.MoveNext()) {
+            IEnumerator runner = InitializeManagers();
+            while(runner.MoveNext()) {
                 yield return null;
             }
 
@@ -80,10 +80,28 @@ namespace ggj2018.Game.Loading
             _managersObject = new GameObject("Managers");
 
             AssetManager.CreateFromPrefab(_assetManagerPrefab.gameObject, _managersObject);
-            ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
             DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, _managersObject);
             AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, _managersObject);
+            ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
             GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, _managersObject);
+        }
+
+        private IEnumerator InitializeManagers()
+        {
+            IEnumerator runner = AssetManager.Instance.InitializeRoutine();
+            while(runner.MoveNext()) {
+                yield return null;
+            }
+
+            runner = DataManager.Instance.InitializeRoutine();
+            while(runner.MoveNext()) {
+                yield return null;
+            }
+
+            runner = AudioManager.Instance.InitializeRoutine();
+            while(runner.MoveNext()) {
+                yield return null;
+            }
         }
 
         private void Destroy()

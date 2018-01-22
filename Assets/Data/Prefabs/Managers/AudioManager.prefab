@@ -132,5 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b1d56ac5d9c83418ec4997eab5c709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 24100000, guid: f07da2a8eb787344783153fc3cf520de, type: 2}
+  _mainAudioMixerPath: Audio/main.mixer
+  _audioMixer: {fileID: 0}
   _oneShotAudioSource: {fileID: 82207472562699126}
