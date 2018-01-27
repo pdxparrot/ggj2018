@@ -35,6 +35,18 @@ namespace ggj2018.ggj2018
             Rotate(moveAxes, dt);
             Move(moveAxes, dt);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            // TODO: ouch... no no no
+            if(null != other.GetComponentInParent<Building>()) {
+Debug.Log("Building collision");
+            } else if(null != other.GetComponentInParent<PlayerController>()) {
+Debug.Log("Player collision");
+            } else if(null != other.GetComponentInParent<Ground>()) {
+Debug.Log("Ground collision!");
+            }
+        }
 #endregion
 
         private void Rotate(Vector3 axes, float dt)
@@ -45,23 +57,23 @@ namespace ggj2018.ggj2018
             Vector3 modelRotation = new Vector3();
 
             if(axes.x < -Mathf.Epsilon) {
-                modelRotation.z = -45.0f;
-            } else if(axes.x > Mathf.Epsilon) {
                 modelRotation.z = 45.0f;
+            } else if(axes.x > Mathf.Epsilon) {
+                modelRotation.z = -45.0f;
             }
 
             if(axes.y < -Mathf.Epsilon) {
-                modelRotation.x = -45.0f;
-            } else if(axes.y > Mathf.Epsilon) {
                 modelRotation.x = 45.0f;
+            } else if(axes.y > Mathf.Epsilon) {
+                modelRotation.x = -45.0f;
             }
 
-            _model.transform.rotation = Quaternion.Euler(modelRotation);
+            _model.transform.localRotation = Quaternion.Euler(modelRotation);
         }
 
         private void Move(Vector3 axes, float dt)
         {
-            float speed = 0.0f;//(_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
+            float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
 
             Vector3 velocity = transform.forward * speed;
 

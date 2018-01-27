@@ -13,7 +13,7 @@ namespace ggj2018.ggj2018
         private void Awake()
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.useGravity = false;
+            rigidbody.isKinematic = true;
 
             Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
