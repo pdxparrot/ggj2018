@@ -2,6 +2,7 @@
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
+using ggj2018.Core.UI;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
 using ggj2018.Game.Scenes;
@@ -85,6 +86,7 @@ namespace ggj2018.Game.Loading
             Core.Camera.CameraManager.CreateFromPrefab(_cameraManager.gameObject, ManagersContainer);
             InputManager.Create(ManagersContainer);
             GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, ManagersContainer);
+            UIManager.Create(ManagersContainer);
         }
 
         // TODO: virtualize

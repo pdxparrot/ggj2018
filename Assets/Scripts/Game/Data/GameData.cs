@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 using UnityEngine;
@@ -22,12 +23,25 @@ namespace ggj2018.Game.Data
 #endregion
 
         [SerializeField]
-        private AudioData _audio;
+        private ScriptableObject[] _data;
 
-        public AudioData Audio => _audio;
+        [SerializeField]
+        private readonly Dictionary<string, ScriptableObject> _dataCollection = new Dictionary<string, ScriptableObject>();
+
+        public IReadOnlyDictionary<string, ScriptableObject> Data => _dataCollection;
 
         public void Initialize()
         {
+            foreach(ScriptableObject data in _data) {
+                IData idata = data as IData;
+                if(null == idata) {
+                    Debug.LogError($"Data object {data.name} does not implement IData interface!");
+                    continue;
+                }
+
+                _dataCollection[idata.Name] = data;
+                idata.Initialize();
+            }
         }
 
         public void DebugDump()

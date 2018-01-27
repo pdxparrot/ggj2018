@@ -1,5 +1,7 @@
 ﻿using ggj2018.Core.Input;
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
+using ggj2018.Game.Data;
 
 using UnityEngine;
 
@@ -7,15 +9,6 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerController : MonoBehavior
     {
-        [SerializeField]
-        private float _baseSpeed = 10.0f;
-
-        [SerializeField]
-        private float _baseTurnSpeed = 5.0f;
-
-        [SerializeField]
-        private float _basePitchSpeed = 5.0f;
-
         [SerializeField]
         private GameObject _model;
 
@@ -25,7 +18,14 @@ namespace ggj2018.ggj2018
 
         public BaseAttributes Attributes { get { return _attributes; } set { _attributes = value ?? new BaseAttributes(); } }
 
+        private PlayerData _playerData;
+
 #region Unity Lifecycle
+        private void Awake()
+        {
+            _playerData = DataManager.Instance.GameData.Data.GetOrDefault(PlayerData.DataName) as PlayerData;
+        }
+
         private void Update()
         {
             float dt = Time.deltaTime;
@@ -36,9 +36,9 @@ namespace ggj2018.ggj2018
             rotation.x = Mathf.Clamp(rotation.x + inputAxes.x * dt, -45.0f, 45.0f);
             rotation.z = Mathf.Clamp(rotation.z + inputAxes.y * dt, -45.0f, 45.0f);
 
-            float speed = _baseSpeed + _attributes.SpeedModifier * dt;
-            float turnSpeed = _baseTurnSpeed + _attributes.TurnSpeedModifier * dt;
-            float pitchSpeed = _basePitchSpeed + _attributes.PitchSpeedModifier * dt;
+            float speed = _playerData.BaseSpeed + _attributes.SpeedModifier * dt;
+            float turnSpeed = _playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier * dt;
+            float pitchSpeed = _playerData.BasePitchSpeed + _attributes.PitchSpeedModifier * dt;
 
             _model.transform.rotation = Quaternion.Euler(rotation.x, 0.0f, rotation.y);
             transform.position += new Vector3(turnSpeed, pitchSpeed, speed);

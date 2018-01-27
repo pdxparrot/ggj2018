@@ -16,6 +16,8 @@ namespace ggj2018.Game.Audio
         [SerializeField]
         private AudioSource _oneShotAudioSource;
 
+        private AudioData _audioData;
+
         public IEnumerator InitializeRoutine()
         {
             // TODO: why isn't this working???
@@ -24,9 +26,16 @@ namespace ggj2018.Game.Audio
             yield break;
         }
 
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _audioData = DataManager.Instance.GameData.Data.GetOrDefault(AudioData.DataName) as AudioData;
+        }
+#endregion
+
         public void PlayAudioOneShot(string id)
         {
-            AudioClip audioClip = DataManager.Instance.GameData.Audio.Entries.GetOrDefault(id)?.AudioClip;
+            AudioClip audioClip = _audioData.Entries.GetOrDefault(id)?.AudioClip;
             if(null != audioClip) {
                 PlayAudioOneShot(audioClip);
             }
