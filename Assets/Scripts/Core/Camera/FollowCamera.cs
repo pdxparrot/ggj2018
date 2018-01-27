@@ -1,4 +1,5 @@
 ﻿using ggj2018.Core.Input;
+using ggj2018.Core.Math;
 using ggj2018.Core.Util;
 
 using JetBrains.Annotations;
@@ -9,9 +10,23 @@ namespace ggj2018.Core.Camera
 {
     public sealed class FollowCamera : MonoBehavior
     {
+#region Orbit Config
+        [SerializeField]
+        private bool _enableOrbit = true;
+
+        [SerializeField]
+        private float _orbitSpeedX = 100.0f;
+
+        [SerializeField]
+        private float _orbitSpeedY = 100.0f;
+
+        [SerializeField]
+        private bool _invertOrbitY = false;
+#endregion
+
 #region Zoom Config
         [SerializeField]
-        private bool _enableZoom = false;
+        private bool _enableZoom = true;
 
         [SerializeField]
         private float _minZoomDistance = 5.0f;
@@ -24,6 +39,17 @@ namespace ggj2018.Core.Camera
 
         [SerializeField]
         private bool _invertZoomDirection = false;
+#endregion
+
+#region Look Config
+        [SerializeField]
+        private bool _enableLook = false;
+
+        [SerializeField]
+        private float _lookSpeedX = 100.0f;
+
+        [SerializeField]
+        private float _lookSpeedY = 100.0f;
 #endregion
 
 #region Target
@@ -41,14 +67,19 @@ namespace ggj2018.Core.Camera
 
         [SerializeField]
         [ReadOnly]
+        private Vector2 _orbitRotation;
+
+        [SerializeField]
+        [ReadOnly]
         private float _orbitRadius = 25.0f;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector2 _lookRotation;
 
 #region Unity Lifecycle
         private void Update()
         {
-            if(!InputManager.HasInstance) {
-                return;
-            }
             HandleInput(Time.deltaTime);
         }
 
@@ -66,18 +97,32 @@ namespace ggj2018.Core.Camera
 
         private void HandleInput(float dt)
         {
-            Vector3 axes = InputManager.Instance.GetAxes();
-
+            Vector3 axes = InputManager.Instance.GetLookAxes();
+            Orbit(axes, dt);
             Zoom(axes, dt);
+            Look(axes, dt);
         }
 
-        private void Zoom(Vector3 pointerAxis, float dt)
+        private void Orbit(Vector3 axes, float dt)
+        {
+            if(!_enableOrbit) {
+                return;
+            }
+
+            float orbitXAmount = _orbitRotation.x + axes.x * _orbitSpeedX * dt;
+            _orbitRotation.x = MathHelper.WrapAngle(orbitXAmount);
+
+            float orbitYAmount = _orbitRotation.y - axes.y * _orbitSpeedY * dt * (_invertOrbitY ? -1 : 1);
+            _orbitRotation.y = MathHelper.WrapAngle(orbitYAmount);
+        }
+
+        private void Zoom(Vector3 axes, float dt)
         {
             if(!_enableZoom) {
                 return;
             }
 
-            float zoomAmount = pointerAxis.z * _zoomSpeed * dt * (_invertZoomDirection ? -1 : 1);
+            float zoomAmount = axes.z * _zoomSpeed * dt * (_invertZoomDirection ? -1 : 1);
 
             float minDistance = _minZoomDistance, maxDistance = _maxZoomDistance;
             if(null != Target) {
@@ -94,10 +139,27 @@ namespace ggj2018.Core.Camera
             }
         }
 
+        private void Look(Vector3 pointerAxis, float dt)
+        {
+            if(!_enableLook) {
+                return;
+            }
+
+            _lookRotation.x = MathHelper.WrapAngle(_lookRotation.x + pointerAxis.x * _lookSpeedX * dt);
+            _lookRotation.y = MathHelper.WrapAngle(_lookRotation.y - pointerAxis.y * _lookSpeedY * dt);
+        }
+
         private void FollowTarget()
         {
+            Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
+            Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
+
+            transform.rotation = orbitRotation * lookRotation;
+
+            // TODO: this doens't work if we free-look and zoom
+            // because we're essentially moving the target position, not the camera position
             Vector3 targetPosition = null == Target ? (transform.position + (transform.forward * _orbitRadius)) : Target.transform.position;
-            transform.position = targetPosition + new Vector3(0.0f, 0.0f, -_orbitRadius);
+            transform.position = targetPosition + orbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
         }
     }
 }

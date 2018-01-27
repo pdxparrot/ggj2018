@@ -32,8 +32,10 @@ namespace ggj2018.ggj2018
 
             float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
 
+            Vector3 moveAxes = InputManager.Instance.GetMoveAxes();
+            Vector3 lookAxes = InputManager.Instance.GetLookAxes();
+
 /*
-            Vector3 inputAxes = InputManager.Instance.GetAxes();
 
             Vector3 rotation = _model.transform.rotation.eulerAngles;
             rotation.x = Mathf.Clamp(rotation.x + inputAxes.x * dt, -45.0f, 45.0f);

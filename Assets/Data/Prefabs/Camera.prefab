@@ -113,6 +113,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ac0c4780abee845be5d3936ae249af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enableOrbit: 1
+  _orbitSpeedX: 100
+  _orbitSpeedY: 100
+  _invertOrbitY: 1
+  _enableZoom: 0
+  _minZoomDistance: 5
+  _maxZoomDistance: 100
+  _zoomSpeed: 500
+  _invertZoomDirection: 0
+  _enableLook: 0
+  _lookSpeedX: 100
+  _lookSpeedY: 100
+  _target: {fileID: 0}
+  _targetCollider: {fileID: 0}
+  _orbitRotation: {x: 0, y: 0}
+  _orbitRadius: 25
+  _lookRotation: {x: 0, y: 0}
 --- !u!124 &124483394577055754
 Behaviour:
   m_ObjectHideFlags: 1
