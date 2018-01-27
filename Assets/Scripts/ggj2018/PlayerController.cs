@@ -23,6 +23,9 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+
             _playerData = DataManager.Instance.GameData.Data.GetOrDefault(PlayerData.DataName) as PlayerData;
         }
 
@@ -32,7 +35,7 @@ namespace ggj2018.ggj2018
 
             Vector3 moveAxes = InputManager.Instance.GetMoveAxes();
 
-            Rotate(moveAxes, dt);
+            Turn(moveAxes, dt);
             Move(moveAxes, dt);
         }
 
@@ -49,26 +52,32 @@ Debug.Log("Ground collision!");
         }
 #endregion
 
-        private void Rotate(Vector3 axes, float dt)
+        private void Turn(Vector3 axes, float dt)
         {
             float turnSpeed = (_playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier) * dt;
             transform.Rotate(0.0f, axes.x * turnSpeed, 0.0f);
 
-            Vector3 modelRotation = new Vector3();
+            RotateModel(axes, dt);
+        }
+
+        private void RotateModel(Vector3 axes, float dt)
+        {
+            // TODO: smooth this
+            Vector3 rotation = new Vector3();
 
             if(axes.x < -Mathf.Epsilon) {
-                modelRotation.z = 45.0f;
+                rotation.z = 45.0f;
             } else if(axes.x > Mathf.Epsilon) {
-                modelRotation.z = -45.0f;
+                rotation.z = -45.0f;
             }
 
             if(axes.y < -Mathf.Epsilon) {
-                modelRotation.x = 45.0f;
+                rotation.x = 45.0f;
             } else if(axes.y > Mathf.Epsilon) {
-                modelRotation.x = -45.0f;
+                rotation.x = -45.0f;
             }
 
-            _model.transform.localRotation = Quaternion.Euler(modelRotation);
+            _model.transform.localRotation = Quaternion.Euler(rotation);
         }
 
         private void Move(Vector3 axes, float dt)

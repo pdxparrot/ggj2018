@@ -35,16 +35,17 @@ namespace ggj2018.Game.Loading
         private GameSceneManager _gameSceneManagerPrefab;
 #endregion
 
-        [SerializeField]
-        [ReadOnly]
-        private GameObject _managersContainer;
-
-        protected GameObject ManagersContainer => _managersContainer;
+        protected GameObject ManagersContainer { get; private set; }
 
         [SerializeField]
         private string _defaultSceneName;
 
 #region Unity Lifecycle
+        private void Awake()
+        {
+            ManagersContainer = new GameObject("Managers");
+        }
+
         private void Start()
         {
             StartCoroutine(Load());
@@ -81,14 +82,12 @@ namespace ggj2018.Game.Loading
 
         protected virtual void CreateManagers()
         {
-            _managersContainer = new GameObject("Managers");
-
-            DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, ManagersContainer);
-            AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, ManagersContainer);
+            DataManager.CreateFromPrefab(_dataManagerPrefab, ManagersContainer);
+            AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);
-            Core.Camera.CameraManager.CreateFromPrefab(_cameraManagerPrefab.gameObject, ManagersContainer);
-            InputManager.CreateFromPrefab(_inputManagerPrefab.gameObject, ManagersContainer);
-            GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, ManagersContainer);
+            Core.Camera.CameraManager.CreateFromPrefab(_cameraManagerPrefab, ManagersContainer);
+            InputManager.CreateFromPrefab(_inputManagerPrefab, ManagersContainer);
+            GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab, ManagersContainer);
             UIManager.Create(ManagersContainer);
         }
 

@@ -9,14 +9,11 @@ namespace ggj2018.ggj2018
     [RequireComponent(typeof(NetworkIdentity))]
     [RequireComponent(typeof(NetworkTransform))]
     [RequireComponent(typeof(PlayerController))]
-    public sealed class NetworkPlayer : NetworkBehavior
+    public sealed class NetworkPlayer : NetworkBehavior, IPlayer
     {
 #region Unity Lifecycle
         private void Awake()
         {
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.isKinematic = true;
-
             if(isLocalPlayer) {
                 Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
             }

@@ -7,14 +7,11 @@ namespace ggj2018.ggj2018
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PlayerController))]
-    public sealed class LocalPlayer : MonoBehavior
+    public sealed class LocalPlayer : MonoBehavior, IPlayer
     {
 #region Unity Lifecycle
         private void Awake()
         {
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.isKinematic = true;
-
             Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
 #endregion
