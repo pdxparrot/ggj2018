@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb47facf0454284780cbd9a9fe790e1, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  _baseSpeed: 1
+  _baseSpeed: 20
   _baseTurnSpeed: 5
   _basePitchSpeed: 5

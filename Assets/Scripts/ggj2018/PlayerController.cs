@@ -30,18 +30,23 @@ namespace ggj2018.ggj2018
         {
             float dt = Time.deltaTime;
 
+            float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
+
+/*
             Vector3 inputAxes = InputManager.Instance.GetAxes();
 
             Vector3 rotation = _model.transform.rotation.eulerAngles;
             rotation.x = Mathf.Clamp(rotation.x + inputAxes.x * dt, -45.0f, 45.0f);
             rotation.z = Mathf.Clamp(rotation.z + inputAxes.y * dt, -45.0f, 45.0f);
 
-            float speed = _playerData.BaseSpeed + _attributes.SpeedModifier * dt;
             float turnSpeed = _playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier * dt;
             float pitchSpeed = _playerData.BasePitchSpeed + _attributes.PitchSpeedModifier * dt;
 
             _model.transform.rotation = Quaternion.Euler(rotation.x, 0.0f, rotation.y);
-            transform.position += new Vector3(turnSpeed, pitchSpeed, speed);
+*/
+
+            Vector3 velocity = transform.forward * speed;
+            transform.position += velocity;
         }
 #endregion
     }
