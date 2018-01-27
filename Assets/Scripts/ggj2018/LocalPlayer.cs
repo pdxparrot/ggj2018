@@ -15,7 +15,7 @@ namespace ggj2018.ggj2018
             Rigidbody rigidbody = GetComponent<Rigidbody>();
             rigidbody.useGravity = false;
 
-            CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
+            Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
 #endregion
     }
