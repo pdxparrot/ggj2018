@@ -1,9 +1,0 @@
-{
-    "name": "ggj2018",
-    "references": [
-        "Core",
-        "Game"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

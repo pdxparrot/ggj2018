@@ -1,0 +1,9 @@
+{
+    "name": "com.pdxpartyparrot.ggj2018",
+    "references": [
+        "com.pdxpartyparrot.Core",
+        "com.pdxpartyparrot.Game"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

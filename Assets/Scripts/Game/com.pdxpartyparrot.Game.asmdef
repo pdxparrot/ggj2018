@@ -1,7 +1,7 @@
 {
-    "name": "Game",
+    "name": "com.pdxpartyparrot.Game",
     "references": [
-        "Core"
+        "com.pdxpartyparrot.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": []
