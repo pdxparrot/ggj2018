@@ -1,4 +1,5 @@
-﻿using ggj2018.Core.Util;
+﻿using ggj2018.Core.Input;
+using ggj2018.Core.Util;
 
 using UnityEngine;
 
@@ -17,16 +18,17 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Update()
         {
-            float strafe = Input.GetAxis("Horizontal");
-            float pitch = Input.GetAxis("Vertical");
+            float dt = Time.deltaTime;
 
-            float zrot = Mathf.Clamp(strafe, -1.0f, 1.0f);
-            float xrot = Mathf.Clamp(pitch, -1.0f, 1.0f);
+            Vector3 axes = InputManager.Instance.GetAxes();
 
-            float speed = baseSpeed + _attributes.SpeedModifier;
+            float zrot = Mathf.Clamp(axes.x, -1.0f, 1.0f) * dt;
+            float xrot = Mathf.Clamp(axes.y, -1.0f, 1.0f) * dt;
+
+            float speed = baseSpeed + _attributes.SpeedModifier * dt;
 
             transform.rotation = Quaternion.Euler(xrot, 0.0f, zrot);
-            transform.position += new Vector3(strafe, pitch, speed);
+            transform.position += new Vector3(axes.x, axes.y, speed);
         }
 #endregion
     }

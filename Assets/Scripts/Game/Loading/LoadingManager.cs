@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 
 using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
 using ggj2018.Game.Scenes;
@@ -82,6 +83,7 @@ namespace ggj2018.Game.Loading
             AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);
             CameraManager.CreateFromPrefab(_cameraManager.gameObject, ManagersContainer);
+            InputManager.Create(ManagersContainer);
             GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, ManagersContainer);
         }
 

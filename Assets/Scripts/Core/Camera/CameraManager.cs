@@ -14,5 +14,10 @@ namespace ggj2018.Core.Camera
             MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Camera>();
         }
 #endregion
+
+        public FollowCamera GetFollowCamera()
+        {
+            return MainCamera.GetComponent<FollowCamera>();
+        }
     }
 }

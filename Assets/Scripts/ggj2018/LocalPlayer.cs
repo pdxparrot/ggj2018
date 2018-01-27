@@ -1,4 +1,5 @@
-﻿using ggj2018.Core.Util;
+﻿using ggj2018.Core.Camera;
+using ggj2018.Core.Util;
 
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace ggj2018.ggj2018
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
             rigidbody.useGravity = false;
+
+            CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
 #endregion
     }
