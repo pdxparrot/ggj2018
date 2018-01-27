@@ -30,26 +30,49 @@ namespace ggj2018.ggj2018
         {
             float dt = Time.deltaTime;
 
-            float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
-
             Vector3 moveAxes = InputManager.Instance.GetMoveAxes();
-            Vector3 lookAxes = InputManager.Instance.GetLookAxes();
 
-/*
-
-            Vector3 rotation = _model.transform.rotation.eulerAngles;
-            rotation.x = Mathf.Clamp(rotation.x + inputAxes.x * dt, -45.0f, 45.0f);
-            rotation.z = Mathf.Clamp(rotation.z + inputAxes.y * dt, -45.0f, 45.0f);
-
-            float turnSpeed = _playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier * dt;
-            float pitchSpeed = _playerData.BasePitchSpeed + _attributes.PitchSpeedModifier * dt;
-
-            _model.transform.rotation = Quaternion.Euler(rotation.x, 0.0f, rotation.y);
-*/
-
-            Vector3 velocity = transform.forward * speed;
-            transform.position += velocity;
+            Rotate(moveAxes, dt);
+            Move(moveAxes, dt);
         }
 #endregion
+
+        private void Rotate(Vector3 axes, float dt)
+        {
+            float turnSpeed = (_playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier) * dt;
+            transform.Rotate(0.0f, axes.x * turnSpeed, 0.0f);
+
+            Vector3 modelRotation = new Vector3();
+
+            if(axes.x < -Mathf.Epsilon) {
+                modelRotation.z = -45.0f;
+            } else if(axes.x > Mathf.Epsilon) {
+                modelRotation.z = 45.0f;
+            }
+
+            if(axes.y < -Mathf.Epsilon) {
+                modelRotation.x = -45.0f;
+            } else if(axes.y > Mathf.Epsilon) {
+                modelRotation.x = 45.0f;
+            }
+
+            _model.transform.rotation = Quaternion.Euler(modelRotation);
+        }
+
+        private void Move(Vector3 axes, float dt)
+        {
+            float speed = 0.0f;//(_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
+
+            Vector3 velocity = transform.forward * speed;
+
+            float pitchSpeed = (_playerData.BasePitchSpeed + _attributes.PitchSpeedModifier) * dt;
+            if(axes.y < -Mathf.Epsilon) {
+                velocity.y -= pitchSpeed;
+            } else if(axes.y > Mathf.Epsilon) {
+                velocity.y += pitchSpeed;
+            }
+
+            transform.position += velocity;
+        }
     }
 }

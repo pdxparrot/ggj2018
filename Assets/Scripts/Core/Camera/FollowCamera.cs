@@ -19,14 +19,11 @@ namespace ggj2018.Core.Camera
 
         [SerializeField]
         private float _orbitSpeedY = 100.0f;
-
-        [SerializeField]
-        private bool _invertOrbitY = false;
 #endregion
 
 #region Zoom Config
         [SerializeField]
-        private bool _enableZoom = true;
+        private bool _enableZoom = false;
 
         [SerializeField]
         private float _minZoomDistance = 5.0f;
@@ -36,9 +33,6 @@ namespace ggj2018.Core.Camera
 
         [SerializeField]
         private float _zoomSpeed = 500.0f;
-
-        [SerializeField]
-        private bool _invertZoomDirection = false;
 #endregion
 
 #region Look Config
@@ -97,7 +91,12 @@ namespace ggj2018.Core.Camera
 
         private void HandleInput(float dt)
         {
+            if(!InputManager.HasInstance) {
+                return;
+            }
+
             Vector3 axes = InputManager.Instance.GetLookAxes();
+
             Orbit(axes, dt);
             Zoom(axes, dt);
             Look(axes, dt);
@@ -109,11 +108,8 @@ namespace ggj2018.Core.Camera
                 return;
             }
 
-            float orbitXAmount = _orbitRotation.x + axes.x * _orbitSpeedX * dt;
-            _orbitRotation.x = MathHelper.WrapAngle(orbitXAmount);
-
-            float orbitYAmount = _orbitRotation.y - axes.y * _orbitSpeedY * dt * (_invertOrbitY ? -1 : 1);
-            _orbitRotation.y = MathHelper.WrapAngle(orbitYAmount);
+            _orbitRotation.x = MathHelper.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt);
+            _orbitRotation.y = MathHelper.WrapAngle(_orbitRotation.y - axes.y * _orbitSpeedY * dt);
         }
 
         private void Zoom(Vector3 axes, float dt)
@@ -122,7 +118,7 @@ namespace ggj2018.Core.Camera
                 return;
             }
 
-            float zoomAmount = axes.z * _zoomSpeed * dt * (_invertZoomDirection ? -1 : 1);
+            float zoomAmount = axes.z * _zoomSpeed * dt;
 
             float minDistance = _minZoomDistance, maxDistance = _maxZoomDistance;
             if(null != Target) {
@@ -139,14 +135,14 @@ namespace ggj2018.Core.Camera
             }
         }
 
-        private void Look(Vector3 pointerAxis, float dt)
+        private void Look(Vector3 axes, float dt)
         {
             if(!_enableLook) {
                 return;
             }
 
-            _lookRotation.x = MathHelper.WrapAngle(_lookRotation.x + pointerAxis.x * _lookSpeedX * dt);
-            _lookRotation.y = MathHelper.WrapAngle(_lookRotation.y - pointerAxis.y * _lookSpeedY * dt);
+            _lookRotation.x = MathHelper.WrapAngle(_lookRotation.x + axes.x * _lookSpeedX * dt);
+            _lookRotation.y = MathHelper.WrapAngle(_lookRotation.y - axes.y * _lookSpeedY * dt);
         }
 
         private void FollowTarget()

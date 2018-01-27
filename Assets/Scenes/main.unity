@@ -530,7 +530,9 @@ MonoBehaviour:
     type: 2}
   _audioManagerPrefab: {fileID: 114645275030904352, guid: 272ec38cef01bae41998836472da210e,
     type: 2}
-  _cameraManager: {fileID: 114455234581647310, guid: 58fcbe3b6ad33d04ab4fd24fe006ec8b,
+  _cameraManagerPrefab: {fileID: 114455234581647310, guid: 58fcbe3b6ad33d04ab4fd24fe006ec8b,
+    type: 2}
+  _inputManagerPrefab: {fileID: 114605497878699894, guid: acad46eec7d252349aee115ab09fac23,
     type: 2}
   _gameSceneManagerPrefab: {fileID: 114993109945140696, guid: 001813623a138b644b2aabbbdfc09b3d,
     type: 2}
