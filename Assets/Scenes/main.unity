@@ -555,8 +555,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingScreen: {fileID: 701059863}
-  _assetManagerPrefab: {fileID: 114834186229215028, guid: 5493057f8eca744478fd3e95d9c743f7,
-    type: 2}
   _objectPoolManagerPrefab: {fileID: 114208383095443916, guid: 5c039947a83a20d42b9ac35020f6305a,
     type: 2}
   _dataManagerPrefab: {fileID: 114090749655593150, guid: b0c7d242b7d461e41a4d5ae24bbdb8f2,
@@ -801,7 +799,7 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 1668844899604820, guid: 68df17a88cc459a42a7afa53c8244b38,
     type: 2}
-  m_AutoCreatePlayer: 1
+  m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
@@ -848,7 +846,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1

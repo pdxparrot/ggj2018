@@ -7,6 +7,7 @@ namespace ggj2018.ggj2018
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(NetworkIdentity))]
+    [RequireComponent(typeof(NetworkTransform))]
     [RequireComponent(typeof(PlayerController))]
     public sealed class Player : NetworkBehavior
     {
