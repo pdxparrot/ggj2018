@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 
+using ggj2018.Core.Camera;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
 using ggj2018.Game.Scenes;
@@ -10,15 +11,12 @@ using UnityEngine;
 
 namespace ggj2018.Game.Loading
 {
-    public sealed class LoadingManager : SingletonBehavior<LoadingManager>
+    public abstract class LoadingManager<T> : SingletonBehavior<T> where T: LoadingManager<T>
     {
         [SerializeField]
         private LoadingScreen _loadingScreen;
 
 #region Manager Prefabs
-        [SerializeField]
-        private ObjectPoolManager _objectPoolManagerPrefab;
-
         [SerializeField]
         private DataManager _dataManagerPrefab;
 
@@ -26,12 +24,17 @@ namespace ggj2018.Game.Loading
         private AudioManager _audioManagerPrefab;
 
         [SerializeField]
+        private CameraManager _cameraManager;
+
+        [SerializeField]
         private GameSceneManager _gameSceneManagerPrefab;
 #endregion
 
         [SerializeField]
         [ReadOnly]
-        private GameObject _managersObject;
+        private GameObject _managersContainer;
+
+        protected GameObject ManagersContainer => _managersContainer;
 
         [SerializeField]
         private string _defaultSceneName;
@@ -71,16 +74,18 @@ namespace ggj2018.Game.Loading
             });
         }
 
-        private void CreateManagers()
+        protected virtual void CreateManagers()
         {
-            _managersObject = new GameObject("Managers");
+            _managersContainer = new GameObject("Managers");
 
-            DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, _managersObject);
-            AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, _managersObject);
-            ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
-            GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, _managersObject);
+            DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, ManagersContainer);
+            AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, ManagersContainer);
+            ObjectPoolManager.Create(ManagersContainer);
+            CameraManager.CreateFromPrefab(_cameraManager.gameObject, ManagersContainer);
+            GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab.gameObject, ManagersContainer);
         }
 
+        // TODO: virtualize
         private IEnumerator InitializeManagers()
         {
             IEnumerator runner = DataManager.Instance.InitializeRoutine();
