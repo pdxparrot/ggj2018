@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 
-using ggj2018.Core.Assets;
 using ggj2018.Game.Data;
 using ggj2018.Core.Util;
 
@@ -12,10 +11,6 @@ namespace ggj2018.Game.Audio
     public sealed class AudioManager : SingletonBehavior<AudioManager>
     {
         [SerializeField]
-        private string _mainAudioMixerPath = "Audio/main.mixer";
-
-        [SerializeField]
-        [ReadOnly]
         private AudioMixer _audioMixer;
 
         [SerializeField]
@@ -23,8 +18,6 @@ namespace ggj2018.Game.Audio
 
         public IEnumerator InitializeRoutine()
         {
-            _audioMixer = AssetManager.Instance.LoadAsset<AudioMixer>(_mainAudioMixerPath);
-
             // TODO: why isn't this working???
             _oneShotAudioSource.outputAudioMixerGroup = _audioMixer.outputAudioMixerGroup;
 

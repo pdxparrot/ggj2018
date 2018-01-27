@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 
-using ggj2018.Core.Assets;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
 using ggj2018.Game.Scenes;
@@ -17,9 +16,6 @@ namespace ggj2018.Game.Loading
         private LoadingScreen _loadingScreen;
 
 #region Manager Prefabs
-        [SerializeField]    
-        private AssetManager _assetManagerPrefab;
-
         [SerializeField]
         private ObjectPoolManager _objectPoolManagerPrefab;
 
@@ -79,7 +75,6 @@ namespace ggj2018.Game.Loading
         {
             _managersObject = new GameObject("Managers");
 
-            AssetManager.CreateFromPrefab(_assetManagerPrefab.gameObject, _managersObject);
             DataManager.CreateFromPrefab(_dataManagerPrefab.gameObject, _managersObject);
             AudioManager.CreateFromPrefab(_audioManagerPrefab.gameObject, _managersObject);
             ObjectPoolManager.CreateFromPrefab(_objectPoolManagerPrefab.gameObject, _managersObject);
@@ -88,12 +83,7 @@ namespace ggj2018.Game.Loading
 
         private IEnumerator InitializeManagers()
         {
-            IEnumerator runner = AssetManager.Instance.InitializeRoutine();
-            while(runner.MoveNext()) {
-                yield return null;
-            }
-
-            runner = DataManager.Instance.InitializeRoutine();
+            IEnumerator runner = DataManager.Instance.InitializeRoutine();
             while(runner.MoveNext()) {
                 yield return null;
             }
