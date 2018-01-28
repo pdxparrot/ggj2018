@@ -41,7 +41,8 @@ namespace ggj2018.ggj2018
         {
             _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
 
-            if(_owner.State.Stunned) {
+            if(_owner.State.Stunned || _owner.State.Dead) {
+                _velocity = Vector3.zero;
                 return;
             }
 
@@ -73,9 +74,14 @@ namespace ggj2018.ggj2018
         {
             // TODO: ouch... no no no
             if(null != collider.GetComponentInParent<Building>()) {
-                _owner.State.Stun();
+                _owner.State.EnvironmentStun();
             } else if(null != collider.GetComponentInParent<PlayerController>()) {
-Debug.Log("TODO: Player collision enter");
+                IPlayer player = collider.GetComponentInParent<IPlayer>();
+                if(_owner.State.BirdType.BirdDataEntry.IsPredator && !_owner.State.BirdType.BirdDataEntry.IsPredator) {
+                    player.State.PlayerKill(_owner);
+                } else {
+                    player.State.EnvironmentStun();
+                }
             }
         }
 #endregion
