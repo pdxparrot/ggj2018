@@ -374,6 +374,10 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
+  _orbitXMin: -90
+  _orbitXMax: 90
+  _orbitYMin: -90
+  _orbitYMax: 90
   _enableZoom: 0
   _minZoomDistance: 5
   _maxZoomDistance: 100
@@ -401,6 +405,10 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
+  _orbitXMin: -90
+  _orbitXMax: 90
+  _orbitYMin: -90
+  _orbitYMax: 90
   _enableZoom: 0
   _minZoomDistance: 5
   _maxZoomDistance: 100
@@ -480,6 +488,10 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
+  _orbitXMin: -90
+  _orbitXMax: 90
+  _orbitYMin: -90
+  _orbitYMax: 90
   _enableZoom: 0
   _minZoomDistance: 5
   _maxZoomDistance: 100
@@ -507,6 +519,10 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
+  _orbitXMin: -90
+  _orbitXMax: 90
+  _orbitYMin: -90
+  _orbitYMax: 90
   _enableZoom: 0
   _minZoomDistance: 5
   _maxZoomDistance: 100
