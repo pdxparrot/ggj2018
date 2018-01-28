@@ -555,6 +555,8 @@ MonoBehaviour:
   _gameSceneManagerPrefab: {fileID: 114993109945140696, guid: 001813623a138b644b2aabbbdfc09b3d,
     type: 2}
   _defaultSceneName: test
+  _gameManagerPrefab: {fileID: 114887168970083654, guid: 350cdcbcb36491240ac9cf4bebb906e7,
+    type: 2}
   _playerManagerPrefab: {fileID: 114979071328360754, guid: 2098e32b6df862f44ba4bbfcde8831ed,
     type: 2}
 --- !u!4 &1541085457
