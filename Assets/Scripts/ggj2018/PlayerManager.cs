@@ -1,5 +1,5 @@
-﻿using ggj2018.Core.Input;
-using ggj2018.Core.Util;
+﻿using ggj2018.Core.Util;
+
 using ggj2018.ggj2018.Data;
 
 using UnityEngine;
@@ -20,6 +20,20 @@ namespace ggj2018.ggj2018
 
         private IPlayer[] _players;
 
+        [SerializeField]
+        [ReadOnly]
+        private int _playerCount;
+
+        public int PlayerCount => _playerCount;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _preyCount;
+
+        public int PreyCount => _preyCount;
+
+        public int PredatorCount => PlayerCount - PreyCount;
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -30,11 +44,11 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-            if(null == _players[0] && (Input.GetKeyUp(KeyCode.P) || InputManager.Instance.Pressed(0, 3))) {
-                SpawnLocalPlayer(0, "hawk");
-            } else if(null != _players[0] && Input.GetKeyDown(KeyCode.K)) {
+#if false
+            if(null != _players[0] && UnityEngine.Input.GetKeyDown(KeyCode.K)) {
                 _players[0].State.DebugKill();
             }
+#endif
         }
 
         protected override void OnDestroy()
@@ -66,7 +80,7 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {player.transform.position}");
 
-            _players[playerNumber] = player;
+            AddPlayer(playerNumber, player);
         }
 
         private void InitializePlayer(IPlayer player, int playerNumber, BirdType birdType, SpawnPoint spawnPoint)
@@ -78,14 +92,46 @@ namespace ggj2018.ggj2018
 
         public void DespawnLocalPlayer(int playerNumber)
         {
-            Debug.Log($"Despawning player {playerNumber}");
-
             if(null == _players[playerNumber]) {
                 return;
             }
 
-            Destroy(_players[playerNumber].GameObject);
+            Debug.Log($"Despawning player {playerNumber}");
+
+            RemovePlayer(playerNumber);
+        }
+
+        public void DespawnAllPlayers()
+        {
+            Debug.Log("Despawning everybody");
+            for(int i=0; i<_players.Length; ++i) {
+                if(null == _players[i]) {
+                    continue;
+                }
+                RemovePlayer(i);
+            }
+        }
+
+        private void AddPlayer(int playerNumber, IPlayer player)
+        {
+            _players[playerNumber] = player;
+
+            _playerCount++;
+            if(player.State.BirdType.BirdDataEntry.IsPrey) {
+                _preyCount++;
+            }
+        }
+
+        private void RemovePlayer(int playerNumber)
+        {
+            IPlayer player = _players[playerNumber];
+            if(player.State.BirdType.BirdDataEntry.IsPrey) {
+                _preyCount--;
+            }
+
+            Destroy(player.GameObject);
             _players[playerNumber] = null;
+            _playerCount--;
         }
     }
 }

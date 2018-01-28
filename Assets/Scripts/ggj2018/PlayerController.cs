@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Input;
+﻿//#define USE_PHYSICS
+
+using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
 using UnityEngine;
@@ -10,13 +12,19 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private GameObject _model;
 
+#region TODO: removeme
         [SerializeField]
         [ReadOnly]
-        private bool _groundCollision;
+        private bool _isGroundCollision;
 
         [SerializeField]
         [ReadOnly]
-        private bool _skyCollision;
+        private bool _isSkyCollision;
+#endregion
+
+        [SerializeField]
+        [ReadOnly]
+        private WorldBoundary _boundaryCollision;
 
         [SerializeField]
         [ReadOnly]
@@ -34,19 +42,18 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.isKinematic = true;
-            rigidbody.useGravity = false;
-            rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            InitRigidbody();
         }
 
         private void Update()
         {
             CheckForBoost();
 
-            // sometimes collisions cause us to rotate weird, even with frozen rotations :\
+            // when the rigidbody is not kinematic, collisions cause us to rotate weird, even with frozen rotations :\
             // this is the most consistent place to correct for that
+#if USE_PHYSICS
             transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
+#endif
 
             _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
 
@@ -58,8 +65,9 @@ namespace ggj2018.ggj2018
 
         private void FixedUpdate()
         {
-            _skyCollision = false;
-            _groundCollision = false;
+            _isSkyCollision = false;
+            _isGroundCollision = false;
+            _boundaryCollision = null;
 
             float dt = Time.fixedDeltaTime;
 
@@ -70,22 +78,35 @@ namespace ggj2018.ggj2018
             }
         }
 
-        private void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter(Collider other)
         {
-            // TODO: ouch... no no no
-            if(null != collider.GetComponent<Building>()) {
-                _owner.State.EnvironmentStun(collider);
-            } else if(null != collider.GetComponentInParent<PlayerController>()) {
-                IPlayer player = collider.GetComponentInParent<IPlayer>();
-                if(_owner.State.BirdType.BirdDataEntry.IsPredator && !_owner.State.BirdType.BirdDataEntry.IsPredator) {
-                    player.State.PlayerKill(_owner, collider);
-                } else {
-                    _owner.State.PlayerStun(player, collider);
-                    player.State.PlayerStun(_owner, _collider);
-                }
+            if(CheckGoalCollision(other)) {
+                return;
+            }
+
+            if(CheckBuildingCollision(other)) {
+                return;
+            }
+
+            if(CheckPlayerCollision(other)) {
+                return;
+            }
+
+            if(CheckWorldCollision(other)) {
+                return;
             }
         }
 #endregion
+
+        private void InitRigidbody()
+        {
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+#if !USE_PHYSICS
+            rigidbody.isKinematic = true;
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+#endif
+            rigidbody.useGravity = false;
+        }
 
         public void Initialize(IPlayer owner, SpawnPoint spawnPoint)
         {
@@ -136,13 +157,15 @@ namespace ggj2018.ggj2018
 
             Vector3 targetEuler = new Vector3();
 
-            if(axes.x < -Mathf.Epsilon) {
-                targetEuler.z = 45.0f;
-            } else if(axes.x > Mathf.Epsilon) {
-                targetEuler.z = -45.0f;
+            if(null == _boundaryCollision || _boundaryCollision.IsVertical) {
+                if(axes.x < -Mathf.Epsilon) {
+                    targetEuler.z = 45.0f;
+                } else if(axes.x > Mathf.Epsilon) {
+                    targetEuler.z = -45.0f;
+                }
             }
 
-            if(!_skyCollision && !_groundCollision) {
+            if(!_isSkyCollision && !_isGroundCollision && (null == _boundaryCollision || !_boundaryCollision.IsVertical)) {
                 if(axes.y < -Mathf.Epsilon) {
                     targetEuler.x = 45.0f;
                 } else if(axes.y > Mathf.Epsilon) {
@@ -188,15 +211,57 @@ namespace ggj2018.ggj2018
             CheckWorldCollision(prevY);
         }
 
+#region Collision Handlers
+        private bool CheckGoalCollision(Collider other)
+        {
+            Goal goal = other.GetComponent<Goal>();
+            return goal?.Collision(_owner, other) ?? false;
+        }
+
+        private bool CheckBuildingCollision(Collider other)
+        {
+            Building building = other.GetComponent<Building>();
+            return building?.Collision(_owner, other) ?? false;
+        }
+
+        private bool CheckPlayerCollision(Collider other)
+        {
+            IPlayer player = other.GetComponentInParent<IPlayer>();
+            if(null == player) {
+                return false;
+            }
+
+            if(_owner.State.BirdType.BirdDataEntry.IsPredator && _owner.State.BirdType.BirdDataEntry.IsPrey) {
+                player.State.PlayerKill(_owner, other);
+            } else {
+                _owner.State.PlayerStun(player, other);
+                player.State.PlayerStun(_owner, other);
+            }
+
+            return true;
+        }
+
+        private bool CheckWorldCollision(Collider other)
+        {
+            WorldBoundary boundary = other.GetComponent<WorldBoundary>();
+            if(null == boundary) {
+                return false;
+            }
+
+            _boundaryCollision = boundary;
+            return boundary.Collision(other);
+        }
+
         private void CheckWorldCollision(float prevY)
         {
             if(transform.position.y < PlayerManager.Instance.PlayerData.MinHeight) {
-                _groundCollision = true;
+                _isGroundCollision = true;
                 transform.position = new Vector3(transform.position.x, prevY, transform.position.z);
             } else if(transform.position.y > PlayerManager.Instance.PlayerData.MaxHeight) {
-                _skyCollision = true;
+                _isSkyCollision = true;
                 transform.position = new Vector3(transform.position.x, prevY, transform.position.z);
             }
         }
+#endregion
     }
 }

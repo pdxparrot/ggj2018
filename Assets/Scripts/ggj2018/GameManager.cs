@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Util;
+﻿using System.Collections;
+
+using ggj2018.Core.Util;
 using ggj2018.Core.Input;
 using ggj2018.Core.Camera;
 using ggj2018.ggj2018.Data;
@@ -30,7 +32,7 @@ namespace ggj2018.ggj2018
         }
         public EState State { get; private set; }
 
-        void SetState(EState state) {
+        public void SetState(EState state) {
             State = state;
             switch(State) {
             case EState.eMenu:      BeginMenu();    break;
@@ -190,6 +192,7 @@ namespace ggj2018.ggj2018
 
             for(int i = 0; i < MaxPlayers; ++i)
                 CameraManager.Instance.SetupCamera(i, _playerReady[i]);
+            StartCoroutine(CheckPredatorVictoryCondition());
         }
         void RunGame() {
         }
@@ -198,6 +201,19 @@ namespace ggj2018.ggj2018
         void BeginVictory() {
         }
         void RunVictory() {
+        }
+
+        private IEnumerator CheckPredatorVictoryCondition()
+        {
+            WaitForSeconds wait = new WaitForSeconds(1);
+            while(true) {
+                if(PlayerManager.Instance.PreyCount < 1) {
+                    SetState(EState.eVictory);
+                    yield break;
+                }
+
+                yield return wait;
+            }
         }
     }
 }
