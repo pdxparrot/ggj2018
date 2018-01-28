@@ -51,13 +51,13 @@ namespace ggj2018.Core.Input
 #region Unity Lifecycle
         private void Start()
         {
-            Debug.Log("Detected joysticks:");
-
             string[] joystickNames = UnityEngine.Input.GetJoystickNames();
+            _joystickCount = joystickNames.Length;
+
+            Debug.Log($"Detected {ConnectedJoystickCount} joysticks:");
             foreach(string joystickName in joystickNames) {
                 Debug.Log($"\t{joystickName}");
             }
-            _joystickCount = joystickNames.Length;
         }
 #endregion
 
