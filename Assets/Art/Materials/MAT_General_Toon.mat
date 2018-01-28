@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_General_Toon
-  m_Shader: {fileID: 4800000, guid: 51ec1176f63118246a1837d999fe2134, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6f2704a9769f16145b0607a331b991cd, type: 3}
   m_ShaderKeywords: _NOTEXTURE_ON _TEXTURE_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -43,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 2800000, guid: 6d7d3ce617e40604990c6f8e83d7354c, type: 3}
+        m_Texture: {fileID: 2800000, guid: cc65e529d5e6e874895320c6524e4d9b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Difuse:
@@ -75,7 +75,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTexture:
-        m_Texture: {fileID: 2800000, guid: 4843888f9a32269418493b51aa44f700, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0f7e864819172f14bb833403ebeeda53, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture0:

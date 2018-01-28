@@ -1,30 +1,24 @@
 fileFormatVersion: 2
 guid: 3543e53d59fc025439111f36e14eda30
-timeCreated: 1517097110
+timeCreated: 1517125673
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Plane001
-    100004: FeatherGeo_v001
-    400000: //RootNode
-    400002: Plane001
-    400004: FeatherGeo_v001
-    2100000: Plane001Mat
-    2100002: FeatherGeo_v001Mat
-    2300000: Plane001
-    2300002: FeatherGeo_v001
-    3300000: Plane001
-    3300002: FeatherGeo_v001
-    4300000: Plane001
-    4300002: FeatherGeo_v001
+    100000: FeatherGeo_v001
+    100002: //RootNode
+    400000: FeatherGeo_v001
+    400002: //RootNode
+    2100000: FeatherGeo_v001Mat
+    2300000: FeatherGeo_v001
+    3300000: FeatherGeo_v001
+    4300000: FeatherGeo_v001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FeatherGeo_v001Mat
-    second: {fileID: 2100000, guid: cf33ecd905d062b41908ae13d5b1bb8c, type: 2}
+    second: {fileID: 2100000, guid: f47dfd0e34eabd64da1d7e2875242896, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

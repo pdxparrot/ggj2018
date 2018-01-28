@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_Feather_002
-  m_Shader: {fileID: 4800000, guid: 4e2ab28320573954a9c61334b055fb39, type: 3}
+  m_Shader: {fileID: 4800000, guid: 98f68df4c19784640aafd25601104b62, type: 3}
   m_ShaderKeywords: _FEATHERSWITCH_ON _TEXTURE_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 2800000, guid: c0c729f9e14add443a15dc786594e6bc, type: 3}
+        m_Texture: {fileID: 2800000, guid: fcba5b25ed02f124792308f1b2131ff7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTexture:
-        m_Texture: {fileID: 2800000, guid: 4843888f9a32269418493b51aa44f700, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0f7e864819172f14bb833403ebeeda53, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:

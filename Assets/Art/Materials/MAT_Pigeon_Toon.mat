@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_Pigeon_Toon
-  m_Shader: {fileID: 4800000, guid: 51ec1176f63118246a1837d999fe2134, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6f2704a9769f16145b0607a331b991cd, type: 3}
   m_ShaderKeywords: _NOTEXTURE_ON _TEXTURE_ON _TOONRAMP_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -43,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 2800000, guid: 7ba458960e029f94eabd844feca73e72, type: 3}
+        m_Texture: {fileID: 2800000, guid: 60e2b8e18ae821546b2eb1df2e356645, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Difuse:
@@ -75,7 +75,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTexture:
-        m_Texture: {fileID: 2800000, guid: 4843888f9a32269418493b51aa44f700, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0f7e864819172f14bb833403ebeeda53, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture0:
@@ -120,7 +120,7 @@ Material:
     - _Posturize: 1
     - _Power: 150
     - _ShadowBrightness: 0.08
-    - _ShadowDistance: -0.33
+    - _ShadowDistance: -0.54
     - _ShadowFalloff: 1
     - _ShadowIntensity: 0.33
     - _SmoothnessTextureChannel: 0
