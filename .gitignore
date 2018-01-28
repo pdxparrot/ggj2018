@@ -168,6 +168,5 @@ UpgradeLog*.htm
 tags
 tags.meta
 ~*
-*.meta
 
 /Assets/Plugins/AmplifyShaderEditor/
