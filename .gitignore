@@ -165,9 +165,5 @@ UpgradeLog*.htm
 
 ## ------------ End the Visual Studio section ------------
 
-tags
-tags.meta
-~*
-
 /Assets/Plugins/AmplifyShaderEditor/
 Assets/Plugins/AmplifyShaderEditor.meta
