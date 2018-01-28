@@ -10,6 +10,8 @@ namespace ggj2018.ggj2018
     public sealed class PlayerController : MonoBehavior
     {
         [SerializeField]
+        private GameObject _modelPrefab;
+
         private GameObject _model;
 
 #region TODO: removeme
@@ -34,14 +36,12 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private Vector3 _velocity;
 
-        [SerializeField]
-        private Collider _collider;
-
         private IPlayer _owner;
 
 #region Unity Lifecycle
         private void Awake()
         {
+            InitModel();
             InitRigidbody();
         }
 
@@ -105,6 +105,11 @@ namespace ggj2018.ggj2018
             }
         }
 #endregion
+
+        private void InitModel()
+        {
+            _model = Instantiate(_modelPrefab, transform);
+        }
 
         private void InitRigidbody()
         {
