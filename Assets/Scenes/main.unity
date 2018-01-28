@@ -362,7 +362,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1762097571770708, guid: 45b7a387e3318e446892453bb290dedd, type: 2}
       propertyPath: m_Name
-      value: Camera_PP_3
+      value: Camera P3
       objectReference: {fileID: 0}
     - target: {fileID: 20754676271911884, guid: 45b7a387e3318e446892453bb290dedd,
         type: 2}
@@ -437,7 +437,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1762097571770708, guid: 45b7a387e3318e446892453bb290dedd, type: 2}
       propertyPath: m_Name
-      value: Camera_PP_0
+      value: Camera P0
       objectReference: {fileID: 0}
     - target: {fileID: 20754676271911884, guid: 45b7a387e3318e446892453bb290dedd,
         type: 2}
@@ -479,7 +479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &701059860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +621,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1011943838}
+--- !u!1001 &1376575265
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 200.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 438.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405824688479976, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: be0d95319278e4677bd87035d17aa339, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1541085455
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +703,8 @@ MonoBehaviour:
   _gameManagerPrefab: {fileID: 114887168970083654, guid: 350cdcbcb36491240ac9cf4bebb906e7,
     type: 2}
   _playerManagerPrefab: {fileID: 114979071328360754, guid: 2098e32b6df862f44ba4bbfcde8831ed,
+    type: 2}
+  _uiManagerPrefab: {fileID: 114347635379880958, guid: be0d95319278e4677bd87035d17aa339,
     type: 2}
 --- !u!4 &1541085457
 Transform:
@@ -840,7 +884,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1762097571770708, guid: 45b7a387e3318e446892453bb290dedd, type: 2}
       propertyPath: m_Name
-      value: Camera_PP_2
+      value: Camera P2
       objectReference: {fileID: 0}
     - target: {fileID: 20754676271911884, guid: 45b7a387e3318e446892453bb290dedd,
         type: 2}
@@ -915,7 +959,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1762097571770708, guid: 45b7a387e3318e446892453bb290dedd, type: 2}
       propertyPath: m_Name
-      value: Camera_PP_1
+      value: Camera P1
       objectReference: {fileID: 0}
     - target: {fileID: 20754676271911884, guid: 45b7a387e3318e446892453bb290dedd,
         type: 2}
