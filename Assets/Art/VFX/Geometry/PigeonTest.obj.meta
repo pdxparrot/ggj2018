@@ -13,7 +13,12 @@ ModelImporter:
     2300000: Pigeon
     3300000: Pigeon
     4300000: Pigeon
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PigeonMat
+    second: {fileID: 2100000, guid: 396a5ca90c1d1874fa98152fbff61654, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
