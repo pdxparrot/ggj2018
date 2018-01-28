@@ -19,6 +19,15 @@ namespace ggj2018.Core.Camera
 
         [SerializeField]
         private float _orbitSpeedY = 100.0f;
+
+        [SerializeField]
+        private bool _returnToDefault;
+
+        [SerializeField]
+        private Vector2 _defaultOrbitRotation;
+
+        [SerializeField]
+        private float _defaultOrbitReturnSpeed = 10.0f;
 #endregion
 
 #region Orbit Constraints
@@ -97,12 +106,20 @@ namespace ggj2018.Core.Camera
                 return;
             }
 
-            HandleInput(Time.deltaTime);
+            float dt = Time.deltaTime;
+
+            HandleInput(dt);
         }
 
         private void LateUpdate()
         {
-            FollowTarget();
+            if(null == Target) {
+                return;
+            }
+
+            float dt = Time.fixedDeltaTime;
+
+            FollowTarget(dt);
         }
 #endregion
 
@@ -110,6 +127,7 @@ namespace ggj2018.Core.Camera
         {
             _target = target;
             _targetCollider = Target?.GetComponentInChildren<Collider>();   // :(
+            _orbitRotation = _defaultOrbitRotation;
 
             IFollowTarget followTarget = Target?.GetComponent<IFollowTarget>();
             if(null != followTarget) {
@@ -173,13 +191,17 @@ namespace ggj2018.Core.Camera
             _lookRotation.y = MathHelper.WrapAngle(_lookRotation.y - axes.y * _lookSpeedY * dt);
         }
 
-        private void FollowTarget()
+        private void FollowTarget(float dt)
         {
+            if(_returnToDefault) {
+                _orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt);
+            }
+
             Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
             Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
             Quaternion targetRotation = null == Target ? Quaternion.identity : Target.transform.rotation;
 
-            Quaternion finalOrbitRotation = orbitRotation * targetRotation;
+            Quaternion finalOrbitRotation = targetRotation * orbitRotation;
             transform.rotation = finalOrbitRotation * lookRotation;
 
             // TODO: this doens't work if we free-look and zoom
