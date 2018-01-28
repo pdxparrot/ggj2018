@@ -17,6 +17,7 @@ namespace ggj2018.ggj2018
 
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
+            SpawnManager.Create(ManagersContainer);
         }
 
         protected override void InitializeManagers()

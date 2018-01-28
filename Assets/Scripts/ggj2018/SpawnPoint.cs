@@ -7,6 +7,20 @@ namespace ggj2018.ggj2018
     public class SpawnPoint : MonoBehavior
     {
         [SerializeField]
-        private bool _isHawkSpawn;
+        private bool _isPredatorSpawn;
+
+        public bool IsPredatorSpawn => _isPredatorSpawn;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            SpawnManager.Instance.RegisterSpawnPoint(this);
+        }
+
+        private void OnDestroy()
+        {
+            SpawnManager.Instance.UnregisterSpawnPoint(this);
+        }
+#endregion
     }
 }
