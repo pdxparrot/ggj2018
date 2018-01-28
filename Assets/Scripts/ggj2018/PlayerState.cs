@@ -27,6 +27,14 @@ namespace ggj2018.ggj2018
 
         public bool Stunned => TimeManager.Instance.CurrentUnixSeconds <= _stunEndTimestamp;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _alive = true;
+
+        public bool Alive => _alive;
+
+        public bool Dead => !_alive;
+
         private readonly IPlayer _owner;
 
         public PlayerState(IPlayer owner)
@@ -45,11 +53,25 @@ namespace ggj2018.ggj2018
             _birdType = new BirdType(id);
         }
 
-        public void Stun()
+        public void EnvironmentStun()
         {
-            Debug.Log($"Player {PlayerNumber} stunned!");
+            Debug.Log($"Player {PlayerNumber} stunned by the environment!");
 
             _stunEndTimestamp = TimeManager.Instance.CurrentUnixSeconds + PlayerManager.Instance.PlayerData.StunTimeSeconds;
+        }
+
+        public void PlayerStun(IPlayer stunner)
+        {
+            Debug.Log($"Player {PlayerNumber} stunned by player {stunner.State.PlayerNumber}!");
+
+            _stunEndTimestamp = TimeManager.Instance.CurrentUnixSeconds + PlayerManager.Instance.PlayerData.StunTimeSeconds;
+        }
+
+        public void PlayerKill(IPlayer killer)
+        {
+            Debug.Log($"Player {PlayerNumber} killed by player {killer.State.PlayerNumber}!");
+
+            _alive = false;
         }
     }
 }

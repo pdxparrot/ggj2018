@@ -17,18 +17,22 @@ MonoBehaviour:
     _speedModifier: 30
     _turnSpeedModifier: 10
     _pitchSpeedModifier: 10
+    _isPredator: 1
   - _id: carrier1
     _name: Carrier 1
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
+    _isPredator: 0
   - _id: carrier2
     _name: Carrier 2
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
+    _isPredator: 0
   - _id: carrier3
     _name: Carrier 3
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
+    _isPredator: 0

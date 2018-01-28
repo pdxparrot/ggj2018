@@ -37,6 +37,11 @@ namespace ggj2018.ggj2018.Data
 
             public float PitchSpeedModifier => _pitchSpeedModifier;
 
+            [SerializeField]
+            private bool _isPredator;
+
+            public bool IsPredator => _isPredator;
+
             public override string ToString()
             {
                 return $"Bird({Id})";
