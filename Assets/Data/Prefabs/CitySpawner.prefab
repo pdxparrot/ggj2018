@@ -52,25 +52,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefabs:
-  - prefab: {fileID: 1157263438996638, guid: 231291f1005704d41a34dcee7f355a43, type: 2}
+  - prefab: {fileID: 1157263438996638, guid: b78de3d7cd2752e438442f98481d439c, type: 2}
     frequency: 50
-  - prefab: {fileID: 1819196412812634, guid: b6ced216f882e8249a4af861046e9e93, type: 2}
+  - prefab: {fileID: 1819196412812634, guid: fb640488b9685ab4891b2d184faf6236, type: 2}
     frequency: 50
-  - prefab: {fileID: 1400986728334266, guid: a2d505fd9ddddf64abe07e6ba9833b5a, type: 2}
+  - prefab: {fileID: 1400986728334266, guid: c69b6f803f960ce4080b1db6a0a12db7, type: 2}
     frequency: 75
   - prefab: {fileID: 1253901887209402, guid: 722136fd423f34e4c80b933343385689, type: 2}
     frequency: 100
-  - prefab: {fileID: 1816332907353790, guid: b2a16384652829f4cb62e68c1e6afaac, type: 2}
+  - prefab: {fileID: 1253901887209402, guid: dd80baf45079ce64f820a930ecf5286d, type: 2}
     frequency: 100
-  - prefab: {fileID: 1594780561129086, guid: dbb824f419daf404a951f0ee504d7d08, type: 2}
+  - prefab: {fileID: 1816332907353790, guid: 70b1587bfc401f646ade21119c0b42fe, type: 2}
     frequency: 20
   - prefab: {fileID: 1621799320740894, guid: 4b11d578f1d0c7142840ee109e646d8f, type: 2}
     frequency: 20
-  - prefab: {fileID: 1326415999902872, guid: f0e760d9b79b9724ca6a330155262427, type: 2}
+  - prefab: {fileID: 1594780561129086, guid: 8b08778b5c599354e855d630a25a9a54, type: 2}
     frequency: 20
-  - prefab: {fileID: 1665056188883782, guid: 5e0ae4ce83771a14789c7ea52a6c0050, type: 2}
-    frequency: 2
-  - prefab: {fileID: 1960390214306884, guid: ad6acfc5e1e27c8418e79862f100bae4, type: 2}
-    frequency: 2
+  - prefab: {fileID: 1621799320740894, guid: 5a950d1d078e86e4cbc599f450cd9374, type: 2}
+    frequency: 50
+  - prefab: {fileID: 1326415999902872, guid: 577e5b1fc6419e34f950da8b41db2f22, type: 2}
+    frequency: 25
+  - prefab: {fileID: 1665056188883782, guid: 01edb3e51bbb48f49bf6fb114e8d2356, type: 2}
+    frequency: 5
+  - prefab: {fileID: 1960390214306884, guid: 60a2b3b750648be41b98f337e765e6a2, type: 2}
+    frequency: 5
   blockDimensions: {x: 65, y: 65}
   citySize: {x: 10, y: 10}
