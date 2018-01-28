@@ -34,6 +34,10 @@ namespace ggj2018.ggj2018
 
         public int PredatorCount => PlayerCount - PreyCount;
 
+        public IPlayer Player(int i) {
+            return _players[i];
+        }
+
 #region Unity Lifecycle
         private void Awake()
         {

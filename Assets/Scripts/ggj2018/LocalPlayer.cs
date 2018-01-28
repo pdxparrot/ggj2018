@@ -14,6 +14,9 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private PlayerState _playerState;
 
+        [SerializeField]
+        private GameObject _godRay;
+
         public PlayerState State => _playerState;
 
         public PlayerController Controller { get; private set; }
@@ -32,6 +35,16 @@ namespace ggj2018.ggj2018
         {
             Debug.Log($"Setting follow cam {ControllerNumber}");
             CameraManager.Instance.GetFollowCamera(ControllerNumber).SetTarget(GameObject);
+
+            _godRay.GetComponent<GodRay>().Setup(
+                State.BirdType.BirdDataEntry.IsPredator ?
+                GodRay.Mode.Hawk : GodRay.Mode.Carrier);
+
+            CameraManager.Instance.SetLayer(ControllerNumber,
+                State.BirdType.BirdDataEntry.IsPredator ? 
+                    CameraManager.Layer.Hawk :
+                    CameraManager.Layer.Carrier);
+                    
         }
 
         private void Update()

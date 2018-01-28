@@ -25,7 +25,25 @@ namespace ggj2018.Core.Camera
 
         public void SetupCamera(int i, bool active)
         {
-            Cameras[i].GetComponent<UnityEngine.Camera>().enabled = active;
+            GetFollowCamera(i).enabled = active;
+
+            // -- disabled cameras go in the black box under the world
+            if(!active) {
+                Cameras[i].gameObject.transform.position = new Vector3(0,-100,0);
+            }
+        }
+
+        public enum Layer { Hawk, Carrier }
+        public void SetLayer(int cam, Layer layer) {
+            Cameras[cam].GetComponent<UnityEngine.Camera>().cullingMask &= ~(1 << 8);
+            Cameras[cam].GetComponent<UnityEngine.Camera>().cullingMask &= ~(1 << 9);
+
+            if(layer == Layer.Hawk) {
+                Cameras[cam].GetComponent<UnityEngine.Camera>().cullingMask |= (1 << 8);
+            }
+            else {
+                Cameras[cam].GetComponent<UnityEngine.Camera>().cullingMask |= (1 << 9);
+            }
         }
     }
 }
