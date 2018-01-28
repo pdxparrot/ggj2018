@@ -37,6 +37,8 @@ namespace ggj2018.ggj2018
             case EState.eGame:      BeginGame();    break;
             case EState.eVictory:   BeginVictory(); break;
             }
+
+            Debug.Log($"State: {State}");
         }
 
         void Update() {
@@ -90,11 +92,37 @@ namespace ggj2018.ggj2018
                 _playerBird[player] = 0;
         }
 
+        string BirdType(int i) {
+            switch(i) {
+            default:
+            case 0: return "hawk";
+            case 1: return "carrier1";
+            case 2: return "carrier2";
+            case 3: return "carrier3";
+            }
+        }
 
         // Menu State
         void BeginMenu() {
         }
         void RunMenu() {
+            // Check for all players ready
+            int ready = 0;
+            int total = 0;
+            for(int i = 0; i < MaxPlayers; ++i) {
+                if(_playerReady[i])
+                    ++ready;
+                if(_playerJoined[i])
+                    ++total;
+            }
+            if(ready == total) {// && ready > 2) {
+                for(int i = 0; i < MaxPlayers; ++i)
+                    if(InputManager.Instance.Pressed(i, 0) ||
+                       InputManager.Instance.StartPressed(i)) 
+                        SetState(EState.eIntro);
+            }
+
+            // Check for player joins
             for(int i = 0; i < MaxPlayers; ++i) {
                 if(_playerReady[i]) {
                     if(InputManager.Instance.Pressed(i, 1))
@@ -103,6 +131,9 @@ namespace ggj2018.ggj2018
                 else if(_playerJoined[i]) {
                     if(InputManager.Instance.Pressed(i, 0))
                         _playerReady[i] = true;
+
+                    else if(InputManager.Instance.Pressed(i, 1))
+                        _playerJoined[i] = false;
                     
                     else {
                         if(InputManager.Instance.DpadPressed(i, Dir.Left)) {
@@ -125,22 +156,36 @@ namespace ggj2018.ggj2018
                                        _playerReady[i],
                                        _playerBird[i]);
             }
+
         }
 
         // Intro State
         void BeginIntro() {
-            _timer = 10.0f;
+            for(int i = 0; i < MaxPlayers; ++i)
+                if(_playerReady[i])
+                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
+
+            UIManager.Instance.HideMenu();
+            _countdown = 3;
+            _timer = 1.0f;
+            UIManager.Instance.Countdown(_countdown);
         }
         void RunIntro() {
             _timer -= Time.deltaTime;
             if(_timer < 0) {
                 --_countdown;
                 _timer = 1.0f;
+
+                if(_countdown == 0)
+                    SetState(EState.eGame);
+                else
+                    UIManager.Instance.Countdown(_countdown);
             }
         }
 
         // Game State
         void BeginGame() {
+            UIManager.Instance.HideCountdown();
         }
         void RunGame() {
         }

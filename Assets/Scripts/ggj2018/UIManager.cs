@@ -12,7 +12,19 @@ namespace ggj2018.ggj2018
         [SerializeField]
         public PlayerUIPage[] PlayerHud;
 
-        [SerializeField] private Text _countdown;
+        public void Countdown(int c) {
+            for(int i = 0; i < PlayerHud.Length; ++i)
+                PlayerHud[i].SetCountdown(c);
+        }
+        public void HideCountdown() {
+            for(int i = 0; i < PlayerHud.Length; ++i)
+                PlayerHud[i].HideCountdown();
+        }
+
+        public void HideMenu() {
+            for(int i = 0; i < PlayerHud.Length; ++i)
+                PlayerHud[i].Hide();
+        }
     }
 }
 
