@@ -72,5 +72,5 @@ MonoBehaviour:
     frequency: 5
   - prefab: {fileID: 1960390214306884, guid: 60a2b3b750648be41b98f337e765e6a2, type: 2}
     frequency: 5
-  blockDimensions: {x: 65, y: 65}
+  blockDimensions: {x: 80, y: 80}
   citySize: {x: 10, y: 10}
