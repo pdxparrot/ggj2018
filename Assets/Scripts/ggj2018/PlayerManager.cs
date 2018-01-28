@@ -11,6 +11,8 @@ namespace ggj2018.ggj2018
 
         private GameObject _playerContainer;
 
+        private IPlayer _player;
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -19,9 +21,9 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-            if(Input.GetKeyUp(KeyCode.S)) {
-                LocalPlayer player = SpawnPlayer() as LocalPlayer;
-                player.transform.position = new Vector3(0.0f, 25.0f, 0.0f);
+            if(null == _player && Input.GetKeyUp(KeyCode.P)) {
+                _player = SpawnPlayer();
+                _player.MoveTo(new Vector3(0.0f, 25.0f, 0.0f));
             }
         }
 

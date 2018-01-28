@@ -15,5 +15,10 @@ namespace ggj2018.ggj2018
             Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
 #endregion
+
+        public void MoveTo(Vector3 position)
+        {
+            transform.position = position;
+        }
     }
 }

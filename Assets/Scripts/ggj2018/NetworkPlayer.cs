@@ -19,5 +19,10 @@ namespace ggj2018.ggj2018
             }
         }
 #endregion
+
+        public void MoveTo(Vector3 position)
+        {
+            transform.position = position;
+        }
     }
 }
