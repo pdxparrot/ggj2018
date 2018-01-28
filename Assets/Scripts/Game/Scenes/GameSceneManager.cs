@@ -14,13 +14,33 @@ namespace ggj2018.Game.Scenes
         [SerializeField]
         private string _mainSceneName = "main";
 
+        [SerializeField]
+        private string _reloadSceneName = "reload";
+
+        [SerializeField]
+        [ReadOnly]
+        private string _defaultSceneName;
+
+        public string DefaultSceneName { get; set; }
+
         private readonly List<string> _loadedScenes = new List<string>();
+
+#region Load Scene
+        private void LoadRestarterScene(Action callback)
+        {
+            LoadScene(_reloadSceneName, callback);
+        }
+
+        public void LoadDefaultScene(Action callback)
+        {
+            LoadScene(DefaultSceneName, callback, true);
+        }
 
         public void LoadScene(string sceneName, Action callback, bool setActive=false)
         {
             StartCoroutine(LoadSceneRoutine(sceneName, () => {
                 callback?.Invoke();
-            }));
+            }, setActive));
         }
 
         public IEnumerator LoadSceneRoutine(string sceneName, Action callback, bool setActive=false)
@@ -37,6 +57,19 @@ namespace ggj2018.Game.Scenes
             _loadedScenes.Add(sceneName);
 
             callback?.Invoke();
+        }
+#endregion
+
+#region Unload Scene
+        private void UnloadRestarterScene(Action callback)
+        {
+            UnloadScene(_reloadSceneName, callback);
+        }
+
+        public void UnloadDefaultScene(Action callback)
+        {
+            UnloadScene(DefaultSceneName, callback);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_mainSceneName));
         }
 
         public void UnloadScene(string sceneName, Action callback)
@@ -69,5 +102,31 @@ namespace ggj2018.Game.Scenes
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(_mainSceneName));
         }
+#endregion
+
+#region Reload Scene
+        public void ReloadMainScene()
+        {
+            UnloadAllScenes();
+            LoadRestarterScene(() => {
+                GameReloader reloader = FindObjectOfType<GameReloader>();
+                StartCoroutine(reloader.Reload(_mainSceneName, _reloadSceneName));
+            });
+        }
+
+        public void ReloadDefaultScene(Action callback)
+        {
+            UnloadDefaultScene(() => {
+                LoadDefaultScene(callback);
+            });
+        }
+
+        public void ReloadScene(string sceneName, Action callback)
+        {
+            UnloadScene(sceneName, () => {
+                LoadScene(sceneName, callback);
+            });
+        }
+#endregion
     }
 }
