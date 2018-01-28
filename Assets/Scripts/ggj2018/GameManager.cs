@@ -9,9 +9,7 @@ namespace ggj2018.ggj2018
     public sealed class GameManager : SingletonBehavior<GameManager>
     {
         [SerializeField]
-        private int _maxPlayers = 4;
-
-        public int MaxPlayers => _maxPlayers;
+        public const int MaxPlayers = 4;
 
         [SerializeField]
         private BirdData _birdData;
@@ -56,7 +54,6 @@ namespace ggj2018.ggj2018
 
 
         // Player bits
-        const int MaxPlayers = 4;
         [SerializeField] PlayerUIPage[] playerHud;
         bool[] _playerJoined = new bool[MaxPlayers];
         bool[] _playerReady = new bool[MaxPlayers];
@@ -121,7 +118,6 @@ namespace ggj2018.ggj2018
                        InputManager.Instance.StartPressed(i)) {
                         _playerJoined[i] = true;
                         DefaultBird(i);
-                        Debug.Log("YO");
                     }
                 }
                 UIManager.Instance.

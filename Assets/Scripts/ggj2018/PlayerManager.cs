@@ -25,7 +25,7 @@ namespace ggj2018.ggj2018
         {
             _playerContainer = new GameObject("Players");
 
-            _players = new IPlayer[GameManager.Instance.MaxPlayers];
+            _players = new IPlayer[GameManager.MaxPlayers];
         }
 
         private void Update()
