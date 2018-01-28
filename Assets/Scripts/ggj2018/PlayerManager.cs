@@ -1,4 +1,5 @@
-﻿using ggj2018.Core.Util;
+﻿using ggj2018.Core.Input;
+using ggj2018.Core.Util;
 
 using UnityEngine;
 
@@ -21,9 +22,9 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-            if(null == _player && Input.GetKeyUp(KeyCode.P)) {
+            if(null == _player && Input.GetKeyUp(KeyCode.P) || InputManager.Instance.Pressed(0, 3)) {
                 _player = SpawnPlayer(0);
-                _player.Controller.MoveTo(new Vector3(0.0f, 180.0f, 0.0f));
+                _player.Controller.MoveTo(new Vector3(0.0f, 225.0f, 0.0f));
             }
         }
 
@@ -39,6 +40,7 @@ namespace ggj2018.ggj2018
         public IPlayer SpawnPlayer(int playerNumber, Vector3 position=new Vector3(), Quaternion rotation=new Quaternion())
         {
             LocalPlayer player = Instantiate(_localPlayerPrefab, position, rotation, _playerContainer.transform);
+            player.Controller.Initialize(player);
             player.State.SetPlayerNumber(playerNumber);
             return player;
         }

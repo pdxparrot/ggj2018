@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using ggj2018.Core.Camera;
+
+using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
-    public interface IPlayer
+    public interface IPlayer : IFollowTarget
     {
         GameObject GameObject { get; }
 

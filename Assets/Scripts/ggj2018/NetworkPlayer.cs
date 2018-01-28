@@ -18,6 +18,8 @@ namespace ggj2018.ggj2018
 
         public PlayerController Controller { get; private set; }
 
+        public int ControllerNumber => 0;
+
 #region Unity Lifecycle
         private void Awake()
         {

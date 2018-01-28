@@ -13,15 +13,14 @@ namespace ggj2018.ggj2018
         private GameObject _model;
 
         [SerializeField]
-        private int _controllerIndex;
-
-        [SerializeField]
         [ReadOnly]
         private BaseAttributes _attributes = new BaseAttributes();
 
         public BaseAttributes Attributes { get { return _attributes; } set { _attributes = value ?? new BaseAttributes(); } }
 
         private PlayerData _playerData;
+
+        private IPlayer _owner;
 
 #region Unity Lifecycle
         private void Awake()
@@ -36,7 +35,7 @@ namespace ggj2018.ggj2018
         {
             float dt = Time.deltaTime;
 
-            Vector3 moveAxes = InputManager.Instance.GetMoveAxes(_controllerIndex);
+            Vector3 moveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
 
             Turn(moveAxes, dt);
             Move(moveAxes, dt);
@@ -46,14 +45,19 @@ namespace ggj2018.ggj2018
         {
             // TODO: ouch... no no no
             if(null != other.GetComponentInParent<Building>()) {
-Debug.Log("Building collision");
+Debug.Log("TODO: Building collision");
             } else if(null != other.GetComponentInParent<PlayerController>()) {
-Debug.Log("Player collision");
+Debug.Log("TODO: Player collision");
             } else if(null != other.GetComponentInParent<Ground>()) {
-Debug.Log("Ground collision!");
+Debug.Log("TODO: Ground collision!");
             }
         }
 #endregion
+
+        public void Initialize(IPlayer owner)
+        {
+            _owner = owner;
+        }
 
         public void MoveTo(Vector3 position)
         {
@@ -70,22 +74,23 @@ Debug.Log("Ground collision!");
 
         private void RotateModel(Vector3 axes, float dt)
         {
-            // TODO: smooth this
-            Vector3 rotation = new Vector3();
+            Vector3 targetEuler = new Vector3();
 
             if(axes.x < -Mathf.Epsilon) {
-                rotation.z = 45.0f;
+                targetEuler.z = 45.0f;
             } else if(axes.x > Mathf.Epsilon) {
-                rotation.z = -45.0f;
+                targetEuler.z = -45.0f;
             }
 
             if(axes.y < -Mathf.Epsilon) {
-                rotation.x = 45.0f;
+                targetEuler.x = 45.0f;
             } else if(axes.y > Mathf.Epsilon) {
-                rotation.x = -45.0f;
+                targetEuler.x = -45.0f;
             }
 
-            _model.transform.localRotation = Quaternion.Euler(rotation);
+            Quaternion targetRotation = Quaternion.Euler(targetEuler);
+            Quaternion rotation = Quaternion.Slerp(_model.transform.localRotation, targetRotation, dt * _playerData.RotationAnimationSpeed);
+            _model.transform.localRotation = rotation;
         }
 
         private void Move(Vector3 axes, float dt)

@@ -61,7 +61,7 @@ namespace ggj2018.Core.Camera
 
 #region Controller
         [SerializeField]
-        private int _controllerIndex;
+        private int _controllerIndex = 0;
 #endregion
 
         [SerializeField]
@@ -92,6 +92,11 @@ namespace ggj2018.Core.Camera
         {
             _target = target;
             _targetCollider = Target?.GetComponentInChildren<Collider>();   // :(
+
+            IFollowTarget followTarget = Target.GetComponent<IFollowTarget>();
+            if(null != followTarget) {
+                _controllerIndex = followTarget.ControllerNumber;
+            }
         }
 
         private void HandleInput(float dt)

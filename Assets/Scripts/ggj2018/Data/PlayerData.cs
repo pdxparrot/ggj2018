@@ -29,6 +29,11 @@ namespace ggj2018.ggj2018.Data
 
         public float BasePitchSpeed => _basePitchSpeed;
 
+        [SerializeField]
+        private float _rotationAnimationSpeed = 5.0f;
+
+        public float RotationAnimationSpeed => _rotationAnimationSpeed;
+
         public void Initialize()
         {
         }

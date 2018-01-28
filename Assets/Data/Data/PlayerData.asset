@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseSpeed: 20
   _baseTurnSpeed: 100
-  _basePitchSpeed: 100
+  _basePitchSpeed: 50
+  _rotationAnimationSpeed: 25
