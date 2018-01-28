@@ -23,7 +23,7 @@ namespace ggj2018.ggj2018
         {
             if(null == _player && Input.GetKeyUp(KeyCode.P)) {
                 _player = SpawnPlayer(0);
-                _player.Controller.MoveTo(new Vector3(0.0f, 25.0f, 0.0f));
+                _player.Controller.MoveTo(new Vector3(0.0f, 180.0f, 0.0f));
             }
         }
 
