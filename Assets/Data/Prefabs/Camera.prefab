@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 81934205165916022}
   - component: {fileID: 114838511920028052}
   - component: {fileID: 114995574213457130}
+  - component: {fileID: 114267235594750214}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -52,8 +53,8 @@ Camera:
   m_GameObject: {fileID: 1285277497009970}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.7137255, g: 0.83137256, b: 0.9254902, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -87,6 +88,18 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1285277497009970}
   m_Enabled: 1
+--- !u!114 &114267235594750214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1285277497009970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: a98d573953c55fd4787fb5053f621b92, type: 2}
 --- !u!114 &114838511920028052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,17 +129,16 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
-  _invertOrbitY: 1
   _enableZoom: 0
   _minZoomDistance: 5
   _maxZoomDistance: 100
   _zoomSpeed: 500
-  _invertZoomDirection: 0
   _enableLook: 0
   _lookSpeedX: 100
   _lookSpeedY: 100
   _target: {fileID: 0}
   _targetCollider: {fileID: 0}
+  _controllerIndex: 0
   _orbitRotation: {x: 0, y: 0}
   _orbitRadius: 25
   _lookRotation: {x: 0, y: 0}
