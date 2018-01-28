@@ -63,6 +63,15 @@ namespace ggj2018.ggj2018
 
         public void EnvironmentStun(Collider collider)
         {
+            if(IsDead) {
+                PlayerManager.Instance.DespawnLocalPlayer(PlayerNumber);
+                return;
+            } 
+
+            if(IsStunned) {
+                return;
+            }
+
             Debug.Log($"Player {PlayerNumber} stunned by the environment!");
 
             Stun(collider);
@@ -70,6 +79,10 @@ namespace ggj2018.ggj2018
 
         public void PlayerStun(IPlayer stunner, Collider collider)
         {
+            if(IsDead) {
+                return;
+            }
+
             Debug.Log($"Player {PlayerNumber} stunned by player {stunner.State.PlayerNumber}!");
 
             Stun(collider);
@@ -83,16 +96,36 @@ namespace ggj2018.ggj2018
             _stunBounceDirection = position - collider.ClosestPoint(position);
         }
 
-        public void EnvironmentKill()
+        public void EnvironmentKill(Collider collider)
         {
+            if(IsDead) {
+                return;
+            }
+
             Debug.Log($"Player {PlayerNumber} killed by environment!");
 
             _isAlive = false;
         }
 
-        public void PlayerKill(IPlayer killer)
+        public void PlayerKill(IPlayer killer, Collider collider)
         {
+            if(killer.State.IsDead) {
+                PlayerStun(killer, collider);
+                return;
+            }
+
             Debug.Log($"Player {PlayerNumber} killed by player {killer.State.PlayerNumber}!");
+
+            _isAlive = false;
+        }
+
+        public void DebugKill()
+        {
+            Debug.Log("You monster!");
+
+            if(IsDead) {
+                return;
+            }
 
             _isAlive = false;
         }

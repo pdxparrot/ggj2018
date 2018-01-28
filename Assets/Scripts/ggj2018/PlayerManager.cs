@@ -36,7 +36,7 @@ namespace ggj2018.ggj2018
             }
 
             if(null != _players[0] && Input.GetKeyDown(KeyCode.K)) {
-                _players[0].State.EnvironmentKill();
+                _players[0].State.DebugKill();
             }
         }
 

@@ -76,7 +76,7 @@ namespace ggj2018.ggj2018
             } else if(null != collider.GetComponentInParent<PlayerController>()) {
                 IPlayer player = collider.GetComponentInParent<IPlayer>();
                 if(_owner.State.BirdType.BirdDataEntry.IsPredator && !_owner.State.BirdType.BirdDataEntry.IsPredator) {
-                    player.State.PlayerKill(_owner);
+                    player.State.PlayerKill(_owner, collider);
                 } else {
                     _owner.State.PlayerStun(player, collider);
                     player.State.PlayerStun(_owner, _collider);
