@@ -7,10 +7,8 @@ namespace ggj2018.Game.Data
 {
     [CreateAssetMenu(fileName="AudioData", menuName="ggj2018/Data/Audio Data")]
     [Serializable]
-    public sealed class AudioData : ScriptableObject, IData
+    public sealed class AudioData : ScriptableObject
     {
-        public const string DataName = "audio";
-
         [Serializable]
         public sealed class AudioDataEntry
         {
@@ -26,11 +24,9 @@ namespace ggj2018.Game.Data
 
             public override string ToString()
             {
-                return $"Armor({Id}: {_audioClip.name})";
+                return $"Audio({Id}: {_audioClip.name})";
             }
         }
-
-        public string Name => DataName;
 
         [SerializeField]
         private AudioDataEntry[] _audio;

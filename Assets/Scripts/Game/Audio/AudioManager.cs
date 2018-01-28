@@ -21,12 +21,10 @@ namespace ggj2018.Game.Audio
 
         public AudioData AudioData => _audioData;
 
-        public IEnumerator InitializeRoutine()
+        public void Initialize()
         {
             // TODO: why isn't this working???
             _oneShotAudioSource.outputAudioMixerGroup = _audioMixer.outputAudioMixerGroup;
-
-            yield break;
         }
 
 #region Unity Lifecycle

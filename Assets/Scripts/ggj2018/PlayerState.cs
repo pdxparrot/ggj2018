@@ -11,9 +11,9 @@ namespace ggj2018.ggj2018
     {
         [SerializeField]
         [ReadOnly]
-        private BaseAttributes _attributes = new BaseAttributes();
+        private BirdType _birdType;
 
-        public BaseAttributes Attributes { get { return _attributes; } set { _attributes = value ?? new BaseAttributes(); } }
+        public BirdType BirdType => _birdType;
 
         [SerializeField]
         [ReadOnly]
@@ -38,6 +38,11 @@ namespace ggj2018.ggj2018
         {
             _playerNumber = playerNumber;
             _owner.GameObject.name = $"Player {PlayerNumber}";
+        }
+
+        public void SetBirdType(string id)
+        {
+            _birdType = new BirdType(id);
         }
 
         public void Stun()

@@ -87,7 +87,7 @@ Debug.Log("TODO: Player collision enter");
 
         public void MoveTo(Vector3 position)
         {
-            Debug.Log($"Teleportin player {_owner.State.PlayerNumber} to {position}");
+            Debug.Log($"Teleporting player {_owner.State.PlayerNumber} to {position}");
 
             position.y = Mathf.Clamp(position.y, PlayerManager.Instance.PlayerData.MinHeight, PlayerManager.Instance.PlayerData.MaxHeight);
             transform.position = position;
@@ -95,7 +95,7 @@ Debug.Log("TODO: Player collision enter");
 
         private void Turn(Vector3 axes, float dt)
         {
-            float turnSpeed = (PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.Attributes.TurnSpeedModifier) * dt;
+            float turnSpeed = (PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.BirdDataEntry.TurnSpeedModifier) * dt;
 
             transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed);
         }
@@ -125,12 +125,12 @@ Debug.Log("TODO: Player collision enter");
 
         private void Move(Vector3 axes, float dt)
         {
-            float speed = (PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.Attributes.SpeedModifier) * dt;
+            float speed = (PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier) * dt;
 
             _velocity = transform.forward * speed;
             _velocity.y = 0.0f;
 
-            float pitchSpeed = (PlayerManager.Instance.PlayerData.BasePitchSpeed + _owner.State.Attributes.PitchSpeedModifier) * dt;
+            float pitchSpeed = (PlayerManager.Instance.PlayerData.BasePitchSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier) * dt;
             if(axes.y < -Mathf.Epsilon) {
                 _velocity.y = -pitchSpeed;
             } else if(axes.y > Mathf.Epsilon) {

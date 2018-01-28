@@ -61,10 +61,8 @@ namespace ggj2018.Game.Loading
             _loadingScreen.ProgressText = "Initializing managers...";
             yield return null;
 
-            IEnumerator runner = InitializeManagers();
-            while(runner.MoveNext()) {
-                yield return null;
-            }
+            InitializeManagers();
+            yield return null;
 
             _loadingScreen.Progress.Percent = 0.75f;
             _loadingScreen.ProgressText = "Loading default scene...";
@@ -87,13 +85,9 @@ namespace ggj2018.Game.Loading
             UIManager.Create(ManagersContainer);
         }
 
-        // TODO: virtualize
-        private IEnumerator InitializeManagers()
+        protected virtual void InitializeManagers()
         {
-            IEnumerator runner = AudioManager.Instance.InitializeRoutine();
-            while(runner.MoveNext()) {
-                yield return null;
-            }
+            AudioManager.Instance.Initialize();
         }
 
         private void Destroy()

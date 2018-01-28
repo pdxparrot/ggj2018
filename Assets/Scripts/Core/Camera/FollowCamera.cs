@@ -79,6 +79,10 @@ namespace ggj2018.Core.Camera
 #region Unity Lifecycle
         private void Update()
         {
+            if(null == Target) {
+                return;
+            }
+
             HandleInput(Time.deltaTime);
         }
 
