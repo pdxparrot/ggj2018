@@ -354,7 +354,7 @@ Prefab:
     - target: {fileID: 114334471356770700, guid: ca6aa1640be9b4c4cbddd80378c2a768,
         type: 2}
       propertyPath: m_CancelButton
-      value: P0 Cancel
+      value: P0 Select
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca6aa1640be9b4c4cbddd80378c2a768, type: 2}
