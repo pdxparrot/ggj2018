@@ -10,6 +10,7 @@ using ggj2018.Core.Util.ObjectPool;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
 namespace ggj2018.Game.Loading
 {
@@ -17,6 +18,9 @@ namespace ggj2018.Game.Loading
     {
         [SerializeField]
         private EventSystem _eventManager;
+
+        [SerializeField]
+        private NetworkManager _networkManager;
 
         [SerializeField]
         private LoadingScreen _loadingScreen;
@@ -70,7 +74,7 @@ namespace ggj2018.Game.Loading
 
             _loadingScreen.Progress.Percent = 0.75f;
             _loadingScreen.ProgressText = "Loading default scene...";
-            GameSceneManager.Instance.LoadScene(_defaultSceneName, () => {
+            GameSceneManager.Instance.LoadDefaultScene(() => {
                 _loadingScreen.Progress.Percent = 1.0f;
                 _loadingScreen.ProgressText = "Loading complete!";
 
@@ -92,6 +96,8 @@ namespace ggj2018.Game.Loading
         protected virtual void InitializeManagers()
         {
             AudioManager.Instance.Initialize();
+
+            GameSceneManager.Instance.DefaultSceneName = _defaultSceneName;
         }
 
         private void Destroy()

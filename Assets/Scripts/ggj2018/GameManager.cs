@@ -5,6 +5,7 @@ using ggj2018.Core.Util;
 using ggj2018.Core.Input;
 using ggj2018.Core.Camera;
 using ggj2018.ggj2018.Data;
+using ggj2018.Game.Scenes;
 
 using UnityEngine;
 
@@ -33,18 +34,8 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Update()
         {
-            if(InputManager.Instance.StartPressed(0)) {
-                _isPaused = !_isPaused;
-
-                Debug.Log($"Game {(IsPaused ? "paused" : "unpaused")}");
-                PauseEvent?.Invoke(this, EventArgs.Empty);
-            }
-
-            if(IsPaused) {
-                /*if(InputManager.Instance.SelectPressed(0)) {
-                    // TODO: reset to main scene
-                }*/
-            }
+            CheckPause();
+            //CheckReload();
 
             switch(State) {
             case EState.eMenu:      RunMenu();      break;
@@ -58,6 +49,32 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             _birdData.Initialize();
+        }
+
+        private void CheckPause()
+        {
+            if(!InputManager.Instance.StartPressed(0)) {
+                return;
+            }
+
+            _isPaused = !_isPaused;
+
+            Debug.Log($"Game {(IsPaused ? "paused" : "unpaused")}");
+            PauseEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void CheckReload()
+        {
+            if(!IsPaused) {
+                return;
+            }
+
+            if(!InputManager.Instance.SelectPressed(0)) {
+                return;
+            }
+
+            Debug.Log("Restarting game!");
+            GameSceneManager.Instance.ReloadMainScene();
         }
 
         // Game State

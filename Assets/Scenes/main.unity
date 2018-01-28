@@ -484,6 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eventManager: {fileID: 1957490225}
+  _networkManager: {fileID: 1960992894}
   _loadingScreen: {fileID: 701059863}
   _audioManagerPrefab: {fileID: 114645275030904352, guid: 272ec38cef01bae41998836472da210e,
     type: 2}
@@ -681,3 +682,9 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 321d05647f5b8cb429c0926451d1e8a1, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1960992894 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114940941671366252, guid: 321d05647f5b8cb429c0926451d1e8a1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1960992893}
+  m_Script: {fileID: -822479833, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
