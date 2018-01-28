@@ -23,17 +23,17 @@ namespace ggj2018.ggj2018
 
         [SerializeField]
         [ReadOnly]
-        private bool _alive = true;
+        private bool _isAlive = true;
 
-        public bool Alive => _alive;
+        public bool IsAlive => _isAlive;
 
-        public bool Dead => !_alive;
+        public bool IsDead => !_isAlive;
 
         [SerializeField]
         [ReadOnly]
         private long _stunEndTimestamp;
 
-        public bool Stunned => TimeManager.Instance.CurrentUnixSeconds <= _stunEndTimestamp;
+        public bool IsStunned => TimeManager.Instance.CurrentUnixSeconds <= _stunEndTimestamp;
 
         [SerializeField]
         [ReadOnly]
@@ -41,7 +41,7 @@ namespace ggj2018.ggj2018
 
         public Vector3 StunBounceDirection { get { return _stunBounceDirection; } set { _stunBounceDirection = value; } }
 
-        public bool Incapacitated => Stunned || Dead;
+        public bool Incapacitated => IsStunned || IsDead;
 
         private readonly IPlayer _owner;
 
@@ -83,11 +83,18 @@ namespace ggj2018.ggj2018
             _stunBounceDirection = position - collider.ClosestPoint(position);
         }
 
+        public void EnvironmentKill()
+        {
+            Debug.Log($"Player {PlayerNumber} killed by environment!");
+
+            _isAlive = false;
+        }
+
         public void PlayerKill(IPlayer killer)
         {
             Debug.Log($"Player {PlayerNumber} killed by player {killer.State.PlayerNumber}!");
 
-            _alive = false;
+            _isAlive = false;
         }
     }
 }

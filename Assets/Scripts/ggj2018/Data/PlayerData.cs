@@ -8,7 +8,7 @@ namespace ggj2018.ggj2018.Data
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {
-#region world shit (removeme)
+#region world shit (removeme when we get real walls)
         [SerializeField]
         private float _minHeight = 25.0f;
 
@@ -49,5 +49,10 @@ namespace ggj2018.ggj2018.Data
         private float _stunBounceSpeed = 1.0f;
 
         public float StunBounceSpeed => _stunBounceSpeed;
+
+        [SerializeField]
+        private float _terminalVelocity = 100.0f;
+
+        public float TerminalVelocity => _terminalVelocity;
     }
 }

@@ -51,9 +51,7 @@ namespace ggj2018.ggj2018
             float dt = Time.deltaTime;
 
             Turn(_lastMoveAxes, dt);
-            if(!_owner.State.Incapacitated) {
-                RotateModel(_lastMoveAxes, dt);
-            }
+            RotateModel(_lastMoveAxes, dt);
         }
 
         private void FixedUpdate()
@@ -63,17 +61,11 @@ namespace ggj2018.ggj2018
 
             float dt = Time.fixedDeltaTime;
 
-            if(_owner.State.Stunned) {
-                transform.position += _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed * dt;
-                return;
-            }
-
-            if(_owner.State.Stunned || _owner.State.Dead) {
-                transform.position += Physics.gravity * dt;
-                return;
-            }
-
             Move(_lastMoveAxes, dt);
+
+            if(_owner.State.IsDead && transform.position.y < PlayerManager.Instance.PlayerData.MinHeight) {
+                PlayerManager.Instance.DespawnLocalPlayer(_owner.State.PlayerNumber);
+            }
         }
 
         private void OnTriggerEnter(Collider collider)
@@ -108,6 +100,10 @@ namespace ggj2018.ggj2018
 
         private void Turn(Vector3 axes, float dt)
         {
+            if(_owner.State.IsDead) {
+                return;
+            }
+
             float turnSpeed = (PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.BirdDataEntry.TurnSpeedModifier) * dt;
 
             transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed);
@@ -115,6 +111,15 @@ namespace ggj2018.ggj2018
 
         private void RotateModel(Vector3 axes, float dt)
         {
+            if(_owner.State.IsDead) {
+                _model.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                return;
+            }
+
+            if(_owner.State.IsStunned) {
+                return;
+            }
+
             Vector3 targetEuler = new Vector3();
 
             if(axes.x < -Mathf.Epsilon) {
@@ -138,6 +143,16 @@ namespace ggj2018.ggj2018
 
         private void Move(Vector3 axes, float dt)
         {
+            if(_owner.State.IsStunned) {
+                transform.position += _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed * dt;
+                return;
+            }
+
+            if(_owner.State.IsStunned || _owner.State.IsDead) {
+                transform.position += Vector3.down * PlayerManager.Instance.PlayerData.TerminalVelocity * dt;
+                return;
+            }
+
             float speed = (PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier) * dt;
 
             _velocity = transform.forward * speed;
