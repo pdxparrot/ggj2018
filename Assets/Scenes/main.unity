@@ -200,11 +200,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4286629191705642, guid: 8a26e9e26d6167f49a3b927056b5eec0, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4286629191705642, guid: 8a26e9e26d6167f49a3b927056b5eec0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4286629191705642, guid: 8a26e9e26d6167f49a3b927056b5eec0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -530,12 +530,15 @@ MonoBehaviour:
     type: 2}
   _audioManagerPrefab: {fileID: 114645275030904352, guid: 272ec38cef01bae41998836472da210e,
     type: 2}
-  _cameraManager: {fileID: 114455234581647310, guid: 58fcbe3b6ad33d04ab4fd24fe006ec8b,
+  _cameraManagerPrefab: {fileID: 114455234581647310, guid: 58fcbe3b6ad33d04ab4fd24fe006ec8b,
+    type: 2}
+  _inputManagerPrefab: {fileID: 114605497878699894, guid: acad46eec7d252349aee115ab09fac23,
     type: 2}
   _gameSceneManagerPrefab: {fileID: 114993109945140696, guid: 001813623a138b644b2aabbbdfc09b3d,
     type: 2}
-  _managersContainer: {fileID: 0}
   _defaultSceneName: test
+  _playerManagerPrefab: {fileID: 114979071328360754, guid: 2098e32b6df862f44ba4bbfcde8831ed,
+    type: 2}
 --- !u!4 &1541085457
 Transform:
   m_ObjectHideFlags: 0

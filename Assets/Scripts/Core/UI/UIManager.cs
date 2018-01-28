@@ -13,6 +13,12 @@ namespace ggj2018.Core.UI
         {
             _uiContainer = new GameObject("UI");
         }
+
+        protected override void OnDestroy()
+        {
+            Destroy(_uiContainer);
+            _uiContainer = null;
+        }
 #endregion
     }
 }

@@ -26,6 +26,9 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+
             _playerData = DataManager.Instance.GameData.Data.GetOrDefault(PlayerData.DataName) as PlayerData;
         }
 
@@ -33,26 +36,72 @@ namespace ggj2018.ggj2018
         {
             float dt = Time.deltaTime;
 
-            float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
-
             Vector3 moveAxes = InputManager.Instance.GetMoveAxes(_controllerIndex);
-            Vector3 lookAxes = InputManager.Instance.GetLookAxes(_controllerIndex);
 
-/*
+            Turn(moveAxes, dt);
+            Move(moveAxes, dt);
+        }
 
-            Vector3 rotation = _model.transform.rotation.eulerAngles;
-            rotation.x = Mathf.Clamp(rotation.x + inputAxes.x * dt, -45.0f, 45.0f);
-            rotation.z = Mathf.Clamp(rotation.z + inputAxes.y * dt, -45.0f, 45.0f);
-
-            float turnSpeed = _playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier * dt;
-            float pitchSpeed = _playerData.BasePitchSpeed + _attributes.PitchSpeedModifier * dt;
-
-            _model.transform.rotation = Quaternion.Euler(rotation.x, 0.0f, rotation.y);
-*/
-
-            Vector3 velocity = transform.forward * speed;
-            transform.position += velocity;
+        private void OnTriggerEnter(Collider other)
+        {
+            // TODO: ouch... no no no
+            if(null != other.GetComponentInParent<Building>()) {
+Debug.Log("Building collision");
+            } else if(null != other.GetComponentInParent<PlayerController>()) {
+Debug.Log("Player collision");
+            } else if(null != other.GetComponentInParent<Ground>()) {
+Debug.Log("Ground collision!");
+            }
         }
 #endregion
+
+        public void MoveTo(Vector3 position)
+        {
+            transform.position = position;
+        }
+
+        private void Turn(Vector3 axes, float dt)
+        {
+            float turnSpeed = (_playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier) * dt;
+            transform.Rotate(0.0f, axes.x * turnSpeed, 0.0f);
+
+            RotateModel(axes, dt);
+        }
+
+        private void RotateModel(Vector3 axes, float dt)
+        {
+            // TODO: smooth this
+            Vector3 rotation = new Vector3();
+
+            if(axes.x < -Mathf.Epsilon) {
+                rotation.z = 45.0f;
+            } else if(axes.x > Mathf.Epsilon) {
+                rotation.z = -45.0f;
+            }
+
+            if(axes.y < -Mathf.Epsilon) {
+                rotation.x = 45.0f;
+            } else if(axes.y > Mathf.Epsilon) {
+                rotation.x = -45.0f;
+            }
+
+            _model.transform.localRotation = Quaternion.Euler(rotation);
+        }
+
+        private void Move(Vector3 axes, float dt)
+        {
+            float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
+
+            Vector3 velocity = transform.forward * speed;
+
+            float pitchSpeed = (_playerData.BasePitchSpeed + _attributes.PitchSpeedModifier) * dt;
+            if(axes.y < -Mathf.Epsilon) {
+                velocity.y -= pitchSpeed;
+            } else if(axes.y > Mathf.Epsilon) {
+                velocity.y += pitchSpeed;
+            }
+
+            transform.position += velocity;
+        }
     }
 }

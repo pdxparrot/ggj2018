@@ -20,12 +20,12 @@ namespace ggj2018.ggj2018.Data
         public float BaseSpeed => _baseSpeed;
 
         [SerializeField]
-        private float _baseTurnSpeed = 5.0f;
+        private float _baseTurnSpeed = 50.0f;
 
         public float BaseTurnSpeed => _baseTurnSpeed;
 
         [SerializeField]
-        private float _basePitchSpeed = 5.0f;
+        private float _basePitchSpeed = 50.0f;
 
         public float BasePitchSpeed => _basePitchSpeed;
 

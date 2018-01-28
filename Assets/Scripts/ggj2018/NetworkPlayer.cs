@@ -1,4 +1,5 @@
-﻿using ggj2018.Core.Util;
+﻿using ggj2018.Core.Camera;
+using ggj2018.Core.Util;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,16 +7,27 @@ using UnityEngine.Networking;
 namespace ggj2018.ggj2018
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(PlayerController))]
     [RequireComponent(typeof(NetworkIdentity))]
     [RequireComponent(typeof(NetworkTransform))]
-    [RequireComponent(typeof(PlayerController))]
-    public sealed class NetworkPlayer : NetworkBehavior
+    public sealed class NetworkPlayer : NetworkBehavior, IPlayer
     {
+        public GameObject GameObject => gameObject;
+
+        public PlayerState State { get; private set; }
+
+        public PlayerController Controller { get; private set; }
+
 #region Unity Lifecycle
         private void Awake()
         {
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.useGravity = false;
+            State = new PlayerState(this);
+
+            Controller = GetComponent<PlayerController>();
+
+            if(isLocalPlayer) {
+                Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
+            }
         }
 #endregion
     }

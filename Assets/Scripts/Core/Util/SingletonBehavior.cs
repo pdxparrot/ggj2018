@@ -65,15 +65,14 @@ namespace ggj2018.Core.Util
             return _instance;
         }
 
-        public static T CreateFromPrefab(GameObject prefab, GameObject parent)
+        public static T CreateFromPrefab(T prefab, GameObject parent)
         {
             if(HasInstance) {
                 Debug.LogWarning($"[Singleton] Using instance already created: {_instance.gameObject.name}");
                 return _instance;
             }
 
-            GameObject owner = Instantiate(prefab, parent.transform);
-            _instance = owner.GetComponent<T>();
+            _instance = Instantiate(prefab, parent.transform);
             return _instance;
         }
 
