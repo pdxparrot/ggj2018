@@ -15,15 +15,6 @@ namespace ggj2018.ggj2018
         [SerializeField] private Text BirdValue;
         [SerializeField] private Text ReadyPrompt;
 
-        List<string> birdNames = new List<string>();
-
-        void Start() {
-            birdNames.Add("Hawk");
-            birdNames.Add("Pigeon");
-            birdNames.Add("Sparrow");
-            birdNames.Add("Owl");
-        }
-
         public void Hide() {
             JoinPrompt.gameObject.SetActive(false);
             BirdLabel.gameObject.SetActive(false);
@@ -33,7 +24,7 @@ namespace ggj2018.ggj2018
 
         public void SetStatus(bool joined,
                               bool ready,
-                              int bird) {
+                              string bird) {
             Hide();
 
             if(ready) {
@@ -41,7 +32,7 @@ namespace ggj2018.ggj2018
                 ReadyPrompt.gameObject.SetActive(true);
             }
             else if(joined) {
-                BirdLabel.text = birdNames[bird];
+                BirdLabel.text = bird;
                 BirdLabel.gameObject.SetActive(true);
             }
             else {

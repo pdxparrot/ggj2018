@@ -115,7 +115,7 @@ namespace ggj2018.ggj2018
                 if(_playerJoined[i])
                     ++total;
             }
-            if(ready == total) {// && ready > 2) {
+            if(ready == total && ready > 0) {
                 for(int i = 0; i < MaxPlayers; ++i)
                     if(InputManager.Instance.Pressed(i, 0) ||
                        InputManager.Instance.StartPressed(i)) 
@@ -154,7 +154,7 @@ namespace ggj2018.ggj2018
                 UIManager.Instance.
                 PlayerHud[i].SetStatus(_playerJoined[i],
                                        _playerReady[i],
-                                       _playerBird[i]);
+                                       BirdType(_playerBird[i]));
             }
 
         }
