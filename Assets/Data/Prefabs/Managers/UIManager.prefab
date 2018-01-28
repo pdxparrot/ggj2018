@@ -468,7 +468,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991570676904192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 200.75, y: 438.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224546508295463064}
@@ -834,7 +834,6 @@ MonoBehaviour:
   - {fileID: 114567316111315670}
   - {fileID: 114693596386826806}
   - {fileID: 114935095073173914}
-  _countdown: {fileID: 0}
 --- !u!114 &114371172034965786
 MonoBehaviour:
   m_ObjectHideFlags: 1
