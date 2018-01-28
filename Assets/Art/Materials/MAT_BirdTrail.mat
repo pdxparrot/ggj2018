@@ -7,9 +7,9 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_BirdTrail
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 4d718a5218c1f0c4581496ffc0efdd9f, type: 3}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -81,9 +81,10 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 0
-    - __dirty: 1
+    - __dirty: 0
     m_Colors:
     - _BloodColor: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 0.75735295, g: 0, b: 0, a: 0.5}
+    - _TrailColor: {r: 1, g: 0, b: 0, a: 0}
