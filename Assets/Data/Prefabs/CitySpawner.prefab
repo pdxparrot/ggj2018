@@ -51,6 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2765648d5701a4a6bb23c1ba0135f2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hawkSpawnPrefab: {fileID: 1094249259738210, guid: f3ca0cb1b5b96f146944fe53c9be37a5,
+    type: 2}
+  pigeonSpawnPrefab: {fileID: 1851993682283492, guid: 3b766bb03ad5ee34eba3ffa8a384d00e,
+    type: 2}
+  goalPrefab: {fileID: 1851993682283492, guid: 8e5434f7e54e1524ea47546775bb4fc3, type: 2}
   blockPrefabs:
   - prefab: {fileID: 1157263438996638, guid: b78de3d7cd2752e438442f98481d439c, type: 2}
     frequency: 50
@@ -72,5 +77,7 @@ MonoBehaviour:
     frequency: 5
   - prefab: {fileID: 1960390214306884, guid: 60a2b3b750648be41b98f337e765e6a2, type: 2}
     frequency: 5
-  blockDimensions: {x: 80, y: 80}
-  citySize: {x: 10, y: 10}
+  blockDimensions: 80
+  citySize: 30
+  pigeonSpawnRange: {x: 25, y: 30}
+  hawkSpawnRange: {x: 4, y: 6}

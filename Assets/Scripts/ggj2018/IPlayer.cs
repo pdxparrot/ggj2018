@@ -11,5 +11,7 @@ namespace ggj2018.ggj2018
         PlayerState State { get; }
 
         PlayerController Controller { get; }
+
+        void Initialize();
     }
 }

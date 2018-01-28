@@ -1,5 +1,6 @@
 ﻿using ggj2018.Core.Util;
 using ggj2018.Core.Input;
+using ggj2018.Core.Camera;
 using ggj2018.ggj2018.Data;
 
 using UnityEngine;
@@ -186,6 +187,9 @@ namespace ggj2018.ggj2018
         // Game State
         void BeginGame() {
             UIManager.Instance.HideCountdown();
+
+            for(int i = 0; i < MaxPlayers; ++i)
+                CameraManager.Instance.SetupCamera(i, _playerReady[i]);
         }
         void RunGame() {
         }

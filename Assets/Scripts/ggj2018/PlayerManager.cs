@@ -73,6 +73,7 @@ namespace ggj2018.ggj2018
         {
             player.Controller.Initialize(player, spawnPoint);
             player.State.Initialize(playerNumber, birdType);
+            player.Initialize();
         }
 
         public void DespawnLocalPlayer(int playerNumber)

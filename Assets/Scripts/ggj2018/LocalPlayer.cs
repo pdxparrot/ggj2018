@@ -26,8 +26,12 @@ namespace ggj2018.ggj2018
             _playerState = new PlayerState(this);
 
             Controller = GetComponent<PlayerController>();
+        }
 
-            CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
+        public void Initialize()
+        {
+            Debug.Log($"Setting follow cam {ControllerNumber}");
+            CameraManager.Instance.GetFollowCamera(ControllerNumber).SetTarget(GameObject);
         }
 
         private void Update()
