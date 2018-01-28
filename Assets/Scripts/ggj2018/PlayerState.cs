@@ -34,9 +34,9 @@ namespace ggj2018.ggj2018
 #region Stun
         [SerializeField]
         [ReadOnly]
-        private long _stunEndTimestamp;
+        private float _stunTimer;
 
-        public bool IsStunned => TimeManager.Instance.CurrentUnixSeconds <= _stunEndTimestamp;
+        public bool IsStunned => _stunTimer > 0.0f;
 
         [SerializeField]
         [ReadOnly]
@@ -81,19 +81,15 @@ namespace ggj2018.ggj2018
 
         public void Update(float dt)
         {
-            if(IsBoosting) {
-                _boostRemainingSeconds -= dt;
-                if(_boostRemainingSeconds < 0.0f) {
-                    _boostRemainingSeconds = 0.0f;
-                }
-
-                if(!CanBoost) {
-                    StopBoost();
-                    // should we maybe exhaust here?
-                }
+            if(GameManager.Instance.IsPaused) {
+                return;
             }
+
+            UpdateBoost(dt);
+            UpdateStun(dt);
         }
 
+#region Boost
         public void StartBoost()
         {
             if(!CanBoost) {
@@ -111,6 +107,26 @@ namespace ggj2018.ggj2018
             _isBoosting = false;
         }
 
+        private void UpdateBoost(float dt)
+        {
+            if(!IsBoosting) {
+                return;
+            }
+
+            _boostRemainingSeconds -= dt;
+            if(_boostRemainingSeconds < 0.0f) {
+                _boostRemainingSeconds = 0.0f;
+            }
+
+            if(!CanBoost) {
+                StopBoost();
+                // should we maybe exhaust here?
+            }
+        }
+#endregion
+
+
+#region Stun
         public void EnvironmentStun(Collider collider)
         {
             if(IsDead) {
@@ -140,12 +156,23 @@ namespace ggj2018.ggj2018
 
         private void Stun(Collider collider)
         {
-            _stunEndTimestamp = TimeManager.Instance.CurrentUnixSeconds + PlayerManager.Instance.PlayerData.StunTimeSeconds;
+            _stunTimer = PlayerManager.Instance.PlayerData.StunTimeSeconds;
 
             Vector3 position = _owner.GameObject.transform.position;
             _stunBounceDirection = position - collider.ClosestPoint(position);
         }
 
+        private void UpdateStun(float dt)
+        {
+            if(!IsStunned) {
+                return;
+            }
+
+            _stunTimer -= dt;
+        }
+#endregion
+
+#region Kill
         public void EnvironmentKill(Collider collider)
         {
             if(IsDead) {
@@ -179,5 +206,6 @@ namespace ggj2018.ggj2018
 
             _isAlive = false;
         }
+#endregion
     }
 }

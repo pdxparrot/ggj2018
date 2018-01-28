@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using ggj2018.Core.Util;
 using ggj2018.Core.Input;
@@ -11,6 +12,10 @@ namespace ggj2018.ggj2018
 {
     public sealed class GameManager : SingletonBehavior<GameManager>
     {
+#region Events
+        public event EventHandler<EventArgs> PauseEvent;
+#endregion
+
         [SerializeField]
         public const int MaxPlayers = 4;
 
@@ -19,10 +24,42 @@ namespace ggj2018.ggj2018
 
         public BirdData BirdData => _birdData;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _isPaused;
+
+        public bool IsPaused => _isPaused;
+
+#region Unity Lifecycle
+        private void Update()
+        {
+            if(InputManager.Instance.StartPressed(0)) {
+                _isPaused = !_isPaused;
+
+                Debug.Log($"Game {(IsPaused ? "paused" : "unpaused")}");
+                PauseEvent?.Invoke(this, EventArgs.Empty);
+            }
+
+            if(IsPaused) {
+                /*if(InputManager.Instance.SelectPressed(0)) {
+                    // TODO: reset to main scene
+                }*/
+            }
+
+            switch(State) {
+            case EState.eMenu:      RunMenu();      break;
+            case EState.eIntro:     RunIntro();     break;
+            case EState.eGame:      RunGame();      break;
+            case EState.eVictory:   RunVictory();   break;
+            }
+        }
+#endregion
+
         public void Initialize()
         {
             _birdData.Initialize();
         }
+
         // Game State
         public enum EState {
             eMenu,
@@ -42,15 +79,6 @@ namespace ggj2018.ggj2018
             }
 
             Debug.Log($"State: {State}");
-        }
-
-        void Update() {
-            switch(State) {
-            case EState.eMenu:      RunMenu();      break;
-            case EState.eIntro:     RunIntro();     break;
-            case EState.eGame:      RunGame();      break;
-            case EState.eVictory:   RunVictory();   break;
-            }
         }
 
         // Local Variables

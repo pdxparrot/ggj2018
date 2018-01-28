@@ -21,6 +21,20 @@ namespace ggj2018.Core.Camera
         private float _orbitSpeedY = 100.0f;
 #endregion
 
+#region Orbit Constraints
+        [SerializeField]
+        private float _orbitXMin = -360.0f;
+
+        [SerializeField]
+        private float _orbitXMax = 360.0f;
+
+        [SerializeField]
+        private float _orbitYMin = -360.0f;
+
+        [SerializeField]
+        private float _orbitYMax = 360.0f;
+#endregion
+
 #region Zoom Config
         [SerializeField]
         private bool _enableZoom = false;
@@ -97,7 +111,7 @@ namespace ggj2018.Core.Camera
             _target = target;
             _targetCollider = Target?.GetComponentInChildren<Collider>();   // :(
 
-            IFollowTarget followTarget = Target.GetComponent<IFollowTarget>();
+            IFollowTarget followTarget = Target?.GetComponent<IFollowTarget>();
             if(null != followTarget) {
                 _controllerIndex = followTarget.ControllerNumber;
             }
@@ -122,8 +136,8 @@ namespace ggj2018.Core.Camera
                 return;
             }
 
-            _orbitRotation.x = MathHelper.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt);
-            _orbitRotation.y = MathHelper.WrapAngle(_orbitRotation.y - axes.y * _orbitSpeedY * dt);
+            _orbitRotation.x = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt), _orbitXMin, _orbitXMax);
+            _orbitRotation.y = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.y - axes.y * _orbitSpeedY * dt), _orbitYMin, _orbitYMax);
         }
 
         private void Zoom(Vector3 axes, float dt)
@@ -163,13 +177,15 @@ namespace ggj2018.Core.Camera
         {
             Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
             Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
+            Quaternion targetRotation = null == Target ? Quaternion.identity : Target.transform.rotation;
 
-            transform.rotation = orbitRotation * lookRotation;
+            Quaternion finalOrbitRotation = orbitRotation * targetRotation;
+            transform.rotation = finalOrbitRotation * lookRotation;
 
             // TODO: this doens't work if we free-look and zoom
             // because we're essentially moving the target position, not the camera position
             Vector3 targetPosition = null == Target ? (transform.position + (transform.forward * _orbitRadius)) : Target.transform.position;
-            transform.position = targetPosition + orbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
+            transform.position = targetPosition + finalOrbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
         }
     }
 }

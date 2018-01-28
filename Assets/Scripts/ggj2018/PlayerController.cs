@@ -10,6 +10,8 @@ namespace ggj2018.ggj2018
     public sealed class PlayerController : MonoBehavior
     {
         [SerializeField]
+        private GameObject _modelPrefab;
+
         private GameObject _model;
 
 #region TODO: removeme
@@ -34,19 +36,21 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private Vector3 _velocity;
 
-        [SerializeField]
-        private Collider _collider;
-
         private IPlayer _owner;
 
 #region Unity Lifecycle
         private void Awake()
         {
+            InitModel();
             InitRigidbody();
         }
 
         private void Update()
         {
+            if(GameManager.Instance.IsPaused) {
+                return;
+            }
+
             CheckForBoost();
 
             // when the rigidbody is not kinematic, collisions cause us to rotate weird, even with frozen rotations :\
@@ -65,6 +69,10 @@ namespace ggj2018.ggj2018
 
         private void FixedUpdate()
         {
+            if(GameManager.Instance.IsPaused) {
+                return;
+            }
+
             _isSkyCollision = false;
             _isGroundCollision = false;
             _boundaryCollision = null;
@@ -97,6 +105,11 @@ namespace ggj2018.ggj2018
             }
         }
 #endregion
+
+        private void InitModel()
+        {
+            _model = Instantiate(_modelPrefab, transform);
+        }
 
         private void InitRigidbody()
         {
