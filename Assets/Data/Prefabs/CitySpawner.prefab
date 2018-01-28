@@ -58,13 +58,9 @@ MonoBehaviour:
     frequency: 50
   - prefab: {fileID: 1400986728334266, guid: c69b6f803f960ce4080b1db6a0a12db7, type: 2}
     frequency: 75
-  - prefab: {fileID: 1253901887209402, guid: 722136fd423f34e4c80b933343385689, type: 2}
-    frequency: 100
   - prefab: {fileID: 1253901887209402, guid: dd80baf45079ce64f820a930ecf5286d, type: 2}
     frequency: 100
   - prefab: {fileID: 1816332907353790, guid: 70b1587bfc401f646ade21119c0b42fe, type: 2}
-    frequency: 20
-  - prefab: {fileID: 1621799320740894, guid: 4b11d578f1d0c7142840ee109e646d8f, type: 2}
     frequency: 20
   - prefab: {fileID: 1594780561129086, guid: 8b08778b5c599354e855d630a25a9a54, type: 2}
     frequency: 20
