@@ -42,6 +42,8 @@ namespace ggj2018.ggj2018.Data
 
             public bool IsPredator => _isPredator;
 
+            public bool IsPrey => !_isPredator;
+
             public override string ToString()
             {
                 return $"Bird({Id})";

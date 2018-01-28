@@ -40,6 +40,18 @@ namespace ggj2018.Core.Input
 
         public bool InvertZoom => _invertZoom;
 
+#region Unity Lifecycle
+        private void Start()
+        {
+            Debug.Log("Detected joysticks:");
+
+            string[] joystickNames = UnityEngine.Input.GetJoystickNames();
+            foreach(string joystickName in joystickNames) {
+                Debug.Log($"\t{joystickName}");
+            }
+        }
+#endregion
+
         public Vector3 GetMoveAxes(int controllerIndex)
         {
             return new Vector3(
