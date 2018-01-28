@@ -16,7 +16,10 @@ namespace ggj2018.Game.Audio
         [SerializeField]
         private AudioSource _oneShotAudioSource;
 
+        [SerializeField]
         private AudioData _audioData;
+
+        public AudioData AudioData => _audioData;
 
         public IEnumerator InitializeRoutine()
         {
@@ -29,7 +32,7 @@ namespace ggj2018.Game.Audio
 #region Unity Lifecycle
         private void Awake()
         {
-            _audioData = DataManager.Instance.GameData.Data.GetOrDefault(AudioData.DataName) as AudioData;
+            _audioData.Initialize();
         }
 #endregion
 

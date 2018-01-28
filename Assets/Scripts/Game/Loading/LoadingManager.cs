@@ -4,7 +4,6 @@ using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.UI;
 using ggj2018.Game.Audio;
-using ggj2018.Game.Data;
 using ggj2018.Game.Scenes;
 using ggj2018.Core.Util;
 using ggj2018.Core.Util.ObjectPool;
@@ -19,9 +18,6 @@ namespace ggj2018.Game.Loading
         private LoadingScreen _loadingScreen;
 
 #region Manager Prefabs
-        [SerializeField]
-        private DataManager _dataManagerPrefab;
-
         [SerializeField]
         private AudioManager _audioManagerPrefab;
 
@@ -83,7 +79,6 @@ namespace ggj2018.Game.Loading
         protected virtual void CreateManagers()
         {
             TimeManager.Create(ManagersContainer);
-            DataManager.CreateFromPrefab(_dataManagerPrefab, ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);
             Core.Camera.CameraManager.CreateFromPrefab(_cameraManagerPrefab, ManagersContainer);
@@ -95,12 +90,7 @@ namespace ggj2018.Game.Loading
         // TODO: virtualize
         private IEnumerator InitializeManagers()
         {
-            IEnumerator runner = DataManager.Instance.InitializeRoutine();
-            while(runner.MoveNext()) {
-                yield return null;
-            }
-
-            runner = AudioManager.Instance.InitializeRoutine();
+            IEnumerator runner = AudioManager.Instance.InitializeRoutine();
             while(runner.MoveNext()) {
                 yield return null;
             }

@@ -11,7 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb47facf0454284780cbd9a9fe790e1, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  _minHeight: 100
+  _maxHeight: 300
   _baseSpeed: 20
-  _baseTurnSpeed: 100
-  _basePitchSpeed: 50
-  _rotationAnimationSpeed: 25
+  _baseTurnSpeed: 50
+  _basePitchSpeed: 25
+  _rotationAnimationSpeed: 7
+  _stunTimeSeconds: 2

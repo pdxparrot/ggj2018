@@ -1,7 +1,5 @@
 ﻿using ggj2018.Core.Input;
 using ggj2018.Core.Util;
-using ggj2018.ggj2018.Data;
-using ggj2018.Game.Data;
 
 using UnityEngine;
 
@@ -14,11 +12,19 @@ namespace ggj2018.ggj2018
 
         [SerializeField]
         [ReadOnly]
-        private BaseAttributes _attributes = new BaseAttributes();
+        private bool _groundCollision;
 
-        public BaseAttributes Attributes { get { return _attributes; } set { _attributes = value ?? new BaseAttributes(); } }
+        [SerializeField]
+        [ReadOnly]
+        private bool _skyCollision;
 
-        private PlayerData _playerData;
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _lastMoveAxes;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _velocity;
 
         private IPlayer _owner;
 
@@ -27,29 +33,49 @@ namespace ggj2018.ggj2018
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
-
-            _playerData = DataManager.Instance.GameData.Data.GetOrDefault(PlayerData.DataName) as PlayerData;
+            rigidbody.useGravity = false;
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
 
         private void Update()
         {
+            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
+
+            if(_owner.State.Stunned) {
+                return;
+            }
+
             float dt = Time.deltaTime;
 
-            Vector3 moveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
+            Turn(_lastMoveAxes, dt);
+            RotateModel(_lastMoveAxes, dt);
 
-            Turn(moveAxes, dt);
-            Move(moveAxes, dt);
+            // sometimes collisions cause us to rotate weird, even with frozen rotations :\
+            // this is the most consistent place to correct for that
+            transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void FixedUpdate()
+        {
+            _skyCollision = false;
+            _groundCollision = false;
+
+            if(_owner.State.Stunned) {
+                return;
+            }
+
+            float dt = Time.fixedDeltaTime;
+
+            Move(_lastMoveAxes, dt);
+        }
+
+        private void OnTriggerEnter(Collider collider)
         {
             // TODO: ouch... no no no
-            if(null != other.GetComponentInParent<Building>()) {
-Debug.Log("TODO: Building collision");
-            } else if(null != other.GetComponentInParent<PlayerController>()) {
-Debug.Log("TODO: Player collision");
-            } else if(null != other.GetComponentInParent<Ground>()) {
-Debug.Log("TODO: Ground collision!");
+            if(null != collider.GetComponentInParent<Building>()) {
+                _owner.State.Stun();
+            } else if(null != collider.GetComponentInParent<PlayerController>()) {
+Debug.Log("TODO: Player collision enter");
             }
         }
 #endregion
@@ -61,15 +87,17 @@ Debug.Log("TODO: Ground collision!");
 
         public void MoveTo(Vector3 position)
         {
+            Debug.Log($"Teleportin player {_owner.State.PlayerNumber} to {position}");
+
+            position.y = Mathf.Clamp(position.y, PlayerManager.Instance.PlayerData.MinHeight, PlayerManager.Instance.PlayerData.MaxHeight);
             transform.position = position;
         }
 
         private void Turn(Vector3 axes, float dt)
         {
-            float turnSpeed = (_playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier) * dt;
-            transform.Rotate(0.0f, axes.x * turnSpeed, 0.0f);
+            float turnSpeed = (PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.Attributes.TurnSpeedModifier) * dt;
 
-            RotateModel(axes, dt);
+            transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed);
         }
 
         private void RotateModel(Vector3 axes, float dt)
@@ -82,31 +110,48 @@ Debug.Log("TODO: Ground collision!");
                 targetEuler.z = -45.0f;
             }
 
-            if(axes.y < -Mathf.Epsilon) {
-                targetEuler.x = 45.0f;
-            } else if(axes.y > Mathf.Epsilon) {
-                targetEuler.x = -45.0f;
+            if(!_skyCollision && !_groundCollision) {
+                if(axes.y < -Mathf.Epsilon) {
+                    targetEuler.x = 45.0f;
+                } else if(axes.y > Mathf.Epsilon) {
+                    targetEuler.x = -45.0f;
+                }
             }
 
             Quaternion targetRotation = Quaternion.Euler(targetEuler);
-            Quaternion rotation = Quaternion.Slerp(_model.transform.localRotation, targetRotation, dt * _playerData.RotationAnimationSpeed);
+            Quaternion rotation = Quaternion.Slerp(_model.transform.localRotation, targetRotation, dt * PlayerManager.Instance.PlayerData.RotationAnimationSpeed);
             _model.transform.localRotation = rotation;
         }
 
         private void Move(Vector3 axes, float dt)
         {
-            float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
+            float speed = (PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.Attributes.SpeedModifier) * dt;
 
-            Vector3 velocity = transform.forward * speed;
+            _velocity = transform.forward * speed;
+            _velocity.y = 0.0f;
 
-            float pitchSpeed = (_playerData.BasePitchSpeed + _attributes.PitchSpeedModifier) * dt;
+            float pitchSpeed = (PlayerManager.Instance.PlayerData.BasePitchSpeed + _owner.State.Attributes.PitchSpeedModifier) * dt;
             if(axes.y < -Mathf.Epsilon) {
-                velocity.y -= pitchSpeed;
+                _velocity.y = -pitchSpeed;
             } else if(axes.y > Mathf.Epsilon) {
-                velocity.y += pitchSpeed;
+                _velocity.y = pitchSpeed;
             }
 
-            transform.position += velocity;
+            float prevY = transform.position.y;
+            transform.position += _velocity;
+
+            CheckWorldCollision(prevY);
+        }
+
+        private void CheckWorldCollision(float prevY)
+        {
+            if(transform.position.y < PlayerManager.Instance.PlayerData.MinHeight) {
+                _groundCollision = true;
+                transform.position = new Vector3(transform.position.x, prevY, transform.position.z);
+            } else if(transform.position.y > PlayerManager.Instance.PlayerData.MaxHeight) {
+                _skyCollision = true;
+                transform.position = new Vector3(transform.position.x, prevY, transform.position.z);
+            }
         }
     }
 }

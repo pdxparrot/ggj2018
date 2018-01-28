@@ -1,5 +1,6 @@
 ﻿using ggj2018.Core.Input;
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 
@@ -12,12 +13,19 @@ namespace ggj2018.ggj2018
 
         private GameObject _playerContainer;
 
+        [SerializeField]
+        private PlayerData _playerData;
+
+        public PlayerData PlayerData => _playerData;
+
         private IPlayer _player;
 
 #region Unity Lifecycle
         private void Awake()
         {
             _playerContainer = new GameObject("Players");
+
+            _playerData.Initialize();
         }
 
         private void Update()

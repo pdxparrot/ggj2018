@@ -15,6 +15,16 @@ namespace ggj2018.ggj2018.Data
         public string Name => DataName;
 
         [SerializeField]
+        private float _minHeight = 25.0f;
+
+        public float MinHeight => _minHeight;
+
+        [SerializeField]
+        private float _maxHeight = 220.0f;
+
+        public float MaxHeight => _maxHeight;
+
+        [SerializeField]
         private float _baseSpeed = 1.0f;
 
         public float BaseSpeed => _baseSpeed;
@@ -33,6 +43,11 @@ namespace ggj2018.ggj2018.Data
         private float _rotationAnimationSpeed = 5.0f;
 
         public float RotationAnimationSpeed => _rotationAnimationSpeed;
+
+        [SerializeField]
+        private int _stunTimeSeconds = 2;
+
+        public int StunTimeSeconds => _stunTimeSeconds;
 
         public void Initialize()
         {

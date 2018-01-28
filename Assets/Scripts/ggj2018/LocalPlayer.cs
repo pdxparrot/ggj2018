@@ -11,7 +11,10 @@ namespace ggj2018.ggj2018
     {
         public GameObject GameObject => gameObject;
 
-        public PlayerState State { get; private set; }
+        [SerializeField]
+        private PlayerState _playerState;
+
+        public PlayerState State => _playerState;
 
         public PlayerController Controller { get; private set; }
 
@@ -20,7 +23,7 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
-            State = new PlayerState(this);
+            _playerState = new PlayerState(this);
 
             Controller = GetComponent<PlayerController>();
 

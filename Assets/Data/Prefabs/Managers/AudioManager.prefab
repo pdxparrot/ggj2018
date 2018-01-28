@@ -134,3 +134,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: f07da2a8eb787344783153fc3cf520de, type: 2}
   _oneShotAudioSource: {fileID: 82207472562699126}
+  _audioData: {fileID: 11400000, guid: 4fe4bc305e4a62a49b95e6a007dad94d, type: 2}

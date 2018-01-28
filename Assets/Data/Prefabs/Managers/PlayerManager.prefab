@@ -53,3 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _localPlayerPrefab: {fileID: 114345242064118326, guid: 4b9ac51dab6a7fb4ba00e2e2fecf2554,
     type: 2}
+  _playerData: {fileID: 11400000, guid: 0864e10d232747b41b47f3225dd0db11, type: 2}
