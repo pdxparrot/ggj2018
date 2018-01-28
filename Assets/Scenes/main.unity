@@ -546,8 +546,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingScreen: {fileID: 701059863}
-  _dataManagerPrefab: {fileID: 114090749655593150, guid: b0c7d242b7d461e41a4d5ae24bbdb8f2,
-    type: 2}
   _audioManagerPrefab: {fileID: 114645275030904352, guid: 272ec38cef01bae41998836472da210e,
     type: 2}
   _cameraManagerPrefab: {fileID: 114455234581647310, guid: 58fcbe3b6ad33d04ab4fd24fe006ec8b,
