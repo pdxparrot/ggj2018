@@ -99,6 +99,11 @@ namespace ggj2018.Core.Input
             return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Start");
         }
 
+        public bool SelectPressed(int controllerIndex)
+        {
+            return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Select");
+        }
+
         public float GetZoomZxis()
         {
             return UnityEngine.Input.GetAxis("Mouse ScrollWheel");
