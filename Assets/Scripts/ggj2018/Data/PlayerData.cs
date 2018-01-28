@@ -54,5 +54,15 @@ namespace ggj2018.ggj2018.Data
         private float _terminalVelocity = 100.0f;
 
         public float TerminalVelocity => _terminalVelocity;
+
+        [SerializeField]
+        private float _boostFactor = 2.0f;
+
+        public float BoostFactor => _boostFactor;
+
+        [SerializeField]
+        private int _boostSeconds = 5;
+
+        public int BoostSeconds => _boostSeconds;
     }
 }

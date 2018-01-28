@@ -29,6 +29,11 @@ namespace ggj2018.ggj2018
 
             Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
+
+        private void Update()
+        {
+            _playerState.Update(Time.deltaTime);
+        }
 #endregion
     }
 }

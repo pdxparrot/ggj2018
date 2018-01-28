@@ -42,6 +42,8 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
+            CheckForBoost();
+
             // sometimes collisions cause us to rotate weird, even with frozen rotations :\
             // this is the most consistent place to correct for that
             transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
@@ -101,6 +103,15 @@ namespace ggj2018.ggj2018
             transform.position = position;
         }
 
+        private void CheckForBoost()
+        {
+            if(InputManager.Instance.Pressed(0, 1)) {
+                _owner.State.StartBoost();
+            } else if(_owner.State.IsBoosting && InputManager.Instance.Released(0, 1)) {
+                _owner.State.StopBoost();
+            }
+        }
+
         private void Turn(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
@@ -157,6 +168,9 @@ namespace ggj2018.ggj2018
             }
 
             float speed = (PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier) * dt;
+            if(_owner.State.IsBoosting) {
+                speed *= PlayerManager.Instance.PlayerData.BoostFactor;
+            }
 
             _velocity = transform.forward * speed;
             _velocity.y = 0.0f;

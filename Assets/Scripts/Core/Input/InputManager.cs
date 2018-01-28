@@ -6,6 +6,11 @@ namespace ggj2018.Core.Input
 {
     public sealed class InputManager : SingletonBehavior<InputManager>
     {
+        private static string ButtonString(int controllerIndex, int buttonIndex)
+        {
+            return $"P{controllerIndex} Button{buttonIndex}";
+        }
+
         [SerializeField]
         private bool _invertMoveX = false;
 
@@ -51,12 +56,17 @@ namespace ggj2018.Core.Input
 
         public bool Pressed(int controllerIndex, int buttonIndex)
         {
-            return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Button{buttonIndex}");
+            return UnityEngine.Input.GetButtonDown(ButtonString(controllerIndex, buttonIndex));
+        }
+
+        public bool Released(int controllerIndex, int buttonIndex)
+        {
+            return UnityEngine.Input.GetButtonUp(ButtonString(controllerIndex, buttonIndex));
         }
 
         public bool Held(int controllerIndex, int buttonIndex)
         {
-            return UnityEngine.Input.GetButton($"P{controllerIndex} Button{buttonIndex}");
+            return UnityEngine.Input.GetButton(ButtonString(controllerIndex, buttonIndex));
         }
 
         public bool StartPressed(int controllerIndex)

@@ -21,6 +21,7 @@ namespace ggj2018.ggj2018
 
         public int PlayerNumber => _playerNumber;
 
+#region Alive
         [SerializeField]
         [ReadOnly]
         private bool _isAlive = true;
@@ -28,7 +29,9 @@ namespace ggj2018.ggj2018
         public bool IsAlive => _isAlive;
 
         public bool IsDead => !_isAlive;
+#endregion
 
+#region Stun
         [SerializeField]
         [ReadOnly]
         private long _stunEndTimestamp;
@@ -40,8 +43,25 @@ namespace ggj2018.ggj2018
         private Vector3 _stunBounceDirection;
 
         public Vector3 StunBounceDirection { get { return _stunBounceDirection; } set { _stunBounceDirection = value; } }
+#endregion
 
         public bool Incapacitated => IsStunned || IsDead;
+
+#region Boost
+        [SerializeField]
+        [ReadOnly]
+        private bool _isBoosting;
+
+        public bool IsBoosting => _isBoosting;
+
+        [SerializeField]
+        [ReadOnly]
+        private float _boostRemainingSeconds;
+
+        public float BoostRemainingSeconds => _boostRemainingSeconds;
+
+        public bool CanBoost => BoostRemainingSeconds > 0.0f;
+#endregion
 
         private readonly IPlayer _owner;
 
@@ -54,8 +74,41 @@ namespace ggj2018.ggj2018
         {
             _playerNumber = playerNumber;
             _owner.GameObject.name = $"Player {PlayerNumber}";
-
             _birdType = birdType;
+
+            _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
+        }
+
+        public void Update(float dt)
+        {
+            if(IsBoosting) {
+                _boostRemainingSeconds -= dt;
+                if(_boostRemainingSeconds < 0.0f) {
+                    _boostRemainingSeconds = 0.0f;
+                }
+
+                if(!CanBoost) {
+                    StopBoost();
+                    // should we maybe exhaust here?
+                }
+            }
+        }
+
+        public void StartBoost()
+        {
+            if(!CanBoost) {
+                Debug.Log($"TODO: Player a shitty sound because YOU CAN'T BOOST FOOL");
+                return;
+            }
+
+            Debug.Log($"Player {PlayerNumber} is boosting!");
+            _isBoosting = true;
+        }
+
+        public void StopBoost()
+        {
+            Debug.Log($"Player {PlayerNumber} slows down!");
+            _isBoosting = false;
         }
 
         public void EnvironmentStun(Collider collider)
