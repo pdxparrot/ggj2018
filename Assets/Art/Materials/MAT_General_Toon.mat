@@ -26,6 +26,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ColorAlpha:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -119,8 +123,10 @@ Material:
     - _PosterizeTexture: 43
     - _Posturize: 1
     - _Power: 150
+    - _PrimaryBrightness: 1
+    - _SecondaryBrightness: 1
     - _ShadowBrightness: 0.18
-    - _ShadowDistance: -0.16
+    - _ShadowDistance: 0.239
     - _ShadowFalloff: 1
     - _ShadowIntensity: 0.33
     - _SmoothnessTextureChannel: 0
@@ -130,8 +136,10 @@ Material:
     - _SrcBlend: 1
     - _Te: 0
     - _Texture: 1
+    - _TextureBlackpoint: 0.25
     - _TextureContrast: 1.5
     - _TexturePower: 1
+    - _TextureWhitepoint: 0.56
     - _ToggleSwitch0: 0
     - _Toon: 0
     - _ToonR: 0
@@ -145,5 +153,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
+    - _PrimaryColor: {r: 0.2867647, g: 0.2518643, b: 0.1602509, a: 0}
+    - _SecondaryColor: {r: 1, g: 1, b: 1, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
