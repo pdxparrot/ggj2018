@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace ggj2018.Core.Input
 {
+    public enum Dir {
+        Up, Down, Left, Right
+    }
+
     public sealed class InputManager : SingletonBehavior<InputManager>
     {
         private static string ButtonString(int controllerIndex, int buttonIndex)
@@ -77,6 +81,23 @@ namespace ggj2018.Core.Input
         public float GetZoomZxis()
         {
             return UnityEngine.Input.GetAxis("Mouse ScrollWheel");
+        }
+
+        // Axis pressed methods
+        private const int NumPlayers = 4;
+        private const int NumAxes = 4;
+        private bool[] _dpadPressed = new bool[NumPlayers * NumAxes];
+
+        public bool DpadPressed(int controllerIndex, Dir dir) {
+            float val = (dir == Dir.Up || dir == Dir.Down)
+                ? UnityEngine.Input.GetAxis($"P{controllerIndex} Horizontal")
+                : UnityEngine.Input.GetAxis($"P{controllerIndex} Vertical");
+
+            bool down = (dir == Dir.Down || dir == Dir.Left) ? (val < -0.8f) : (val > 0.8f);
+            bool pressed = (down && !_dpadPressed[controllerIndex * NumAxes + (int)dir]);
+            _dpadPressed[controllerIndex * NumAxes + (int)dir] = down;
+
+            return pressed;
         }
     }
 }
