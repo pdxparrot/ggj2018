@@ -40,6 +40,14 @@ namespace ggj2018.Core.Input
 
         public bool InvertZoom => _invertZoom;
 
+        [SerializeField]
+        [ReadOnly]
+        private int _joystickCount;
+
+        public int ConnectedJoystickCount => _joystickCount;
+
+        public bool HasJoystickConnected => _joystickCount > 0;
+
 #region Unity Lifecycle
         private void Start()
         {
@@ -49,6 +57,7 @@ namespace ggj2018.Core.Input
             foreach(string joystickName in joystickNames) {
                 Debug.Log($"\t{joystickName}");
             }
+            _joystickCount = joystickNames.Length;
         }
 #endregion
 
