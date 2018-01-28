@@ -13,6 +13,9 @@ namespace ggj2018.ggj2018
         private GameObject _model;
 
         [SerializeField]
+        private int _controllerIndex;
+
+        [SerializeField]
         [ReadOnly]
         private BaseAttributes _attributes = new BaseAttributes();
 
@@ -32,8 +35,8 @@ namespace ggj2018.ggj2018
 
             float speed = (_playerData.BaseSpeed + _attributes.SpeedModifier) * dt;
 
-            Vector3 moveAxes = InputManager.Instance.GetMoveAxes();
-            Vector3 lookAxes = InputManager.Instance.GetLookAxes();
+            Vector3 moveAxes = InputManager.Instance.GetMoveAxes(_controllerIndex);
+            Vector3 lookAxes = InputManager.Instance.GetLookAxes(_controllerIndex);
 
 /*
 

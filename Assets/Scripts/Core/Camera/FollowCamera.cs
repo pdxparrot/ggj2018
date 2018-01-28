@@ -65,6 +65,11 @@ namespace ggj2018.Core.Camera
         private Collider _targetCollider;
 #endregion
 
+#region Controller
+        [SerializeField]
+        private int _controllerIndex;
+#endregion
+
         [SerializeField]
         [ReadOnly]
         private Vector2 _orbitRotation;
@@ -97,7 +102,7 @@ namespace ggj2018.Core.Camera
 
         private void HandleInput(float dt)
         {
-            Vector3 axes = InputManager.Instance.GetLookAxes();
+            Vector3 axes = InputManager.Instance.GetLookAxes(_controllerIndex);
             Orbit(axes, dt);
             Zoom(axes, dt);
             Look(axes, dt);
