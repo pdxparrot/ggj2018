@@ -166,3 +166,6 @@ UpgradeLog*.htm
 
 /Assets/Plugins/AmplifyShaderEditor/
 Assets/Plugins/AmplifyShaderEditor.meta
+
+*.swp
+*.swo
