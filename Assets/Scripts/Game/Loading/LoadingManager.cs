@@ -82,6 +82,7 @@ namespace ggj2018.Game.Loading
 
         protected virtual void CreateManagers()
         {
+            TimeManager.Create(ManagersContainer);
             DataManager.CreateFromPrefab(_dataManagerPrefab, ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);
