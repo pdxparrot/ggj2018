@@ -52,6 +52,11 @@ Debug.Log("Ground collision!");
         }
 #endregion
 
+        public void MoveTo(Vector3 position)
+        {
+            transform.position = position;
+        }
+
         private void Turn(Vector3 axes, float dt)
         {
             float turnSpeed = (_playerData.BaseTurnSpeed + _attributes.TurnSpeedModifier) * dt;
