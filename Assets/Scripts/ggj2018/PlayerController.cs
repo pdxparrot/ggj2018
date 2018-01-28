@@ -47,6 +47,10 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
+            if(GameManager.Instance.IsPaused) {
+                return;
+            }
+
             CheckForBoost();
 
             // when the rigidbody is not kinematic, collisions cause us to rotate weird, even with frozen rotations :\
@@ -65,6 +69,10 @@ namespace ggj2018.ggj2018
 
         private void FixedUpdate()
         {
+            if(GameManager.Instance.IsPaused) {
+                return;
+            }
+
             _isSkyCollision = false;
             _isGroundCollision = false;
             _boundaryCollision = null;

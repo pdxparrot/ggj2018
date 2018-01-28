@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using ggj2018.Core.Util;
 using ggj2018.Core.Input;
@@ -11,6 +12,10 @@ namespace ggj2018.ggj2018
 {
     public sealed class GameManager : SingletonBehavior<GameManager>
     {
+#region Events
+        public event EventHandler<EventArgs> PauseEvent;
+#endregion
+
         [SerializeField]
         public const int MaxPlayers = 4;
 
@@ -32,6 +37,13 @@ namespace ggj2018.ggj2018
                 _isPaused = !_isPaused;
 
                 Debug.Log($"Game {(IsPaused ? "paused" : "unpaused")}");
+                PauseEvent?.Invoke(this, EventArgs.Empty);
+            }
+
+            if(IsPaused) {
+                /*if(InputManager.Instance.SelectPressed(0)) {
+                    // TODO: reset to main scene
+                }*/
             }
 
             switch(State) {
