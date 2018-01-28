@@ -382,6 +382,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 1763301164683564}
+  _groundCollision: 0
+  _skyCollision: 0
+  _lastMoveAxes: {x: 0, y: 0, z: 0}
+  _velocity: {x: 0, y: 0, z: 0}
+  _collider: {fileID: 65214694889062268}
 --- !u!114 &114897261379252356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,3 +398,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10129bc6e82388242b9df70e5c3286e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerState:
+    _birdType:
+      _birdDataEntry:
+        _id: 
+        _name: 
+        _speedModifier: 0
+        _turnSpeedModifier: 0
+        _pitchSpeedModifier: 0
+        _isPredator: 0
+    _playerNumber: 0
+    _alive: 0
+    _stunEndTimestamp: 0
+    _stunBounceDirection: {x: 0, y: 0, z: 0}

@@ -26,6 +26,9 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private Vector3 _velocity;
 
+        [SerializeField]
+        private Collider _collider;
+
         private IPlayer _owner;
 
 #region Unity Lifecycle
@@ -39,21 +42,18 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
+            // sometimes collisions cause us to rotate weird, even with frozen rotations :\
+            // this is the most consistent place to correct for that
+            transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
 
-            if(_owner.State.Stunned || _owner.State.Dead) {
-                _velocity = Vector3.zero;
-                return;
-            }
+            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
 
             float dt = Time.deltaTime;
 
             Turn(_lastMoveAxes, dt);
-            RotateModel(_lastMoveAxes, dt);
-
-            // sometimes collisions cause us to rotate weird, even with frozen rotations :\
-            // this is the most consistent place to correct for that
-            transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
+            if(!_owner.State.Incapacitated) {
+                RotateModel(_lastMoveAxes, dt);
+            }
         }
 
         private void FixedUpdate()
@@ -61,11 +61,17 @@ namespace ggj2018.ggj2018
             _skyCollision = false;
             _groundCollision = false;
 
+            float dt = Time.fixedDeltaTime;
+
             if(_owner.State.Stunned) {
+                transform.position += _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed * dt;
                 return;
             }
 
-            float dt = Time.fixedDeltaTime;
+            if(_owner.State.Stunned || _owner.State.Dead) {
+                transform.position += Physics.gravity * dt;
+                return;
+            }
 
             Move(_lastMoveAxes, dt);
         }
@@ -73,14 +79,15 @@ namespace ggj2018.ggj2018
         private void OnTriggerEnter(Collider collider)
         {
             // TODO: ouch... no no no
-            if(null != collider.GetComponentInParent<Building>()) {
-                _owner.State.EnvironmentStun();
+            if(null != collider.GetComponent<Building>()) {
+                _owner.State.EnvironmentStun(collider);
             } else if(null != collider.GetComponentInParent<PlayerController>()) {
                 IPlayer player = collider.GetComponentInParent<IPlayer>();
                 if(_owner.State.BirdType.BirdDataEntry.IsPredator && !_owner.State.BirdType.BirdDataEntry.IsPredator) {
                     player.State.PlayerKill(_owner);
                 } else {
-                    player.State.EnvironmentStun();
+                    _owner.State.PlayerStun(player, collider);
+                    player.State.PlayerStun(_owner, _collider);
                 }
             }
         }

@@ -8,6 +8,7 @@ namespace ggj2018.ggj2018.Data
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {
+#region world shit (removeme)
         [SerializeField]
         private float _minHeight = 25.0f;
 
@@ -17,6 +18,7 @@ namespace ggj2018.ggj2018.Data
         private float _maxHeight = 220.0f;
 
         public float MaxHeight => _maxHeight;
+#endregion
 
         [SerializeField]
         private float _baseSpeed = 1.0f;
@@ -42,5 +44,10 @@ namespace ggj2018.ggj2018.Data
         private int _stunTimeSeconds = 2;
 
         public int StunTimeSeconds => _stunTimeSeconds;
+
+        [SerializeField]
+        private float _stunBounceSpeed = 1.0f;
+
+        public float StunBounceSpeed => _stunBounceSpeed;
     }
 }

@@ -23,17 +23,25 @@ namespace ggj2018.ggj2018
 
         [SerializeField]
         [ReadOnly]
+        private bool _alive = true;
+
+        public bool Alive => _alive;
+
+        public bool Dead => !_alive;
+
+        [SerializeField]
+        [ReadOnly]
         private long _stunEndTimestamp;
 
         public bool Stunned => TimeManager.Instance.CurrentUnixSeconds <= _stunEndTimestamp;
 
         [SerializeField]
         [ReadOnly]
-        private bool _alive = true;
+        private Vector3 _stunBounceDirection;
 
-        public bool Alive => _alive;
+        public Vector3 StunBounceDirection { get { return _stunBounceDirection; } set { _stunBounceDirection = value; } }
 
-        public bool Dead => !_alive;
+        public bool Incapacitated => Stunned || Dead;
 
         private readonly IPlayer _owner;
 
@@ -53,18 +61,26 @@ namespace ggj2018.ggj2018
             _birdType = new BirdType(id);
         }
 
-        public void EnvironmentStun()
+        public void EnvironmentStun(Collider collider)
         {
             Debug.Log($"Player {PlayerNumber} stunned by the environment!");
 
-            _stunEndTimestamp = TimeManager.Instance.CurrentUnixSeconds + PlayerManager.Instance.PlayerData.StunTimeSeconds;
+            Stun(collider);
         }
 
-        public void PlayerStun(IPlayer stunner)
+        public void PlayerStun(IPlayer stunner, Collider collider)
         {
             Debug.Log($"Player {PlayerNumber} stunned by player {stunner.State.PlayerNumber}!");
 
+            Stun(collider);
+        }
+
+        private void Stun(Collider collider)
+        {
             _stunEndTimestamp = TimeManager.Instance.CurrentUnixSeconds + PlayerManager.Instance.PlayerData.StunTimeSeconds;
+
+            Vector3 position = _owner.GameObject.transform.position;
+            _stunBounceDirection = position - collider.ClosestPoint(position);
         }
 
         public void PlayerKill(IPlayer killer)

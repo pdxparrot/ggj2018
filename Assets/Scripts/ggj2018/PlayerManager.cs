@@ -28,7 +28,7 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-            if(null == _player && Input.GetKeyUp(KeyCode.P) || InputManager.Instance.Pressed(0, 3)) {
+            if(null == _player && (Input.GetKeyUp(KeyCode.P) || InputManager.Instance.Pressed(0, 3))) {
                 _player = SpawnPlayer(0, "hawk");
                 _player.Controller.MoveTo(new Vector3(0.0f, 125.0f, 0.0f));
             }
