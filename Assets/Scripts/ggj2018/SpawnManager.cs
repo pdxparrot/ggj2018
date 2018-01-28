@@ -1,13 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using ggj2018.Core.Util;
+
+using JetBrains.Annotations;
 
 namespace ggj2018.ggj2018
 {
     public sealed class SpawnManager : SingletonBehavior<SpawnManager>
     {
-        private List<SpawnPoint> _predatorSpawnPoints = new List<SpawnPoint>();
-        private List<SpawnPoint> _preySpawnPoints = new List<SpawnPoint>();
+        private readonly List<SpawnPoint> _predatorSpawnPoints = new List<SpawnPoint>();
+
+        private readonly List<SpawnPoint> _usedPredatorSpawnPoints = new List<SpawnPoint>();
+
+        private readonly List<SpawnPoint> _preySpawnPoints = new List<SpawnPoint>();
+
+        private readonly List<SpawnPoint> _usedPreySpawnPoints = new List<SpawnPoint>();
+
+        private readonly Random _random = new Random();
 
         public void RegisterSpawnPoint(SpawnPoint spawnPoint)
         {
@@ -27,12 +37,33 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public SpawnPoint GetSpawnPoint(IPlayer player)
+        [CanBeNull]
+        public SpawnPoint GetSpawnPoint(BirdType birdType)
         {
-            if(player.State.BirdType.BirdDataEntry.IsPredator) {
-                return _predatorSpawnPoints[0];
+            return birdType.BirdDataEntry.IsPredator ? GetPredatorSpawnPoint() : GetPreySpawnPoint();
+        }
+
+        [CanBeNull]
+        private SpawnPoint GetPredatorSpawnPoint()
+        {
+            return GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints);
+        }
+
+        [CanBeNull]
+        private SpawnPoint GetPreySpawnPoint()
+        {
+            return GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints);
+        }
+
+        private SpawnPoint GetSpawnPoint(IList<SpawnPoint> from, IList<SpawnPoint> to)
+        {
+            if(from.Count < 1) {
+                return null;
             }
-            return _predatorSpawnPoints[0];
+
+            SpawnPoint spawnPoint = _random.RemoveRandomEntry(from);
+            to.Add(spawnPoint);
+            return spawnPoint;
         }
     }
 }

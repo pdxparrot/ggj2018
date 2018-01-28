@@ -85,9 +85,12 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void Initialize(IPlayer owner)
+        public void Initialize(IPlayer owner, SpawnPoint spawnPoint)
         {
             _owner = owner;
+
+            transform.position = spawnPoint.transform.position;
+            transform.rotation = spawnPoint.transform.rotation;
         }
 
         public void MoveTo(Vector3 position)

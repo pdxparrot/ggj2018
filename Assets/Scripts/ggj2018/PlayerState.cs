@@ -50,15 +50,12 @@ namespace ggj2018.ggj2018
             _owner = owner;
         }
 
-        public void SetPlayerNumber(int playerNumber)
+        public void Initialize(int playerNumber, BirdType birdType)
         {
             _playerNumber = playerNumber;
             _owner.GameObject.name = $"Player {PlayerNumber}";
-        }
 
-        public void SetBirdType(string id)
-        {
-            _birdType = new BirdType(id);
+            _birdType = birdType;
         }
 
         public void EnvironmentStun(Collider collider)

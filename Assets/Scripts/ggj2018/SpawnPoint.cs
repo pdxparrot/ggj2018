@@ -19,7 +19,9 @@ namespace ggj2018.ggj2018
 
         private void OnDestroy()
         {
-            SpawnManager.Instance.UnregisterSpawnPoint(this);
+            if(SpawnManager.HasInstance) {
+                SpawnManager.Instance.UnregisterSpawnPoint(this);
+            }
         }
 #endregion
     }

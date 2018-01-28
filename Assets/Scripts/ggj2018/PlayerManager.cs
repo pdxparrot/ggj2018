@@ -31,11 +31,8 @@ namespace ggj2018.ggj2018
         private void Update()
         {
             if(null == _players[0] && (Input.GetKeyUp(KeyCode.P) || InputManager.Instance.Pressed(0, 3))) {
-                _players[0] = SpawnLocalPlayer(0, "hawk") as LocalPlayer;
-                _players[0].Controller.MoveTo(new Vector3(0.0f, 125.0f, 0.0f));
-            }
-
-            if(null != _players[0] && Input.GetKeyDown(KeyCode.K)) {
+                SpawnLocalPlayer(0, "hawk");
+            } else if(null != _players[0] && Input.GetKeyDown(KeyCode.K)) {
                 _players[0].State.DebugKill();
             }
         }
@@ -49,28 +46,45 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public LocalPlayer SpawnLocalPlayer(int playerNumber, string birdType, Vector3 position=new Vector3(), Quaternion rotation=new Quaternion())
+        public void SpawnLocalPlayer(int playerNumber, string birdTypeId)
         {
-            LocalPlayer player = Instantiate(_localPlayerPrefab, position, rotation, _playerContainer.transform);
-            player.Controller.Initialize(player);
-            player.State.SetPlayerNumber(playerNumber);
-            player.State.SetBirdType(birdType);
+            if(null != _players[playerNumber]) {
+                Debug.LogError("Cannot spawn a player on top of another player!");
+                return;
+            }
 
-            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {position}");
+            BirdType birdType = new BirdType(birdTypeId);
 
-            return player;
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(birdType);
+            if(null == spawnPoint) {
+                Debug.LogError($"No spawn points left for bird type {birdType}");
+                return;
+            }
+
+            LocalPlayer player = Instantiate(_localPlayerPrefab, _playerContainer.transform);
+            InitializePlayer(player, playerNumber, birdType, spawnPoint);
+
+            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {player.transform.position}");
+
+            _players[playerNumber] = player;
+        }
+
+        private void InitializePlayer(IPlayer player, int playerNumber, BirdType birdType, SpawnPoint spawnPoint)
+        {
+            player.Controller.Initialize(player, spawnPoint);
+            player.State.Initialize(playerNumber, birdType);
         }
 
         public void DespawnLocalPlayer(int playerNumber)
         {
             Debug.Log($"Despawning player {playerNumber}");
 
-            if(null == _players[0]) {
+            if(null == _players[playerNumber]) {
                 return;
             }
 
-            Destroy(_players[0].GameObject);
-            _players[0] = null;
+            Destroy(_players[playerNumber].GameObject);
+            _players[playerNumber] = null;
         }
     }
 }
