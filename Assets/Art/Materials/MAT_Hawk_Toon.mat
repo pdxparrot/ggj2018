@@ -95,7 +95,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _ASEOutlineWidth: 0.015
+    - _ASEOutlineWidth: 0.03
     - _BlackPoi: 0
     - _BlackPoint: 0
     - _Brightness: 1
@@ -123,12 +123,13 @@ Material:
     - _PosterizeTexture: 43
     - _Posturize: 1
     - _Power: 150
-    - _PrimaryBrightness: 1.25
-    - _SecondaryBrightness: 1.929
+    - _PrimaryBrightness: 1.39
+    - _SecondaryBrightness: 2
     - _ShadowBrightness: 0.18
     - _ShadowDistance: -0.01
     - _ShadowFalloff: 1
     - _ShadowIntensity: 0.33
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _Softne: 2
     - _Softness: 3.3
@@ -137,9 +138,9 @@ Material:
     - _Te: 0
     - _Texture: 1
     - _TextureBlackpoint: 0
-    - _TextureContrast: 0.42
+    - _TextureContrast: 1
     - _TexturePower: 1
-    - _TextureWhitepoint: 0.48
+    - _TextureWhitepoint: 1
     - _ToggleSwitch0: 0
     - _Toon: 0
     - _ToonR: 0
@@ -149,11 +150,11 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _ASEOutlineColor: {r: 0.11764705, g: 0.07058823, b: 0, a: 0}
+    - _ASEOutlineColor: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
-    - _PrimaryColor: {r: 1, g: 0.5586207, b: 0, a: 0}
-    - _SecondaryColor: {r: 0.45588237, g: 0, b: 0, a: 0}
+    - _PrimaryColor: {r: 0.75294125, g: 0.48627454, b: 0.29411766, a: 0}
+    - _SecondaryColor: {r: 0.4705882, g: 0, b: 0, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
