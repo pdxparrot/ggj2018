@@ -27,7 +27,7 @@ namespace ggj2018.ggj2018
 
             Controller = GetComponent<PlayerController>();
 
-            Core.Camera.CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
+            CameraManager.Instance.GetFollowCamera().SetTarget(gameObject);
         }
 
         private void Update()

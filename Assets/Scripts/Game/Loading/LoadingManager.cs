@@ -22,7 +22,7 @@ namespace ggj2018.Game.Loading
         private AudioManager _audioManagerPrefab;
 
         [SerializeField]
-        private Core.Camera.CameraManager _cameraManagerPrefab;
+        private CameraManager _cameraManagerPrefab;
 
         [SerializeField]
         private InputManager _inputManagerPrefab;
@@ -79,7 +79,7 @@ namespace ggj2018.Game.Loading
             TimeManager.Create(ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);
-            Core.Camera.CameraManager.CreateFromPrefab(_cameraManagerPrefab, ManagersContainer);
+            CameraManager.CreateFromPrefab(_cameraManagerPrefab, ManagersContainer);
             InputManager.CreateFromPrefab(_inputManagerPrefab, ManagersContainer);
             GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab, ManagersContainer);
             UIManager.Create(ManagersContainer);
