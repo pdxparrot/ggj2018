@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6b05ff616ca21458eb059086f3772b, type: 3}
   m_Name: BirdData
   m_EditorClassIdentifier: 
+  _predatorFOV: 90
+  _preyFOV: 60
   _birds:
   - _id: hawk
     _name: Hawk

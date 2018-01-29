@@ -3750,7 +3750,7 @@ MonoBehaviour:
   _targetCollider: {fileID: 0}
   _controllerIndex: 0
   _orbitRotation: {x: 0, y: 0}
-  _orbitRadius: 25
+  _orbitRadius: 15
   _lookRotation: {x: 0, y: 0}
 --- !u!114 &114662517195507620
 MonoBehaviour:

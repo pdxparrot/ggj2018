@@ -92,7 +92,6 @@ namespace ggj2018.Core.Camera
         private Vector2 _orbitRotation;
 
         [SerializeField]
-        [ReadOnly]
         private float _orbitRadius = 25.0f;
 
         [SerializeField]
