@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4284853701314406}
   - component: {fileID: 96081237401712674}
   m_Layer: 0
-  m_Name: BirdTrail
+  m_Name: HawkTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1319017594855170}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.0001, y: -0.0011642044, z: -0.0097}
+  m_LocalPosition: {x: 0.0001, y: -0.159, z: -1.219}
   m_LocalScale: {x: 0.009765625, y: 0.009765625, z: 0.009765625}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ TrailRenderer:
   m_Time: 1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 100
     widthCurve:
       serializedVersion: 2
       m_Curve:
