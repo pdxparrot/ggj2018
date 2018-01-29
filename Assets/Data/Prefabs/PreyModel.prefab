@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4474037834747404}
   - component: {fileID: 135774987376151378}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4016912521315426}
   - component: {fileID: 65537488926544166}
+  - component: {fileID: 114769505393240148}
   m_Layer: 0
   m_Name: PreyModel
   m_TagString: Untagged
@@ -647,6 +648,20 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114769505393240148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625982474714072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfb85d2b89af3c4c9682b4d3408efc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _featherParticles: {fileID: 198153905006407462}
+  _boostTrail: {fileID: 1840393799935524}
+  _bloodParticles: {fileID: 198828456198379226}
 --- !u!135 &135774987376151378
 SphereCollider:
   m_ObjectHideFlags: 1

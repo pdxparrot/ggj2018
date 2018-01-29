@@ -9,7 +9,9 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerController : MonoBehavior
     {
-        private GameObject _model;
+        private Bird _bird;
+
+        public Bird Bird => _bird;
 
         [SerializeField]
         [ReadOnly]
@@ -100,10 +102,10 @@ namespace ggj2018.ggj2018
             rigidbody.useGravity = false;
         }
 
-        public void Initialize(IPlayer owner, SpawnPoint spawnPoint, GameObject model)
+        public void Initialize(IPlayer owner, SpawnPoint spawnPoint, Bird bird)
         {
             _owner = owner;
-            _model = model;
+            _bird = bird;
 
             transform.position = spawnPoint.transform.position;
             transform.rotation = spawnPoint.transform.rotation;
@@ -138,7 +140,7 @@ namespace ggj2018.ggj2018
         private void RotateModel(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
-                _model.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                _bird.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
                 return;
             }
 
@@ -165,8 +167,8 @@ namespace ggj2018.ggj2018
             }
 
             Quaternion targetRotation = Quaternion.Euler(targetEuler);
-            Quaternion rotation = Quaternion.Lerp(_model.transform.localRotation, targetRotation, dt * PlayerManager.Instance.PlayerData.RotationAnimationSpeed);
-            _model.transform.localRotation = rotation;
+            Quaternion rotation = Quaternion.Lerp(_bird.transform.localRotation, targetRotation, dt * PlayerManager.Instance.PlayerData.RotationAnimationSpeed);
+            _bird.transform.localRotation = rotation;
         }
 
         private void Move(Vector3 axes, float dt)

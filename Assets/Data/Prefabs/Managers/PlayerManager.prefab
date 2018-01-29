@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a808ea5696437419fdfb36ffb6e66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _predatorModelPrefab: {fileID: 1625982474714072, guid: 9cf5127fdf8bde74c872560bc098d36f,
+  _predatorModelPrefab: {fileID: 114441340850751900, guid: 9cf5127fdf8bde74c872560bc098d36f,
     type: 2}
-  _preyModelPrefab: {fileID: 1625982474714072, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
+  _preyModelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
     type: 2}
   _localPlayerPrefab: {fileID: 114345242064118326, guid: 4b9ac51dab6a7fb4ba00e2e2fecf2554,
     type: 2}
