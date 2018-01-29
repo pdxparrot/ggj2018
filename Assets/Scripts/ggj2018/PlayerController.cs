@@ -65,7 +65,8 @@ namespace ggj2018.ggj2018
 
             Move(_lastMoveAxes, dt);
 
-            if(_owner.State.IsDead && WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type) {
+            if(_owner != null && 
+               _owner.State.IsDead && WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type) {
                 PlayerManager.Instance.DespawnLocalPlayer(_owner.State.PlayerNumber);
             }
         }

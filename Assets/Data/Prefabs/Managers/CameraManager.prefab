@@ -325,7 +325,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -353,7 +353,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7152898, g: 0.8303469, b: 0.9264706, a: 0}
+  m_BackGroundColor: {r: 0.3415874, g: 0.37180975, b: 0.39705884, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0.005
@@ -361,7 +361,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -389,7 +389,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7152898, g: 0.8303469, b: 0.9264706, a: 0}
+  m_BackGroundColor: {r: 0.3415874, g: 0.37180975, b: 0.39705884, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0.5
@@ -397,7 +397,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -433,7 +433,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -461,7 +461,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7152898, g: 0.8303469, b: 0.9264706, a: 0}
+  m_BackGroundColor: {r: 0.3415874, g: 0.37180975, b: 0.39705884, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0.005
@@ -469,7 +469,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -505,7 +505,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -541,7 +541,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -569,7 +569,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7152898, g: 0.8303469, b: 0.9264706, a: 0}
+  m_BackGroundColor: {r: 0.3415874, g: 0.37180975, b: 0.39705884, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0.5
@@ -577,7 +577,7 @@ Camera:
     width: 0.49
     height: 0.49
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
