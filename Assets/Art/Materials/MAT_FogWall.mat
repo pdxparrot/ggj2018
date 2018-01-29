@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_BirdTrail
-  m_Shader: {fileID: 4800000, guid: 4d718a5218c1f0c4581496ffc0efdd9f, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_Name: MAT_FogWall
+  m_Shader: {fileID: 4800000, guid: 139993d24b06d5d49b45ebcc0def0bc5, type: 3}
+  m_ShaderKeywords: _PROCEDURALFOG_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -34,10 +34,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DiffuseTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -50,6 +46,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -58,33 +58,54 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Brightness: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DstBlend: 10
-    - _GlossMapScale: 0
-    - _Glossiness: 0
+    - _DstBlend: 0
+    - _FogFadeDistance: 0.39
+    - _FogIntensity: 0.27
+    - _FogMaxIntensity: 1
+    - _FogOpacity: 0.98
+    - _FogSpeed: 1.2
+    - _FogSpeed2: 0.6
+    - _FogThickness: 0.55
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InvFade: 1
     - _Metallic: 0
-    - _Mode: 3
+    - _Mode: 0
+    - _NoiseMax: 1
+    - _NoiseMin: 0.64
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 1
+    - _ProceduralFog: 1
+    - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _ZWrite: 0
+    - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _BloodColor: {r: 1, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TintColor: {r: 0.75735295, g: 0, b: 0, a: 0.5}
-    - _TrailColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FogColor: {r: 0.58823526, g: 0.5548263, b: 0.467128, a: 0}
+    - _FogDirection: {r: 0.4, g: 0.5, b: 0, a: 0}
+    - _FogDirection2: {r: 0.3, g: 0.8, b: 0, a: 0}
+    - _N: {r: 1, g: 1, b: 0, a: 0}
+    - _Noise: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseTiling: {r: 20, g: 20, b: 0, a: 0}
+    - _NoiseTiling1: {r: 6, g: 6, b: 0, a: 0}
+    - _NoiseTiling2: {r: 12, g: 12, b: 0, a: 0}

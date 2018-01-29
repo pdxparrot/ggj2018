@@ -9,9 +9,6 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerController : MonoBehavior
     {
-        [SerializeField]
-        private GameObject _modelPrefab;
-
         private GameObject _model;
 
 #region TODO: removeme
@@ -41,7 +38,6 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
-            InitModel();
             InitRigidbody();
         }
 
@@ -106,11 +102,6 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        private void InitModel()
-        {
-            _model = Instantiate(_modelPrefab, transform);
-        }
-
         private void InitRigidbody()
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
@@ -121,9 +112,10 @@ namespace ggj2018.ggj2018
             rigidbody.useGravity = false;
         }
 
-        public void Initialize(IPlayer owner, SpawnPoint spawnPoint)
+        public void Initialize(IPlayer owner, SpawnPoint spawnPoint, GameObject model)
         {
             _owner = owner;
+            _model = model;
 
             transform.position = spawnPoint.transform.position;
             transform.rotation = spawnPoint.transform.rotation;
@@ -244,7 +236,7 @@ namespace ggj2018.ggj2018
                 return false;
             }
 
-            if(_owner.State.BirdType.BirdDataEntry.IsPredator && _owner.State.BirdType.BirdDataEntry.IsPrey) {
+            if(_owner.State.BirdType.BirdDataEntry.IsPredator && player.State.BirdType.BirdDataEntry.IsPrey) {
                 player.State.PlayerKill(_owner, other);
             } else {
                 _owner.State.PlayerStun(player, other);
