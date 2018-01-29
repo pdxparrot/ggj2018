@@ -236,7 +236,7 @@ namespace ggj2018.ggj2018
                 return false;
             }
 
-            if(_owner.State.BirdType.BirdDataEntry.IsPredator && _owner.State.BirdType.BirdDataEntry.IsPrey) {
+            if(_owner.State.BirdType.BirdDataEntry.IsPredator && player.State.BirdType.BirdDataEntry.IsPrey) {
                 player.State.PlayerKill(_owner, other);
             } else {
                 _owner.State.PlayerStun(player, other);
