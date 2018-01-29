@@ -131,8 +131,8 @@ namespace ggj2018.ggj2018
             float boostPct = _owner.State.BoostRemainingSeconds /
                 PlayerManager.Instance.PlayerData.BoostSeconds;
 
-            UIManager.Instance.PlayerHud[ControllerNumber].SetSpeedAndBoost(
-                Speed, boostPct);
+            UIManager.Instance.PlayerHud[_owner.ControllerNumber].SetSpeedAndBoost(
+                (int)Speed, boostPct);
         }
 
         private void Turn(Vector3 axes, float dt)
