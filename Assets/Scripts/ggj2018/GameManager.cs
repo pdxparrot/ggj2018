@@ -278,11 +278,13 @@ namespace ggj2018.ggj2018
 
             UIManager.Instance.SwitchToGame();
 
-            for(int i = 0; i < MaxPlayers; ++i)
+            for(int i = 0; i < MaxPlayers; ++i) {
                 CameraManager.Instance.SetupCamera(i, _playerReady[i]);
+            }
 
-            if(!SinglePlayer())
+            if(!SinglePlayer()) {
                 StartCoroutine(CheckPredatorVictoryCondition());
+            }
         }
         void RunGame() {
         }

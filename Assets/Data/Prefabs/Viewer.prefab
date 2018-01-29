@@ -1386,7 +1386,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4303578851745460}
   - component: {fileID: 20692765641663414}
-  - component: {fileID: 124938661143561456}
   m_Layer: 0
   m_Name: Camera culling
   m_TagString: Untagged
@@ -4871,13 +4870,6 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1412059320785948}
-  m_Enabled: 1
---- !u!124 &124938661143561456
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1703908401599164}
   m_Enabled: 1
 --- !u!222 &222004377874672766
 CanvasRenderer:

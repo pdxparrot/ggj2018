@@ -16,11 +16,6 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         private BaseViewer _viewerPrefab;
 
-        [SerializeField]
-        private GameObject _cameraStoragePrefab;
-
-        private GameObject _cameraStorage;
-
         private readonly List<BaseViewer> _viewers = new List<BaseViewer>();
 
         private GameObject _viewerContainer;
@@ -29,13 +24,10 @@ namespace ggj2018.Core.Camera
         private void Awake()
         {
             _viewerContainer = new GameObject("Viewers");
-
-            _cameraStorage = Instantiate(_cameraStoragePrefab, transform);
         }
 
         protected override void OnDestroy()
         {
-            Destroy(_cameraStorage);
             Destroy(_viewerContainer);
         }
 #endregion
@@ -68,15 +60,11 @@ namespace ggj2018.Core.Camera
 
         public void SetupCamera(int i, bool active)
         {
-            _viewers[i].FollowCamera.enabled = active;
-
-            // -- disabled cameras go in the black box under the world
-            if(!active) {
-                _viewers[i].transform.position = new Vector3(0,-100,0);
-            }
+            _viewers[i].gameObject.SetActive(active);
         }
 
         public enum Layer { Hawk, Carrier }
+
         public void SetLayer(int cam, Layer layer) {
             _viewers[cam].Camera.cullingMask &= ~(1 << 8);
             _viewers[cam].Camera.cullingMask &= ~(1 << 9);
