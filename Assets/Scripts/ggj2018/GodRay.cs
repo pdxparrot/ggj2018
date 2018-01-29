@@ -13,6 +13,8 @@ namespace ggj2018.ggj2018
         [SerializeField] private float FadeNearDist;
         [SerializeField] private float FadeFarDist;
 
+        [SerializeField] private MeshRenderer mesh;
+
         public void Setup(Mode m) {
             mode = m;
             if(mode == Mode.Hawk)
@@ -41,7 +43,7 @@ namespace ggj2018.ggj2018
             if(mode == Mode.Carrier) {
                 for(int i = 0; i < 4; ++i) {
                     var p = PlayerManager.Instance.Player(i) as LocalPlayer;
-                    if(p.State.BirdType.BirdDataEntry.IsPredator) {
+                    if(p != null && p.State.BirdType.BirdDataEntry.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
                         vec.y = 0;
                         dist = vec.magnitude;
@@ -52,7 +54,7 @@ namespace ggj2018.ggj2018
             else if(mode == Mode.Goal) {
                 for(int i = 0; i < 4; ++i) {
                     var p = PlayerManager.Instance.Player(i) as LocalPlayer;
-                    if(!p.State.BirdType.BirdDataEntry.IsPredator) {
+                    if(p != null && !p.State.BirdType.BirdDataEntry.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
                         vec.y = 0;
                         var d = vec.magnitude;
@@ -67,11 +69,9 @@ namespace ggj2018.ggj2018
             alpha = (dist - FadeNearDist) / (FadeFarDist - FadeNearDist);
                             alpha = Mathf.Clamp(alpha, 0, 1);
 
-            var c = gameObject.GetComponent<MeshRenderer>().material.color;
+            var c = mesh.material.color;
             c.a = alpha;
-            gameObject.GetComponent<MeshRenderer>().material.color = c;
-             
-
+            mesh.material.color = c;
         }
     }
 }

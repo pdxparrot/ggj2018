@@ -1188,6 +1188,8 @@ MonoBehaviour:
   JoinPanel: {fileID: 1532525367423442}
   CharSelPanel: {fileID: 1767366793604838}
   ReadyPanel: {fileID: 1175405479875098}
+  AllReady: {fileID: 1423724484917284}
+  Waiting: {fileID: 1588779261479312}
   FinishWin: {fileID: 1373648349539134}
   FinishLose: {fileID: 1788252673705948}
 --- !u!114 &114062789680953442

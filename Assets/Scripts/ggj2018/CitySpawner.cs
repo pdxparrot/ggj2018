@@ -38,19 +38,21 @@ public class CitySpawner : MonoBehaviour {
         int minSize = pigeonSpawnRange.x;
         int maxSize =  pigeonSpawnRange.y;
         pigeonStart = new Vector3(
-            Mathf.Min(Random.Range(minSize, maxSize), citySize.x) * RandSign() * blockDimensions,
+            Mathf.Min(Random.Range(minSize, maxSize), citySize.x) * RandSign(),
             0.0f,
-            Mathf.Min(Random.Range(minSize, maxSize), citySize.y) * RandSign()) * blockDimensions;
+            Mathf.Min(Random.Range(minSize, maxSize), citySize.y) * RandSign());
 
         minSize = hawkSpawnRange.x;
         maxSize =  hawkSpawnRange.y;
         hawkStart = new Vector3(
-            Mathf.Clamp(pigeonStart.x + Random.Range(minSize, maxSize), -citySize.x, citySize.x) *
-            blockDimensions,
+            Mathf.Clamp(pigeonStart.x + Random.Range(minSize, maxSize), -citySize.x, citySize.x),
             0.0f,
-            Mathf.Clamp(pigeonStart.y + Random.Range(minSize, maxSize), -citySize.y, citySize.y))
-            * blockDimensions;
+            Mathf.Clamp(pigeonStart.y + Random.Range(minSize, maxSize), -citySize.y, citySize.y));
 
+        pigeonStart.x *= blockDimensions;
+        pigeonStart.z *= blockDimensions;
+        hawkStart.x *= blockDimensions;
+        hawkStart.z *= blockDimensions;
         goalPos = -pigeonStart;
 
 		Spawn();
