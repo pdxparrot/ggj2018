@@ -590,7 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4893432947256016}
   - component: {fileID: 20370179820168850}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera P2 (1)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1245,7 +1245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4249595682431766}
   - component: {fileID: 20366303615395780}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera P3 (1)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2648,7 +2648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915842493809482}
   - component: {fileID: 20684295120588550}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera P0 (1)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -3346,7 +3346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4858437653534054}
   - component: {fileID: 20721614315669550}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera P1 (1)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -4188,7 +4188,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294963432
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4224,7 +4224,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294963432
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4260,7 +4260,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294963432
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4296,7 +4296,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294963432
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

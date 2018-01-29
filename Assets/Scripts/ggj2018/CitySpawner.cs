@@ -15,7 +15,7 @@ public class CitySpawner : MonoBehaviour {
 
 	[SerializeField] private List<BlockPrefab> blockPrefabs;
 	[SerializeField] private int blockDimensions;
-	[SerializeField] private int citySize;
+	[SerializeField] private Vector2Int citySize;
 
     [SerializeField] private Vector2Int pigeonSpawnRange;
     [SerializeField] private Vector2Int hawkSpawnRange;
@@ -38,16 +38,18 @@ public class CitySpawner : MonoBehaviour {
         int minSize = pigeonSpawnRange.x;
         int maxSize =  pigeonSpawnRange.y;
         pigeonStart = new Vector3(
-            Mathf.Min(Random.Range(minSize, maxSize), citySize) * RandSign(),
+            Mathf.Min(Random.Range(minSize, maxSize), citySize.x) * RandSign() * blockSize,
             0.0f,
-            Mathf.Min(Random.Range(minSize, maxSize), citySize) * RandSign());
+            Mathf.Min(Random.Range(minSize, maxSize), citySize.y) * RandSign()) * blockSize;
 
         minSize = hawkSpawnRange.x;
         maxSize =  hawkSpawnRange.y;
         hawkStart = new Vector3(
-            Mathf.Clamp(pigeonStart.x + Random.Range(minSize, maxSize), -citySize, citySize),
+            Mathf.Clamp(pigeonStart.x + Random.Range(minSize, maxSize), -citySize.x, citySize.x) *
+            blockSize,
             0.0f,
-            Mathf.Clamp(pigeonStart.y + Random.Range(minSize, maxSize), -citySize, citySize));
+            Mathf.Clamp(pigeonStart.y + Random.Range(minSize, maxSize), -citySize.y, citySize.y))
+            * blockSize;
 
         goalPos = -pigeonStart;
 
@@ -74,7 +76,7 @@ public class CitySpawner : MonoBehaviour {
         Destroy(_root);
         _root = null;
 
-		Vector2Int max = new Vector2Int(citySize, citySize);
+		Vector2Int max = new Vector2Int(citySize.x, citySize.y);
 		Vector2Int min = new Vector2Int(-max.x, -max.y);
 
         _root = new GameObject("City");
@@ -90,7 +92,6 @@ public class CitySpawner : MonoBehaviour {
                 dist = Mathf.Min(dist, (pos - hawkStart).magnitude);
                 dist = Mathf.Min(dist, (pos - goalPos).magnitude);
                 if(dist < 10.0f) {
-                    Debug.LogWarning("hi");
                     continue;
                 }
 

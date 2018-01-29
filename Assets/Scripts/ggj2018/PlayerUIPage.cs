@@ -18,20 +18,26 @@ namespace ggj2018.ggj2018
         [SerializeField] private GameObject CharSelPanel;
         [SerializeField] private GameObject ReadyPanel;
 
-        [SerializeField] private Text JoinPrompt;
-        [SerializeField] private Text BirdLabel;
-        [SerializeField] private Text BirdValue;
-        [SerializeField] private Text ReadyPrompt;
+        [SerializeField] private GameObject AllReady;
+        [SerializeField] private GameObject Waiting;
+
+        [SerializeField] private GameObject FinishWin;
+        [SerializeField] private GameObject FinishLose;
+
+        //[SerializeField] private Text JoinPrompt;
+        //[SerializeField] private Text BirdLabel;
+        //[SerializeField] private Text BirdValue;
+        //[SerializeField] private Text ReadyPrompt;
 
         public void Hide() {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(false);
 
-            JoinPrompt.gameObject.SetActive(false);
-            BirdLabel.gameObject.SetActive(false);
-            BirdValue.gameObject.SetActive(false);
-            ReadyPrompt.gameObject.SetActive(false);
+            //JoinPrompt.gameObject.SetActive(false);
+            //BirdLabel.gameObject.SetActive(false);
+            //BirdValue.gameObject.SetActive(false);
+            //ReadyPrompt.gameObject.SetActive(false);
         }
 
         public void SwitchToMenu() {
@@ -48,27 +54,28 @@ namespace ggj2018.ggj2018
             MenuPanel.SetActive(false);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(true);
+
+            FinishWin.SetActive(won);
+            FinishLose.SetActive(!won);
+        }
+
+        public void SetStatus(bool joined,
+                              bool ready,
+                              string bird,
+                              bool allready) {
+            SwitchToMenu();
+
+            JoinPanel.SetActive(!joined && !ready);
+            CharSelPanel.SetActive(joined && !ready);
+            ReadyPanel.SetActive(ready);
+
+            if(ready) {
+                AllReady.SetActive(allready);
+                Waiting.SetActive(!allready);
+            }
         }
 
         /*
-        public void SetStatus(bool joined,
-                              bool ready,
-                              string bird) {
-            Hide();
-
-            if(ready) {
-                ReadyPrompt.text = "Ready!";
-                ReadyPrompt.gameObject.SetActive(true);
-            }
-            else if(joined) {
-                BirdLabel.text = bird;
-                BirdLabel.gameObject.SetActive(true);
-            }
-            else {
-                JoinPrompt.gameObject.SetActive(true);
-            }
-        }
-
         public void HideCountdown() {
             JoinPrompt.gameObject.SetActive(false);
             BirdLabel.gameObject.SetActive(false);

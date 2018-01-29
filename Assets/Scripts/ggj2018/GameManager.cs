@@ -199,10 +199,11 @@ namespace ggj2018.ggj2018
                         DefaultBird(i);
                     }
                 }
-                //UIManager.Instance.
-                //PlayerHud[i].SetStatus(_playerJoined[i],
-                                       //_playerReady[i],
-                                       //BirdType(_playerBird[i]));
+                UIManager.Instance.
+                PlayerHud[i].SetStatus(_playerJoined[i],
+                                       _playerReady[i],
+                                       BirdType(_playerBird[i]),
+                                       ready == total);
 
                 UIManager.Instance.SwitchToMenu();
             }
@@ -210,17 +211,22 @@ namespace ggj2018.ggj2018
         }
 
         // Intro State
-        /*void BeginIntro() {
+        /*
+        void BeginIntro() {
             for(int i = 0; i < MaxPlayers; ++i)
                 if(_playerReady[i])
                     PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
 
+            // $$$ making this instant for now
             UIManager.Instance.HideMenu();
             _countdown = 3;
             _timer = 1.0f;
             UIManager.Instance.Countdown(_countdown);
         }
         void RunIntro() {
+            SetState(EState.eGame);
+
+            // $$$ making this instant for now
             _timer -= Time.deltaTime;
             if(_timer < 0) {
                 --_countdown;
@@ -243,6 +249,10 @@ namespace ggj2018.ggj2018
 
         // Game State
         void BeginGame() {
+            for(int i = 0; i < MaxPlayers; ++i)
+                if(_playerReady[i])
+                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
+
             UIManager.Instance.SwitchToGame();
             //UIManager.Instance.HideCountdown();
 
