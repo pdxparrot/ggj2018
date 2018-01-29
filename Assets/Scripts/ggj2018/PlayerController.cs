@@ -25,6 +25,8 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private Vector3 _velocity;
 
+        public float Speed => _velocity.magnitude;
+
         private IPlayer _owner;
 
 #region Unity Lifecycle
