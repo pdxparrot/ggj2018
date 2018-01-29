@@ -2,7 +2,6 @@
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
-using ggj2018.Core.UI;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Scenes;
 using ggj2018.Core.Util;

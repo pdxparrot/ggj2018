@@ -210,8 +210,8 @@ namespace ggj2018.ggj2018
                     }
                 }
 
-                UIManager.Instance.
-                PlayerHud[i].SetStatus(_playerJoined[i],
+                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
+                viewer?.PlayerUI.SetStatus(_playerJoined[i],
                                        _playerReady[i],
                                        BirdType(_playerBird[i]),
                                        ready == total);

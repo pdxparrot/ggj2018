@@ -1,5 +1,6 @@
 ﻿//#define USE_PHYSICS
 
+using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
@@ -59,8 +60,8 @@ namespace ggj2018.ggj2018
             float boostPct = _owner.State.BoostRemainingSeconds /
                 PlayerManager.Instance.PlayerData.BoostSeconds;
 
-            UIManager.Instance.PlayerHud[_owner.ControllerNumber].SetSpeedAndBoost(
-                (int)Speed, boostPct);
+            Viewer viewer = CameraManager.Instance.GetViewer(_owner.ControllerNumber) as Viewer;
+            viewer?.PlayerUI.SetSpeedAndBoost((int)Speed, boostPct);
         }
 
         private void FixedUpdate()

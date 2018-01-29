@@ -8,5 +8,7 @@ namespace ggj2018.ggj2018
     {
         [SerializeField]
         private PlayerUIPage _ui;
+
+        public PlayerUIPage PlayerUI => _ui;
     }
 }

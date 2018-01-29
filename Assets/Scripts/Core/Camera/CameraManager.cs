@@ -23,12 +23,12 @@ namespace ggj2018.Core.Camera
 
         private readonly List<BaseViewer> _viewers = new List<BaseViewer>();
 
-        private GameObject _cameraContainer;
+        private GameObject _viewerContainer;
 
 #region Unity Lifecycle
         private void Awake()
         {
-            _cameraContainer = new GameObject("Cameras");
+            _viewerContainer = new GameObject("Viewers");
 
             _cameraStorage = Instantiate(_cameraStoragePrefab, transform);
         }
@@ -36,7 +36,7 @@ namespace ggj2018.Core.Camera
         protected override void OnDestroy()
         {
             Destroy(_cameraStorage);
-            Destroy(_cameraContainer);
+            Destroy(_viewerContainer);
         }
 #endregion
 
@@ -45,8 +45,8 @@ namespace ggj2018.Core.Camera
             int gridSize = Mathf.CeilToInt(Mathf.Sqrt(count));
 
             for(int i=0; i<count; ++i) {
-                BaseViewer viewer = Instantiate(_viewerPrefab, _cameraContainer.transform);
-                viewer.name = $"Camera P{i}";
+                BaseViewer viewer = Instantiate(_viewerPrefab, _viewerContainer.transform);
+                viewer.name = $"Viewer P{i}";
                 _viewers.Add(viewer);
             }
 
@@ -63,7 +63,7 @@ namespace ggj2018.Core.Camera
 
         public BaseViewer GetViewer(int i)
         {
-            return _viewers[i];
+            return i >= _viewers.Count ? null : _viewers[i];
         }
 
         public void SetupCamera(int i, bool active)
