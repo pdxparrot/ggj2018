@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4016912521315426}
   - component: {fileID: 65537488926544166}
   m_Layer: 0
-  m_Name: TestPlayerModel
+  m_Name: PredatorModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
