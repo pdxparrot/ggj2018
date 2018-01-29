@@ -55,6 +55,12 @@ namespace ggj2018.ggj2018
 
             Turn(_lastMoveAxes, dt);
             RotateModel(_lastMoveAxes, dt);
+
+            float boostPct = _owner.State.BoostRemainingSeconds /
+                PlayerManager.Instance.PlayerData.BoostSeconds;
+
+            UIManager.Instance.PlayerHud[_owner.ControllerNumber].SetSpeedAndBoost(
+                (int)Speed, boostPct);
         }
 
         private void FixedUpdate()
@@ -127,12 +133,6 @@ namespace ggj2018.ggj2018
             } else if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, 1)) {
                 _owner.State.StopBoost();
             }
-
-            float boostPct = _owner.State.BoostRemainingSeconds /
-                PlayerManager.Instance.PlayerData.BoostSeconds;
-
-            UIManager.Instance.PlayerHud[_owner.ControllerNumber].SetSpeedAndBoost(
-                (int)Speed, boostPct);
         }
 
         private void Turn(Vector3 axes, float dt)
@@ -141,9 +141,9 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            float turnSpeed = (PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.BirdDataEntry.TurnSpeedModifier) * dt;
+            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.BirdDataEntry.TurnSpeedModifier;
 
-            transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed);
+            transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed * dt);
         }
 
         private void RotateModel(Vector3 axes, float dt)
@@ -176,23 +176,27 @@ namespace ggj2018.ggj2018
             }
 
             Quaternion targetRotation = Quaternion.Euler(targetEuler);
-            Quaternion rotation = Quaternion.Lerp(_bird.transform.localRotation, targetRotation, dt * PlayerManager.Instance.PlayerData.RotationAnimationSpeed);
+            Quaternion rotation = Quaternion.Lerp(_bird.transform.localRotation, targetRotation, PlayerManager.Instance.PlayerData.RotationAnimationSpeed * dt);
             _bird.transform.localRotation = rotation;
         }
 
         private void Move(Vector3 axes, float dt)
         {
             if(_owner.State.IsStunned) {
+                _velocity = Vector3.zero;
+
                 transform.position += _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed * dt;
                 return;
             }
 
             if(_owner.State.IsStunned || _owner.State.IsDead) {
+                _velocity = Vector3.zero;
+
                 transform.position += Vector3.down * PlayerManager.Instance.PlayerData.TerminalVelocity * dt;
                 return;
             }
 
-            float speed = (PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier) * dt;
+            float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier;
             if(_owner.State.IsBoosting) {
                 speed *= PlayerManager.Instance.PlayerData.BoostFactor;
             }
@@ -207,7 +211,7 @@ namespace ggj2018.ggj2018
                 _velocity.y = pitchSpeed;
             }
 
-            transform.position += _velocity;
+            transform.position += _velocity * dt;
         }
 
 #region Collision Handlers
