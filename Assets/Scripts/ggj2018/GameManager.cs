@@ -17,7 +17,10 @@ namespace ggj2018.ggj2018
         public event EventHandler<EventArgs> PauseEvent;
 #endregion
 
-        public const int MaxPlayers = 4;
+        [SerializeField]
+        private int _maxPlayers = 4;
+
+        public int MaxPlayers => _maxPlayers;
 
         [SerializeField]
         private EnvironmentData _environmentData;
@@ -36,6 +39,13 @@ namespace ggj2018.ggj2018
         public bool IsPaused => _isPaused;
 
 #region Unity Lifecycle
+        private void Awake()
+        {
+            _playerJoined = new bool[MaxPlayers];
+            _playerReady = new bool[MaxPlayers];
+            _playerBird = new int[MaxPlayers];
+        }
+
         private void Update()
         {
             CheckPause();
@@ -114,9 +124,9 @@ namespace ggj2018.ggj2018
 
 
         // Player bits
-        bool[] _playerJoined = new bool[MaxPlayers];
-        bool[] _playerReady = new bool[MaxPlayers];
-        int[] _playerBird = new int[MaxPlayers];
+        bool[] _playerJoined;
+        bool[] _playerReady;
+        int[] _playerBird;
 
 
         // Bird Logic
