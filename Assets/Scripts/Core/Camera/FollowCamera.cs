@@ -199,7 +199,9 @@ namespace ggj2018.Core.Camera
 
             Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
             Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
+
             Quaternion targetRotation = null == Target ? Quaternion.identity : Target.transform.rotation;
+            //targetRotation = Quaternion.Lerp(transform.rotation, targetRotation, _defaultOrbitReturnSpeed * dt);
 
             Quaternion finalOrbitRotation = targetRotation * orbitRotation;
             transform.rotation = finalOrbitRotation * lookRotation;

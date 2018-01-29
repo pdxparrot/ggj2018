@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_BirdTrail
+  m_Name: MAT_PigeonTrail
   m_Shader: {fileID: 4800000, guid: 4d718a5218c1f0c4581496ffc0efdd9f, type: 3}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 0
@@ -87,4 +87,4 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 0.75735295, g: 0, b: 0, a: 0.5}
-    - _TrailColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TrailColor: {r: 0, g: 0.67058825, b: 1, a: 0}

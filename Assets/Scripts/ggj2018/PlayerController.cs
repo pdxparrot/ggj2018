@@ -165,7 +165,7 @@ namespace ggj2018.ggj2018
             }
 
             Quaternion targetRotation = Quaternion.Euler(targetEuler);
-            Quaternion rotation = Quaternion.Slerp(_model.transform.localRotation, targetRotation, dt * PlayerManager.Instance.PlayerData.RotationAnimationSpeed);
+            Quaternion rotation = Quaternion.Lerp(_model.transform.localRotation, targetRotation, dt * PlayerManager.Instance.PlayerData.RotationAnimationSpeed);
             _model.transform.localRotation = rotation;
         }
 

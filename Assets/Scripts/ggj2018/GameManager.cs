@@ -17,13 +17,17 @@ namespace ggj2018.ggj2018
         public event EventHandler<EventArgs> PauseEvent;
 #endregion
 
-        [SerializeField]
         public const int MaxPlayers = 4;
 
         [SerializeField]
         private BirdData _birdData;
 
         public BirdData BirdData => _birdData;
+
+        [SerializeField]
+        private float _boundaryCollisionPushback = 2.0f;
+
+        public float BoundaryCollisionPushback => _boundaryCollisionPushback;
 
         [SerializeField]
         [ReadOnly]

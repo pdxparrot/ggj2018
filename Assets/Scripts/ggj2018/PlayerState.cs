@@ -158,8 +158,16 @@ namespace ggj2018.ggj2018
         {
             _stunTimer = PlayerManager.Instance.PlayerData.StunTimeSeconds;
 
-            Vector3 position = _owner.GameObject.transform.position;
-            _stunBounceDirection = position - collider.ClosestPoint(position);
+            Vector3 playerPosition = _owner.GameObject.transform.position;
+            Vector3 collisionPosition = collider.transform.position;
+            collisionPosition.y = playerPosition.y;
+
+            _stunBounceDirection = (playerPosition - collisionPosition).normalized;
+
+            if(PlayerManager.Instance.PlayerData.StunBounceRotation) {
+                _owner.GameObject.transform.forward = _stunBounceDirection;
+                _stunBounceDirection = _owner.GameObject.transform.rotation * _stunBounceDirection;
+            }
         }
 
         private void UpdateStun(float dt)

@@ -6,31 +6,19 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_Hawk_Toon
-  m_Shader: {fileID: 4800000, guid: 6f2704a9769f16145b0607a331b991cd, type: 3}
-  m_ShaderKeywords: _NOTEXTURE_ON _TEXTURE_ON
+  m_Name: MAT_HawkFeather_002
+  m_Shader: {fileID: 4800000, guid: 98f68df4c19784640aafd25601104b62, type: 3}
+  m_ShaderKeywords: _FEATHERSWITCH_ON _TEXTURE_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture0:
-        m_Texture: {fileID: 2800000, guid: 4843888f9a32269418493b51aa44f700, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ColorAlpha:
-        m_Texture: {fileID: 2800000, guid: 8ae9ef7deea0e3e42bfdc43de9a1996e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -47,15 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 2800000, guid: f07f5ed1049db9842b6b4453f8a0e7fc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Difuse:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DifuseTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fcba5b25ed02f124792308f1b2131ff7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -82,79 +62,40 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0f7e864819172f14bb833403ebeeda53, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture0:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _f:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _ASEOutlineWidth: 0.03
-    - _BlackPoi: 0
+    - _ASEOutlineWidth: 0
     - _BlackPoint: 0
-    - _Brightness: 1
+    - _Brightness: 1.243
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Falloff: 5
-    - _FlatColor: 1
-    - _Float0: 1
-    - _Float1: 0
+    - _FeatherSwitch: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Light: 1
     - _Metallic: 0
     - _Mode: 0
-    - _ModifyTexture: 0
-    - _ModifyTexture2: 0.77
-    - _NoTe: 0
-    - _NoText: 0
-    - _NoTexture: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PosterizeTexture: 43
-    - _Posturize: 1
-    - _Power: 150
-    - _PrimaryBrightness: 0.77
-    - _SecondaryBrightness: 1.52
-    - _ShadowBrightness: 0.18
-    - _ShadowDistance: -0.01
-    - _ShadowFalloff: 1
-    - _ShadowIntensity: 0.33
-    - _Smoothness: 1
+    - _ShadowBrightness: 0.472
+    - _ShadowDistance: -0.17
     - _SmoothnessTextureChannel: 0
-    - _Softne: 2
-    - _Softness: 3.3
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Te: 0
     - _Texture: 1
-    - _TextureBlackpoint: 0
-    - _TextureContrast: 1
-    - _TexturePower: 1
-    - _TextureWhitepoint: 1
+    - _TextureContrast: 1.85
     - _ToggleSwitch0: 0
-    - _Toon: 0
-    - _ToonR: 0
     - _ToonRamp: 0
     - _UVSec: 0
-    - _WhitePoint: 0.44
+    - _WhitePoint: 0.918
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _ASEOutlineColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ASEOutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.4705882, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
-    - _PrimaryColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SecondaryColor: {r: 0.4705882, g: 0, b: 0, a: 0}
-    - _Shadow: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}

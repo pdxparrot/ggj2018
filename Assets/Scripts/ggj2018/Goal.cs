@@ -6,6 +6,12 @@ namespace ggj2018.ggj2018
 {
     public class Goal : MonoBehavior
     {
+        public static Goal _goal;
+
+        void Awake() {
+            _goal = this;
+        }
+
         public bool Collision(IPlayer player, Collider thisCollider)
         {
             if(player.State.BirdType.BirdDataEntry.IsPredator) {
