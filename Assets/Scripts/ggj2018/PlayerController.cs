@@ -68,7 +68,7 @@ namespace ggj2018.ggj2018
             Move(_lastMoveAxes, dt);
 
             if(_owner != null && 
-               _owner.State.IsDead && WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type) {
+               _owner.State.IsDead && (_boundaryCollision == null || WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type)) {
                 PlayerManager.Instance.DespawnLocalPlayer(_owner.State.PlayerNumber);
             }
         }
@@ -125,6 +125,12 @@ namespace ggj2018.ggj2018
             } else if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, 1)) {
                 _owner.State.StopBoost();
             }
+
+            float boostPct = State.BoostRemainingSeconds /
+                PlayerManager.Instance.PlayerData.BoostSeconds;
+
+            UIManager.Instance.PlayerHUD[ControllerNumber].SetSpeedAndBoost(
+                Speed, boostPct);
         }
 
         private void Turn(Vector3 axes, float dt)

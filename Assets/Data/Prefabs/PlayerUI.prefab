@@ -1942,6 +1942,18 @@ MonoBehaviour:
   Waiting: {fileID: 1588779261479312}
   FinishWin: {fileID: 1373648349539134}
   FinishLose: {fileID: 1788252673705948}
+  Hawk1: {fileID: 1943383575399628}
+  Hawk2: {fileID: 1698406650641456}
+  Carrier1: {fileID: 1700358239818412}
+  Carrier2: {fileID: 1270788613847356}
+  KillCard: {fileID: 1601392018671108}
+  Kill1: {fileID: 1985605617775944}
+  Kill2: {fileID: 1632968712128244}
+  Kill3: {fileID: 1522048869320972}
+  GoalCard: {fileID: 1097593040858048}
+  GoalDist: {fileID: 114306663798528022}
+  Speed: {fileID: 114455032624167226}
+  Boost: {fileID: 114673108198265742}
 --- !u!114 &114062789680953442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5375,8 +5387,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.58644, y: -50.952225}
-  m_SizeDelta: {x: 120.39096, y: 91.90445}
+  m_AnchoredPosition: {x: 154.42612, y: -172.91788}
+  m_SizeDelta: {x: 77.61742, y: 335.83575}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224096672835358170
 RectTransform:
@@ -6406,10 +6418,10 @@ RectTransform:
   m_Father: {fileID: 224727516302408548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.6733289}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.6950073, y: -1.1719999}
-  m_SizeDelta: {x: -15.39, y: -7.656}
+  m_AnchoredPosition: {x: 60.30871, y: -172.91788}
+  m_SizeDelta: {x: 110.61742, y: 335.83575}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224647138917788310
 RectTransform:
@@ -6561,7 +6573,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.6733289}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.6950073, y: -1.1719999}
+  m_AnchoredPosition: {x: -2.6950073, y: -1.1719971}
   m_SizeDelta: {x: -15.39, y: -7.656}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224702308696068704

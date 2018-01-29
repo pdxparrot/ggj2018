@@ -29,9 +29,16 @@ namespace ggj2018.ggj2018
         [SerializeField] private GameObject Carrier1;
         [SerializeField] private GameObject Carrier2;
 
+        [SerializeField] private GameObject KillCard;
         [SerializeField] private GameObject Kill1;
         [SerializeField] private GameObject Kill2;
         [SerializeField] private GameObject Kill3;
+
+        [SerializeField] private GameObject GoalCard;
+        [SerializeField] private Text GoalDist;
+
+        [SerializeField] private Text Speed;
+        [SerializeField] private Image Boost;
 
         //[SerializeField] private Text JoinPrompt;
         //[SerializeField] private Text BirdLabel;
