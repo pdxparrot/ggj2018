@@ -129,16 +129,16 @@ namespace ggj2018.ggj2018
                 NextBird(player);
         }
         void NextBird(int player) {
-            do {
+            //do {
                 ++_playerBird[player];
                 WrapBird(player);
-            } while(ValidBird(player));
+            //} while(ValidBird(player));
         }
         void PrevBird(int player) {
-            do {
+            //do {
                 --_playerBird[player];
                 WrapBird(player);
-            } while(ValidBird(player));
+            //} while(ValidBird(player));
         }
         bool ValidBird(int player) {
             // TODO: 'only one hawk' logic here
