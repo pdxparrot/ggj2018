@@ -1,4 +1,5 @@
-﻿using ggj2018.Core.Util;
+﻿using ggj2018.Core.Camera;
+using ggj2018.Core.Util;
 
 using ggj2018.ggj2018.Data;
 
@@ -111,6 +112,9 @@ namespace ggj2018.ggj2018
             player.Controller.Initialize(player, spawnPoint, model);
             player.State.Initialize(playerNumber, birdType);
             player.Initialize();
+
+            UnityEngine.Camera followCamera = CameraManager.Instance.GetCamera(playerNumber);
+            followCamera.fieldOfView = birdType.ViewFOV;
         }
 
         public void DespawnLocalPlayer(int playerNumber)

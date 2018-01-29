@@ -51,6 +51,16 @@ namespace ggj2018.ggj2018.Data
         }
 
         [SerializeField]
+        private float _predatorFOV = 60.0f;
+
+        public float PredatorFOV => _predatorFOV;
+
+        [SerializeField]
+        private float _preyFOV = 45.0f;
+
+        public float PreyFOV => _preyFOV;
+
+        [SerializeField]
         private BirdDataEntry[] _birds;
 
         public IReadOnlyCollection<BirdDataEntry> Birds => _birds;
