@@ -107,6 +107,14 @@ namespace ggj2018.Core.Input
             return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Start");
         }
 
+        public bool SelectPressed()
+        {
+            return SelectPressed(0) ||
+                SelectPressed(1) ||
+                SelectPressed(2) ||
+                SelectPressed(3);
+        }
+
         public bool SelectPressed(int controllerIndex)
         {
             return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Select");
