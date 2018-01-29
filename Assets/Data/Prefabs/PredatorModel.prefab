@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4732095481847704}
   - component: {fileID: 33640120430848616}
   - component: {fileID: 23512403891520332}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: hawk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
