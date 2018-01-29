@@ -7,12 +7,12 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_FogWall
-  m_Shader: {fileID: 4800000, guid: 139993d24b06d5d49b45ebcc0def0bc5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0468be8775515e3498a783813029b153, type: 3}
   m_ShaderKeywords: _PROCEDURALFOG_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -78,7 +78,7 @@ Material:
     - _FogFadeDistance: 0.39
     - _FogIntensity: 0.27
     - _FogMaxIntensity: 1
-    - _FogOpacity: 0.98
+    - _FogOpacity: 1
     - _FogSpeed: 1.2
     - _FogSpeed2: 0.6
     - _FogThickness: 0.55
