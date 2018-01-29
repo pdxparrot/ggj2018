@@ -94,6 +94,14 @@ namespace ggj2018.Core.Input
             return UnityEngine.Input.GetButton(ButtonString(controllerIndex, buttonIndex));
         }
 
+        public bool StartPressed()
+        {
+            return StartPressed(0) ||
+                StartPressed(1) ||
+                StartPressed(2) ||
+                StartPressed(3);
+        }
+
         public bool StartPressed(int controllerIndex)
         {
             return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Start");
