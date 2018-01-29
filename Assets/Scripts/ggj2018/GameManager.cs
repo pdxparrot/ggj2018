@@ -20,14 +20,14 @@ namespace ggj2018.ggj2018
         public const int MaxPlayers = 4;
 
         [SerializeField]
+        private EnvironmentData _environmentData;
+
+        public EnvironmentData EnvironmentData => _environmentData;
+
+        [SerializeField]
         private BirdData _birdData;
 
         public BirdData BirdData => _birdData;
-
-        [SerializeField]
-        private float _boundaryCollisionPushback = 2.0f;
-
-        public float BoundaryCollisionPushback => _boundaryCollisionPushback;
 
         [SerializeField]
         [ReadOnly]
@@ -53,6 +53,8 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             _birdData.Initialize();
+
+            CameraManager.Instance.SpawnViewers(MaxPlayers);
         }
 
         private void CheckPause()
@@ -294,7 +296,9 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public int winner;
+        private int winner;
+
+        public int Winner { get { return winner; } set { winner = value; } }
     }
 }
 

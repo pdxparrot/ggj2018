@@ -34,7 +34,7 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             Debug.Log($"Setting follow cam {ControllerNumber}");
-            CameraManager.Instance.GetFollowCamera(ControllerNumber).SetTarget(GameObject);
+            CameraManager.Instance.GetViewer(ControllerNumber).FollowCamera.SetTarget(GameObject);
 
             _godRay.GetComponent<GodRay>().Setup(
                 State.BirdType.BirdDataEntry.IsPredator ?

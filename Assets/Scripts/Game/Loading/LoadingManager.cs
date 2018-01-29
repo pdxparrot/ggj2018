@@ -90,7 +90,6 @@ namespace ggj2018.Game.Loading
             CameraManager.CreateFromPrefab(_cameraManagerPrefab, ManagersContainer);
             InputManager.CreateFromPrefab(_inputManagerPrefab, ManagersContainer);
             GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab, ManagersContainer);
-            UIManager.Create(ManagersContainer);
         }
 
         protected virtual void InitializeManagers()

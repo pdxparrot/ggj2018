@@ -113,8 +113,7 @@ namespace ggj2018.ggj2018
             player.State.Initialize(playerNumber, birdType);
             player.Initialize();
 
-            UnityEngine.Camera followCamera = CameraManager.Instance.GetCamera(playerNumber);
-            followCamera.fieldOfView = birdType.ViewFOV;
+            CameraManager.Instance.GetViewer(playerNumber).SetFov(birdType.ViewFOV);
         }
 
         public void DespawnLocalPlayer(int playerNumber)

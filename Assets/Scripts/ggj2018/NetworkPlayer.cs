@@ -34,7 +34,7 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             if(isLocalPlayer) {
-                CameraManager.Instance.GetFollowCamera(ControllerNumber).SetTarget(gameObject);
+                CameraManager.Instance.GetViewer(ControllerNumber).FollowCamera.SetTarget(gameObject);
             }
         }
 
