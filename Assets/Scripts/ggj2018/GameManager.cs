@@ -272,15 +272,18 @@ namespace ggj2018.ggj2018
 
         // Game State
         void BeginGame() {
-            for(int i = 0; i < MaxPlayers; ++i)
-                if(_playerReady[i])
+            for(int i = 0; i < MaxPlayers; ++i) {
+                if(_playerReady[i]) {
                     PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
+                }
+            }
 
             UIManager.Instance.SwitchToGame();
 
             for(int i = 0; i < MaxPlayers; ++i) {
                 CameraManager.Instance.SetupCamera(i, _playerReady[i]);
             }
+            CameraManager.Instance.ResizeViewports();
 
             if(!SinglePlayer()) {
                 StartCoroutine(CheckPredatorVictoryCondition());

@@ -14,10 +14,10 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private PlayerState _playerState;
 
+        public PlayerState State => _playerState;
+
         [SerializeField]
         private GameObject _godRay;
-
-        public PlayerState State => _playerState;
 
         public PlayerController Controller { get; private set; }
 
@@ -43,8 +43,7 @@ namespace ggj2018.ggj2018
             CameraManager.Instance.SetLayer(ControllerNumber,
                 State.BirdType.BirdDataEntry.IsPredator ? 
                     CameraManager.Layer.Hawk :
-                    CameraManager.Layer.Carrier);
-                    
+                    CameraManager.Layer.Carrier);         
         }
 
         private void Update()

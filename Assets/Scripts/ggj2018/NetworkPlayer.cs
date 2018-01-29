@@ -19,9 +19,12 @@ namespace ggj2018.ggj2018
 
         public PlayerState State => _playerState;
 
+        [SerializeField]
+        private GameObject _godRay;
+
         public PlayerController Controller { get; private set; }
 
-        public int ControllerNumber => 0;
+        public int ControllerNumber => State.PlayerNumber;
 
 #region Unity Lifecycle
         private void Awake()
@@ -34,8 +37,18 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             if(isLocalPlayer) {
+                Debug.Log($"Setting local follow cam {ControllerNumber}");
                 CameraManager.Instance.GetViewer(ControllerNumber).FollowCamera.SetTarget(gameObject);
             }
+
+            _godRay.GetComponent<GodRay>().Setup(
+                State.BirdType.BirdDataEntry.IsPredator ?
+                    GodRay.Mode.Hawk : GodRay.Mode.Carrier);
+
+            CameraManager.Instance.SetLayer(ControllerNumber,
+                State.BirdType.BirdDataEntry.IsPredator ? 
+                    CameraManager.Layer.Hawk :
+                    CameraManager.Layer.Carrier);   
         }
 
         private void Update()
