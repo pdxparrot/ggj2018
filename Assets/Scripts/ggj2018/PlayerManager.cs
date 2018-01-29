@@ -137,5 +137,16 @@ namespace ggj2018.ggj2018
             _players[playerNumber] = null;
             _playerCount--;
         }
+
+        public int HawkIndex()
+        {
+            for(int i = 0; i < _players.Length; ++i) {
+                if(null != _players[i] &&
+                   _players[i].State.BirdType.BirdDataEntry.IsPredator)
+                    return i;
+            }
+
+            return 0;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace ggj2018.ggj2018
             }
 
             Debug.Log($"Player {player.State.PlayerNumber} has reached the goal!");
+            GameManager.Instance.winner = player.ControllerNumber;
             GameManager.Instance.SetState(GameManager.EState.eVictory);
             return true;
         }

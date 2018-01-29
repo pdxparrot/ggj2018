@@ -78,6 +78,6 @@ MonoBehaviour:
   - prefab: {fileID: 1960390214306884, guid: 60a2b3b750648be41b98f337e765e6a2, type: 2}
     frequency: 5
   blockDimensions: 80
-  citySize: 30
-  pigeonSpawnRange: {x: 25, y: 30}
+  citySize: 15
+  pigeonSpawnRange: {x: 10, y: 15}
   hawkSpawnRange: {x: 4, y: 6}

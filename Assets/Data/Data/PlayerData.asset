@@ -13,10 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minHeight: 25
   _maxHeight: 150
-  _baseSpeed: 20
+  _baseSpeed: 50
   _baseTurnSpeed: 50
   _basePitchSpeed: 25
   _rotationAnimationSpeed: 7
   _stunTimeSeconds: 2
   _stunBounceSpeed: 1
   _terminalVelocity: 50
+  _boostFactor: 2
+  _boostSeconds: 5

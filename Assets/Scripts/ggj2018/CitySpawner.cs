@@ -81,8 +81,20 @@ public class CitySpawner : MonoBehaviour {
 
 		for(int x = min.x; x <= max.x; ++x) {
 			for(int y = min.y; y <= max.y; ++y) {
-                Spawn(RandomBlock(), new Vector3(x * blockDimensions, 0,
-					      		                 y * blockDimensions));
+                Vector3 pos = new Vector3(x * blockDimensions, 0,
+                                          y * blockDimensions);
+
+                // -- if it's any of the spawnpoints, no building here
+                float dist = 999.0f;
+                dist = Mathf.Min(dist, (pos - pigeonStart).magnitude);
+                dist = Mathf.Min(dist, (pos - hawkStart).magnitude);
+                dist = Mathf.Min(dist, (pos - goalPos).magnitude);
+                if(dist < 10.0f) {
+                    Debug.LogWarning("hi");
+                    continue;
+                }
+
+                Spawn(RandomBlock(), pos);
 			}
 		}
 

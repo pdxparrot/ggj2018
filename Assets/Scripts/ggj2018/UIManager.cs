@@ -12,9 +12,10 @@ namespace ggj2018.ggj2018
         [SerializeField]
         public PlayerUIPage[] PlayerHud;
 
-        void Start() { HideMenu();
+        void Start() { SwitchToMenu();
         }
 
+        /*
         public void Countdown(int c) {
             for(int i = 0; i < PlayerHud.Length; ++i)
                 PlayerHud[i].SetCountdown(c);
@@ -27,6 +28,20 @@ namespace ggj2018.ggj2018
         public void HideMenu() {
             for(int i = 0; i < PlayerHud.Length; ++i)
                 PlayerHud[i].Hide();
+        }
+        */
+
+        public void SwitchToMenu() {
+            for(int i = 0; i < PlayerHud.Length; ++i)
+                PlayerHud[i].SwitchToMenu();
+        }
+        public void SwitchToGame() {
+            for(int i = 0; i < PlayerHud.Length; ++i)
+                PlayerHud[i].SwitchToGame();
+        }
+        public void SwitchToVictory(int winner) {
+            for(int i = 0; i < PlayerHud.Length; ++i)
+                PlayerHud[i].SwitchToVictory(winner == i);
         }
     }
 }

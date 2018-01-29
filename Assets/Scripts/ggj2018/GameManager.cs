@@ -39,7 +39,7 @@ namespace ggj2018.ggj2018
 
             switch(State) {
             case EState.eMenu:      RunMenu();      break;
-            case EState.eIntro:     RunIntro();     break;
+            //case EState.eIntro:     RunIntro();     break;
             case EState.eGame:      RunGame();      break;
             case EState.eVictory:   RunVictory();   break;
             }
@@ -80,7 +80,7 @@ namespace ggj2018.ggj2018
         // Game State
         public enum EState {
             eMenu,
-            eIntro,
+            //eIntro,
             eGame,
             eVictory,
         }
@@ -90,7 +90,7 @@ namespace ggj2018.ggj2018
             State = state;
             switch(State) {
             case EState.eMenu:      BeginMenu();    break;
-            case EState.eIntro:     BeginIntro();   break;
+            //case EState.eIntro:     BeginIntro();   break;
             case EState.eGame:      BeginGame();    break;
             case EState.eVictory:   BeginVictory(); break;
             }
@@ -167,7 +167,7 @@ namespace ggj2018.ggj2018
                 for(int i = 0; i < MaxPlayers; ++i)
                     if(InputManager.Instance.Pressed(i, 0) ||
                        InputManager.Instance.StartPressed(i)) 
-                        SetState(EState.eIntro);
+                        SetState(EState.eGame);
             }
 
             // Check for player joins
@@ -199,16 +199,18 @@ namespace ggj2018.ggj2018
                         DefaultBird(i);
                     }
                 }
-                UIManager.Instance.
-                PlayerHud[i].SetStatus(_playerJoined[i],
-                                       _playerReady[i],
-                                       BirdType(_playerBird[i]));
+                //UIManager.Instance.
+                //PlayerHud[i].SetStatus(_playerJoined[i],
+                                       //_playerReady[i],
+                                       //BirdType(_playerBird[i]));
+
+                UIManager.Instance.SwitchToMenu();
             }
 
         }
 
         // Intro State
-        void BeginIntro() {
+        /*void BeginIntro() {
             for(int i = 0; i < MaxPlayers; ++i)
                 if(_playerReady[i])
                     PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
@@ -229,21 +231,33 @@ namespace ggj2018.ggj2018
                 else
                     UIManager.Instance.Countdown(_countdown);
             }
+        }*/
+
+        bool SinglePlayer() {
+            int players = 0;
+            for(int i = 0; i < MaxPlayers; ++i)
+                if(_playerReady[i])
+                    ++players;
+            return players == 1;
         }
 
         // Game State
         void BeginGame() {
-            UIManager.Instance.HideCountdown();
+            UIManager.Instance.SwitchToGame();
+            //UIManager.Instance.HideCountdown();
 
             for(int i = 0; i < MaxPlayers; ++i)
                 CameraManager.Instance.SetupCamera(i, _playerReady[i]);
-            StartCoroutine(CheckPredatorVictoryCondition());
+
+            if(!SinglePlayer())
+                StartCoroutine(CheckPredatorVictoryCondition());
         }
         void RunGame() {
         }
 
         // Victory State
         void BeginVictory() {
+            UIManager.Instance.SwitchToVictory(winner);
         }
         void RunVictory() {
         }
@@ -253,6 +267,7 @@ namespace ggj2018.ggj2018
             WaitForSeconds wait = new WaitForSeconds(1);
             while(true) {
                 if(PlayerManager.Instance.PreyCount < 1) {
+                    winner = PlayerManager.Instance.HawkIndex();
                     SetState(EState.eVictory);
                     yield break;
                 }
@@ -260,6 +275,8 @@ namespace ggj2018.ggj2018
                 yield return wait;
             }
         }
+
+        public int winner;
     }
 }
 
