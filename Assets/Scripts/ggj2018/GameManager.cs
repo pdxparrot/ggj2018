@@ -57,7 +57,11 @@ namespace ggj2018.ggj2018
 
         private void CheckPause()
         {
-            if(!InputManager.Instance.StartPressed(0)) {
+            if(State != EState.eGame ||
+               !InputManager.Instance.StartPressed(0) ||
+               !InputManager.Instance.StartPressed(1) ||
+               !InputManager.Instance.StartPressed(2) ||
+               !InputManager.Instance.StartPressed(3)) {
                 return;
             }
 

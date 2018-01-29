@@ -24,6 +24,15 @@ namespace ggj2018.ggj2018
         [SerializeField] private GameObject FinishWin;
         [SerializeField] private GameObject FinishLose;
 
+        [SerializeField] private GameObject Hawk1;
+        [SerializeField] private GameObject Hawk2;
+        [SerializeField] private GameObject Carrier1;
+        [SerializeField] private GameObject Carrier2;
+
+        [SerializeField] private GameObject Kill1;
+        [SerializeField] private GameObject Kill2;
+        [SerializeField] private GameObject Kill3;
+
         //[SerializeField] private Text JoinPrompt;
         //[SerializeField] private Text BirdLabel;
         //[SerializeField] private Text BirdValue;
@@ -68,6 +77,11 @@ namespace ggj2018.ggj2018
             JoinPanel.SetActive(!joined && !ready);
             CharSelPanel.SetActive(joined && !ready);
             ReadyPanel.SetActive(ready);
+
+            Hawk1.SetActive(bird == "hawk");
+            Hawk2.SetActive(bird == "hawk");
+            Carrier1.SetActive(bird != "hawk");
+            Carrier2.SetActive(bird != "hawk");
 
             if(ready) {
                 AllReady.SetActive(allready);
