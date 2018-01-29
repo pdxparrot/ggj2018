@@ -99,6 +99,9 @@ namespace ggj2018.ggj2018
         public void SetSpeedAndBoost(int speed, float boost) {
             Speed.text = $"{speed}";
             Boost.fillAmount = boost;
+
+            KillCard.SetActive(false);
+            GoalCard.SetActive(false);
         }
 
         /*
