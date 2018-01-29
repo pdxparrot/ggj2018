@@ -15,9 +15,6 @@ namespace ggj2018.Game.Scenes
         private string _mainSceneName = "main";
 
         [SerializeField]
-        private string _reloadSceneName = "reload";
-
-        [SerializeField]
         [ReadOnly]
         private string _defaultSceneName;
 
@@ -26,11 +23,6 @@ namespace ggj2018.Game.Scenes
         private readonly List<string> _loadedScenes = new List<string>();
 
 #region Load Scene
-        private void LoadRestarterScene(Action callback)
-        {
-            LoadScene(_reloadSceneName, callback);
-        }
-
         public void LoadDefaultScene(Action callback)
         {
             LoadScene(DefaultSceneName, callback, true);
@@ -61,11 +53,6 @@ namespace ggj2018.Game.Scenes
 #endregion
 
 #region Unload Scene
-        private void UnloadRestarterScene(Action callback)
-        {
-            UnloadScene(_reloadSceneName, callback);
-        }
-
         public void UnloadDefaultScene(Action callback)
         {
             UnloadScene(DefaultSceneName, callback);
@@ -108,10 +95,7 @@ namespace ggj2018.Game.Scenes
         public void ReloadMainScene()
         {
             UnloadAllScenes();
-            LoadRestarterScene(() => {
-                GameReloader reloader = FindObjectOfType<GameReloader>();
-                StartCoroutine(reloader.Reload(_mainSceneName, _reloadSceneName));
-            });
+            SceneManager.LoadScene(_mainSceneName);
         }
 
         public void ReloadDefaultScene(Action callback)

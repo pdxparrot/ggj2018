@@ -35,7 +35,7 @@ namespace ggj2018.ggj2018
         private void Update()
         {
             CheckPause();
-            //CheckReload();
+            CheckReload();
 
             switch(State) {
             case EState.eMenu:      RunMenu();      break;
