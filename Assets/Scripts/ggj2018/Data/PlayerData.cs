@@ -39,6 +39,11 @@ namespace ggj2018.ggj2018.Data
         public float StunBounceSpeed => _stunBounceSpeed;
 
         [SerializeField]
+        private bool _stunBounceRotation = false;
+
+        public bool StunBounceRotation => _stunBounceRotation;
+
+        [SerializeField]
         private float _terminalVelocity = 100.0f;
 
         public float TerminalVelocity => _terminalVelocity;
