@@ -826,7 +826,7 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
-  _returnToDefault: 0
+  _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
   _defaultOrbitReturnSpeed: 10
   _orbitXMin: -90
@@ -860,7 +860,7 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
-  _returnToDefault: 0
+  _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
   _defaultOrbitReturnSpeed: 10
   _orbitXMin: -90
@@ -876,7 +876,7 @@ MonoBehaviour:
   _lookSpeedY: 100
   _target: {fileID: 0}
   _targetCollider: {fileID: 0}
-  _controllerIndex: 3
+  _controllerIndex: 0
   _orbitRotation: {x: 0, y: 0}
   _orbitRadius: 25
   _lookRotation: {x: 0, y: 0}
@@ -934,7 +934,7 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
-  _returnToDefault: 0
+  _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
   _defaultOrbitReturnSpeed: 10
   _orbitXMin: -90
@@ -968,7 +968,7 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
-  _returnToDefault: 0
+  _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
   _defaultOrbitReturnSpeed: 10
   _orbitXMin: -90
@@ -984,7 +984,7 @@ MonoBehaviour:
   _lookSpeedY: 100
   _target: {fileID: 0}
   _targetCollider: {fileID: 0}
-  _controllerIndex: 3
+  _controllerIndex: 0
   _orbitRotation: {x: 0, y: 0}
   _orbitRadius: 25
   _lookRotation: {x: 0, y: 0}

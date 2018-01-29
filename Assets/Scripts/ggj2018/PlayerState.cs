@@ -98,13 +98,19 @@ namespace ggj2018.ggj2018
             }
 
             Debug.Log($"Player {PlayerNumber} is boosting!");
-            _isBoosting = true;
+            EnableBoost(true);
         }
 
         public void StopBoost()
         {
             Debug.Log($"Player {PlayerNumber} slows down!");
-            _isBoosting = false;
+            EnableBoost(false);
+        }
+
+        private void EnableBoost(bool enable)
+        {
+            _isBoosting = enable;
+            _owner.Controller.Bird.EnableBoostTrail(enable);
         }
 
         private void UpdateBoost(float dt)
@@ -168,6 +174,8 @@ namespace ggj2018.ggj2018
                 _owner.GameObject.transform.forward = _stunBounceDirection;
                 _stunBounceDirection = _owner.GameObject.transform.rotation * _stunBounceDirection;
             }
+
+            _owner.Controller.Bird.ShowStun(true);
         }
 
         private void UpdateStun(float dt)
@@ -177,6 +185,9 @@ namespace ggj2018.ggj2018
             }
 
             _stunTimer -= dt;
+            if(!IsStunned) {
+                _owner.Controller.Bird.ShowStun(false);
+            }
         }
 #endregion
 
@@ -189,7 +200,7 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Player {PlayerNumber} killed by environment!");
 
-            _isAlive = false;
+            Kill();
         }
 
         public void PlayerKill(IPlayer killer, Collider collider)
@@ -201,7 +212,7 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Player {PlayerNumber} killed by player {killer.State.PlayerNumber}!");
 
-            _isAlive = false;
+            Kill();
         }
 
         public void DebugKill()
@@ -212,7 +223,17 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+            Kill();
+        }
+
+        private void Kill()
+        {
             _isAlive = false;
+
+            Prey prey = _owner.Controller.Bird as Prey;
+            if(null != prey) {
+                prey.ShowBlood();
+            }
         }
 #endregion
     }

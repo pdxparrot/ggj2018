@@ -102,6 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4016912521315426}
   - component: {fileID: 65537488926544166}
+  - component: {fileID: 114441340850751900}
   m_Layer: 0
   m_Name: PredatorModel
   m_TagString: Untagged
@@ -585,6 +586,19 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114441340850751900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625982474714072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc213d18f8f34314eb1e13dab8795740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _featherParticles: {fileID: 198124788941645864}
+  _boostTrail: {fileID: 1212076697837696}
 --- !u!135 &135703914139266378
 SphereCollider:
   m_ObjectHideFlags: 1

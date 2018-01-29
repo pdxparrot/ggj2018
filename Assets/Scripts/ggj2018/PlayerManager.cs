@@ -9,14 +9,14 @@ namespace ggj2018.ggj2018
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {
         [SerializeField]
-        private GameObject _predatorModelPrefab;
+        private Predator _predatorModelPrefab;
 
-        public GameObject PredatorModelPrefab => _predatorModelPrefab;
+        public Predator PredatorModelPrefab => _predatorModelPrefab;
 
         [SerializeField]
-        private GameObject _preyModelPrefab;
+        private Prey _preyModelPrefab;
 
-        public GameObject PreyModelPrefab => _preyModelPrefab;
+        public Prey PreyModelPrefab => _preyModelPrefab;
 
         [SerializeField]
         private LocalPlayer _localPlayerPrefab;
@@ -102,10 +102,10 @@ namespace ggj2018.ggj2018
 
         private void InitializePlayer(IPlayer player, int playerNumber, BirdType birdType, SpawnPoint spawnPoint)
         {
-            GameObject model = Instantiate(
+            Bird model = Instantiate(
                 birdType.BirdDataEntry.IsPredator
-                    ? PredatorModelPrefab
-                    : PreyModelPrefab,
+                    ? (Bird)PredatorModelPrefab
+                    : (Bird)PreyModelPrefab,
                 player.GameObject.transform);
 
             player.Controller.Initialize(player, spawnPoint, model);
