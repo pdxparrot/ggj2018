@@ -163,11 +163,12 @@ namespace ggj2018.ggj2018
                 if(_playerJoined[i])
                     ++total;
             }
-            if(ready == total && ready > 0) {
-                for(int i = 0; i < MaxPlayers; ++i)
-                    if(InputManager.Instance.Pressed(i, 0) ||
-                       InputManager.Instance.StartPressed(i)) 
+            if (ready == total && ready > 0) {
+                for (int i = 0; i < MaxPlayers; ++i)
+                    if (InputManager.Instance.StartPressed(i)) {
                         SetState(EState.eGame);
+                        return;
+                }
             }
 
             // Check for player joins
@@ -199,6 +200,7 @@ namespace ggj2018.ggj2018
                         DefaultBird(i);
                     }
                 }
+
                 UIManager.Instance.
                 PlayerHud[i].SetStatus(_playerJoined[i],
                                        _playerReady[i],
@@ -254,7 +256,6 @@ namespace ggj2018.ggj2018
                     PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
 
             UIManager.Instance.SwitchToGame();
-            //UIManager.Instance.HideCountdown();
 
             for(int i = 0; i < MaxPlayers; ++i)
                 CameraManager.Instance.SetupCamera(i, _playerReady[i]);

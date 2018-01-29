@@ -47,6 +47,9 @@ namespace ggj2018.ggj2018
         public IPlayer Player(int i) {
             return _players[i];
         }
+        public bool HasPlayer(int i) {
+            return _players[i] != null;
+        }
 
 #region Unity Lifecycle
         private void Awake()

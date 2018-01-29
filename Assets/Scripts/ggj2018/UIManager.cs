@@ -37,11 +37,17 @@ namespace ggj2018.ggj2018
         }
         public void SwitchToGame() {
             for(int i = 0; i < PlayerHud.Length; ++i)
-                PlayerHud[i].SwitchToGame();
+                if(PlayerManager.Instance.HasPlayer(i))
+                    PlayerHud[i].Hide();
+                else
+                    PlayerHud[i].SwitchToGame();
         }
         public void SwitchToVictory(int winner) {
             for(int i = 0; i < PlayerHud.Length; ++i)
-                PlayerHud[i].SwitchToVictory(winner == i);
+                if(PlayerManager.Instance.HasPlayer(i))
+                    PlayerHud[i].Hide();
+                else
+                    PlayerHud[i].SwitchToVictory(winner == i);
         }
     }
 }
