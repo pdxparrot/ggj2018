@@ -22,6 +22,9 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private LocalPlayer _localPlayerPrefab;
 
+        [SerializeField]
+        private NetworkPlayer _networkPlayerPrefab;
+
         private GameObject _playerContainer;
 
         [SerializeField]
@@ -57,7 +60,7 @@ namespace ggj2018.ggj2018
         {
             _playerContainer = new GameObject("Players");
 
-            _players = new IPlayer[GameManager.Instance.MaxPlayers];
+            _players = new IPlayer[GameManager.Instance.ConfigData.MaxLocalPlayers];
         }
 
         private void Update()
@@ -94,6 +97,29 @@ namespace ggj2018.ggj2018
             }
 
             LocalPlayer player = Instantiate(_localPlayerPrefab, _playerContainer.transform);
+            InitializePlayer(player, playerNumber, birdType, spawnPoint);
+
+            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {player.transform.position}");
+
+            AddPlayer(playerNumber, player);
+        }
+
+        public void SpawnNetworkPlayer(int playerNumber, string birdTypeId)
+        {
+            if(null != _players[playerNumber]) {
+                Debug.LogError("Cannot spawn a player on top of another player!");
+                return;
+            }
+
+            BirdType birdType = new BirdType(birdTypeId);
+
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(birdType);
+            if(null == spawnPoint) {
+                Debug.LogError($"No spawn points left for bird type {birdType}");
+                return;
+            }
+
+            NetworkPlayer player = Instantiate(_networkPlayerPrefab, _playerContainer.transform);
             InitializePlayer(player, playerNumber, birdType, spawnPoint);
 
             Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {player.transform.position}");

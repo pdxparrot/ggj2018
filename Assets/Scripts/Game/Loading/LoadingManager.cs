@@ -8,19 +8,11 @@ using ggj2018.Core.Util;
 using ggj2018.Core.Util.ObjectPool;
 
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Networking;
 
 namespace ggj2018.Game.Loading
 {
     public abstract class LoadingManager<T> : SingletonBehavior<T> where T: LoadingManager<T>
     {
-        [SerializeField]
-        private EventSystem _eventManager;
-
-        [SerializeField]
-        private NetworkManager _networkManager;
-
         [SerializeField]
         private LoadingScreen _loadingScreen;
 

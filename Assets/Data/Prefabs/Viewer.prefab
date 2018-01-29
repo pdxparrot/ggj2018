@@ -708,7 +708,10 @@ GameObject:
   - component: {fileID: 4007346236481630}
   - component: {fileID: 20499584597188918}
   - component: {fileID: 124546868644768884}
+  - component: {fileID: 114162174328774752}
+  - component: {fileID: 114975161836565870}
   - component: {fileID: 114981610269964564}
+  - component: {fileID: 114622719731141972}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -2341,6 +2344,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Press to start!
+--- !u!114 &114162174328774752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412059320785948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -768656878, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!114 &114165797926131962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3630,6 +3648,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114622719731141972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412059320785948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910d9818575018e4995bb5be4058590b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _physicsRaycaster: {fileID: 114162174328774752}
+  _gvrPhysicsRaycaster: {fileID: 114975161836565870}
 --- !u!114 &114633333066371384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4792,6 +4823,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114975161836565870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412059320785948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5dd43baba2d4dc1bab789615567e3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycasterEventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxRaycastHits: 64
 --- !u!114 &114981610269964564
 MonoBehaviour:
   m_ObjectHideFlags: 1

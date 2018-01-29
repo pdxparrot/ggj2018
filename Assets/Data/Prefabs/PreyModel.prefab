@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4474037834747404}
   - component: {fileID: 135774987376151378}
   m_Layer: 11
-  m_Name: GameObject
+  m_Name: PlayerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,7 +704,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198061110961281240
 ParticleSystem:

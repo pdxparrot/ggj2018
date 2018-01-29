@@ -8,6 +8,8 @@ using ggj2018.ggj2018.Data;
 using ggj2018.Game.Scenes;
 
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
 namespace ggj2018.ggj2018
 {
@@ -17,10 +19,28 @@ namespace ggj2018.ggj2018
         public event EventHandler<EventArgs> PauseEvent;
 #endregion
 
+#region Systems
         [SerializeField]
-        private int _maxPlayers = 4;
+        private GameObject _gvrPrefab;
 
-        public int MaxPlayers => _maxPlayers;
+        private GameObject _gvr;
+
+        [SerializeField]
+        private EventSystem _eventSystemPrefab;
+
+        private EventSystem _eventSystem;
+
+        [SerializeField]
+        private NetworkManager _networkManagerPrefab;
+
+        private NetworkManager _networkManager;
+#endregion
+
+#region Data
+        [SerializeField]
+        private ConfigData _configData;
+
+        public ConfigData ConfigData => _configData;
 
         [SerializeField]
         private EnvironmentData _environmentData;
@@ -31,6 +51,7 @@ namespace ggj2018.ggj2018
         private BirdData _birdData;
 
         public BirdData BirdData => _birdData;
+#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -41,9 +62,24 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
-            _playerJoined = new bool[MaxPlayers];
-            _playerReady = new bool[MaxPlayers];
-            _playerBird = new int[MaxPlayers];
+            if(ConfigData.EnableGVR) {
+                _gvr = Instantiate(_gvrPrefab);
+            } else {
+                _eventSystem = Instantiate(_eventSystemPrefab);
+            }
+
+            _playerJoined = new bool[ConfigData.MaxLocalPlayers];
+            _playerReady = new bool[ConfigData.MaxLocalPlayers];
+            _playerBird = new int[ConfigData.MaxLocalPlayers];
+        }
+
+        protected override void OnDestroy()
+        {
+            Destroy(_eventSystem);
+            _eventSystem = null;
+
+            Destroy(_gvr);
+            _gvr = null;
         }
 
         private void Update()
@@ -64,7 +100,7 @@ namespace ggj2018.ggj2018
         {
             _birdData.Initialize();
 
-            CameraManager.Instance.SpawnViewers(MaxPlayers);
+            CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
         }
 
         private void CheckPause()
@@ -178,14 +214,14 @@ namespace ggj2018.ggj2018
             // Check for all players ready
             int ready = 0;
             int total = 0;
-            for(int i = 0; i < MaxPlayers; ++i) {
+            for(int i = 0; i < ConfigData.MaxLocalPlayers; ++i) {
                 if(_playerReady[i])
                     ++ready;
                 if(_playerJoined[i])
                     ++total;
             }
             if (ready == total && ready > 0) {
-                for (int i = 0; i < MaxPlayers; ++i)
+                for (int i = 0; i < ConfigData.MaxLocalPlayers; ++i)
                     if (InputManager.Instance.StartPressed(i)) {
                         SetState(EState.eGame);
                         return;
@@ -193,7 +229,7 @@ namespace ggj2018.ggj2018
             }
 
             // Check for player joins
-            for(int i = 0; i < MaxPlayers; ++i) {
+            for(int i = 0; i < ConfigData.MaxLocalPlayers; ++i) {
                 if(_playerReady[i]) {
                     if(InputManager.Instance.Pressed(i, 1))
                         _playerReady[i] = false;
@@ -264,7 +300,7 @@ namespace ggj2018.ggj2018
 
         bool SinglePlayer() {
             int players = 0;
-            for(int i = 0; i < MaxPlayers; ++i)
+            for(int i = 0; i < ConfigData.MaxLocalPlayers; ++i)
                 if(_playerReady[i])
                     ++players;
             return players == 1;
@@ -272,7 +308,7 @@ namespace ggj2018.ggj2018
 
         // Game State
         void BeginGame() {
-            for(int i = 0; i < MaxPlayers; ++i) {
+            for(int i = 0; i < ConfigData.MaxLocalPlayers; ++i) {
                 if(_playerReady[i]) {
                     PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
                 }
@@ -280,7 +316,7 @@ namespace ggj2018.ggj2018
 
             UIManager.Instance.SwitchToGame();
 
-            for(int i = 0; i < MaxPlayers; ++i) {
+            for(int i = 0; i < ConfigData.MaxLocalPlayers; ++i) {
                 CameraManager.Instance.SetupCamera(i, _playerReady[i]);
             }
             CameraManager.Instance.ResizeViewports();

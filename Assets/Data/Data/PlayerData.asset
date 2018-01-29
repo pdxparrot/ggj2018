@@ -16,7 +16,7 @@ MonoBehaviour:
   _basePitchSpeed: 25
   _rotationAnimationSpeed: 6
   _stunTimeSeconds: 2
-  _stunBounceSpeed: 10
+  _stunBounceSpeed: 7
   _stunBounceRotation: 0
   _terminalVelocity: 50
   _boostFactor: 2

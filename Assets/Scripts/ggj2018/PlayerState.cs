@@ -45,7 +45,7 @@ namespace ggj2018.ggj2018
         public Vector3 StunBounceDirection { get { return _stunBounceDirection; } set { _stunBounceDirection = value; } }
 #endregion
 
-        public bool Incapacitated => IsStunned || IsDead;
+        public bool IsIncapacitated => IsStunned || IsDead;
 
 #region Boost
         [SerializeField]

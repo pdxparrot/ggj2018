@@ -31,13 +31,13 @@ namespace ggj2018.ggj2018
         */
 
         public void SwitchToMenu() {
-            for(int i = 0; i < GameManager.Instance.MaxPlayers; ++i) {
+            for(int i = 0; i < GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 viewer?.PlayerUI.SwitchToMenu();
             }
         }
         public void SwitchToGame() {
-            for(int i = 0; i < GameManager.Instance.MaxPlayers; ++i) {
+            for(int i = 0; i < GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 if(!PlayerManager.Instance.HasPlayer(i))
                     viewer?.PlayerUI.Hide();
@@ -46,7 +46,7 @@ namespace ggj2018.ggj2018
             }
         }
         public void SwitchToVictory(int winner) {
-            for(int i = 0; i < GameManager.Instance.MaxPlayers; ++i) {
+            for(int i = 0; i < GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 if(!PlayerManager.Instance.HasPlayer(i))
                     viewer?.PlayerUI.Hide();
@@ -56,7 +56,7 @@ namespace ggj2018.ggj2018
         }
 
         public void EnablePauseUI(bool enable) {
-            for(int i = 0; i < GameManager.Instance.MaxPlayers; ++i) {
+            for(int i = 0; i < GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 viewer?.PlayerUI.EnablePauseMenu(enable);
             }

@@ -29,6 +29,7 @@ namespace ggj2018.Core.Camera
         protected override void OnDestroy()
         {
             Destroy(_viewerContainer);
+            _viewerContainer = null;
         }
 #endregion
 

@@ -155,6 +155,8 @@ namespace ggj2018.ggj2018
             }
 
             if(_owner.State.IsStunned) {
+                Vector3 modelRotation = _bird.transform.localRotation.eulerAngles;
+                _bird.transform.localRotation = Quaternion.Euler(0.0f, modelRotation.y, 0.0f);
                 return;
             }
 
