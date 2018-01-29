@@ -7,27 +7,30 @@ namespace ggj2018.ggj2018
     public abstract class Bird : MonoBehavior
     {
         [SerializeField]
-        private ParticleSystem _featherParticles;
+        private GameObject _stunParticles;
+
+        [SerializeField]
+        private GameObject _featherParticles;
 
         [SerializeField]
         private GameObject _boostTrail;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected virtual void Start()
         {
-            _boostTrail.SetActive(false);
+            ShowStun(false);
+            ShowBoostTrail(false);
         }
 #endregion
 
         public void ShowStun(bool show)
         {
+            _stunParticles.SetActive(show);
         }
 
-        public void EnableBoostTrail(bool enable)
+        public void ShowBoostTrail(bool enable)
         {
-            var emission = _featherParticles.emission;
-            emission.enabled = enable;
-
+            _featherParticles.SetActive(enable);
             _boostTrail.SetActive(enable);
         }
     }

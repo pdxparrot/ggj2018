@@ -77,12 +77,15 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+            // TODO: other players shoudl be able to quit
             if(!InputManager.Instance.SelectPressed(0)) {
                 return;
             }
 
-            Debug.Log("Restarting game!");
-            GameSceneManager.Instance.ReloadMainScene();
+            /*Debug.Log("Restarting game!");
+            GameSceneManager.Instance.ReloadMainScene();*/
+            Debug.Log("Quitting game!");
+            Application.Quit();
         }
 
         // Game State

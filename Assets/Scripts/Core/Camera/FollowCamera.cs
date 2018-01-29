@@ -154,6 +154,12 @@ namespace ggj2018.Core.Camera
                 return;
             }
 
+            // TODO: this is fighting too hard at max rotation
+            // (or maybe the max rotation clamping is killing it)
+            if(_returnToDefault) {
+                _orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt);
+            }
+
             _orbitRotation.x = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt), _orbitXMin, _orbitXMax);
             _orbitRotation.y = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.y - axes.y * _orbitSpeedY * dt), _orbitYMin, _orbitYMax);
         }
@@ -193,10 +199,6 @@ namespace ggj2018.Core.Camera
 
         private void FollowTarget(float dt)
         {
-            if(_returnToDefault) {
-                _orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt);
-            }
-
             Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
             Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
 

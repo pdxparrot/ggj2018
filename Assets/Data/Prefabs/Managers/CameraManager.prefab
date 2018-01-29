@@ -668,7 +668,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -702,7 +702,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -748,7 +748,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -794,7 +794,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -828,7 +828,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -862,7 +862,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -936,7 +936,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -970,7 +970,7 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 10
+  _defaultOrbitReturnSpeed: 2
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
