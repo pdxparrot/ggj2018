@@ -18,6 +18,11 @@ namespace ggj2018.Core.Camera
         //}
 #endregion
 
+        public UnityEngine.Camera GetCamera(int i)
+        {
+            return Cameras[i].GetComponent<UnityEngine.Camera>();
+        }
+
         public FollowCamera GetFollowCamera(int i)
         {
             return Cameras[i].GetComponent<FollowCamera>();
