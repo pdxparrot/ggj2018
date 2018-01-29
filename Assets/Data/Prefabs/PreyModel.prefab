@@ -690,9 +690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dfb85d2b89af3c4c9682b4d3408efc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _featherParticles: {fileID: 198153905006407462}
+  _stunParticles: {fileID: 1811800324594976}
+  _featherParticles: {fileID: 1609134833632312}
   _boostTrail: {fileID: 1840393799935524}
-  _bloodParticles: {fileID: 198828456198379226}
+  _bloodObject: {fileID: 1396064857714606}
 --- !u!135 &135774987376151378
 SphereCollider:
   m_ObjectHideFlags: 1

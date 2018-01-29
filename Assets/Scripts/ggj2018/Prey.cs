@@ -5,12 +5,20 @@ namespace ggj2018.ggj2018
     public class Prey : Bird
     {
         [SerializeField]
-        private ParticleSystem _bloodParticles;
+        private GameObject _bloodObject;
 
-        public void ShowBlood()
+#region Unity Lifecycle
+        protected override void Start()
         {
-            var emission = _bloodParticles.emission;
-            emission.enabled = true;
+            base.Start();
+
+            ShowBlood(false);
+        }
+#endregion
+
+        public void ShowBlood(bool show)
+        {
+            _bloodObject.SetActive(show);
         }
     }
 }

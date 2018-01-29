@@ -110,7 +110,7 @@ namespace ggj2018.ggj2018
         private void EnableBoost(bool enable)
         {
             _isBoosting = enable;
-            _owner.Controller.Bird.EnableBoostTrail(enable);
+            _owner.Controller.Bird.ShowBoostTrail(enable);
         }
 
         private void UpdateBoost(float dt)
@@ -232,7 +232,7 @@ namespace ggj2018.ggj2018
 
             Prey prey = _owner.Controller.Bird as Prey;
             if(null != prey) {
-                prey.ShowBlood();
+                prey.ShowBlood(true);
             }
         }
 #endregion
