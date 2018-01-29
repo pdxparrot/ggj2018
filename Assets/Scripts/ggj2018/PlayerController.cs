@@ -47,7 +47,7 @@ namespace ggj2018.ggj2018
             transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
 #endif
 
-            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.State.PlayerNumber);
+            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.ControllerNumber);
 
             float dt = Time.deltaTime;
 
@@ -120,9 +120,9 @@ namespace ggj2018.ggj2018
 
         private void CheckForBoost()
         {
-            if(InputManager.Instance.Pressed(0, 1)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerNumber, 1)) {
                 _owner.State.StartBoost();
-            } else if(_owner.State.IsBoosting && InputManager.Instance.Released(0, 1)) {
+            } else if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, 1)) {
                 _owner.State.StopBoost();
             }
         }
