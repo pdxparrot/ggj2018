@@ -128,10 +128,10 @@ namespace ggj2018.ggj2018
                 _owner.State.StopBoost();
             }
 
-            float boostPct = State.BoostRemainingSeconds /
+            float boostPct = _owner.State.BoostRemainingSeconds /
                 PlayerManager.Instance.PlayerData.BoostSeconds;
 
-            UIManager.Instance.PlayerHUD[ControllerNumber].SetSpeedAndBoost(
+            UIManager.Instance.PlayerHud[ControllerNumber].SetSpeedAndBoost(
                 Speed, boostPct);
         }
 
