@@ -204,7 +204,7 @@ namespace ggj2018.ggj2018
             _velocity = transform.forward * speed;
             _velocity.y = 0.0f;
 
-            float pitchSpeed = (PlayerManager.Instance.PlayerData.BasePitchSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier) * dt;
+            float pitchSpeed = (PlayerManager.Instance.PlayerData.BasePitchSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier);
             if(axes.y < -Mathf.Epsilon) {
                 _velocity.y = -pitchSpeed;
             } else if(axes.y > Mathf.Epsilon) {
