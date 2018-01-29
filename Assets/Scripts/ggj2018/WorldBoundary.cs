@@ -35,10 +35,10 @@ namespace ggj2018.ggj2018
             switch(Type)
             {
             case BoundaryType.Ground:
-                position.y = transform.position.y + _collider.size.y + GameManager.Instance.BoundaryCollisionPushback;
+                position.y = transform.position.y + _collider.size.y + GameManager.Instance.EnvironmentData.BoundaryCollisionPushback;
                 break;
             case BoundaryType.Sky:
-                position.y = transform.position.y - _collider.size.y - GameManager.Instance.BoundaryCollisionPushback;
+                position.y = transform.position.y - _collider.size.y - GameManager.Instance.EnvironmentData.BoundaryCollisionPushback;
                 break;
             case BoundaryType.Wall:
                 // TODO
