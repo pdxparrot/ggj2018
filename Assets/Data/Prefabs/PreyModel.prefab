@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4588757154551336}
   - component: {fileID: 33504696529274568}
   - component: {fileID: 23468091575625432}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pigeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1217403179689560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.163, z: 0.296}
+  m_LocalPosition: {x: 0, y: 1.963, z: 0.296}
   m_LocalScale: {x: 75, y: 50, z: 75}
   m_Children:
   - {fileID: 4284491784277896}
@@ -175,7 +175,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c0b3fc7f826ae7a499ebf36bdb5fba1e, type: 3}
+  - {fileID: 2100000, guid: 396a5ca90c1d1874fa98152fbff61654, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
