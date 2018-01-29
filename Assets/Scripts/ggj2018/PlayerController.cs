@@ -11,16 +11,6 @@ namespace ggj2018.ggj2018
     {
         private GameObject _model;
 
-#region TODO: removeme
-        [SerializeField]
-        [ReadOnly]
-        private bool _isGroundCollision;
-
-        [SerializeField]
-        [ReadOnly]
-        private bool _isSkyCollision;
-#endregion
-
         [SerializeField]
         [ReadOnly]
         private WorldBoundary _boundaryCollision;
@@ -69,15 +59,13 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            _isSkyCollision = false;
-            _isGroundCollision = false;
             _boundaryCollision = null;
 
             float dt = Time.fixedDeltaTime;
 
             Move(_lastMoveAxes, dt);
 
-            if(_owner.State.IsDead && transform.position.y < PlayerManager.Instance.PlayerData.MinHeight) {
+            if(_owner.State.IsDead && WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type) {
                 PlayerManager.Instance.DespawnLocalPlayer(_owner.State.PlayerNumber);
             }
         }
@@ -124,8 +112,6 @@ namespace ggj2018.ggj2018
         public void MoveTo(Vector3 position)
         {
             Debug.Log($"Teleporting player {_owner.State.PlayerNumber} to {position}");
-
-            position.y = Mathf.Clamp(position.y, PlayerManager.Instance.PlayerData.MinHeight, PlayerManager.Instance.PlayerData.MaxHeight);
             transform.position = position;
         }
 
@@ -170,7 +156,7 @@ namespace ggj2018.ggj2018
                 }
             }
 
-            if(!_isSkyCollision && !_isGroundCollision && (null == _boundaryCollision || !_boundaryCollision.IsVertical)) {
+            if(null == _boundaryCollision || !_boundaryCollision.IsVertical) {
                 if(axes.y < -Mathf.Epsilon) {
                     targetEuler.x = 45.0f;
                 } else if(axes.y > Mathf.Epsilon) {
@@ -210,10 +196,7 @@ namespace ggj2018.ggj2018
                 _velocity.y = pitchSpeed;
             }
 
-            float prevY = transform.position.y;
             transform.position += _velocity;
-
-            CheckWorldCollision(prevY);
         }
 
 #region Collision Handlers
@@ -254,18 +237,7 @@ namespace ggj2018.ggj2018
             }
 
             _boundaryCollision = boundary;
-            return boundary.Collision(other);
-        }
-
-        private void CheckWorldCollision(float prevY)
-        {
-            if(transform.position.y < PlayerManager.Instance.PlayerData.MinHeight) {
-                _isGroundCollision = true;
-                transform.position = new Vector3(transform.position.x, prevY, transform.position.z);
-            } else if(transform.position.y > PlayerManager.Instance.PlayerData.MaxHeight) {
-                _isSkyCollision = true;
-                transform.position = new Vector3(transform.position.x, prevY, transform.position.z);
-            }
+            return boundary.Collision(_owner, other);
         }
 #endregion
     }

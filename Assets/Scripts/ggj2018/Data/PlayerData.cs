@@ -8,18 +8,6 @@ namespace ggj2018.ggj2018.Data
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {
-#region world shit (removeme when we get real walls)
-        [SerializeField]
-        private float _minHeight = 25.0f;
-
-        public float MinHeight => _minHeight;
-
-        [SerializeField]
-        private float _maxHeight = 220.0f;
-
-        public float MaxHeight => _maxHeight;
-#endregion
-
         [SerializeField]
         private float _baseSpeed = 1.0f;
 
