@@ -63,7 +63,8 @@ namespace ggj2018.ggj2018
 
             _isPaused = !_isPaused;
 
-            Debug.Log($"Game {(IsPaused ? "paused" : "unpaused")}");
+            UIManager.Instance.EnablePauseUI(_isPaused);
+
             PauseEvent?.Invoke(this, EventArgs.Empty);
         }
 
@@ -111,7 +112,6 @@ namespace ggj2018.ggj2018
 
 
         // Player bits
-        [SerializeField] PlayerUIPage[] playerHud;
         bool[] _playerJoined = new bool[MaxPlayers];
         bool[] _playerReady = new bool[MaxPlayers];
         int[] _playerBird = new int[MaxPlayers];

@@ -49,6 +49,12 @@ namespace ggj2018.ggj2018
                 else
                     PlayerHud[i].SwitchToVictory(winner == i);
         }
+
+        public void EnablePauseUI(bool enable) {
+            foreach(PlayerUIPage page in PlayerHud) {
+                page.EnablePauseMenu(enable);
+            }
+        }
     }
 }
 

@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuPanel: {fileID: 1149774407703338}
-  HudPanel: {fileID: 0}
+  HudPanel: {fileID: 1922395873692448}
   FinishPanel: {fileID: 1602711769071056}
   JoinPanel: {fileID: 1567905709235752}
   CharSelPanel: {fileID: 1767366793604838}
@@ -1950,6 +1950,7 @@ MonoBehaviour:
   Kill1: {fileID: 1985605617775944}
   Kill2: {fileID: 1632968712128244}
   Kill3: {fileID: 1522048869320972}
+  PauseMenu: {fileID: 1250847111652198}
   GoalCard: {fileID: 1097593040858048}
   GoalDist: {fileID: 114306663798528022}
   Speed: {fileID: 114455032624167226}
