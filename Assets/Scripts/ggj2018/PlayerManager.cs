@@ -101,11 +101,11 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-#if false
-            if(null != _players[0] && UnityEngine.Input.GetKeyDown(KeyCode.K)) {
-                _players[0].State.DebugKill();
+            if(Input.GetKeyDown(KeyCode.K)) {
+                foreach(var player in _players) {
+                    player?.State.DebugKill();
+                }
             }
-#endif
         }
 
         protected override void OnDestroy()
