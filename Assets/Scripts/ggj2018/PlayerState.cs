@@ -154,6 +154,8 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+            // players can re-stun other players
+
             Debug.Log($"Player {PlayerNumber} stunned by player {stunner.State.PlayerNumber}!");
 
             Stun(collider);
@@ -204,6 +206,10 @@ namespace ggj2018.ggj2018
 
         public void PlayerKill(IPlayer killer, Collider collider)
         {
+            if(IsDead) {
+                return;
+            }
+
             if(killer.State.IsDead) {
                 PlayerStun(killer, collider);
                 return;
@@ -216,11 +222,11 @@ namespace ggj2018.ggj2018
 
         public void DebugKill()
         {
-            Debug.Log("You monster!");
-
             if(IsDead) {
                 return;
             }
+
+            Debug.Log("You monster!");
 
             Kill();
         }

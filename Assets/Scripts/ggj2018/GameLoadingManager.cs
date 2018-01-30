@@ -7,6 +7,9 @@ namespace ggj2018.ggj2018
     public sealed class GameLoadingManager : LoadingManager<GameLoadingManager>
     {
         [SerializeField]
+        private DebugManager _debugManagerPrefab;
+
+        [SerializeField]
         private GameManager _gameManagerPrefab;
 
         [SerializeField]
@@ -16,6 +19,7 @@ namespace ggj2018.ggj2018
         {
             base.CreateManagers();
 
+            DebugManager.CreateFromPrefab(_debugManagerPrefab, ManagersContainer);
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
             SpawnManager.Create(ManagersContainer);

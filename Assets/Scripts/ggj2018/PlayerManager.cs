@@ -99,15 +99,6 @@ namespace ggj2018.ggj2018
             }
         }
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.K)) {
-                foreach(var player in _players) {
-                    player?.State.DebugKill();
-                }
-            }
-        }
-
         protected override void OnDestroy()
         {
             Destroy(_playerContainer);
@@ -233,6 +224,13 @@ namespace ggj2018.ggj2018
             }
 
             return 0;
+        }
+
+        public void DebugKillAll()
+        {
+            foreach(var player in _players) {
+                player?.State.DebugKill();
+            }
         }
     }
 }
