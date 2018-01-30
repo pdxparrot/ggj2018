@@ -27,7 +27,7 @@ namespace ggj2018.Core.Camera
         public FollowCamera FollowCamera => _followCamera;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected virtual void Awake()
         {
             _followCamera = GetComponent<FollowCamera>();
         }

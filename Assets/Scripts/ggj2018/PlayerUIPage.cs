@@ -1,13 +1,11 @@
 ﻿using ggj2018.Core.Util;
-using ggj2018.Core.Input;
-using ggj2018.ggj2018.Data;
 
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ggj2018.ggj2018
 {
+    [RequireComponent(typeof(Canvas))]
     public sealed class PlayerUIPage : SingletonBehavior<PlayerUIPage>
     {
         [SerializeField] private GameObject MenuPanel;
