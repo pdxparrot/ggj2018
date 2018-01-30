@@ -32,8 +32,6 @@ namespace ggj2018.ggj2018
         [SerializeField] private GameObject Kill2;
         [SerializeField] private GameObject Kill3;
 
-        [SerializeField] private GameObject PauseMenu;
-
         [SerializeField] private GameObject GoalCard;
         [SerializeField] private Text GoalDist;
 
@@ -102,10 +100,6 @@ namespace ggj2018.ggj2018
 
             KillCard.SetActive(false);
             GoalCard.SetActive(false);
-        }
-
-        public void EnablePauseMenu(bool enable) {
-            PauseMenu.SetActive(enable);
         }
 
         /*
