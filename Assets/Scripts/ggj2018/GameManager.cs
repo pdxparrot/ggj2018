@@ -215,21 +215,21 @@ namespace ggj2018.ggj2018
             // Check for player joins
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 if(PlayerManager.Instance.GetPlayerState(i).PlayerReady) {
-                    if(InputManager.Instance.Pressed(i, 1))
+                    if(InputManager.Instance.Pressed(i, InputManager.Button.B))
                         PlayerManager.Instance.GetPlayerState(i).PlayerReady = false;
                 }
                 else if(PlayerManager.Instance.GetPlayerState(i).PlayerJoined) {
-                    if(InputManager.Instance.Pressed(i, 0))
+                    if(InputManager.Instance.Pressed(i, InputManager.Button.A))
                         PlayerManager.Instance.GetPlayerState(i).PlayerReady = true;
 
-                    else if(InputManager.Instance.Pressed(i, 1))
+                    else if(InputManager.Instance.Pressed(i, InputManager.Button.B))
                         PlayerManager.Instance.GetPlayerState(i).PlayerJoined = false;
                     
                     else {
-                        if(InputManager.Instance.DpadPressed(i, Dir.Left)) {
+                        if(InputManager.Instance.DpadPressed(i, InputManager.DPadDir.Left)) {
                             NextBird(PlayerManager.Instance.GetPlayerState(i).PlayerBird);
                         }
-                        else if(InputManager.Instance.DpadPressed(i, Dir.Right)) {
+                        else if(InputManager.Instance.DpadPressed(i, InputManager.DPadDir.Right)) {
                             PrevBird(PlayerManager.Instance.GetPlayerState(i).PlayerBird);
                         }
                     }

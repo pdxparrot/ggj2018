@@ -127,9 +127,9 @@ namespace ggj2018.ggj2018
 
         private void CheckForBoost()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerNumber, 1)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.Y)) {
                 _owner.State.StartBoost();
-            } else if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, 1)) {
+            } else if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, InputManager.Button.Y)) {
                 _owner.State.StopBoost();
             }
         }
