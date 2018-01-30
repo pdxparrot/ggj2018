@@ -32,14 +32,18 @@ namespace ggj2018.Core.Input
             public bool InvertMoveY { get { return _invertMoveY; } set { _invertMoveY = value; } }
 
             [SerializeField]
-            private bool _inverLookX;
+            private bool _invertLookX;
 
-            public bool InvertLookX { get { return _inverLookX; } set { _inverLookX = value; } }
+            public bool InvertLookX { get { return _invertLookX; } set { _invertLookX = value; } }
 
             [SerializeField]
             private bool _invertLookY;
 
             public bool InvertLookY { get { return _invertLookY; } set { _invertLookY = value; } }
+
+            public bool InvertX { set { _invertLookX = value; _invertMoveX = value; } }
+
+            public bool InvertY { set { _invertLookY = value; _invertMoveY = value; } }
 
             [SerializeField]
             private bool _invertZoom;
@@ -109,12 +113,10 @@ namespace ggj2018.Core.Input
             for(int i=0; i<MaxControllers; ++i) {
                 if(Pressed(i, Button.LeftBumper)) {
                     Debug.Log($"Inverting controller {i}");
-                    _controllerStates[i].InvertLookY = true;
-                    _controllerStates[i].InvertMoveY = true;
+                    _controllerStates[i].InvertY = true;
                 } else if(Pressed(i, Button.RightBumper)) {
                     Debug.Log($"Uninverting controller {i}");
-                    _controllerStates[i].InvertLookY = false;
-                    _controllerStates[i].InvertMoveY = false;
+                    _controllerStates[i].InvertY = false;
                 }
             }
         }
