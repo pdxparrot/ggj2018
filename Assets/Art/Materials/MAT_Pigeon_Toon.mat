@@ -107,6 +107,8 @@ Material:
     - _FlatColor: 1
     - _Float0: 0.3
     - _Float1: 0
+    - _Float2: 0
+    - _Float3: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

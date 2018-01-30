@@ -359,7 +359,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4f6ef112856e8a4458fb82167d0e6020, type: 2}
+  - {fileID: 2100000, guid: 6d729da1aeeb6654dad187dacf25126e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -449,6 +449,51 @@ Prefab:
     - target: {fileID: 4128209827345112, guid: 9adc09dbba531ab4bb536cdf17650509, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultColor1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultColor1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultColor1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultColor2.r
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultColor2.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultColor2.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultFloat1
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410835223651618, guid: 9adc09dbba531ab4bb536cdf17650509,
+        type: 2}
+      propertyPath: _defaultFloat2
+      value: 0.939
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9adc09dbba531ab4bb536cdf17650509, type: 2}

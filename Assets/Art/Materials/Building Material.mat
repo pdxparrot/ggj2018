@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Building Material
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 75e5b9583fdd92543bae5a95d4129368, type: 3}
+  m_ShaderKeywords: _ALPHADITHER_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -55,9 +55,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaDither: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DitherDistance: 200
+    - _DitherEndDistance: 600
+    - _DitherFalloff: 100
+    - _DitherStartDistance: 500
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -71,6 +76,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - __dirty: 0
     m_Colors:
     - _Color: {r: 0.86764705, g: 0.86764705, b: 0.86764705, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
