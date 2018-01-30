@@ -1391,6 +1391,7 @@ GameObject:
   - component: {fileID: 4303578851745460}
   - component: {fileID: 20692765641663414}
   - component: {fileID: 114410835223651618}
+  - component: {fileID: 114895294462212744}
   - component: {fileID: 114946394314291538}
   m_Layer: 0
   m_Name: Camera culling
@@ -3497,6 +3498,7 @@ MonoBehaviour:
   _noPostProcessCamera: {fileID: 20692765641663414}
   _uiCamera: {fileID: 20295695093120854}
   _ui: {fileID: 114821274089429340}
+  _visionSelector: {fileID: 114895294462212744}
 --- !u!114 &114605813099275532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4655,6 +4657,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Press to confirm
+--- !u!114 &114895294462212744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703908401599164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad41b6aaf365a7446be1bc51dfba8c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _predatorVision: {fileID: 114410835223651618}
 --- !u!114 &114912737838628164
 MonoBehaviour:
   m_ObjectHideFlags: 1

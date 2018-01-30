@@ -175,7 +175,8 @@ namespace ggj2018.ggj2018
             player.State.Initialize(playerNumber, birdType);
             player.Initialize();
 
-            CameraManager.Instance.GetViewer(playerNumber).SetFov(birdType.ViewFOV);
+            Viewer viewer = CameraManager.Instance.GetViewer(playerNumber) as Viewer;
+            viewer?.Initialize(birdType);
         }
 
         public void DespawnLocalPlayer(int playerNumber)

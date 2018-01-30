@@ -10,5 +10,15 @@ namespace ggj2018.ggj2018
         private PlayerUIPage _ui;
 
         public PlayerUIPage PlayerUI => _ui;
+
+        [SerializeField]
+        private BirdVisionSelector _visionSelector;
+
+        public void Initialize(BirdType birdType)
+        {
+            SetFov(birdType.ViewFOV);
+
+            _visionSelector.SetVision(birdType);
+        }
     }
 }
