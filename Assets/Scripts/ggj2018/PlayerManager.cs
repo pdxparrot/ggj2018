@@ -13,8 +13,22 @@ namespace ggj2018.ggj2018
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {
         [Serializable]
-        private sealed class PlayerState
+        public sealed class PlayerState
         {
+            [SerializeField]
+            private bool _playerJoined;
+
+            public bool PlayerJoined { get { return _playerJoined; } set { _playerJoined = value; } }
+
+            [SerializeField]
+            private bool _playerReady;
+
+            public bool PlayerReady { get { return _playerReady; } set { _playerReady = value; } }
+
+            [SerializeField]
+            private int _playerBird;
+
+            public int PlayerBird { get { return _playerBird; } set { _playerBird = value; } }
         }
 
 #region Models
@@ -68,6 +82,9 @@ namespace ggj2018.ggj2018
         public bool HasPlayer(int i) {
             return _players[i] != null;
         }
+        public PlayerState GetPlayerState(int i) {
+            return _playerStates[i];
+        }
 
 #region Unity Lifecycle
         private void Awake()
@@ -75,7 +92,11 @@ namespace ggj2018.ggj2018
             _playerContainer = new GameObject("Players");
 
             _players = new IPlayer[InputManager.Instance.MaxControllers];
+
             _playerStates = new PlayerState[InputManager.Instance.MaxControllers];
+            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+                _playerStates[i] = new PlayerState();
+            }
         }
 
         private void Update()
@@ -183,8 +204,6 @@ namespace ggj2018.ggj2018
         {
             _players[playerNumber] = player;
 
-            _playerStates[playerNumber] = new PlayerState();
-
             _playerCount++;
             if(player.State.BirdType.BirdDataEntry.IsPrey) {
                 _preyCount++;
@@ -200,8 +219,6 @@ namespace ggj2018.ggj2018
 
             Destroy(player.GameObject);
             _players[playerNumber] = null;
-
-            _playerStates[playerNumber] = null;
 
             _playerCount--;
         }

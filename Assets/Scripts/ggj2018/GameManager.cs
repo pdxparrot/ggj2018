@@ -68,10 +68,6 @@ namespace ggj2018.ggj2018
             } else {
                 _eventSystem = Instantiate(_eventSystemPrefab);
             }
-
-            _playerJoined = new bool[InputManager.Instance.MaxControllers];
-            _playerReady = new bool[InputManager.Instance.MaxControllers];
-            _playerBird = new int[InputManager.Instance.MaxControllers];
         }
 
         protected override void OnDestroy()
@@ -161,28 +157,21 @@ namespace ggj2018.ggj2018
         int _countdown;
         float _timer;
 
-
-        // Player bits
-        bool[] _playerJoined;
-        bool[] _playerReady;
-        int[] _playerBird;
-
-
         // Bird Logic
         void DefaultBird(int player) {
-            _playerBird[player] = player;
+            PlayerManager.Instance.GetPlayerState(player).PlayerBird = player;
             if(!ValidBird(player))
                 NextBird(player);
         }
         void NextBird(int player) {
             //do {
-                ++_playerBird[player];
+                PlayerManager.Instance.GetPlayerState(player).PlayerBird += 1;
                 WrapBird(player);
             //} while(ValidBird(player));
         }
         void PrevBird(int player) {
             //do {
-                --_playerBird[player];
+                PlayerManager.Instance.GetPlayerState(player).PlayerBird -= 1;
                 WrapBird(player);
             //} while(ValidBird(player));
         }
@@ -191,10 +180,11 @@ namespace ggj2018.ggj2018
             return true;
         }
         void WrapBird(int player) {
-            if(_playerBird[player] < 0)
-                _playerBird[player] = BirdData.Birds.Count - 1;
-            else if(_playerBird[player] >= BirdData.Birds.Count)
-                _playerBird[player] = 0;
+            int playerBird = PlayerManager.Instance.GetPlayerState(player).PlayerBird;
+            if(playerBird < 0)
+                PlayerManager.Instance.GetPlayerState(player).PlayerBird = BirdData.Birds.Count - 1;
+            else if(playerBird >= BirdData.Birds.Count)
+                PlayerManager.Instance.GetPlayerState(player).PlayerBird = 0;
         }
 
         string BirdType(int i) {
@@ -209,9 +199,9 @@ namespace ggj2018.ggj2018
             int ready = 0;
             int total = 0;
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                if(_playerReady[i])
+                if(PlayerManager.Instance.GetPlayerState(i).PlayerReady)
                     ++ready;
-                if(_playerJoined[i])
+                if(PlayerManager.Instance.GetPlayerState(i).PlayerJoined)
                     ++total;
             }
             if (ready == total && ready > 0) {
@@ -224,39 +214,39 @@ namespace ggj2018.ggj2018
 
             // Check for player joins
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                if(_playerReady[i]) {
+                if(PlayerManager.Instance.GetPlayerState(i).PlayerReady) {
                     if(InputManager.Instance.Pressed(i, 1))
-                        _playerReady[i] = false;
+                        PlayerManager.Instance.GetPlayerState(i).PlayerReady = false;
                 }
-                else if(_playerJoined[i]) {
+                else if(PlayerManager.Instance.GetPlayerState(i).PlayerJoined) {
                     if(InputManager.Instance.Pressed(i, 0))
-                        _playerReady[i] = true;
+                        PlayerManager.Instance.GetPlayerState(i).PlayerReady = true;
 
                     else if(InputManager.Instance.Pressed(i, 1))
-                        _playerJoined[i] = false;
+                        PlayerManager.Instance.GetPlayerState(i).PlayerJoined = false;
                     
                     else {
                         if(InputManager.Instance.DpadPressed(i, Dir.Left)) {
-                            NextBird(_playerBird[i]);
+                            NextBird(PlayerManager.Instance.GetPlayerState(i).PlayerBird);
                         }
                         else if(InputManager.Instance.DpadPressed(i, Dir.Right)) {
-                            PrevBird(_playerBird[i]);
+                            PrevBird(PlayerManager.Instance.GetPlayerState(i).PlayerBird);
                         }
                     }
                 }
                 else {
                     if(InputManager.Instance.Pressed(i, 0) ||
                        InputManager.Instance.StartPressed(i)) {
-                        _playerJoined[i] = true;
+                        PlayerManager.Instance.GetPlayerState(i).PlayerJoined = true;
                         DefaultBird(i);
                     }
                 }
 
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                viewer?.PlayerUI.SetStatus(_playerJoined[i],
-                                       _playerReady[i],
-                                       BirdType(_playerBird[i]),
-                                       ready == total);
+                viewer?.PlayerUI.SetStatus(PlayerManager.Instance.GetPlayerState(i).PlayerJoined,
+                                        PlayerManager.Instance.GetPlayerState(i).PlayerReady,
+                                        BirdType(PlayerManager.Instance.GetPlayerState(i).PlayerBird),
+                                        ready == total);
 
                 UIManager.Instance.SwitchToMenu();
             }
@@ -267,8 +257,8 @@ namespace ggj2018.ggj2018
         /*
         void BeginIntro() {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i)
-                if(_playerReady[i])
-                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
+                if(PlayerManager.Instance.GetPlayerState(i).PlayerReady)
+                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(PlayerManager.Instance.GetPlayerState(i).PlayerBird));
 
             // $$$ making this instant for now
             UIManager.Instance.HideMenu();
@@ -295,7 +285,7 @@ namespace ggj2018.ggj2018
         bool SinglePlayer() {
             int players = 0;
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i)
-                if(_playerReady[i])
+                if(PlayerManager.Instance.GetPlayerState(i).PlayerReady)
                     ++players;
             return players == 1;
         }
@@ -303,15 +293,15 @@ namespace ggj2018.ggj2018
         // Game State
         void BeginGame() {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                if(_playerReady[i]) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(_playerBird[i]));
+                if(PlayerManager.Instance.GetPlayerState(i).PlayerReady) {
+                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(PlayerManager.Instance.GetPlayerState(i).PlayerBird));
                 }
             }
 
             UIManager.Instance.SwitchToGame();
 
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                CameraManager.Instance.SetupCamera(i, _playerReady[i]);
+                CameraManager.Instance.SetupCamera(i, PlayerManager.Instance.GetPlayerState(i).PlayerReady);
             }
             CameraManager.Instance.ResizeViewports();
 
