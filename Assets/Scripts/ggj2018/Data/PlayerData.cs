@@ -80,5 +80,12 @@ namespace ggj2018.ggj2018.Data
 
         public int BoostSeconds => _boostSeconds;
 #endregion
+
+#region Braking
+        [SerializeField]
+        private float _brakeFactor = 0.5f;
+
+        public float BrakeFactor => _brakeFactor;
+#endregion
     }
 }

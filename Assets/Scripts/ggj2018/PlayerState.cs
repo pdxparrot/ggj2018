@@ -63,6 +63,14 @@ namespace ggj2018.ggj2018
         public bool CanBoost => BoostRemainingSeconds > 0.0f;
 #endregion
 
+#region Brake
+        [SerializeField]
+        [ReadOnly]
+        private bool _isBraking;
+
+        public bool IsBraking => _isBraking;
+#endregion
+
         private readonly IPlayer _owner;
 
         public PlayerState(IPlayer owner)
@@ -128,6 +136,20 @@ namespace ggj2018.ggj2018
                 StopBoost();
                 // should we maybe exhaust here?
             }
+        }
+#endregion
+
+#region Brake
+        public void StartBrake()
+        {
+            Debug.Log($"Player {PlayerNumber} is braking!");
+            _isBraking = true;
+        }
+
+        public void StopBrake()
+        {
+            Debug.Log($"Player {PlayerNumber} is stops braking!");
+            _isBraking = false;
         }
 #endregion
 

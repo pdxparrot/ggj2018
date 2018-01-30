@@ -40,7 +40,9 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            CheckForBoost();
+            if(!CheckForBrake()) {
+                CheckForBoost();
+            }
 
             // when the rigidbody is not kinematic, collisions cause us to rotate weird, even with frozen rotations :\
             // this is the most consistent place to correct for that
@@ -125,13 +127,30 @@ namespace ggj2018.ggj2018
             transform.position = position;
         }
 
-        private void CheckForBoost()
+        private bool CheckForBrake()
+        {
+            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.B)) {
+                _owner.State.StartBrake();
+                return true;
+            }
+
+            if(_owner.State.IsBraking && InputManager.Instance.Released(_owner.ControllerNumber, InputManager.Button.B)) {
+                _owner.State.StopBrake();
+            }
+            return false;
+        }
+
+        private bool CheckForBoost()
         {
             if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.Y)) {
                 _owner.State.StartBoost();
-            } else if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, InputManager.Button.Y)) {
+                return true;
+            }
+
+            if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, InputManager.Button.Y)) {
                 _owner.State.StopBoost();
             }
+            return false;
         }
 
         private void Turn(Vector3 axes, float dt)
@@ -198,7 +217,9 @@ namespace ggj2018.ggj2018
             }
 
             float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier;
-            if(_owner.State.IsBoosting) {
+            if(_owner.State.IsBraking) {
+                speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
+            } else if(_owner.State.IsBoosting) {
                 speed *= PlayerManager.Instance.PlayerData.BoostFactor;
             }
 
