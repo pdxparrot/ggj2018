@@ -226,11 +226,20 @@ namespace ggj2018.ggj2018
             return 0;
         }
 
+#if UNITY_EDITOR
+        public void DebugStunAll()
+        {
+            foreach(var player in _players) {
+                player?.State.DebugStun();
+            }
+        }
+
         public void DebugKillAll()
         {
             foreach(var player in _players) {
                 player?.State.DebugKill();
             }
         }
+#endif
     }
 }

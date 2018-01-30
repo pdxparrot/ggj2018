@@ -29,11 +29,8 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
-            if(null != _debugContainer) {
-                return;
-            }
-
-            if(Input.GetKeyDown(KeyCode.D)) {
+#if UNITY_EDITOR
+            if(null == _debugContainer && Input.GetKeyDown(KeyCode.D)) {
                 _debugContainer = new GameObject("Debug");
 
                 Instantiate(_hawkModelPrefab, _hawkSpawnPosition, Quaternion.identity, _debugContainer.transform);
@@ -43,6 +40,11 @@ namespace ggj2018.ggj2018
             if(Input.GetKeyDown(KeyCode.K)) {
                 PlayerManager.Instance.DebugKillAll();
             }
+
+            if(Input.GetKeyDown(KeyCode.S)) {
+                PlayerManager.Instance.DebugStunAll();
+            }
+#endif
         }
 #endregion
     }

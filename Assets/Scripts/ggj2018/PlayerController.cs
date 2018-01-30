@@ -40,6 +40,10 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+#if UNITY_EDITOR
+            CheckForDebug();
+#endif
+
             if(!CheckForBrake()) {
                 CheckForBoost();
             }
@@ -126,6 +130,19 @@ namespace ggj2018.ggj2018
             Debug.Log($"Teleporting player {_owner.State.PlayerNumber} to {position}");
             transform.position = position;
         }
+
+#if UNITY_EDITOR
+        private void CheckForDebug()
+        {
+            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.LeftStick)) {
+                _owner.State.DebugStun();
+            }
+
+            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.RightStick)) {
+                _owner.State.DebugKill();
+            }
+        }
+#endif
 
         private bool CheckForBrake()
         {

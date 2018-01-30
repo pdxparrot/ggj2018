@@ -85,11 +85,6 @@ namespace ggj2018.ggj2018
 
         public void EnablePauseUI(bool enable) {
             _pauseMenu.gameObject.SetActive(enable);
-
-            /*for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                viewer?.PlayerUI.EnablePauseMenu(enable);
-            }*/
         }
     }
 }

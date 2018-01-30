@@ -60,7 +60,7 @@ namespace ggj2018.ggj2018
 
         public float BoostRemainingSeconds => _boostRemainingSeconds;
 
-        public bool CanBoost => BoostRemainingSeconds > 0.0f;
+        public bool CanBoost => !IsIncapacitated && BoostRemainingSeconds > 0.0f;
 #endregion
 
 #region Brake
@@ -69,6 +69,8 @@ namespace ggj2018.ggj2018
         private bool _isBraking;
 
         public bool IsBraking => _isBraking;
+
+        public bool CanBrake => !IsIncapacitated;
 #endregion
 
         private readonly IPlayer _owner;
@@ -142,6 +144,10 @@ namespace ggj2018.ggj2018
 #region Brake
         public void StartBrake()
         {
+            if(!CanBrake) {
+                return;
+            }
+
             Debug.Log($"Player {PlayerNumber} is braking!");
             _isBraking = true;
         }
@@ -183,9 +189,22 @@ namespace ggj2018.ggj2018
             Stun(collider);
         }
 
+#if UNITY_EDITOR
+        public void DebugStun()
+        {
+            if(IsStunned) {
+                return;
+            }
+
+            Debug.Log("Ouch!");
+
+            Stun();
+        }
+#endif
+
         private void Stun(Collider collider)
         {
-            _stunTimer = PlayerManager.Instance.PlayerData.StunTimeSeconds;
+            Stun();
 
             Vector3 playerPosition = _owner.GameObject.transform.position;
             Vector3 collisionPosition = collider.transform.position;
@@ -197,6 +216,11 @@ namespace ggj2018.ggj2018
                 _owner.GameObject.transform.forward = _stunBounceDirection;
                 _stunBounceDirection = _owner.GameObject.transform.rotation * _stunBounceDirection;
             }
+        }
+
+        private void Stun()
+        {
+            _stunTimer = PlayerManager.Instance.PlayerData.StunTimeSeconds;
 
             _owner.Controller.Bird.ShowStun(true);
         }
@@ -242,6 +266,7 @@ namespace ggj2018.ggj2018
             Kill();
         }
 
+#if UNITY_EDITOR
         public void DebugKill()
         {
             if(IsDead) {
@@ -252,6 +277,7 @@ namespace ggj2018.ggj2018
 
             Kill();
         }
+#endif
 
         private void Kill()
         {

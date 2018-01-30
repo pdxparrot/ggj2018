@@ -15,7 +15,8 @@ namespace ggj2018.Core.Input
 
         public enum Button {
             A, B, X, Y,
-            LeftBumper, RightBumper
+            LeftBumper, RightBumper,
+            LeftStick = 8, RightStick = 9
         }
 
         [Serializable]
