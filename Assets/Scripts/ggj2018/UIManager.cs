@@ -2,12 +2,34 @@
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
+using UnityEngine;
+
 namespace ggj2018.ggj2018
 {
     public sealed class UIManager : SingletonBehavior<UIManager>
     {
-        void Start() { SwitchToMenu();
+        [SerializeField]
+        private PauseMenu _pauseMenuPrefab;
+
+        private GameObject _uiContainer;
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            _uiContainer = new GameObject("UI");
         }
+
+        private void Start()
+        {
+            SwitchToMenu();
+        }
+
+        protected override void OnDestroy()
+        {
+            Destroy(_uiContainer);
+            _uiContainer = null;
+        }
+#endregion
 
         /*
         public void Countdown(int c) {
