@@ -10,9 +10,7 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerController : MonoBehavior
     {
-        private Bird _bird;
-
-        public Bird Bird => _bird;
+        public Bird Bird { get; private set; }
 
         [SerializeField]
         [ReadOnly]
@@ -76,8 +74,8 @@ namespace ggj2018.ggj2018
 
             Move(_lastMoveAxes, dt);
 
-            if(_owner != null && 
-               _owner.State.IsDead && (_boundaryCollision == null || WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type)) {
+            bool groundCollision = null != _boundaryCollision && WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type;
+            if(_owner != null && _owner.State.IsDead && groundCollision) {
                 PlayerManager.Instance.DespawnLocalPlayer(_owner.State.PlayerNumber);
             }
         }
@@ -115,7 +113,7 @@ namespace ggj2018.ggj2018
         public void Initialize(IPlayer owner, SpawnPoint spawnPoint, Bird bird)
         {
             _owner = owner;
-            _bird = bird;
+            Bird = bird;
 
             transform.position = spawnPoint.transform.position;
             transform.rotation = spawnPoint.transform.rotation;
@@ -150,13 +148,13 @@ namespace ggj2018.ggj2018
         private void RotateModel(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
-                _bird.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                Bird.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
                 return;
             }
 
             if(_owner.State.IsStunned) {
-                Vector3 modelRotation = _bird.transform.localRotation.eulerAngles;
-                _bird.transform.localRotation = Quaternion.Euler(0.0f, modelRotation.y, 0.0f);
+                Vector3 modelRotation = Bird.transform.localRotation.eulerAngles;
+                Bird.transform.localRotation = Quaternion.Euler(0.0f, modelRotation.y, 0.0f);
                 return;
             }
 
@@ -164,23 +162,23 @@ namespace ggj2018.ggj2018
 
             if(null == _boundaryCollision || _boundaryCollision.IsVertical) {
                 if(axes.x < -Mathf.Epsilon) {
-                    targetEuler.z = 45.0f;
+                    targetEuler.z = PlayerManager.Instance.PlayerData.TurnAnimationAngle;
                 } else if(axes.x > Mathf.Epsilon) {
-                    targetEuler.z = -45.0f;
+                    targetEuler.z = -PlayerManager.Instance.PlayerData.TurnAnimationAngle;
                 }
             }
 
             if(null == _boundaryCollision || !_boundaryCollision.IsVertical) {
                 if(axes.y < -Mathf.Epsilon) {
-                    targetEuler.x = 45.0f;
+                    targetEuler.x = PlayerManager.Instance.PlayerData.PitchAnimationAngle;
                 } else if(axes.y > Mathf.Epsilon) {
-                    targetEuler.x = -45.0f;
+                    targetEuler.x = -PlayerManager.Instance.PlayerData.PitchAnimationAngle;
                 }
             }
 
             Quaternion targetRotation = Quaternion.Euler(targetEuler);
-            Quaternion rotation = Quaternion.Lerp(_bird.transform.localRotation, targetRotation, PlayerManager.Instance.PlayerData.RotationAnimationSpeed * dt);
-            _bird.transform.localRotation = rotation;
+            Quaternion rotation = Quaternion.Lerp(Bird.transform.localRotation, targetRotation, PlayerManager.Instance.PlayerData.RotationAnimationSpeed * dt);
+            Bird.transform.localRotation = rotation;
         }
 
         private void Move(Vector3 axes, float dt)
@@ -207,11 +205,10 @@ namespace ggj2018.ggj2018
             _velocity = transform.forward * speed;
             _velocity.y = 0.0f;
 
-            float pitchSpeed = (PlayerManager.Instance.PlayerData.BasePitchSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier);
             if(axes.y < -Mathf.Epsilon) {
-                _velocity.y = -pitchSpeed;
+                _velocity.y = -PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier;
             } else if(axes.y > Mathf.Epsilon) {
-                _velocity.y = pitchSpeed;
+                _velocity.y = PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier;
             }
 
             transform.position += _velocity * dt;

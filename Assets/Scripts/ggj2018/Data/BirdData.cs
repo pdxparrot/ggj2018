@@ -22,6 +22,7 @@ namespace ggj2018.ggj2018.Data
 
             public string Name => _name;
 
+#region Stat Modifiers
             [SerializeField]
             private float _speedModifier;
 
@@ -36,13 +37,16 @@ namespace ggj2018.ggj2018.Data
             private float _pitchSpeedModifier;
 
             public float PitchSpeedModifier => _pitchSpeedModifier;
+#endregion
 
+#region Bird Type
             [SerializeField]
             private bool _isPredator;
 
             public bool IsPredator => _isPredator;
 
             public bool IsPrey => !_isPredator;
+#endregion
 
             public override string ToString()
             {
@@ -50,15 +54,17 @@ namespace ggj2018.ggj2018.Data
             }
         }
 
+#region FOVs
         [SerializeField]
-        private float _predatorFOV = 60.0f;
+        private float _predatorFOV = 90.0f;
 
         public float PredatorFOV => _predatorFOV;
 
         [SerializeField]
-        private float _preyFOV = 45.0f;
+        private float _preyFOV = 60;
 
         public float PreyFOV => _preyFOV;
+#endregion
 
         [SerializeField]
         private BirdDataEntry[] _birds;

@@ -1252,6 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4227110724424444}
   - component: {fileID: 20295695093120854}
+  - component: {fileID: 114854027975124778}
   m_Layer: 5
   m_Name: Camera UI
   m_TagString: Untagged
@@ -4512,6 +4513,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114854027975124778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661242302176624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6141cb6c4d538b2408c81a7a0ddf30f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _aspectWidth: 16
+  _aspectHeight: 9
+  _targetAspectRatio: 0
 --- !u!114 &114871807151340536
 MonoBehaviour:
   m_ObjectHideFlags: 1

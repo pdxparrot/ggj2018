@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-using ggj2018.Game.Data;
+﻿using ggj2018.Game.Data;
 using ggj2018.Core.Util;
 
 using UnityEngine;

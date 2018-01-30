@@ -47,6 +47,9 @@ namespace ggj2018.Core.Camera
             for(int i=0; i<count; ++i) {
                 BaseViewer viewer = Instantiate(_viewerPrefab, _viewerContainer.transform);
                 viewer.name = $"Viewer P{i}";
+                viewer.Camera.name = $"Camera P{i}";
+                viewer.NoPostProcessCamera.name = $"No PP Camera P{i}";
+                viewer.UICamera.name = $"UI Camera P{i}";
                 _viewers.Add(viewer);
             }
 

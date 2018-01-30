@@ -20,6 +20,7 @@ namespace ggj2018.Core.Camera
 
         private UnityEngine.Camera _camera;
 
+#region Unity Lifecycle
         private void Awake()
         {
             _camera = GetComponent<UnityEngine.Camera>();
@@ -29,12 +30,20 @@ namespace ggj2018.Core.Camera
 
         private void Start()
         {
-            float screenAspectRatio = Screen.width / (float)Screen.height;
-            float scaleHeight = screenAspectRatio / _targetAspectRatio;
+            UpdateAspectRatio();
+        }
+#endregion
 
-            if(scaleHeight < 1.0f) {
-                _camera.orthographicSize = _camera.orthographicSize / scaleHeight;
+        public void UpdateAspectRatio()
+        {
+            float viewportAspectRatio = (Screen.width * _camera.rect.width) / (Screen.height * _camera.rect.height);
+            if(viewportAspectRatio >= _targetAspectRatio) {
+                _camera.orthographicSize = _aspectHeight / 2.0f;
+            }  else {
+                float scale = _targetAspectRatio / viewportAspectRatio;
+                _camera.orthographicSize = (_aspectHeight / 2.0f) * scale;
             }
+            Debug.Log($"Updated orthographic size of {_camera.name} to {_camera.orthographicSize}");
         }
     }
 }

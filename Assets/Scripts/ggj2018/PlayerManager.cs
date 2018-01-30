@@ -1,4 +1,7 @@
-﻿using ggj2018.Core.Camera;
+﻿using System;
+
+using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
 using ggj2018.ggj2018.Data;
@@ -9,6 +12,12 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {
+        [Serializable]
+        private sealed class PlayerState
+        {
+        }
+
+#region Models
         [SerializeField]
         private Predator _predatorModelPrefab;
 
@@ -18,6 +27,7 @@ namespace ggj2018.ggj2018
         private Prey _preyModelPrefab;
 
         public Prey PreyModelPrefab => _preyModelPrefab;
+#endregion
 
         [SerializeField]
         private LocalPlayer _localPlayerPrefab;
@@ -33,6 +43,10 @@ namespace ggj2018.ggj2018
         public PlayerData PlayerData => _playerData;
 
         private IPlayer[] _players;
+
+        [SerializeField]
+        [ReadOnly]
+        private PlayerState[] _playerStates;
 
         [SerializeField]
         [ReadOnly]
@@ -60,7 +74,8 @@ namespace ggj2018.ggj2018
         {
             _playerContainer = new GameObject("Players");
 
-            _players = new IPlayer[GameManager.Instance.ConfigData.MaxLocalPlayers];
+            _players = new IPlayer[InputManager.Instance.MaxControllers];
+            _playerStates = new PlayerState[InputManager.Instance.MaxControllers];
         }
 
         private void Update()
@@ -99,7 +114,7 @@ namespace ggj2018.ggj2018
             LocalPlayer player = Instantiate(_localPlayerPrefab, _playerContainer.transform);
             InitializePlayer(player, playerNumber, birdType, spawnPoint);
 
-            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {player.transform.position}");
+            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {spawnPoint.name} ({player.transform.position})");
 
             AddPlayer(playerNumber, player);
         }
@@ -168,6 +183,8 @@ namespace ggj2018.ggj2018
         {
             _players[playerNumber] = player;
 
+            _playerStates[playerNumber] = new PlayerState();
+
             _playerCount++;
             if(player.State.BirdType.BirdDataEntry.IsPrey) {
                 _preyCount++;
@@ -183,6 +200,9 @@ namespace ggj2018.ggj2018
 
             Destroy(player.GameObject);
             _players[playerNumber] = null;
+
+            _playerStates[playerNumber] = null;
+
             _playerCount--;
         }
 

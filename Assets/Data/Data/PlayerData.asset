@@ -13,7 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseSpeed: 50
   _baseTurnSpeed: 50
-  _basePitchSpeed: 25
+  _basePitchUpSpeed: 25
+  _basePitchDownSpeed: 50
+  _pitchAnimationAngle: 45
+  _turnAnimationAngle: 45
   _rotationAnimationSpeed: 6
   _stunTimeSeconds: 2
   _stunBounceSpeed: 7

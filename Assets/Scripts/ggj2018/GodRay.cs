@@ -1,4 +1,5 @@
 ﻿using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace ggj2018.ggj2018
             var dist = FadeFarDist + 1;
 
             if(mode == Mode.Carrier) {
-                for(int i = 0; i < GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
+                for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                     var p = PlayerManager.Instance.Player(i) as LocalPlayer;
                     if(p != null && p.State.BirdType.BirdDataEntry.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
@@ -52,7 +53,7 @@ namespace ggj2018.ggj2018
                 }
             }
             else if(mode == Mode.Goal) {
-                for(int i = 0; i < GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
+                for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                     var p = PlayerManager.Instance.Player(i) as LocalPlayer;
                     if(p != null && !p.State.BirdType.BirdDataEntry.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;

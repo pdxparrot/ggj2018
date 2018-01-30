@@ -113,6 +113,13 @@ MonoBehaviour:
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
+  _returnToDefault: 0
+  _defaultOrbitRotation: {x: 0, y: 0}
+  _defaultOrbitReturnSpeed: 10
+  _orbitXMin: -360
+  _orbitXMax: 360
+  _orbitYMin: -360
+  _orbitYMax: 360
   _enableZoom: 0
   _minZoomDistance: 5
   _maxZoomDistance: 100

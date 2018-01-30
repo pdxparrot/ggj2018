@@ -23,6 +23,11 @@ namespace ggj2018.Game.Scenes
         private readonly List<string> _loadedScenes = new List<string>();
 
 #region Load Scene
+        private void SetScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+
         public void LoadDefaultScene(Action callback)
         {
             LoadScene(DefaultSceneName, callback, true);
@@ -80,7 +85,7 @@ namespace ggj2018.Game.Scenes
             callback?.Invoke();
         }
 
-        public void UnloadAllScenes()
+        public void UnloadAllScenes(Action callback)
         {
             foreach(string sceneName in _loadedScenes) {
                 SceneManager.UnloadSceneAsync(sceneName);
@@ -89,20 +94,34 @@ namespace ggj2018.Game.Scenes
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(_mainSceneName));
         }
+
+        public IEnumerator UnloadAllScenesRoutine(Action callback)
+        {
+            foreach(string sceneName in _loadedScenes) {
+                IEnumerator runner = UnloadSceneRoutine(sceneName, null);
+                while(runner.MoveNext()) {
+                    yield return null;
+                }
+            }
+            _loadedScenes.Clear();
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_mainSceneName));
+
+            callback?.Invoke();
+        }
 #endregion
 
 #region Reload Scene
         public void ReloadMainScene()
         {
-            UnloadAllScenes();
-            SceneManager.LoadScene(_mainSceneName);
+            UnloadAllScenes(() => {
+                SceneManager.LoadScene(_mainSceneName);
+            });
         }
 
         public void ReloadDefaultScene(Action callback)
         {
-            UnloadDefaultScene(() => {
-                LoadDefaultScene(callback);
-            });
+            ReloadScene(DefaultSceneName, callback);
         }
 
         public void ReloadScene(string sceneName, Action callback)

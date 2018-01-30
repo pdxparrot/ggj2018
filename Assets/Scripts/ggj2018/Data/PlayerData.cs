@@ -8,6 +8,7 @@ namespace ggj2018.ggj2018.Data
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {
+#region Base Stats
         [SerializeField]
         private float _baseSpeed = 1.0f;
 
@@ -19,15 +20,34 @@ namespace ggj2018.ggj2018.Data
         public float BaseTurnSpeed => _baseTurnSpeed;
 
         [SerializeField]
-        private float _basePitchSpeed = 50.0f;
+        private float _basePitchUpSpeed = 25.0f;
 
-        public float BasePitchSpeed => _basePitchSpeed;
+        public float BasePitchUpSpeed => _basePitchUpSpeed;
+
+        [SerializeField]
+        private float _basePitchDownSpeed = 50.0f;
+
+        public float BasePitchDownSpeed => _basePitchDownSpeed;
+#endregion
+
+#region Animations
+        [SerializeField]
+        private float _pitchAnimationAngle = 45.0f;
+
+        public float PitchAnimationAngle => _pitchAnimationAngle;
+
+        [SerializeField]
+        private float _turnAnimationAngle = 45.0f;
+
+        public float TurnAnimationAngle => _turnAnimationAngle;
 
         [SerializeField]
         private float _rotationAnimationSpeed = 5.0f;
 
         public float RotationAnimationSpeed => _rotationAnimationSpeed;
+#endregion
 
+#region Stuns
         [SerializeField]
         private int _stunTimeSeconds = 2;
 
@@ -42,12 +62,14 @@ namespace ggj2018.ggj2018.Data
         private bool _stunBounceRotation = false;
 
         public bool StunBounceRotation => _stunBounceRotation;
+#endregion
 
         [SerializeField]
         private float _terminalVelocity = 100.0f;
 
         public float TerminalVelocity => _terminalVelocity;
 
+#region Boost
         [SerializeField]
         private float _boostFactor = 2.0f;
 
@@ -57,5 +79,6 @@ namespace ggj2018.ggj2018.Data
         private int _boostSeconds = 5;
 
         public int BoostSeconds => _boostSeconds;
+#endregion
     }
 }

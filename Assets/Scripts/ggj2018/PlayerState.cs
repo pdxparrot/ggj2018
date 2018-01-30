@@ -131,7 +131,6 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-
 #region Stun
         public void EnvironmentStun(Collider collider)
         {

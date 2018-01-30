@@ -47,6 +47,11 @@ namespace ggj2018.Core.Camera
             Camera.rect = viewport;
             NoPostProcessCamera.rect = viewport;
             UICamera.rect = viewport;
+
+            AspectRatio aspectRatio = UICamera.GetComponent<AspectRatio>();
+            if(null != aspectRatio) {
+                aspectRatio.UpdateAspectRatio();
+            }
         }
 
         public void SetFov(float fov)
