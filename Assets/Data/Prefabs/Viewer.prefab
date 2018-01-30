@@ -1390,6 +1390,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4303578851745460}
   - component: {fileID: 20692765641663414}
+  - component: {fileID: 114410835223651618}
+  - component: {fileID: 114946394314291538}
   m_Layer: 0
   m_Name: Camera culling
   m_TagString: Untagged
@@ -1823,8 +1825,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667982514631570}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 125, z: 0}
+  m_LocalRotation: {x: 0.31632075, y: -0, z: -0, w: 0.9486523}
+  m_LocalPosition: {x: -0.9, y: 9.3, z: -9.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4007346236481630}
@@ -1833,7 +1835,7 @@ Transform:
   - {fileID: 224382821042914564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.881, y: 0, z: 0}
 --- !u!4 &4227110724424444
 Transform:
   m_ObjectHideFlags: 1
@@ -1881,7 +1883,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294963432
@@ -1917,7 +1919,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294966271
@@ -1953,7 +1955,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -2977,6 +2979,26 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &114410835223651618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703908401599164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfc710a999b9b54ab06589e5019a224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color1: {r: 1, g: 0, b: 0, a: 0}
+  color2: {r: 0, g: 1, b: 0.21379304, a: 0}
+  brightness1: 2
+  brightness2: 2
+  material: {fileID: 2100000, guid: 396a5ca90c1d1874fa98152fbff61654, type: 2}
+  colorProperty1: _PrimaryColor
+  colorProperty2: _SecondaryColor
+  brightnessProperty1: _PrimaryBrightness
+  brightnessProperty2: _SecondaryBrightness
 --- !u!114 &114414358541330918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4706,6 +4728,18 @@ MonoBehaviour:
   m_FillAmount: 0.843
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114946394314291538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703908401599164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 2e956671207a6f94188c8430b2d4361e, type: 2}
 --- !u!114 &114949267477136538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5899,7 +5933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.62625587, y: 0}
   m_AnchorMax: {x: 0.9710001, y: 0.29220274}
-  m_AnchoredPosition: {x: 0.71499634, y: 0.05001831}
+  m_AnchoredPosition: {x: 0.7149658, y: 0.05001831}
   m_SizeDelta: {x: 1.4300003, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224167496218573548
@@ -6745,7 +6779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.30547485, y: 1}
-  m_AnchoredPosition: {x: -0.2328949, y: -0.086624146}
+  m_AnchoredPosition: {x: -0.23291016, y: -0.086624146}
   m_SizeDelta: {x: -0.46577454, y: 0.17324829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224627862130049484
