@@ -137,7 +137,7 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void SpawnLocalPlayer(int playerNumber, string birdTypeId)
+        public void SpawnLocalPlayer(int playerNumber, string gameTypeId, string birdTypeId)
         {
             if(null != _players[playerNumber]) {
                 Debug.LogError("Cannot spawn a player on top of another player!");
@@ -146,9 +146,9 @@ namespace ggj2018.ggj2018
 
             BirdType birdType = new BirdType(birdTypeId);
 
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(birdType);
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeId, birdType);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {birdTypeId}");
+                Debug.LogError($"No spawn points left for bird type {birdTypeId} in game type {gameTypeId}");
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace ggj2018.ggj2018
             AddPlayer(playerNumber, player);
         }
 
-        public void SpawnNetworkPlayer(int playerNumber, string birdTypeId)
+        public void SpawnNetworkPlayer(int playerNumber, string gameTypeId, string birdTypeId)
         {
             if(null != _players[playerNumber]) {
                 Debug.LogError("Cannot spawn a player on top of another player!");
@@ -169,9 +169,9 @@ namespace ggj2018.ggj2018
 
             BirdType birdType = new BirdType(birdTypeId);
 
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(birdType);
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeId, birdType);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {birdType}");
+                Debug.LogError($"No spawn points left for bird type {birdType} in game type {gameTypeId}");
                 return;
             }
 
@@ -191,12 +191,14 @@ namespace ggj2018.ggj2018
                     : (Bird)PreyModelPrefab,
                 player.GameObject.transform);
 
-            player.Controller.Initialize(player, spawnPoint, model);
+            player.Controller.Initialize(player, model);
             player.State.Initialize(playerNumber, birdType);
             player.Initialize();
 
             Viewer viewer = CameraManager.Instance.Viewers.ElementAt(playerNumber) as Viewer;
             viewer?.Initialize(birdType);
+
+            spawnPoint.Spawn(player);
         }
 
         public void DespawnLocalPlayer(int playerNumber)

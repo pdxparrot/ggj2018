@@ -118,13 +118,10 @@ namespace ggj2018.ggj2018
             rigidbody.useGravity = false;
         }
 
-        public void Initialize(IPlayer owner, SpawnPoint spawnPoint, Bird bird)
+        public void Initialize(IPlayer owner, Bird bird)
         {
             _owner = owner;
             Bird = bird;
-
-            transform.position = spawnPoint.transform.position;
-            transform.rotation = spawnPoint.transform.rotation;
         }
 
         public void MoveTo(Vector3 position)

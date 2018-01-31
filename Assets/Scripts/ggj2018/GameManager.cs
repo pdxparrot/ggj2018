@@ -66,6 +66,9 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
+            _birdData.Initialize();
+            _gameTypeData.Initialize();
+
             if(ConfigData.EnableGVR) {
                 _gvr = Instantiate(_gvrPrefab);
             } else {
@@ -100,8 +103,6 @@ namespace ggj2018.ggj2018
 
         public void Initialize()
         {
-            _birdData.Initialize();
-
             CameraManager.Instance.SpawnViewers(InputManager.Instance.MaxControllers);
             State.SetState(GameState.EState.eMenu);
         }

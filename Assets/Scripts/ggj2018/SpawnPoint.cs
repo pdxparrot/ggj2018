@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Util;
+﻿using System.Collections.Generic;
+
+using ggj2018.Core.Util;
 
 using UnityEngine;
 
@@ -6,6 +8,11 @@ namespace ggj2018.ggj2018
 {
     public class SpawnPoint : MonoBehavior
     {
+        [SerializeField]
+        private string[] _gameTypeIds;
+
+        public IReadOnlyCollection<string> GameTypeIds => _gameTypeIds;
+
         [SerializeField]
         private bool _isPredatorSpawn;
 
@@ -24,5 +31,11 @@ namespace ggj2018.ggj2018
             }
         }
 #endregion
+
+        public void Spawn(IPlayer player)
+        {
+            player.GameObject.transform.position = transform.position;
+            player.GameObject.transform.rotation = transform.rotation;
+        }
     }
 }

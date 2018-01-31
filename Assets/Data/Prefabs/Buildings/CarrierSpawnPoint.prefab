@@ -1741,6 +1741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1996ca34af457438faa5bc9a19015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameTypeIds:
+  - crazy_taxi
+  - hunt
   _isPredatorSpawn: 0
 --- !u!114 &114330788845736230
 MonoBehaviour:
@@ -1775,6 +1778,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1996ca34af457438faa5bc9a19015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameTypeIds:
+  - crazy_taxi
+  - hunt
   _isPredatorSpawn: 0
 --- !u!114 &114544318470328232
 MonoBehaviour:
@@ -1875,6 +1881,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1996ca34af457438faa5bc9a19015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameTypeIds:
+  - crazy_taxi
+  - hunt
   _isPredatorSpawn: 0
 --- !u!114 &114960532882292812
 MonoBehaviour:

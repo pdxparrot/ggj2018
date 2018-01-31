@@ -16,7 +16,9 @@ MonoBehaviour:
     _name: Delivery
     _goalScore: -1
     _timeLimit: -1
+    _birdTypesShareSpawnPoints: 1
   - _id: hunt
     _name: Hunt and Kill
     _goalScore: -1
     _timeLimit: -1
+    _birdTypesShareSpawnPoints: 0

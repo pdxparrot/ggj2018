@@ -167,22 +167,33 @@ namespace ggj2018.ggj2018
 #endregion
 
 #region Game State
-        private bool SinglePlayer()
+        private string DetermineGameType()
         {
-            int players = 0;
+            int playerCount = 0;
+            bool havePredator=false, havePrey=false;
+
+
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                if(PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady) {
-                    ++players;
+                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+                if(playerState.IsReady) {
+                    playerCount++;
                 }
+
+                havePredator = havePredator || playerState.PlayerBirdData.IsPredator;
+                havePrey = havePrey || playerState.PlayerBirdData.IsPrey;
             }
-            return players == 1;
+
+            return 1 == playerCount || !havePredator || !havePrey ? "crazy_taxi" : "hunt";
         }
 
         private void BeginGame()
         {
+            string gameTypeId = DetermineGameType();
+            Debug.Log($"Beginning game type {gameTypeId}");
+
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 if(PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
+                    PlayerManager.Instance.SpawnLocalPlayer(i, gameTypeId, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
                 }
             }
 
@@ -193,9 +204,11 @@ namespace ggj2018.ggj2018
             }
             CameraManager.Instance.ResizeViewports();
 
-            if(!SinglePlayer()) {
+            if("hunt" == gameTypeId) {
                 GameManager.Instance.StartCoroutine(CheckPredatorVictoryCondition());
             }
+
+            SpawnManager.Instance.ReleaseSpawnPoints();
         }
 
         private void RunGame()

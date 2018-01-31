@@ -23,14 +23,19 @@ namespace ggj2018.ggj2018.Data
             public string Name => _name;
 
             [SerializeField]
-            public int _goalScore = -1;
+            private int _goalScore = -1;
 
             public int GoalScore => _goalScore;
 
             [SerializeField]
-            public int _timeLimit = -1;
+            private int _timeLimit = -1;
 
             public int TimeLimit => _timeLimit;
+
+            [SerializeField]
+            private bool _birdTypesShareSpawnPoints;
+
+            public bool BirdTypesShareSpawnPoints => _birdTypesShareSpawnPoints;
         }
 
         [SerializeField]
