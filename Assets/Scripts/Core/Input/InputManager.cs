@@ -153,10 +153,10 @@ namespace ggj2018.Core.Input
         private void Update()
         {
             for(int i=0; i<MaxControllers; ++i) {
-                if(Pressed(i, Button.LeftBumper)) {
+                if(Pressed(i, Button.RightBumper)) {
                     Debug.Log($"Inverting controller {i} look");
                     _controllerStates[i].InvertLookY = !_controllerStates[i].InvertLookY;
-                } else if(Pressed(i, Button.RightBumper)) {
+                } else if(Pressed(i, Button.LeftBumper)) {
                     Debug.Log($"Uninverting controller {i} move");
                     _controllerStates[i].InvertMoveY = !_controllerStates[i].InvertMoveY;
                 }
