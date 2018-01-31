@@ -104,7 +104,7 @@ Shader "SH_VFX_Fog"
 }
 /*ASEBEGIN
 Version=14301
-539;91;493;651;899.33;539.1058;2.122129;True;False
+1224;91;696;651;1056.368;590.0369;2.122129;True;False
 Node;AmplifyShaderEditor.RangedFloatNode;26;-1956.045,-42.77776;Float;False;Property;_FogSpeed;Fog Speed;7;0;Create;True;1;1;0;2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;31;-1983.631,-375.2155;Float;False;Property;_FogSpeed2;Fog Speed 2;6;0;Create;True;1;1;0;2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.Vector2Node;32;-1677.533,-520.1339;Float;False;Property;_FogDirection2;Fog Direction 2;10;0;Create;True;0.5,0.5;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
@@ -134,7 +134,7 @@ Node;AmplifyShaderEditor.TFHCRemapNode;19;-493.282,-396.3051;Float;False;5;0;FLO
 Node;AmplifyShaderEditor.RangedFloatNode;11;-859.2833,495.8392;Float;False;Property;_FogOpacity;Fog Opacity;2;0;Create;True;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;7;-606.3421,195.2427;Float;False;2;2;0;FLOAT;0.0;False;1;FLOAT;0.0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;15;-282.0159,-88.88524;Float;False;2;2;0;FLOAT;0.0;False;1;COLOR;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SaturateNode;41;-143.8522,4.159111;Float;False;1;0;COLOR;0.0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SaturateNode;41;-143.8522,4.159111;Float;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.TexturePropertyNode;30;-1244.814,-1104.075;Float;True;Property;_NoiseTexture;Noise Texture;12;0;Create;True;None;None;False;white;Auto;0;1;SAMPLER2D;0
 Node;AmplifyShaderEditor.ToggleSwitchNode;28;-566.7836,-917.2627;Float;False;Property;_ProceduralFog;Procedural Fog;11;0;Create;True;0;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SamplerNode;29;-973.8809,-997.9921;Float;True;Property;_TextureSample0;Texture Sample 0;8;0;Create;True;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0.0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1.0;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -175,4 +175,4 @@ WireConnection;12;2;11;0
 WireConnection;0;2;41;0
 WireConnection;0;9;12;0
 ASEEND*/
-//CHKSM=37863286D1AAB73D7591D931A3C765F26E2CC4F1
+//CHKSM=BB07125EF289BF49E02542B831BE7A77E8C0589A
