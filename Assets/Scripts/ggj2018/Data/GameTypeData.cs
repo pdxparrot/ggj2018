@@ -12,6 +12,14 @@ namespace ggj2018.ggj2018.Data
         [Serializable]
         public sealed class GameTypeDataEntry
         {
+            public enum WinCondition
+            {
+                SingleGoal,
+                MultiGoal,
+                Kills,
+                Survive
+            }
+
             [SerializeField]
             private string _id;
 
@@ -22,15 +30,45 @@ namespace ggj2018.ggj2018.Data
 
             public string Name => _name;
 
+#region Predator Win Condition
             [SerializeField]
-            private int _goalScore = -1;
+            private WinCondition _predatorWinCondition;
 
-            public int GoalScore => _goalScore;
+            public WinCondition PredatorWinCondition => _predatorWinCondition;
+
+            [SerializeField]
+            private string _predatorWinConditionDescription;
+
+            public string PredatorWinConditionDescription => _predatorWinConditionDescription;
+#endregion
+
+
+#region Prey Win Condition
+            [SerializeField]
+            private WinCondition _preyWinCondition;
+
+            public WinCondition PreyWinCondition => _preyWinCondition;
+
+            [SerializeField]
+            private string _preyWinConditionDescription;
+
+            public string PreyWinConditionDescription => _preyWinConditionDescription;
+#endregion
+
+            [SerializeField]
+            private int _targetGoalScore = -1;
+
+            public int TargetGoalScore => _targetGoalScore;
 
             [SerializeField]
             private int _timeLimit = -1;
 
             public int TimeLimit => _timeLimit;
+
+            [SerializeField]
+            private bool _useTeams;
+
+            public bool UseTeams => _useTeams;
 
             [SerializeField]
             private bool _birdTypesShareSpawnPoints;

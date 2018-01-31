@@ -14,11 +14,31 @@ MonoBehaviour:
   _gameTypes:
   - _id: crazy_taxi
     _name: Delivery
-    _goalScore: -1
-    _timeLimit: -1
+    _predatorWinCondition: 1
+    _predatorWinConditionDescription: Deliver messages to the goals!
+    _preyWinCondition: 1
+    _preyWinConditionDescription: Deliver messages to the goals!
+    _targetGoalScore: 10
+    _timeLimit: 10
+    _useTeams: 0
     _birdTypesShareSpawnPoints: 1
   - _id: hunt
-    _name: Hunt and Kill
-    _goalScore: -1
+    _name: Hunt and Deliver
+    _predatorWinCondition: 2
+    _predatorWinConditionDescription: Kill the messengers!
+    _preyWinCondition: 0
+    _preyWinConditionDescription: Deliver the message to the goal!
+    _targetGoalScore: -1
     _timeLimit: -1
+    _useTeams: 1
+    _birdTypesShareSpawnPoints: 0
+  - _id: revenge
+    _name: Revenge
+    _predatorWinCondition: 3
+    _predatorWinConditionDescription: Survive!
+    _preyWinCondition: 2
+    _preyWinConditionDescription: Kill the hunters!
+    _targetGoalScore: -1
+    _timeLimit: 5
+    _useTeams: 1
     _birdTypesShareSpawnPoints: 0

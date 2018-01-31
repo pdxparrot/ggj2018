@@ -24,6 +24,10 @@ namespace ggj2018.ggj2018
 
         [SerializeField]
         [ReadOnly]
+        private Vector3 _acceleration;
+
+        [SerializeField]
+        [ReadOnly]
         private Vector3 _velocity;
 
         public float Speed => _velocity.magnitude;
@@ -81,11 +85,6 @@ namespace ggj2018.ggj2018
             float dt = Time.fixedDeltaTime;
 
             Move(_lastMoveAxes, dt);
-
-            bool groundCollision = null != _boundaryCollision && WorldBoundary.BoundaryType.Ground == _boundaryCollision.Type;
-            if(_owner != null && _owner.State.IsDead && groundCollision) {
-                PlayerManager.Instance.DespawnLocalPlayer(_owner.State.PlayerNumber);
-            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -219,6 +218,7 @@ namespace ggj2018.ggj2018
         private void Move(Vector3 axes, float dt)
         {
             if(_owner.State.IsStunned) {
+                _acceleration = Vector3.zero;
                 _velocity = Vector3.zero;
 
                 transform.position += _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed * dt;
@@ -226,20 +226,34 @@ namespace ggj2018.ggj2018
             }
 
             if(_owner.State.IsStunned || _owner.State.IsDead) {
+                _acceleration = Vector3.zero;
                 _velocity = Vector3.zero;
 
                 transform.position += Vector3.down * PlayerManager.Instance.PlayerData.TerminalVelocity * dt;
                 return;
             }
 
-            float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier;
+#if false
+            float acceleration = PlayerManager.Instance.PlayerData.BaseAccleration + _owner.State.BirdType.BirdDataEntry.AccelerationModifier;
             if(_owner.State.IsBraking) {
-                speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
+                acceleration -= PlayerManager.Instance.PlayerData.BaseBrakeDeceleration;
             } else if(_owner.State.IsBoosting) {
-                speed *= PlayerManager.Instance.PlayerData.BoostFactor;
+                acceleration += PlayerManager.Instance.PlayerData.BaseBoostAcceleration;
             }
 
-            _velocity = transform.forward * speed;
+            float velocity = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier + (acceleration * dt);
+            float speed = velocity.magnitude;
+// TODO: we need to bound this, I dunno... polish shit
+#else
+            float velocity = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier;
+            if(_owner.State.IsBraking) {
+                velocity *= PlayerManager.Instance.PlayerData.BrakeFactor;
+            } else if(_owner.State.IsBoosting) {
+                velocity *= PlayerManager.Instance.PlayerData.BoostFactor;
+            }
+#endif
+
+            _velocity = transform.forward * velocity;
             _velocity.y = 0.0f;
 
             if(axes.y < -Mathf.Epsilon) {

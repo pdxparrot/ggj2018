@@ -31,6 +31,11 @@ namespace ggj2018.ggj2018
 
         public bool Collision(IPlayer player, Collider other)
         {
+            if(BoundaryType.Ground == Type && player.State.IsDead) {
+                PlayerManager.Instance.DespawnLocalPlayer(player.State.PlayerNumber);
+                return true;
+            }
+
             Vector3 position = player.GameObject.transform.position;
             switch(Type)
             {

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _baseSpeed: 50
+  _baseAccleration: 10
   _baseTurnSpeed: 50
   _basePitchUpSpeed: 25
   _basePitchDownSpeed: 50
@@ -22,5 +23,10 @@ MonoBehaviour:
   _stunBounceSpeed: 7
   _stunBounceRotation: 0
   _terminalVelocity: 50
+  _baseBoostAcceleration: 5
+  _maxBoostFactor: 2
   _boostFactor: 2
   _boostSeconds: 5
+  _baseBrakeDeceleration: 20
+  _maxBrakeFactor: 0.5
+  _brakeFactor: 0.5
