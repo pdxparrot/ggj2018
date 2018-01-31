@@ -77,7 +77,7 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private int _score;
 
-        public int Score => _score;
+        public int Score { get { return _score; } set { _score = value; } }
 
         private readonly IPlayer _owner;
 
@@ -270,6 +270,8 @@ namespace ggj2018.ggj2018
             Debug.Log($"Player {PlayerNumber} killed by player {killer.State.PlayerNumber}!");
 
             Kill();
+
+            GameManager.Instance.PlayerKilled(killer);
         }
 
 #if UNITY_EDITOR

@@ -74,6 +74,27 @@ namespace ggj2018.ggj2018.Data
             private bool _birdTypesShareSpawnPoints;
 
             public bool BirdTypesShareSpawnPoints => _birdTypesShareSpawnPoints;
+
+            public bool IsGoalWinCondition(WinCondition winCondition)
+            {
+                return WinCondition.SingleGoal == winCondition
+                    || WinCondition.MultiGoal == winCondition;
+            }
+
+            public bool IsKillWinCondition(WinCondition winCondition)
+            {
+                return WinCondition.Kills == winCondition;
+            }
+
+            public bool ShouldCountGoalScore(BirdData.BirdDataEntry birdType)
+            {
+                return birdType.IsPredator ? IsGoalWinCondition(PredatorWinCondition) : IsGoalWinCondition(PreyWinCondition);
+            }
+
+            public bool ShouldCountKillScore(BirdData.BirdDataEntry birdType)
+            {
+                return birdType.IsPredator ? IsKillWinCondition(PredatorWinCondition) : IsKillWinCondition(PreyWinCondition);
+            }
         }
 
         [SerializeField]

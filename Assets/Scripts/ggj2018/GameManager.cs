@@ -59,7 +59,7 @@ namespace ggj2018.ggj2018
 
         [SerializeField]
         [ReadOnly]
-        private readonly GameState _gameState = new GameState();
+        private /*readonly*/ GameState _gameState = new GameState();
 
         public GameState State => _gameState;
 
@@ -104,12 +104,12 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             CameraManager.Instance.SpawnViewers(InputManager.Instance.MaxControllers);
-            State.SetState(GameState.EState.eMenu);
+            State.SetState(GameState.EState.Menu);
         }
 
         private void CheckPause()
         {
-            if(_gameState.State != GameState.EState.eGame || !InputManager.Instance.StartPressed()) {
+            if(_gameState.State != GameState.EState.Game || !InputManager.Instance.StartPressed()) {
                 return;
             }
 
@@ -138,6 +138,48 @@ namespace ggj2018.ggj2018
             Application.Quit();
 #endif
         }
+
+        public void GoalCollision(IPlayer player)
+        {
+            if(_gameState.GameType.ShouldCountGoalScore(player.State.BirdType.BirdDataEntry)) {
+                player.State.Score++;
+            }
+
+            CheckWinCondition();
+        }
+
+        public void PlayerKilled(IPlayer killer)
+        {
+            if(_gameState.GameType.ShouldCountKillScore(killer.State.BirdType.BirdDataEntry)) {
+                killer.State.Score++;
+            }
+
+            CheckWinCondition();
+        }
+
+        private void CheckWinCondition()
+        {
+/*
+Debug.Log($"Player {player.State.PlayerNumber} has reached the goal!"); 
+GameManager.Instance.State.Winner = player.ControllerNumber; 
+GameManager.Instance.State.SetState(GameState.EState.eVictory); 
+*/
+        }
+
+/*        private IEnumerator CheckPredatorVictoryCondition()
+        {
+            WaitForSeconds wait = new WaitForSeconds(1);
+            while(true) {
+                if(PlayerManager.Instance.PreyCount < 1) {
+                    Winner = PlayerManager.Instance.HawkIndex();
+                    SetState(EState.eVictory);
+                    yield break;
+                }
+
+                yield return wait;
+            }
+        }
+*/
     }
 }
 

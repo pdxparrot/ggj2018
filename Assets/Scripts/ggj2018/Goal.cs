@@ -22,13 +22,8 @@ namespace ggj2018.ggj2018
 
         public bool Collision(IPlayer player, Collider thisCollider)
         {
-            if(player.State.BirdType.BirdDataEntry.IsPredator) {
-                return false;
-            }
+            GameManager.Instance.GoalCollision(player);
 
-            Debug.Log($"Player {player.State.PlayerNumber} has reached the goal!");
-            GameManager.Instance.State.Winner = player.ControllerNumber;
-            GameManager.Instance.State.SetState(GameState.EState.eVictory);
             return true;
         }
     }

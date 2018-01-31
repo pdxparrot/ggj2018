@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 
@@ -14,20 +14,22 @@ namespace ggj2018.ggj2018
     public sealed class GameState
     {
         public enum EState {
-            eInit,
-            eMenu,
-            //eIntro,
-            eGame,
-            eVictory,
+            Init,
+            Menu,
+            //Intro,
+            Game,
+            Victory,
         }
 
         [SerializeField]
         [ReadOnly]
-        private string _gameType;
+        private GameTypeData.GameTypeDataEntry _gameType;
+
+        public GameTypeData.GameTypeDataEntry GameType => _gameType;
 
         [SerializeField]
         [ReadOnly]
-        private EState _state = EState.eInit;
+        private EState _state = EState.Init;
 
         public EState State { get { return _state; } private set { _state = value; } }
 
@@ -54,20 +56,20 @@ namespace ggj2018.ggj2018
         public void Update()
         {
             switch(State) {
-            case EState.eMenu:      RunMenu();      break;
+            case EState.Menu:      RunMenu();      break;
             //case EState.eIntro:     RunIntro();     break;
-            case EState.eGame:      RunGame();      break;
-            case EState.eVictory:   RunVictory();   break;
+            case EState.Game:      RunGame();      break;
+            case EState.Victory:   RunVictory();   break;
             }
         }
 
         public void SetState(EState state) {
             State = state;
             switch(State) {
-                case EState.eMenu:      BeginMenu();    break;
+                case EState.Menu:      BeginMenu();    break;
                 //case EState.eIntro:     BeginIntro();   break;
-                case EState.eGame:      BeginGame();    break;
-                case EState.eVictory:   BeginVictory(); break;
+                case EState.Game:      BeginGame();    break;
+                case EState.Victory:   BeginVictory(); break;
             }
 
             Debug.Log($"State: {State}");
@@ -95,7 +97,7 @@ namespace ggj2018.ggj2018
             }
 
             if(ready == joined && ready > 0 && InputManager.Instance.StartPressed()) {
-                SetState(EState.eGame);
+                SetState(EState.Game);
                 return;
             }
 
@@ -167,11 +169,10 @@ namespace ggj2018.ggj2018
 #endregion
 
 #region Game State
-        private string DetermineGameType()
+        private void DetermineGameType()
         {
             int playerCount = 0;
             bool havePredator=false, havePrey=false;
-
 
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
@@ -183,30 +184,31 @@ namespace ggj2018.ggj2018
                 havePrey = havePrey || playerState.PlayerBirdData.IsPrey;
             }
 
-            return 1 == playerCount || !havePredator || !havePrey ? "crazy_taxi" : "hunt";
+// TODO: don't hardcode this
+            if(1 == playerCount || !havePredator || !havePrey) {
+                _gameType = GameManager.Instance.GameTypeData.Entries.GetOrDefault("crazy_taxi");
+            } else {
+                _gameType = GameManager.Instance.GameTypeData.Entries.GetOrDefault("hunt");
+            }
         }
 
         private void BeginGame()
         {
-            string gameTypeId = DetermineGameType();
-            Debug.Log($"Beginning game type {gameTypeId}");
+            DetermineGameType();
+            Debug.Log($"Beginning game type {GameType.Id}");
 
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 if(PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, gameTypeId, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
+                    PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Id, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
                 }
             }
-
-            UIManager.Instance.SwitchToGame();
 
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 CameraManager.Instance.SetupCamera(i, PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady);
             }
             CameraManager.Instance.ResizeViewports();
 
-            if("hunt" == gameTypeId) {
-                GameManager.Instance.StartCoroutine(CheckPredatorVictoryCondition());
-            }
+            UIManager.Instance.SwitchToGame();
 
             SpawnManager.Instance.ReleaseSpawnPoints();
         }
@@ -224,20 +226,6 @@ namespace ggj2018.ggj2018
 
         private void RunVictory()
         {
-        }
-
-        private IEnumerator CheckPredatorVictoryCondition()
-        {
-            WaitForSeconds wait = new WaitForSeconds(1);
-            while(true) {
-                if(PlayerManager.Instance.PreyCount < 1) {
-                    Winner = PlayerManager.Instance.HawkIndex();
-                    SetState(EState.eVictory);
-                    yield break;
-                }
-
-                yield return wait;
-            }
         }
 #endregion
     }
