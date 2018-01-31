@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_Pigeon_Toon
-  m_Shader: {fileID: 4800000, guid: b7e03625cd3fc3d42a516fcc93eedbd6, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6f2704a9769f16145b0607a331b991cd, type: 3}
   m_ShaderKeywords: _NOTEXTURE_ON _TEXTURE_ON _TOONRAMP_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
