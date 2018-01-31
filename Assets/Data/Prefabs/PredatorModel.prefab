@@ -469,7 +469,7 @@ TrailRenderer:
   m_Time: 1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 10
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -562,7 +562,7 @@ TrailRenderer:
   m_Time: 1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 10
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -703,7 +703,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 231829525
+  randomSeed: 514097027
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4064,7 +4064,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -864165543
+  randomSeed: -147257698
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7425,7 +7425,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1574150738
+  randomSeed: -1340130789
   InitialModule:
     serializedVersion: 3
     enabled: 1

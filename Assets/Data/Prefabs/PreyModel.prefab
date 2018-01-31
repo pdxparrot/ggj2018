@@ -531,7 +531,7 @@ TrailRenderer:
   m_Time: 1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -624,21 +624,21 @@ TrailRenderer:
   m_Time: 1
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.8245621
-        inSlope: -0.8245621
-        outSlope: -0.8245621
+        value: 1
+        inSlope: -1
+        outSlope: -1
         tangentMode: 34
       - serializedVersion: 2
         time: 1
         value: 0
-        inSlope: -0.8245621
-        outSlope: -0.8245621
+        inSlope: -1
+        outSlope: -1
         tangentMode: 34
       m_PreInfinity: 2
       m_PostInfinity: 2
