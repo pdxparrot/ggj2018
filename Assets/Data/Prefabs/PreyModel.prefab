@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4284491784277896}
   - component: {fileID: 96689126982870200}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BirdTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4588757154551336}
   - component: {fileID: 33504696529274568}
   - component: {fileID: 23468091575625432}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: pigeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269313233767138}
   - component: {fileID: 96339390746679466}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BirdTrail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1625982474714072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.92, y: 3.331, z: 0}
+  m_LocalPosition: {x: -1.92, y: 3.331, z: 3.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4588757154551336}

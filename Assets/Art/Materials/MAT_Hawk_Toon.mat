@@ -111,6 +111,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Light: 1
+    - _MasterBrightness: 1
     - _Metallic: 0
     - _Mode: 0
     - _ModifyTexture: 0
@@ -124,9 +125,9 @@ Material:
     - _Posturize: 1
     - _Power: 150
     - _PrimaryBrightness: 0.77
-    - _SecondaryBrightness: 1.52
-    - _ShadowBrightness: 0.18
-    - _ShadowDistance: -0.01
+    - _SecondaryBrightness: 1
+    - _ShadowBrightness: 0.5
+    - _ShadowDistance: -0.1
     - _ShadowFalloff: 1
     - _ShadowIntensity: 0.33
     - _Smoothness: 1
@@ -155,6 +156,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
     - _PrimaryColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SecondaryColor: {r: 0.4705882, g: 0, b: 0, a: 0}
+    - _SecondaryColor: {r: 0.625, g: 0, b: 0, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}

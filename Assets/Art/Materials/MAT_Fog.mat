@@ -78,7 +78,7 @@ Material:
     - _FogFadeDistance: 0.081
     - _FogIntensity: 0.27
     - _FogMaxIntensity: 1
-    - _FogOpacity: 0.8
+    - _FogOpacity: 0.988
     - _FogSpeed: 1.2
     - _FogSpeed2: 0.6
     - _FogThickness: 0.55
@@ -87,8 +87,8 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseMax: 1
-    - _NoiseMin: 0.64
+    - _NoiseMax: 0.9
+    - _NoiseMin: 0.318
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ProceduralFog: 1
@@ -101,7 +101,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogColor: {r: 0.58823526, g: 0.5548263, b: 0.467128, a: 0}
+    - _FogColor: {r: 0.66176474, g: 0.62954897, b: 0.54498273, a: 0}
     - _FogDirection: {r: 0.4, g: 0.5, b: 0, a: 0}
     - _FogDirection2: {r: 0.3, g: 0.8, b: 0, a: 0}
     - _N: {r: 1, g: 1, b: 0, a: 0}

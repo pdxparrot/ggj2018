@@ -15,10 +15,10 @@ TagManager:
   - 
   - Hawk
   - Pigeon
-  - NoPostProcess
+  - 
   - PlayerCollision
-  - 
-  - 
+  - PP_Pigeon
+  - PP_Hawk
   - 
   - 
   - 

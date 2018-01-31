@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4284491784277896}
   - component: {fileID: 96689126982870200}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BirdTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4732095481847704}
   - component: {fileID: 33640120430848616}
   - component: {fileID: 23512403891520332}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: hawk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269313233767138}
   - component: {fileID: 96339390746679466}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BirdTrail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.1
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 100
