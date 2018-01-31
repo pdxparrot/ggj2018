@@ -26,6 +26,7 @@ namespace ggj2018.ggj2018
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
             SpawnManager.Create(ManagersContainer);
+            GoalManager.Create(ManagersContainer);
             UIManager.CreateFromPrefab(_uiManagerPrefab, ManagersContainer);
         }
 

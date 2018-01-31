@@ -43,7 +43,7 @@ namespace ggj2018.Core.Camera
                 float scale = _targetAspectRatio / viewportAspectRatio;
                 _camera.orthographicSize = (_aspectHeight / 2.0f) * scale;
             }
-            Debug.Log($"Updated orthographic size of {_camera.name} to {_camera.orthographicSize}");
+            //Debug.Log($"Updated orthographic size of {_camera.name} to {_camera.orthographicSize}");
         }
     }
 }

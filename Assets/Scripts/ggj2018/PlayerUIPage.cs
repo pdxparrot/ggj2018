@@ -22,11 +22,6 @@ namespace ggj2018.ggj2018
         [SerializeField] private GameObject FinishWin;
         [SerializeField] private GameObject FinishLose;
 
-        [SerializeField] private GameObject Hawk1;
-        [SerializeField] private GameObject Hawk2;
-        [SerializeField] private GameObject Carrier1;
-        [SerializeField] private GameObject Carrier2;
-
         [SerializeField] private GameObject KillCard;
         [SerializeField] private GameObject Kill1;
         [SerializeField] private GameObject Kill2;
@@ -39,7 +34,9 @@ namespace ggj2018.ggj2018
         [SerializeField] private Image Boost;
 
         //[SerializeField] private Text JoinPrompt;
-        //[SerializeField] private Text BirdLabel;
+        [SerializeField] private Text BirdLabel;
+        [SerializeField] private Image BirdImage1;
+        [SerializeField] private Image BirdImage2;
         //[SerializeField] private Text BirdValue;
         //[SerializeField] private Text ReadyPrompt;
 
@@ -73,22 +70,19 @@ namespace ggj2018.ggj2018
             FinishLose.SetActive(!won);
         }
 
-        public void SetStatus(bool joined,
-                              bool ready,
-                              string bird,
-                              bool allready) {
+        public void SetStatus(PlayerManager.PlayerState playerState, bool allready) {
+
             SwitchToMenu();
 
-            JoinPanel.SetActive(!joined && !ready);
-            CharSelPanel.SetActive(joined && !ready);
-            ReadyPanel.SetActive(ready);
+            JoinPanel.SetActive(!playerState.IsJoinedOrReady);
+            CharSelPanel.SetActive(playerState.IsJoined);
+            ReadyPanel.SetActive(playerState.IsReady);
 
-            Hawk1.SetActive(bird == "hawk");
-            Hawk2.SetActive(bird == "hawk");
-            Carrier1.SetActive(bird != "hawk");
-            Carrier2.SetActive(bird != "hawk");
+            BirdLabel.text = playerState.PlayerBirdData.Name;
+            BirdImage1.sprite = playerState.PlayerBirdData.Icon;
+            BirdImage2.sprite = playerState.PlayerBirdData.Icon;
 
-            if(ready) {
+            if(playerState.IsReady) {
                 AllReady.SetActive(allready);
                 Waiting.SetActive(!allready);
             }

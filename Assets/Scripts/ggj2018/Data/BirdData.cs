@@ -22,6 +22,11 @@ namespace ggj2018.ggj2018.Data
 
             public string Name => _name;
 
+            [SerializeField]
+            private Sprite _icon;
+
+            public Sprite Icon => _icon;
+
 #region Stat Modifiers
             [SerializeField]
             private float _speedModifier;
@@ -47,11 +52,6 @@ namespace ggj2018.ggj2018.Data
 
             public bool IsPrey => !_isPredator;
 #endregion
-
-            public override string ToString()
-            {
-                return $"Bird({Id})";
-            }
         }
 
 #region FOVs

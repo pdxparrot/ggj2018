@@ -73,6 +73,12 @@ namespace ggj2018.ggj2018
         public bool CanBrake => !IsIncapacitated;
 #endregion
 
+        [SerializeField]
+        [ReadOnly]
+        private int _score;
+
+        public int Score => _score;
+
         private readonly IPlayer _owner;
 
         public PlayerState(IPlayer owner)
@@ -91,7 +97,7 @@ namespace ggj2018.ggj2018
 
         public void Update(float dt)
         {
-            if(GameManager.Instance.IsPaused) {
+            if(GameManager.Instance.State.IsPaused) {
                 return;
             }
 

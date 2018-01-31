@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Camera;
+﻿using System.Linq;
+
+using ggj2018.Core.Camera;
 using ggj2018.Core.Util;
 
 using UnityEngine;
@@ -38,7 +40,7 @@ namespace ggj2018.ggj2018
         {
             if(isLocalPlayer) {
                 Debug.Log($"Setting local follow cam {ControllerNumber}");
-                CameraManager.Instance.GetViewer(ControllerNumber).FollowCamera.SetTarget(gameObject);
+                CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(gameObject);
             }
 
             _godRay.GetComponent<GodRay>().Setup(

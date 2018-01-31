@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Camera;
+﻿using System.Linq;
+
+using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
@@ -22,11 +24,6 @@ namespace ggj2018.ggj2018
 
             _pauseMenu = Instantiate(_pauseMenuPrefab, _uiContainer.transform);
             _pauseMenu.gameObject.SetActive(false);
-        }
-
-        private void Start()
-        {
-            SwitchToMenu();
         }
 
         protected override void OnDestroy()
@@ -58,32 +55,38 @@ namespace ggj2018.ggj2018
         }
         */
 
-        public void SwitchToMenu() {
+        public void SwitchToMenu()
+        {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
+                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
                 viewer?.PlayerUI.SwitchToMenu();
             }
         }
-        public void SwitchToGame() {
+
+        public void SwitchToGame()
+        {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                if(!PlayerManager.Instance.HasPlayer(i))
+                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
+                if(null == PlayerManager.Instance.PlayerStates.ElementAt(i))
                     viewer?.PlayerUI.Hide();
                 else
                     viewer?.PlayerUI.SwitchToGame();
             }
         }
-        public void SwitchToVictory(int winner) {
+
+        public void SwitchToVictory(int winner)
+        {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                if(!PlayerManager.Instance.HasPlayer(i))
+                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
+                if(null == PlayerManager.Instance.PlayerStates.ElementAt(i))
                     viewer?.PlayerUI.Hide();
                 else
                     viewer?.PlayerUI.SwitchToVictory(winner == i);
             }
         }
 
-        public void EnablePauseUI(bool enable) {
+        public void EnablePauseUI(bool enable)
+        {
             _pauseMenu.gameObject.SetActive(enable);
         }
     }

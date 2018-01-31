@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Camera;
+﻿using System.Linq;
+
+using ggj2018.Core.Camera;
 using ggj2018.Core.Util;
 
 using UnityEngine;
@@ -34,7 +36,7 @@ namespace ggj2018.ggj2018
         public void Initialize()
         {
             Debug.Log($"Setting follow cam {ControllerNumber}");
-            CameraManager.Instance.GetViewer(ControllerNumber).FollowCamera.SetTarget(GameObject);
+            CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(GameObject);
 
             _godRay.GetComponent<GodRay>().Setup(
                 State.BirdType.BirdDataEntry.IsPredator ?

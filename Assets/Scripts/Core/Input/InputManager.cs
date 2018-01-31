@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using ggj2018.Core.Util;
 
@@ -8,12 +10,22 @@ namespace ggj2018.Core.Input
 {
     public sealed class InputManager : SingletonBehavior<InputManager>
     {
-        public enum DPadDir {
+        public enum DPadDir
+        {
             Up, Down, Left, Right,
             NumAxes
         }
 
-        public enum Button {
+        public enum DPadState
+        {
+            None,
+            Down,
+            Held,
+            Up
+        }
+
+        public enum Button
+        {
             A, B, X, Y,
             LeftBumper, RightBumper,
             LeftStick = 8, RightStick = 9
@@ -42,26 +54,53 @@ namespace ggj2018.Core.Input
 
             public bool InvertLookY { get { return _invertLookY; } set { _invertLookY = value; } }
 
-            public bool InvertX { set { _invertLookX = value; _invertMoveX = value; } }
-
-            public bool InvertY { set { _invertLookY = value; _invertMoveY = value; } }
-
             [SerializeField]
             private bool _invertZoom;
 
             public bool InvertZoom { get { return _invertZoom; } set { _invertZoom = value; } }
 
             [SerializeField]
-            private readonly bool[] _dpadPressed = new bool[(int)DPadDir.NumAxes];
+            private DPadState[] _dpadState = new DPadState[(int)DPadDir.NumAxes];
 
-            public bool GetDPadPressed(DPadDir dir)
+            public IReadOnlyCollection<DPadState> DPadStates => _dpadState;
+
+            public ControllerState()
             {
-                return _dpadPressed[(int)dir];
+                for(int i=0; i<_dpadState.Length; ++i) {
+                    _dpadState[i] = DPadState.None;
+                }
             }
 
-            public void SetDPadPressed(DPadDir dir, bool pressed)
+            public void UpdateDpadState(Vector3 axes)
             {
-                _dpadPressed[(int)dir] = pressed;
+                UpdateDpadState(DPadDir.Left, axes.x < -Mathf.Epsilon);
+                UpdateDpadState(DPadDir.Right, axes.x > Mathf.Epsilon);
+                UpdateDpadState(DPadDir.Down, axes.y < -Mathf.Epsilon);
+                UpdateDpadState(DPadDir.Up, axes.y > Mathf.Epsilon);
+            }
+
+            private void UpdateDpadState(DPadDir dir, bool pressed)
+            {
+                DPadState currentState = _dpadState[(int)dir];
+                DPadState newState = currentState;
+
+                switch(currentState)
+                {
+                case DPadState.None:
+                    if(pressed) newState = DPadState.Down;
+                    break;
+                case DPadState.Down:
+                    newState = pressed ? DPadState.Held : DPadState.Up;
+                    break;
+                case DPadState.Held:
+                    if(!pressed) newState = DPadState.Up;
+                    break;
+                case DPadState.Up:
+                    newState = pressed ? DPadState.Down : DPadState.None;
+                    break;
+                }
+
+                _dpadState[(int)dir] = newState;
             }
         }
 
@@ -86,6 +125,8 @@ namespace ggj2018.Core.Input
         [SerializeField]
         [ReadOnly]
         private ControllerState[] _controllerStates;
+
+        public IReadOnlyCollection<ControllerState> ControllerStates => _controllerStates;
 
 // TODO: detect joysticks connecting and disconnecting
 
@@ -113,21 +154,19 @@ namespace ggj2018.Core.Input
         {
             for(int i=0; i<MaxControllers; ++i) {
                 if(Pressed(i, Button.LeftBumper)) {
-                    Debug.Log($"Inverting controller {i}");
-                    _controllerStates[i].InvertY = true;
+                    Debug.Log($"Inverting controller {i} look");
+                    _controllerStates[i].InvertLookY = !_controllerStates[i].InvertLookY;
                 } else if(Pressed(i, Button.RightBumper)) {
-                    Debug.Log($"Uninverting controller {i}");
-                    _controllerStates[i].InvertY = false;
+                    Debug.Log($"Uninverting controller {i} move");
+                    _controllerStates[i].InvertMoveY = !_controllerStates[i].InvertMoveY;
                 }
             }
+
+            UpdateDpadAxes();
         }
 #endregion
 
-        public ControllerState GetControllerState(int controllerIndex)
-        {
-            return _controllerStates[controllerIndex];
-        }
-
+#region Axes
         public Vector3 GetMoveAxes(int controllerIndex)
         {
             ControllerState state = _controllerStates[controllerIndex];
@@ -147,6 +186,36 @@ namespace ggj2018.Core.Input
                 0.0f
             );
         }
+
+        public Vector3 GetDpadAxes(int controllerIndex)
+        {
+            return new Vector3(
+                UnityEngine.Input.GetAxis($"P{controllerIndex} Horizontal DPad"),
+                UnityEngine.Input.GetAxis($"P{controllerIndex} Vertical DPad")
+            );
+        }
+
+        public Vector3 GetTriggerAxes(int controllerIndex)
+        {
+            // TODO
+            return Vector3.zero;
+        }
+
+        private void UpdateDpadAxes()
+        {
+            for(int i=0; i<_controllerStates.Length; ++i) {
+                UpdateDpadAxes(i);
+            }
+        }
+
+        private void UpdateDpadAxes(int controllerIndex)
+        {
+            ControllerState state = _controllerStates[controllerIndex];
+            Vector3 axes = GetDpadAxes(controllerIndex);
+
+            state.UpdateDpadState(axes);
+        }
+#endregion
 
 #region Buttons
         public bool Pressed(int controllerIndex, Button button)
@@ -193,22 +262,37 @@ namespace ggj2018.Core.Input
         {
             return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Select");
         }
+
+        public bool PositivePressed(int controllerIndex)
+        {
+            return Pressed(controllerIndex, Button.A) || StartPressed(controllerIndex);
+        }
+
+        public bool NegativePressed(int controllerIndex)
+        {
+            return Pressed(controllerIndex, Button.B) || SelectPressed(controllerIndex);
+        }
 #endregion
 
-        // Axis pressed methods
-        public bool DpadPressed(int controllerIndex, DPadDir dir) {
+#region Dpad
+        public bool DpadPressed(int controllerIndex, DPadDir dir)
+        {
             ControllerState state = _controllerStates[controllerIndex];
-
-            float val = (dir == DPadDir.Up || dir == DPadDir.Down)
-                ? UnityEngine.Input.GetAxis($"P{controllerIndex} Horizontal")
-                : UnityEngine.Input.GetAxis($"P{controllerIndex} Vertical");
-
-            bool down = (dir == DPadDir.Down || dir == DPadDir.Left) ? (val < -0.8f) : (val > 0.8f);
-            bool pressed = (down && !state.GetDPadPressed(dir));
-            state.SetDPadPressed(dir, down);
-
-            return pressed;
+            return DPadState.Down == state.DPadStates.ElementAt((int)dir);
         }
+
+        public bool DpadReleased(int controllerIndex, DPadDir dir)
+        {
+            ControllerState state = _controllerStates[controllerIndex];
+            return DPadState.Up == state.DPadStates.ElementAt((int)dir);
+        }
+
+        public bool DpadHeld(int controllerIndex, DPadDir dir)
+        {
+            ControllerState state = _controllerStates[controllerIndex];
+            return DPadState.Held == state.DPadStates.ElementAt((int)dir);
+        }
+#endregion
     }
 }
 

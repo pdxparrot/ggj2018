@@ -16,5 +16,10 @@ namespace ggj2018.ggj2018.Data
 
         public bool EnableVR => EnableGVR;
 #endregion
+
+        [SerializeField]
+        private bool _enableNetwork;
+
+        public bool EnableNetwork => _enableNetwork;
     }
 }

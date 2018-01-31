@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
@@ -15,20 +17,53 @@ namespace ggj2018.ggj2018
         [Serializable]
         public sealed class PlayerState
         {
-            [SerializeField]
-            private bool _playerJoined;
-
-            public bool PlayerJoined { get { return _playerJoined; } set { _playerJoined = value; } }
-
-            [SerializeField]
-            private bool _playerReady;
-
-            public bool PlayerReady { get { return _playerReady; } set { _playerReady = value; } }
+            public enum JoinState
+            {
+                None,
+                Joined,
+                Ready
+            }
 
             [SerializeField]
-            private int _playerBird;
+            private JoinState _joinState = JoinState.None;
 
-            public int PlayerBird { get { return _playerBird; } set { _playerBird = value; } }
+            public JoinState PlayerJoinState { get { return _joinState; } set { _joinState = value; } }
+
+            public bool IsJoined => PlayerJoinState == JoinState.Joined;
+
+            public bool IsJoinedOrReady => PlayerJoinState == JoinState.Joined || PlayerJoinState == JoinState.Ready;
+
+            public bool IsReady => PlayerJoinState == JoinState.Ready;
+
+            [SerializeField]
+            private int _selectedBird;
+
+            public int SelectedBird { get { return _selectedBird; } set { _selectedBird = value; } }
+
+            public BirdData.BirdDataEntry PlayerBirdData => GameManager.Instance.BirdData.Birds.ElementAt(SelectedBird);
+
+            public string PlayerBirdId => PlayerBirdData.Id;
+
+            public void NextBird()
+            {
+                SelectedBird++;
+                WrapBird();
+            }
+
+            public void PrevBird()
+            {
+                SelectedBird--;
+                WrapBird();
+            }
+
+            private void WrapBird()
+            {
+                if(SelectedBird < 0) {
+                    SelectedBird = GameManager.Instance.BirdData.Birds.Count - 1;
+                } else if(SelectedBird >= GameManager.Instance.BirdData.Birds.Count) {
+                    SelectedBird = 0;
+                }
+            }
         }
 
 #region Models
@@ -58,9 +93,13 @@ namespace ggj2018.ggj2018
 
         private IPlayer[] _players;
 
+        public IReadOnlyCollection<IPlayer> Players => _players;
+
         [SerializeField]
         [ReadOnly]
         private PlayerState[] _playerStates;
+
+        public IReadOnlyCollection<PlayerState> PlayerStates => _playerStates;
 
         [SerializeField]
         [ReadOnly]
@@ -75,16 +114,6 @@ namespace ggj2018.ggj2018
         public int PreyCount => _preyCount;
 
         public int PredatorCount => PlayerCount - PreyCount;
-
-        public IPlayer Player(int i) {
-            return _players[i];
-        }
-        public bool HasPlayer(int i) {
-            return _players[i] != null;
-        }
-        public PlayerState GetPlayerState(int i) {
-            return _playerStates[i];
-        }
 
 #region Unity Lifecycle
         private void Awake()
@@ -119,7 +148,7 @@ namespace ggj2018.ggj2018
 
             SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(birdType);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {birdType}");
+                Debug.LogError($"No spawn points left for bird type {birdTypeId}");
                 return;
             }
 
@@ -166,7 +195,7 @@ namespace ggj2018.ggj2018
             player.State.Initialize(playerNumber, birdType);
             player.Initialize();
 
-            Viewer viewer = CameraManager.Instance.GetViewer(playerNumber) as Viewer;
+            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(playerNumber) as Viewer;
             viewer?.Initialize(birdType);
         }
 
