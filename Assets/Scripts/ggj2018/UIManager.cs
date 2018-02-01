@@ -67,7 +67,7 @@ namespace ggj2018.ggj2018
         {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                if(null == PlayerManager.Instance.PlayerStates.ElementAt(i))
+                if(null == PlayerManager.Instance.Players.ElementAt(i))
                     viewer?.PlayerUI.Hide();
                 else
                     viewer?.PlayerUI.SwitchToGame();
@@ -78,7 +78,7 @@ namespace ggj2018.ggj2018
         {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                if(null == PlayerManager.Instance.PlayerStates.ElementAt(i))
+                if(null == PlayerManager.Instance.Players.ElementAt(i))
                     viewer?.PlayerUI.Hide();
                 else
                     viewer?.PlayerUI.SwitchToVictory(winner == i);

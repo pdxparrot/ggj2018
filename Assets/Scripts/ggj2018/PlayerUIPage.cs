@@ -1,4 +1,6 @@
-﻿using ggj2018.Core.Util;
+﻿using System.Collections;
+
+using ggj2018.Core.Util;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +8,12 @@ using UnityEngine.UI;
 namespace ggj2018.ggj2018
 {
     [RequireComponent(typeof(Canvas))]
-    public sealed class PlayerUIPage : SingletonBehavior<PlayerUIPage>
+    public sealed class PlayerUIPage : MonoBehavior
     {
         [SerializeField] private GameObject MenuPanel;
         [SerializeField] private GameObject HudPanel;
         [SerializeField] private GameObject FinishPanel;
+        [SerializeField] private GameObject IntroPanel;
 
         [SerializeField] private GameObject JoinPanel;
         [SerializeField] private GameObject CharSelPanel;
@@ -32,6 +35,7 @@ namespace ggj2018.ggj2018
 
         [SerializeField] private Text Speed;
         [SerializeField] private Image Boost;
+        [SerializeField] private Text Goal;
 
         //[SerializeField] private Text JoinPrompt;
         [SerializeField] private Text BirdLabel;
@@ -40,10 +44,21 @@ namespace ggj2018.ggj2018
         //[SerializeField] private Text BirdValue;
         //[SerializeField] private Text ReadyPrompt;
 
-        public void Hide() {
+        [SerializeField] private float _introPanelTime = 3.0f;
+
+        private IPlayer _owner;
+
+        public void Initialize(IPlayer owner)
+        {
+            _owner = owner;
+        }
+
+        public void Hide()
+        {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(false);
+            IntroPanel.SetActive(false);
 
             //JoinPrompt.gameObject.SetActive(false);
             //BirdLabel.gameObject.SetActive(false);
@@ -51,27 +66,45 @@ namespace ggj2018.ggj2018
             //ReadyPrompt.gameObject.SetActive(false);
         }
 
-        public void SwitchToMenu() {
+        public void SwitchToMenu()
+        {
             MenuPanel.SetActive(true);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(false);
+            IntroPanel.SetActive(false);
         }
-        public void SwitchToGame() {
+
+        public void SwitchToGame()
+        {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(true);
             FinishPanel.SetActive(false);
+            IntroPanel.SetActive(true);
+
+            Goal.text = GameManager.Instance.State.GameType.GetGoalDescription(_owner.State.BirdType.BirdDataEntry);
+            StartCoroutine(CloseIntroPanel());
         }
-        public void SwitchToVictory(bool won) {
+
+        private IEnumerator CloseIntroPanel()
+        {
+            yield return new WaitForSeconds(_introPanelTime);
+
+            IntroPanel.SetActive(false);
+        }
+
+        public void SwitchToVictory(bool won)
+        {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(true);
+            IntroPanel.SetActive(false);
 
             FinishWin.SetActive(won);
             FinishLose.SetActive(!won);
         }
 
-        public void SetStatus(PlayerManager.PlayerState playerState, bool allready) {
-
+        public void SetStatus(PlayerManager.PlayerState playerState, bool allready)
+        {
             SwitchToMenu();
 
             JoinPanel.SetActive(!playerState.IsJoinedOrReady);
@@ -88,7 +121,8 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public void SetSpeedAndBoost(int speed, float boost) {
+        public void SetSpeedAndBoost(int speed, float boost)
+        {
             Speed.text = $"{speed}";
             Boost.fillAmount = boost;
 
@@ -97,14 +131,16 @@ namespace ggj2018.ggj2018
         }
 
         /*
-        public void HideCountdown() {
+        public void HideCountdown()
+        {
             JoinPrompt.gameObject.SetActive(false);
             BirdLabel.gameObject.SetActive(false);
             BirdValue.gameObject.SetActive(false);
             ReadyPrompt.gameObject.SetActive(false);
         }
 
-        public void SetCountdown(int i) {
+        public void SetCountdown(int i)
+        {
             JoinPrompt.gameObject.SetActive(false);
             BirdLabel.gameObject.SetActive(false);
             BirdValue.gameObject.SetActive(false);

@@ -12,7 +12,7 @@ namespace ggj2018.ggj2018
     {
         [SerializeField]
         [ReadOnly]
-        private BirdData.BirdDataEntry _birdDataEntry;
+        private /*readonly*/ BirdData.BirdDataEntry _birdDataEntry;
 
         public BirdData.BirdDataEntry BirdDataEntry => _birdDataEntry;
 

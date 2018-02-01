@@ -197,7 +197,7 @@ namespace ggj2018.ggj2018
             player.Initialize();
 
             Viewer viewer = CameraManager.Instance.Viewers.ElementAt(playerNumber) as Viewer;
-            viewer?.Initialize(birdType);
+            viewer?.Initialize(player);
 
             spawnPoint.Spawn(player);
         }

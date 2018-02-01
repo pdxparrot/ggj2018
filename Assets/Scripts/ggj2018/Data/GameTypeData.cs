@@ -75,6 +75,11 @@ namespace ggj2018.ggj2018.Data
 
             public bool BirdTypesShareSpawnPoints => _birdTypesShareSpawnPoints;
 
+            public string GetGoalDescription(BirdData.BirdDataEntry birdType)
+            {
+                return birdType.IsPredator ? PredatorWinConditionDescription : PreyWinConditionDescription;
+            }
+
             public bool IsGoalWinCondition(WinCondition winCondition)
             {
                 return WinCondition.SingleGoal == winCondition
