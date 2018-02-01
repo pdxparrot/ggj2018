@@ -51,14 +51,14 @@ namespace ggj2018.ggj2018
             }
 
             [CanBeNull]
-            public SpawnPoint GetSpawnPoint(BirdType birdType)
+            public SpawnPoint GetSpawnPoint(BirdData.BirdDataEntry birdType)
             {
                 GameTypeData.GameTypeDataEntry gameTypeData = GameManager.Instance.GameTypeData.Entries.GetOrDefault(_gameTypeId);
                 if(null == gameTypeData) {
                     Debug.LogError($"No such game type {_gameTypeId}!");
                     return null;
                 }
-                return birdType.BirdDataEntry.IsPredator ? GetPredatorSpawnPoint(gameTypeData) : GetPreySpawnPoint(gameTypeData);
+                return birdType.IsPredator ? GetPredatorSpawnPoint(gameTypeData) : GetPreySpawnPoint(gameTypeData);
             }
 
             [CanBeNull]
@@ -129,7 +129,7 @@ namespace ggj2018.ggj2018
 #endregion
 
         [CanBeNull]
-        public SpawnPoint GetSpawnPoint(string gameTypeId, BirdType birdType)
+        public SpawnPoint GetSpawnPoint(string gameTypeId, BirdData.BirdDataEntry birdType)
         {
             SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeId);
             return spawnPoints?.GetSpawnPoint(birdType);

@@ -174,7 +174,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.BirdDataEntry.TurnSpeedModifier;
+            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.TurnSpeedModifier;
 
             transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed * dt);
         }
@@ -245,7 +245,7 @@ namespace ggj2018.ggj2018
             float speed = velocity.magnitude;
 // TODO: we need to bound this, I dunno... polish shit
 #else
-            float velocity = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier;
+            float velocity = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.SpeedModifier;
             if(_owner.State.IsBraking) {
                 velocity *= PlayerManager.Instance.PlayerData.BrakeFactor;
             } else if(_owner.State.IsBoosting) {
@@ -257,9 +257,9 @@ namespace ggj2018.ggj2018
             _velocity.y = 0.0f;
 
             if(axes.y < -Mathf.Epsilon) {
-                _velocity.y = -PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier;
+                _velocity.y = -PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
             } else if(axes.y > Mathf.Epsilon) {
-                _velocity.y = PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.BirdDataEntry.PitchSpeedModifier;
+                _velocity.y = PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
             }
 
             transform.position += _velocity * dt;
@@ -285,7 +285,7 @@ namespace ggj2018.ggj2018
                 return false;
             }
 
-            if(_owner.State.BirdType.BirdDataEntry.IsPredator && player.State.BirdType.BirdDataEntry.IsPrey) {
+            if(_owner.State.BirdType.IsPredator && player.State.BirdType.IsPrey) {
                 player.State.PlayerKill(_owner, other);
             } else {
                 _owner.State.PlayerStun(player, other);

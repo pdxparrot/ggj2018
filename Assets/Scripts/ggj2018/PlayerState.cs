@@ -1,6 +1,7 @@
 ﻿using System;
 
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 
@@ -11,9 +12,9 @@ namespace ggj2018.ggj2018
     {
         [SerializeField]
         [ReadOnly]
-        private BirdType _birdType;
+        private BirdData.BirdDataEntry _birdType;
 
-        public BirdType BirdType => _birdType;
+        public BirdData.BirdDataEntry BirdType => _birdType;
 
         [SerializeField]
         [ReadOnly]
@@ -86,7 +87,7 @@ namespace ggj2018.ggj2018
             _owner = owner;
         }
 
-        public void Initialize(int playerNumber, BirdType birdType)
+        public void Initialize(int playerNumber, BirdData.BirdDataEntry birdType)
         {
             _playerNumber = playerNumber;
             _owner.GameObject.name = $"Player {PlayerNumber}";

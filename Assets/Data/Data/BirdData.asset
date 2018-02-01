@@ -13,6 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _predatorFOV: 90
   _preyFOV: 60
+  _predatorRenderLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _preyRenderLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   _predatorPostProcessLayerMask:
     serializedVersion: 2
     m_Bits: 8192

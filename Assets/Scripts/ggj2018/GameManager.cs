@@ -141,7 +141,7 @@ namespace ggj2018.ggj2018
 
         public void GoalCollision(IPlayer player)
         {
-            if(_gameState.GameType.ShouldCountGoalScore(player.State.BirdType.BirdDataEntry)) {
+            if(_gameState.GameType.ShouldCountGoalScore(player.State.BirdType)) {
                 player.State.Score++;
             }
 
@@ -150,7 +150,7 @@ namespace ggj2018.ggj2018
 
         public void PlayerKilled(IPlayer killer)
         {
-            if(_gameState.GameType.ShouldCountKillScore(killer.State.BirdType.BirdDataEntry)) {
+            if(_gameState.GameType.ShouldCountKillScore(killer.State.BirdType)) {
                 killer.State.Score++;
             }
 

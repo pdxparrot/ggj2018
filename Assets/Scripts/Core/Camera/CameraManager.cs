@@ -1,15 +1,14 @@
-﻿using ggj2018.Core.Util;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using ggj2018.Core.Util;
 
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ggj2018.Core.Camera
 {
     public sealed class CameraManager : SingletonBehavior<CameraManager>
     {
-        public enum Layer { Hawk, Carrier }
-
         [SerializeField]
         private float _viewportEpsilon = Mathf.Epsilon;
 
@@ -63,7 +62,7 @@ namespace ggj2018.Core.Camera
             ResizeViewports();
         }
 
-        public void SetupCamera(int i, bool active)
+        public void EnableCamera(int i, bool active)
         {
             _viewers[i].gameObject.SetActive(active);
         }
@@ -92,16 +91,14 @@ namespace ggj2018.Core.Camera
             }
         }
 
-        public void SetLayer(int cam, Layer layer)
+        public void AddRenderLayer(int viewerIndex, LayerMask layer)
         {
-            _viewers[cam].Camera.cullingMask &= ~(1 << 8);
-            _viewers[cam].Camera.cullingMask &= ~(1 << 9);
+            _viewers[viewerIndex].Camera.cullingMask |= layer;
+        }
 
-            if(layer == Layer.Hawk) {
-                _viewers[cam].Camera.cullingMask |= (1 << 8);
-            } else {
-                _viewers[cam].Camera.cullingMask |= (1 << 9);
-            }
+        public void RemoveRenderLayer(int viewerIndex, LayerMask layer)
+        {
+            _viewers[viewerIndex].Camera.cullingMask &= ~layer;
         }
     }
 }

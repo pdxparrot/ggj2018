@@ -45,7 +45,7 @@ namespace ggj2018.ggj2018
             if(mode == Mode.Carrier) {
                 for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                     var p = PlayerManager.Instance.Players.ElementAt(i) as LocalPlayer;
-                    if(p != null && p.State.BirdType.BirdDataEntry.IsPredator) {
+                    if(p != null && p.State.BirdType.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
                         vec.y = 0;
                         dist = vec.magnitude;
@@ -56,7 +56,7 @@ namespace ggj2018.ggj2018
             else if(mode == Mode.Goal) {
                 for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                     var p = PlayerManager.Instance.Players.ElementAt(i) as LocalPlayer;
-                    if(p != null && !p.State.BirdType.BirdDataEntry.IsPredator) {
+                    if(p != null && !p.State.BirdType.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
                         vec.y = 0;
                         var d = vec.magnitude;

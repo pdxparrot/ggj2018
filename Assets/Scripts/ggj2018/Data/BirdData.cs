@@ -52,6 +52,29 @@ namespace ggj2018.ggj2018.Data
 
             public bool IsPrey => !_isPredator;
 #endregion
+
+            private BirdData _birdData;
+
+            public float ViewFOV => IsPredator
+                ? _birdData.PredatorFOV
+                : _birdData.PreyFOV;
+
+            public LayerMask RenderLayerMask => IsPredator
+                ? _birdData.PredatorRenderLayerMask
+                : _birdData.PreyRenderLayerMask;
+
+            public LayerMask OtherRenderLayerMask => IsPrey
+                ? _birdData.PredatorRenderLayerMask
+                : _birdData.PreyRenderLayerMask;
+
+            public LayerMask PostProcessLayerMask => IsPredator
+                ? _birdData.PredatorPostProcessLayerMask
+                : _birdData.PreyPostProcessLayerMask;
+
+            public void Initialize(BirdData birdData)
+            {
+                _birdData = birdData;
+            }
         }
 
 #region FOVs
@@ -64,6 +87,18 @@ namespace ggj2018.ggj2018.Data
         private float _preyFOV = 60;
 
         public float PreyFOV => _preyFOV;
+#endregion
+
+#region Render Layers
+        [SerializeField]
+        private LayerMask _predatorRenderLayerMask;
+
+        public LayerMask PredatorRenderLayerMask => _predatorRenderLayerMask;
+
+        [SerializeField]
+        private LayerMask _preyRenderLayerMask;
+
+        public LayerMask PreyRenderLayerMask => _preyRenderLayerMask;
 #endregion
 
 #region Post Processing Layers
@@ -90,6 +125,7 @@ namespace ggj2018.ggj2018.Data
         public void Initialize()
         {
             foreach(BirdDataEntry entry in Birds) {
+                entry.Initialize(this);
                 _entries.Add(entry.Id, entry);
             }
         }

@@ -44,13 +44,11 @@ namespace ggj2018.ggj2018
             }
 
             _godRay.GetComponent<GodRay>().Setup(
-                State.BirdType.BirdDataEntry.IsPredator ?
+                State.BirdType.IsPredator ?
                     GodRay.Mode.Hawk : GodRay.Mode.Carrier);
 
-            CameraManager.Instance.SetLayer(ControllerNumber,
-                State.BirdType.BirdDataEntry.IsPredator ? 
-                    CameraManager.Layer.Hawk :
-                    CameraManager.Layer.Carrier);   
+            CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.RenderLayerMask);
+            CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherRenderLayerMask);    
         }
 
         private void Update()

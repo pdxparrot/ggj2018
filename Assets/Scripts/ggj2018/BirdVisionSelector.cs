@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ggj2018.ggj2018.Data;
+
+using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
@@ -7,9 +9,9 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private HawkVisionMaterialPropertyChanger _predatorVision;
 
-        public void SetVision(BirdType birdType)
+        public void SetVision(BirdData.BirdDataEntry birdType)
         {
-            _predatorVision.Enabled = birdType.BirdDataEntry.IsPredator;
+            _predatorVision.Enabled = birdType.IsPredator;
         }
     }
 }

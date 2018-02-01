@@ -203,12 +203,12 @@ namespace ggj2018.ggj2018
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 if(PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady) {
                     PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Id, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
+                    CameraManager.Instance.EnableCamera(i, true);
+                } else {
+                    CameraManager.Instance.EnableCamera(i, false);
                 }
             }
 
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                CameraManager.Instance.SetupCamera(i, PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady);
-            }
             CameraManager.Instance.ResizeViewports();
 
             UIManager.Instance.SwitchToGame();

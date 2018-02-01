@@ -145,7 +145,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            BirdType birdType = new BirdType(birdTypeId);
+            BirdData.BirdDataEntry birdType = GameManager.Instance.BirdData.Entries.GetOrDefault(birdTypeId);
 
             SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeId, birdType);
             if(null == spawnPoint) {
@@ -156,7 +156,7 @@ namespace ggj2018.ggj2018
             LocalPlayer player = Instantiate(_localPlayerPrefab, _playerContainer.transform);
             InitializePlayer(player, playerNumber, birdType, spawnPoint);
 
-            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {spawnPoint.name} ({player.transform.position})");
+            Debug.Log($"Spawned {player.State.BirdType.Name} for local player {playerNumber} at {spawnPoint.name} ({player.transform.position})");
 
             AddPlayer(playerNumber, player);
         }
@@ -168,7 +168,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            BirdType birdType = new BirdType(birdTypeId);
+            BirdData.BirdDataEntry birdType = GameManager.Instance.BirdData.Entries.GetOrDefault(birdTypeId);
 
             SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeId, birdType);
             if(null == spawnPoint) {
@@ -179,15 +179,15 @@ namespace ggj2018.ggj2018
             NetworkPlayer player = Instantiate(_networkPlayerPrefab, _playerContainer.transform);
             InitializePlayer(player, playerNumber, birdType, spawnPoint);
 
-            Debug.Log($"Spawned {player.State.BirdType.BirdDataEntry.Name} for local player {playerNumber} at {player.transform.position}");
+            Debug.Log($"Spawned {player.State.BirdType.Name} for local player {playerNumber} at {player.transform.position}");
 
             AddPlayer(playerNumber, player);
         }
 
-        private void InitializePlayer(IPlayer player, int playerNumber, BirdType birdType, SpawnPoint spawnPoint)
+        private void InitializePlayer(IPlayer player, int playerNumber, BirdData.BirdDataEntry birdType, SpawnPoint spawnPoint)
         {
             Bird model = Instantiate(
-                birdType.BirdDataEntry.IsPredator
+                birdType.IsPredator
                     ? (Bird)PredatorModelPrefab
                     : (Bird)PreyModelPrefab,
                 player.GameObject.transform);
@@ -229,7 +229,7 @@ namespace ggj2018.ggj2018
             _players[playerNumber] = player;
 
             _playerCount++;
-            if(player.State.BirdType.BirdDataEntry.IsPrey) {
+            if(player.State.BirdType.IsPrey) {
                 _preyCount++;
             }
         }
@@ -237,7 +237,7 @@ namespace ggj2018.ggj2018
         private void RemovePlayer(int playerNumber)
         {
             IPlayer player = _players[playerNumber];
-            if(player.State.BirdType.BirdDataEntry.IsPrey) {
+            if(player.State.BirdType.IsPrey) {
                 _preyCount--;
             }
 
