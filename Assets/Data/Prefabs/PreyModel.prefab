@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4571640834807746}
   - component: {fileID: 198576834752623236}
   - component: {fileID: 199354963957178528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_PigeonTracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
