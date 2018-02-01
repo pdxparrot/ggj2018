@@ -31,7 +31,7 @@ namespace ggj2018.ggj2018
         {
             SetFov(owner.State.BirdType.ViewFOV);
 
-            //SetPostProcessLayer(owner.State.BirdType.PostProcessLayerMask);
+            SetPostProcessLayer(owner.State.BirdType.PostProcessLayerMask);
 
             PlayerUI.Initialize(owner);
         }
