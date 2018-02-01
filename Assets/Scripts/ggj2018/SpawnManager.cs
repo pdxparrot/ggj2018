@@ -65,20 +65,20 @@ namespace ggj2018.ggj2018
             private SpawnPoint GetPredatorSpawnPoint(GameTypeData.GameTypeDataEntry gameTypeData)
             {
                 SpawnPoint spawnPoint = GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints);
-                if(null == spawnPoint && !gameTypeData.BirdTypesShareSpawnPoints) {
-                    return null;
+                if(null != spawnPoint) {
+                    return spawnPoint;
                 }
-                return GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints);
+                return !gameTypeData.BirdTypesShareSpawnPoints ? null : GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints);
             }
 
             [CanBeNull]
             private SpawnPoint GetPreySpawnPoint(GameTypeData.GameTypeDataEntry gameTypeData)
             {
                 SpawnPoint spawnPoint = GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints);
-                if(null == spawnPoint && !gameTypeData.BirdTypesShareSpawnPoints) {
-                    return null;
+                if(null != spawnPoint) {
+                    return spawnPoint;
                 }
-                return GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints);
+                return gameTypeData.BirdTypesShareSpawnPoints ? null : GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints);
             }
 
             [CanBeNull]
@@ -95,6 +95,8 @@ namespace ggj2018.ggj2018
 
             public void Reset()
             {
+                Debug.Log("Resetting used spawnpoints");
+
                 _predatorSpawnPoints.AddRange(_usedPredatorSpawnPoints);
                 _usedPredatorSpawnPoints.Clear();
 
