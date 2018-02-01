@@ -13,11 +13,6 @@ namespace ggj2018.Core.Camera
         public UnityEngine.Camera Camera => _camera;
 
         [SerializeField]
-        private UnityEngine.Camera _noPostProcessCamera;
-
-        public UnityEngine.Camera NoPostProcessCamera => _noPostProcessCamera;
-
-        [SerializeField]
         private UnityEngine.Camera _uiCamera;
 
         public UnityEngine.Camera UICamera => _uiCamera;
@@ -45,7 +40,6 @@ namespace ggj2018.Core.Camera
                 viewportHeight - (CameraManager.Instance.ViewportEpsilon * 2));
 
             Camera.rect = viewport;
-            NoPostProcessCamera.rect = viewport;
             UICamera.rect = viewport;
 
             AspectRatio aspectRatio = UICamera.GetComponent<AspectRatio>();
@@ -57,7 +51,6 @@ namespace ggj2018.Core.Camera
         public void SetFov(float fov)
         {
             Camera.fieldOfView = fov;
-            NoPostProcessCamera.fieldOfView = fov;
         }
     }
 }

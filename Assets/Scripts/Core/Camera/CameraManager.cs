@@ -20,18 +20,29 @@ namespace ggj2018.Core.Camera
 
         private readonly List<BaseViewer> _viewers = new List<BaseViewer>();
 
+        [SerializeField]
+        private GameObject[] _postProcessObjectPrefabs;
+
         public IReadOnlyCollection<BaseViewer> Viewers => _viewers;
 
-        private GameObject _viewerContainer;
+        private GameObject _viewerContainer, _postProcessContainer;
 
 #region Unity Lifecycle
         private void Awake()
         {
             _viewerContainer = new GameObject("Viewers");
+            _postProcessContainer = new GameObject("Post Process");
+
+            foreach(GameObject ppp in _postProcessObjectPrefabs) {
+                Instantiate(ppp, _postProcessContainer.transform);
+            }
         }
 
         protected override void OnDestroy()
         {
+            Destroy(_postProcessContainer);
+            _postProcessContainer = null;
+
             Destroy(_viewerContainer);
             _viewerContainer = null;
         }
@@ -45,7 +56,6 @@ namespace ggj2018.Core.Camera
                 BaseViewer viewer = Instantiate(_viewerPrefab, _viewerContainer.transform);
                 viewer.name = $"Viewer P{i}";
                 viewer.Camera.name = $"Camera P{i}";
-                viewer.NoPostProcessCamera.name = $"No PP Camera P{i}";
                 viewer.UICamera.name = $"UI Camera P{i}";
                 _viewers.Add(viewer);
             }
