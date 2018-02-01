@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using ggj2018.Core.Util;
+
 using UnityEngine;
 
 namespace ggj2018.ggj2018.Data
@@ -75,6 +77,19 @@ namespace ggj2018.ggj2018.Data
 
             public bool BirdTypesShareSpawnPoints => _birdTypesShareSpawnPoints;
 
+            public bool IsGameType(int playerCount, int predatorCount, int preyCount)
+            {
+// TODO: this is an awful hack :\
+                if(1 == playerCount || 0 == predatorCount || 0 == preyCount && Id == "crazy_taxi") {
+                    return true;
+                }
+                if(playerCount > 1 && predatorCount > 0 && preyCount > 0 && Id == "hunt") {
+                    return true;
+                }
+                Debug.LogError($"No suitable gametype found! playerCount: {playerCount}, predatorCount: {predatorCount}, preyCount: {preyCount}");
+                return false;
+            }
+
             public string GetGoalDescription(BirdData.BirdDataEntry birdType)
             {
                 return birdType.IsPredator ? PredatorWinConditionDescription : PreyWinConditionDescription;
@@ -116,6 +131,16 @@ namespace ggj2018.ggj2018.Data
             foreach(GameTypeDataEntry entry in GameTypes) {
                 _entries.Add(entry.Id, entry);
             }
+        }
+
+        public GameTypeDataEntry GetGameType(int playerCount, int predatorCount, int preyCount)
+        {
+            foreach(GameTypeDataEntry entry in GameTypes) {
+                if(entry.IsGameType(playerCount, predatorCount, preyCount)) {
+                    return entry;
+                }
+            }
+            return null;
         }
     }
 }

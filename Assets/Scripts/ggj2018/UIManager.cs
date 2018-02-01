@@ -34,20 +34,24 @@ namespace ggj2018.ggj2018
 #endregion
 
         /*
-        public void Countdown(int c) {
+        public void Countdown(int c)
+        {
             for(int i = 0; i < PlayerHud.Length; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 viewer?.PlayerUI.SetCountdown(c);
             }
         }
-        public void HideCountdown() {
+
+        public void HideCountdown()
+        {
             for(int i = 0; i < PlayerHud.Length; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 viewer?.PlayerUI.HideCountdown();
             }
         }
 
-        public void HideMenu() {
+        public void HideMenu()
+        {
             for(int i = 0; i < PlayerHud.Length; ++i) {
                 Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
                 viewer?.PlayerUI.Hide();

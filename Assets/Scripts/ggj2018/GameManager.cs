@@ -157,6 +157,9 @@ namespace ggj2018.ggj2018
             CheckWinCondition();
         }
 
+// TODO: we need a game type enum and classes to define their behaviors and shit
+// the data would use the enum rather than a string identifier
+
         private void CheckWinCondition()
         {
 /*

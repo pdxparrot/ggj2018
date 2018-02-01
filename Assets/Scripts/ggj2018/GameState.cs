@@ -84,9 +84,8 @@ namespace ggj2018.ggj2018
         private void RunMenu()
         {
             // Check for all players ready
-            int ready = 0;
-            int joined = 0;
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+            int ready = 0, joined = 0;
+            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
 
                 if(playerState.IsReady) {
@@ -103,7 +102,7 @@ namespace ggj2018.ggj2018
             }
 
             // Check for player joins
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
 
                 if(playerState.IsReady) {
@@ -175,24 +174,22 @@ namespace ggj2018.ggj2018
         private void DetermineGameType()
         {
             int playerCount = 0;
-            bool havePredator=false, havePrey=false;
+            int predatorCount = 0, preyCount = 0;
 
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
                 if(playerState.IsReady) {
                     playerCount++;
                 }
 
-                havePredator = havePredator || playerState.PlayerBirdData.IsPredator;
-                havePrey = havePrey || playerState.PlayerBirdData.IsPrey;
+                if(playerState.PlayerBirdData.IsPredator) {
+                    predatorCount++;
+                } else {
+                    preyCount++;
+                }
             }
 
-// TODO: don't hardcode this
-            if(1 == playerCount || !havePredator || !havePrey) {
-                _gameType = GameManager.Instance.GameTypeData.Entries.GetOrDefault("crazy_taxi");
-            } else {
-                _gameType = GameManager.Instance.GameTypeData.Entries.GetOrDefault("hunt");
-            }
+            _gameType = GameManager.Instance.GameTypeData.GetGameType(playerCount, predatorCount, preyCount);
         }
 
         private void BeginGame()
