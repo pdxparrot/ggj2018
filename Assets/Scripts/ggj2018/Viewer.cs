@@ -30,11 +30,13 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void Initialize(BirdType birdType)
+        public void Initialize(IPlayer owner)
         {
-            SetFov(birdType.ViewFOV);
+            SetFov(owner.State.BirdType.ViewFOV);
 
-            _visionSelector.SetVision(birdType);
+            _visionSelector.SetVision(owner.State.BirdType);
+
+            PlayerUI.Initialize(owner);
         }
     }
 }

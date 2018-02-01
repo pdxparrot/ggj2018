@@ -63,7 +63,8 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public void SetState(EState state) {
+        public void SetState(EState state)
+        {
             State = state;
             switch(State) {
                 case EState.Menu:      BeginMenu();    break;
@@ -139,7 +140,8 @@ namespace ggj2018.ggj2018
 
 #region Intro State
         /*
-        private void BeginIntro() {
+        private void BeginIntro()
+        {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i)
                 if(PlayerManager.Instance.GetPlayerState(i).PlayerReady)
                     PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(PlayerManager.Instance.GetPlayerState(i).PlayerBird));
@@ -151,7 +153,8 @@ namespace ggj2018.ggj2018
             UIManager.Instance.Countdown(_countdown);
         }
 
-        private void RunIntro() {
+        private void RunIntro()
+        {
             SetState(EState.eGame);
 
             // $$$ making this instant for now
