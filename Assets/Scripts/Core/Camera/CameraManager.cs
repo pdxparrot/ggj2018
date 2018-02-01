@@ -91,14 +91,24 @@ namespace ggj2018.Core.Camera
             }
         }
 
+        public void AddRenderLayer(int viewerIndex, string layer)
+        {
+            AddRenderLayer(viewerIndex, LayerMask.NameToLayer(layer));
+        }
+
         public void AddRenderLayer(int viewerIndex, LayerMask layer)
         {
-            _viewers[viewerIndex].Camera.cullingMask |= layer;
+            _viewers[viewerIndex].Camera.cullingMask |= (1 << layer.value);
+        }
+
+        public void RemoveRenderLayer(int viewerIndex, string layer)
+        {
+            RemoveRenderLayer(viewerIndex, LayerMask.NameToLayer(layer));
         }
 
         public void RemoveRenderLayer(int viewerIndex, LayerMask layer)
         {
-            _viewers[viewerIndex].Camera.cullingMask &= ~layer;
+            _viewers[viewerIndex].Camera.cullingMask &= ~(1 << layer.value);
         }
     }
 }

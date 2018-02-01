@@ -59,13 +59,13 @@ namespace ggj2018.ggj2018.Data
                 ? _birdData.PredatorFOV
                 : _birdData.PreyFOV;
 
-            public LayerMask RenderLayerMask => IsPredator
-                ? _birdData.PredatorRenderLayerMask
-                : _birdData.PreyRenderLayerMask;
+            public string Layer => IsPredator
+                ? _birdData.PredatorLayer
+                : _birdData.PreyLayer;
 
-            public LayerMask OtherRenderLayerMask => IsPrey
-                ? _birdData.PredatorRenderLayerMask
-                : _birdData.PreyRenderLayerMask;
+            public string OtherLayer => IsPrey
+                ? _birdData.PredatorLayer
+                : _birdData.PreyLayer;
 
             public LayerMask PostProcessLayerMask => IsPredator
                 ? _birdData.PredatorPostProcessLayerMask
@@ -89,16 +89,16 @@ namespace ggj2018.ggj2018.Data
         public float PreyFOV => _preyFOV;
 #endregion
 
-#region Render Layers
+#region Layers
         [SerializeField]
-        private LayerMask _predatorRenderLayerMask;
+        private string _predatorLayer;
 
-        public LayerMask PredatorRenderLayerMask => _predatorRenderLayerMask;
+        public string PredatorLayer => _predatorLayer;
 
         [SerializeField]
-        private LayerMask _preyRenderLayerMask;
+        private string _preyLayer;
 
-        public LayerMask PreyRenderLayerMask => _preyRenderLayerMask;
+        public string PreyLayer => _preyLayer;
 #endregion
 
 #region Post Processing Layers

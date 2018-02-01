@@ -9,35 +9,15 @@ namespace ggj2018.ggj2018
 {
     public sealed class GodRay : MonoBehavior
     {
-        public enum Mode { Hawk, Carrier, Goal };
-        [SerializeField] private Mode mode;
+        public enum Mode { Hawk, Carrier, Goal }; 
+        [SerializeField] private Mode mode = Mode.Goal;
 
         [SerializeField] private float FadeNearDist;
         [SerializeField] private float FadeFarDist;
 
         [SerializeField] private MeshRenderer mesh;
 
-        public void Setup(Mode m) {
-            mode = m;
-            if(mode == Mode.Hawk)
-                gameObject.SetActive(false);
-            else if(mode == Mode.Carrier) {
-                gameObject.SetActive(true);
-                SetLayer(gameObject, 8); // hawk
-            }
-            else {
-                gameObject.SetActive(true);
-                SetLayer(gameObject, 7); // carrier
-            }
-        }
-
-        void SetLayer(GameObject obj, int layer) {
-            obj.layer = layer;
-            foreach(Transform c in obj.transform) {
-                SetLayer(c.gameObject, layer);
-            }
-        }
-
+#region Unity Lifecycle
         private void Update()
         {
             var dist = FadeFarDist + 1;
@@ -64,16 +44,29 @@ namespace ggj2018.ggj2018
                     }
                 }
             }
-            else if(mode == Mode.Hawk) {
-            }
 
-            var alpha = 1.0f;
-            alpha = (dist - FadeNearDist) / (FadeFarDist - FadeNearDist);
-                            alpha = Mathf.Clamp(alpha, 0, 1);
+            float alpha = Mathf.Clamp01((dist - FadeNearDist) / (FadeFarDist - FadeNearDist));
 
-            var c = mesh.material.color;
+            Color c = mesh.material.color;
             c.a = alpha;
             mesh.material.color = c;
+        }
+#endregion
+
+        public void Setup(IPlayer player)
+        {
+            mode = player.State.BirdType.IsPredator ? Mode.Hawk : Mode.Carrier;
+
+            gameObject.SetActive(player.State.BirdType.IsPrey);
+            SetLayer(gameObject, player.State.BirdType.OtherLayer);
+        }
+
+        private void SetLayer(GameObject obj, string layer)
+        {
+            obj.layer = LayerMask.NameToLayer(layer);
+            foreach(Transform c in obj.transform) {
+                SetLayer(c.gameObject, layer);
+            }
         }
     }
 }

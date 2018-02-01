@@ -38,12 +38,10 @@ namespace ggj2018.ggj2018
             Debug.Log($"Setting follow cam {ControllerNumber}");
             CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(GameObject);
 
-            _godRay.GetComponent<GodRay>().Setup(
-                State.BirdType.IsPredator ?
-                GodRay.Mode.Hawk : GodRay.Mode.Carrier);
+            _godRay.GetComponent<GodRay>().Setup(this);
 
-            CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.RenderLayerMask);
-            CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherRenderLayerMask);       
+            CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.Layer);
+            CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherLayer);       
         }
 
         private void Update()
