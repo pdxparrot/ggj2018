@@ -7,6 +7,7 @@ using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
 
@@ -138,7 +139,7 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void SpawnLocalPlayer(int playerNumber, string gameTypeId, string birdTypeId)
+        public void SpawnLocalPlayer(int playerNumber, GameType.GameTypes gameType, string birdTypeId)
         {
             if(null != _players[playerNumber]) {
                 Debug.LogError("Cannot spawn a player on top of another player!");
@@ -147,9 +148,9 @@ namespace ggj2018.ggj2018
 
             BirdData.BirdDataEntry birdType = GameManager.Instance.BirdData.Entries.GetOrDefault(birdTypeId);
 
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeId, birdType);
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameType, birdType);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {birdTypeId} in game type {gameTypeId}");
+                Debug.LogError($"No spawn points left for bird type {birdTypeId} in game type {gameType}");
                 return;
             }
 
@@ -161,7 +162,7 @@ namespace ggj2018.ggj2018
             AddPlayer(playerNumber, player);
         }
 
-        public void SpawnNetworkPlayer(int playerNumber, string gameTypeId, string birdTypeId)
+        public void SpawnNetworkPlayer(int playerNumber, GameType.GameTypes gameTypeId, string birdTypeId)
         {
             if(null != _players[playerNumber]) {
                 Debug.LogError("Cannot spawn a player on top of another player!");

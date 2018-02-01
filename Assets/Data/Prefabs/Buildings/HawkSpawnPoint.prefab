@@ -1211,10 +1211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1996ca34af457438faa5bc9a19015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameTypeIds:
-  - crazy_taxi
-  - hunt
-  _isPredatorSpawn: 1
+  _gameTypes: 000000000100000002000000
+  _type: 0
 --- !u!114 &114787399677448628
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -81,7 +81,7 @@ namespace ggj2018.ggj2018
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(true);
 
-            Goal.text = GameManager.Instance.State.GameType.GetGoalDescription(_owner.State.BirdType);
+            Goal.text = GameManager.Instance.State.GameType.GameTypeData.GetWinConditionDescription(_owner.State.BirdType);
             StartCoroutine(CloseIntroPanel());
         }
 

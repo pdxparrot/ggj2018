@@ -4,7 +4,7 @@ using System.Linq;
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
-using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
 
@@ -13,39 +13,62 @@ namespace ggj2018.ggj2018
     [Serializable]
     public sealed class GameState
     {
-        public enum EState {
+        public enum States
+        {
             Init,
             Menu,
-            //Intro,
+            CharacterSelect,
             Game,
-            Victory,
+            Victory
         }
 
         [SerializeField]
         [ReadOnly]
-        private GameTypeData.GameTypeDataEntry _gameType;
+        private GameType _gameType;
 
-        public GameTypeData.GameTypeDataEntry GameType => _gameType;
+        public GameType GameType => _gameType;
 
         [SerializeField]
         [ReadOnly]
-        private EState _state = EState.Init;
+        private States _state = States.Init;
 
-        public EState State { get { return _state; } private set { _state = value; } }
+        public States State { get { return _state; } private set { _state = value; } }
 
+// TODO: unused? bring intro back?
         [SerializeField]
         [ReadOnly]
         private int _countdown;
 
+// TODO: unused?
         [SerializeField]
         [ReadOnly]
         private float _timer;
+
+#region Player Things
+        [SerializeField]
+        [ReadOnly]
+        private int _playerCount;
+
+        public int PlayerCount => _playerCount;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _predatorCount;
+
+        public int PredatorCount => _predatorCount;
+
+        [SerializeField]
+        [ReadOnly]
+        private int _preyCount;
+
+        public int PreyCount => _preyCount;
 
         [SerializeField]
         [ReadOnly]
         private int _winner;
 
         public int Winner { get { return _winner; } set { _winner = value; } }
+#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -55,25 +78,50 @@ namespace ggj2018.ggj2018
 
         public void Update()
         {
-            switch(State) {
-            case EState.Menu:      RunMenu();      break;
-            //case EState.eIntro:     RunIntro();     break;
-            case EState.Game:      RunGame();      break;
-            case EState.Victory:   RunVictory();   break;
+            switch(State)
+            {
+            case States.Menu:
+                RunMenu();
+                break;
+            case States.CharacterSelect:
+                RunCharacterSelect();
+                break;
+            case States.Game:
+                RunGame();
+                break;
+            case States.Victory:
+                RunVictory();
+                break;
             }
         }
 
-        public void SetState(EState state)
+        public void SetState(States state)
         {
+            FinishState();
+
             State = state;
-            switch(State) {
-                case EState.Menu:      BeginMenu();    break;
-                //case EState.eIntro:     BeginIntro();   break;
-                case EState.Game:      BeginGame();    break;
-                case EState.Victory:   BeginVictory(); break;
+            switch(State)
+            {
+            case States.Menu:
+                BeginMenu();
+                break;
+            case States.CharacterSelect:
+                BeginCharacterSelect();
+                break;
+            case States.Game:
+                BeginGame();
+                break;
+            case States.Victory:
+                BeginVictory();
+                break;
             }
 
             Debug.Log($"State: {State}");
+        }
+
+        private void FinishState()
+        {
+// TODO
         }
 
 #region Menu State
@@ -82,6 +130,17 @@ namespace ggj2018.ggj2018
         }
 
         private void RunMenu()
+        {
+            SetState(States.CharacterSelect);
+        }
+#endregion
+
+#region Menu State
+        private void BeginCharacterSelect()
+        {
+        }
+
+        private void RunCharacterSelect()
         {
             // Check for all players ready
             int ready = 0, joined = 0;
@@ -97,7 +156,7 @@ namespace ggj2018.ggj2018
             }
 
             if(ready == joined && ready > 0 && InputManager.Instance.StartPressed()) {
-                SetState(EState.Game);
+                SetState(States.Game);
                 return;
             }
 
@@ -154,7 +213,7 @@ namespace ggj2018.ggj2018
 
         private void RunIntro()
         {
-            SetState(EState.eGame);
+            SetState(States.Game);
 
             // $$$ making this instant for now
             _timer -= Time.deltaTime;
@@ -163,7 +222,7 @@ namespace ggj2018.ggj2018
                 _timer = 1.0f;
 
                 if(_countdown == 0)
-                    SetState(EState.eGame);
+                    SetState(States.Game);
                 else
                     UIManager.Instance.Countdown(_countdown);
             }
@@ -173,33 +232,32 @@ namespace ggj2018.ggj2018
 #region Game State
         private void DetermineGameType()
         {
-            int playerCount = 0;
-            int predatorCount = 0, preyCount = 0;
+            _playerCount = _predatorCount = _preyCount = 0;
 
             for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
                 if(playerState.IsReady) {
-                    playerCount++;
+                    _playerCount++;
                 }
 
                 if(playerState.PlayerBirdData.IsPredator) {
-                    predatorCount++;
+                    _predatorCount++;
                 } else {
-                    preyCount++;
+                    _preyCount++;
                 }
             }
 
-            _gameType = GameManager.Instance.GameTypeData.GetGameType(playerCount, predatorCount, preyCount);
+            _gameType = GameType.GetGameType(this);
         }
 
         private void BeginGame()
         {
             DetermineGameType();
-            Debug.Log($"Beginning game type {GameType.Id}");
+            Debug.Log($"Beginning game type {GameType.Type}");
 
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
                 if(PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Id, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
+                    PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Type, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
                     CameraManager.Instance.EnableCamera(i, true);
                 } else {
                     CameraManager.Instance.EnableCamera(i, false);

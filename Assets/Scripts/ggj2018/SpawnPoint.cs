@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
 
@@ -8,15 +9,22 @@ namespace ggj2018.ggj2018
 {
     public class SpawnPoint : MonoBehavior
     {
+        public enum SpawnPointType
+        {
+            Predator,
+            Prey,
+            Message
+        }
+
         [SerializeField]
-        private string[] _gameTypeIds;
+        private GameType.GameTypes[] _gameTypes;
 
-        public IReadOnlyCollection<string> GameTypeIds => _gameTypeIds;
+        public IReadOnlyCollection<GameType.GameTypes> GameTypes => _gameTypes;
 
         [SerializeField]
-        private bool _isPredatorSpawn;
+        private SpawnPointType _type;
 
-        public bool IsPredatorSpawn => _isPredatorSpawn;
+        public SpawnPointType Type => _type;
 
 #region Unity Lifecycle
         private void Awake()

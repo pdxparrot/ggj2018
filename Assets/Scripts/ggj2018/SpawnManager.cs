@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.GameTypes;
 
 using JetBrains.Annotations;
+
 using UnityEngine;
-using Random = System.Random;
 
 namespace ggj2018.ggj2018
 {
     public sealed class SpawnManager : SingletonBehavior<SpawnManager>
     {
-        private static readonly Random Random = new Random();
+        private static readonly System.Random Random = new System.Random();
 
         private class SpawnPoints
         {
-            private readonly string _gameTypeId;
-
+// TODO: dictionary would work better
             private readonly List<SpawnPoint> _predatorSpawnPoints = new List<SpawnPoint>();
 
             private readonly List<SpawnPoint> _usedPredatorSpawnPoints = new List<SpawnPoint>();
@@ -25,60 +26,66 @@ namespace ggj2018.ggj2018
 
             private readonly List<SpawnPoint> _usedPreySpawnPoints = new List<SpawnPoint>();
 
-            public SpawnPoints(string gameTypeId)
-            {
-                _gameTypeId = gameTypeId;
-            }
-
             public void Add(SpawnPoint spawnPoint)
             {
-                if(spawnPoint.IsPredatorSpawn) {
+                switch(spawnPoint.Type)
+                {
+                case SpawnPoint.SpawnPointType.Predator:
                     _predatorSpawnPoints.Add(spawnPoint);
-                } else {
+                    break;
+                case SpawnPoint.SpawnPointType.Prey:
                     _preySpawnPoints.Add(spawnPoint);
+                    break;
+                default:
+                    Debug.LogError($"TODO: support spawn point type {spawnPoint.Type}");
+                    break;
                 }
             }
 
             public void Remove(SpawnPoint spawnPoint)
             {
-                if(spawnPoint.IsPredatorSpawn) {
+                switch(spawnPoint.Type)
+                {
+                case SpawnPoint.SpawnPointType.Predator:
                     _predatorSpawnPoints.Remove(spawnPoint);
                     _usedPredatorSpawnPoints.Remove(spawnPoint);
-                } else {
+                    break;
+                case SpawnPoint.SpawnPointType.Prey:
                     _preySpawnPoints.Remove(spawnPoint);
                     _usedPreySpawnPoints.Remove(spawnPoint);
+                    break;
+                default:
+                    Debug.LogError($"TODO: support spawn point type {spawnPoint.Type}");
+                    break;
                 }
             }
 
             [CanBeNull]
             public SpawnPoint GetSpawnPoint(BirdData.BirdDataEntry birdType)
             {
-                GameTypeData.GameTypeDataEntry gameTypeData = GameManager.Instance.GameTypeData.Entries.GetOrDefault(_gameTypeId);
-                if(null == gameTypeData) {
-                    Debug.LogError($"No such game type {_gameTypeId}!");
-                    return null;
-                }
-                return birdType.IsPredator ? GetPredatorSpawnPoint(gameTypeData) : GetPreySpawnPoint(gameTypeData);
+                return birdType.IsPredator
+                    ? GetPredatorSpawnPoint(GameManager.Instance.State.GameType)
+                    : GetPreySpawnPoint(GameManager.Instance.State.GameType);
             }
 
             [CanBeNull]
-            private SpawnPoint GetPredatorSpawnPoint(GameTypeData.GameTypeDataEntry gameTypeData)
+            private SpawnPoint GetPredatorSpawnPoint(GameType gameType)
             {
                 SpawnPoint spawnPoint = GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints);
                 if(null != spawnPoint) {
                     return spawnPoint;
                 }
-                return !gameTypeData.BirdTypesShareSpawnPoints ? null : GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints);
+                return gameType.BirdTypesShareSpawnpoints ? GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints) : null;
             }
 
             [CanBeNull]
-            private SpawnPoint GetPreySpawnPoint(GameTypeData.GameTypeDataEntry gameTypeData)
+            private SpawnPoint GetPreySpawnPoint(GameType gameType)
             {
                 SpawnPoint spawnPoint = GetSpawnPoint(_preySpawnPoints, _usedPreySpawnPoints);
                 if(null != spawnPoint) {
                     return spawnPoint;
                 }
-                return gameTypeData.BirdTypesShareSpawnPoints ? null : GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints);
+                return gameType.BirdTypesShareSpawnpoints ? GetSpawnPoint(_predatorSpawnPoints, _usedPredatorSpawnPoints) : null;
             }
 
             [CanBeNull]
@@ -106,16 +113,16 @@ namespace ggj2018.ggj2018
         }
 
         // game type => spawnpoints
-        private readonly Dictionary<string, SpawnPoints> _spawnPoints = new Dictionary<string, SpawnPoints>();
+        private readonly Dictionary<GameType.GameTypes, SpawnPoints> _spawnPoints = new Dictionary<GameType.GameTypes, SpawnPoints>();
 
 #region Registration
         public void RegisterSpawnPoint(SpawnPoint spawnPoint)
         {
-            foreach(string gameTypeId in spawnPoint.GameTypeIds) {
-                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeId);
+            foreach(GameType.GameTypes gameType in spawnPoint.GameTypes) {
+                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
                 if(null == spawnPoints) {
-                    spawnPoints = new SpawnPoints(gameTypeId);
-                    _spawnPoints.Add(gameTypeId, spawnPoints);
+                    spawnPoints = new SpawnPoints();
+                    _spawnPoints.Add(gameType, spawnPoints);
                 }
                 spawnPoints.Add(spawnPoint);
             }
@@ -123,17 +130,17 @@ namespace ggj2018.ggj2018
 
         public void UnregisterSpawnPoint(SpawnPoint spawnPoint)
         {
-            foreach(string gameTypeId in spawnPoint.GameTypeIds) {
-                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeId);
+            foreach(GameType.GameTypes gameType in spawnPoint.GameTypes) {
+                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
                 spawnPoints?.Remove(spawnPoint);
             }
         }
 #endregion
 
         [CanBeNull]
-        public SpawnPoint GetSpawnPoint(string gameTypeId, BirdData.BirdDataEntry birdType)
+        public SpawnPoint GetSpawnPoint(GameType.GameTypes gameType, BirdData.BirdDataEntry birdType)
         {
-            SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeId);
+            SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
             return spawnPoints?.GetSpawnPoint(birdType);
         }
 
