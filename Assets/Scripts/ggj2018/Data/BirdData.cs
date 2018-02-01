@@ -66,6 +66,18 @@ namespace ggj2018.ggj2018.Data
         public float PreyFOV => _preyFOV;
 #endregion
 
+#region Post Processing Layers
+        [SerializeField]
+        private LayerMask _predatorPostProcessLayerMask;
+
+        public LayerMask PredatorPostProcessLayerMask => _predatorPostProcessLayerMask;
+
+        [SerializeField]
+        private LayerMask _preyPostProcessLayerMask;
+
+        public LayerMask PreyPostProcessLayerMask => _preyPostProcessLayerMask;
+#endregion
+
         [SerializeField]
         private BirdDataEntry[] _birds;
 

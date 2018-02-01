@@ -24,8 +24,6 @@ GameObject:
   - component: {fileID: 114162174328774752}
   - component: {fileID: 114975161836565870}
   - component: {fileID: 114622719731141972}
-  - component: {fileID: 114685441238666186}
-  - component: {fileID: 114241030722465478}
   - component: {fileID: 114071267835127358}
   m_Layer: 0
   m_Name: Camera
@@ -251,31 +249,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
---- !u!114 &114241030722465478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412059320785948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddfc710a999b9b54ab06589e5019a224, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enabled: 1
-  color1: {r: 1, g: 1, b: 1, a: 0}
-  color2: {r: 0, g: 0.83448315, b: 1, a: 0}
-  brightness1: 1
-  brightness2: 15
-  material: {fileID: 2100000, guid: 396a5ca90c1d1874fa98152fbff61654, type: 2}
-  colorProperty1: _PrimaryColor
-  colorProperty2: _SecondaryColor
-  brightnessProperty1: _PrimaryBrightness
-  brightnessProperty2: _SecondaryBrightness
-  _defaultColor1: {r: 1, g: 1, b: 1, a: 0}
-  _defaultColor2: {r: 0.67058825, g: 1, b: 1, a: 0}
-  _defaultFloat1: 0.47
-  _defaultFloat2: 0.939
 --- !u!114 &114596710191927046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,7 +264,6 @@ MonoBehaviour:
   _uiCamera: {fileID: 20295695093120854}
   _playerUIPrefab: {fileID: 114062390217345816, guid: c839dc0f7140c8640a1fe019b091953c,
     type: 2}
-  _visionSelector: {fileID: 114685441238666186}
 --- !u!114 &114622719731141972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,18 +313,6 @@ MonoBehaviour:
   _orbitRotation: {x: 0, y: 0}
   _orbitRadius: 15
   _lookRotation: {x: 0, y: 0}
---- !u!114 &114685441238666186
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412059320785948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad41b6aaf365a7446be1bc51dfba8c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _predatorVision: {fileID: 114241030722465478}
 --- !u!114 &114854027975124778
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,3 +1,8 @@
-﻿{
-	"name": "com.pdxpartyparrot.Core"
+{
+    "name": "com.pdxpartyparrot.Core",
+    "references": [
+        "com.unity.postprocessing.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

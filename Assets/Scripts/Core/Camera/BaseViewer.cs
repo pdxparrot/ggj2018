@@ -1,6 +1,7 @@
 ﻿using ggj2018.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace ggj2018.Core.Camera
 {
@@ -51,6 +52,12 @@ namespace ggj2018.Core.Camera
         public void SetFov(float fov)
         {
             Camera.fieldOfView = fov;
+        }
+
+        public void SetPostProcessLayer(LayerMask postProcessLayerMask)
+        {
+            PostProcessLayer layer = Camera.GetComponent<PostProcessLayer>();
+            layer.volumeLayer = postProcessLayerMask;
         }
     }
 }

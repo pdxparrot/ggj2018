@@ -11,9 +11,6 @@ namespace ggj2018.ggj2018
 
         public PlayerUIPage PlayerUI { get; private set; }
 
-        [SerializeField]
-        private BirdVisionSelector _visionSelector;
-
 #region Unity Lifecycle
         protected override void Awake()
         {
@@ -34,7 +31,7 @@ namespace ggj2018.ggj2018
         {
             SetFov(owner.State.BirdType.ViewFOV);
 
-            _visionSelector.SetVision(owner.State.BirdType);
+            //SetPostProcessLayer(owner.State.BirdType.PostProcessLayerMask);
 
             PlayerUI.Initialize(owner);
         }

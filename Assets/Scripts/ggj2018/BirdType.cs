@@ -17,8 +17,12 @@ namespace ggj2018.ggj2018
         public BirdData.BirdDataEntry BirdDataEntry => _birdDataEntry;
 
         public float ViewFOV => _birdDataEntry.IsPredator
-                            ? GameManager.Instance.BirdData.PredatorFOV
-                            : GameManager.Instance.BirdData.PreyFOV;
+            ? GameManager.Instance.BirdData.PredatorFOV
+            : GameManager.Instance.BirdData.PreyFOV;
+
+        public LayerMask PostProcessLayerMask => _birdDataEntry.IsPredator
+            ? GameManager.Instance.BirdData.PredatorPostProcessLayerMask
+            : GameManager.Instance.BirdData.PreyPostProcessLayerMask;
 
         public BirdType(string id)
         {

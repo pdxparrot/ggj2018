@@ -13,6 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _predatorFOV: 90
   _preyFOV: 60
+  _predatorPostProcessLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  _preyPostProcessLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   _birds:
   - _id: hawk
     _name: Hawk
