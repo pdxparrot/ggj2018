@@ -35,6 +35,7 @@ namespace ggj2018.ggj2018
             base.InitializeManagers();
 
             GameManager.Instance.Initialize();
+            PlayerManager.Instance.Initialize();
         }
     }
 }

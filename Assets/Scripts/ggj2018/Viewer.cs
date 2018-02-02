@@ -34,6 +34,9 @@ namespace ggj2018.ggj2018
             SetPostProcessLayer(owner.State.BirdType.PostProcessLayerMask);
 
             PlayerUI.Initialize(owner);
+
+            PlayerUI.SetScore(0, GameManager.Instance.State.GameType.ScoreLimit(owner.State.BirdType));
+            PlayerUI.SetTimer(GameManager.Instance.State.Timer);
         }
     }
 }

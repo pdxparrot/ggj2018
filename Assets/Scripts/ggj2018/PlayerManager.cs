@@ -9,6 +9,8 @@ using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.GameTypes;
 
+using JetBrains.Annotations;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -50,6 +52,18 @@ namespace ggj2018.ggj2018
 
             public string PlayerBirdId => PlayerBirdData.Id;
 #endregion
+
+            public Viewer Viewer { get; }
+
+            public int ControllerIndex { get; }
+
+            public Player Player { get; set; }
+
+            public CharacterSelectState(int controllerIndex, Viewer viewer)
+            {
+                ControllerIndex = controllerIndex;
+                Viewer = viewer;
+            }
 
             public void NextBird()
             {
@@ -124,10 +138,6 @@ namespace ggj2018.ggj2018
         private void Awake()
         {
             _playerContainer = new GameObject("Players");
-
-            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
-                _characterSelectStates.Add(new CharacterSelectState());
-            }
         }
 
         protected override void OnDestroy()
@@ -139,42 +149,48 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-// TODO: separate instantiating/initializing/adding players
-// from spawning them (disable their object after creating, basically)
-
-        public void SpawnPlayer(GameType.GameTypes gameType, string birdTypeId)
+        public void Initialize()
         {
-            BirdData.BirdDataEntry birdType = GameManager.Instance.BirdData.Entries.GetOrDefault(birdTypeId);
+            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+                Viewer viewer = CameraManager.Instance.AcquireViewer() as Viewer;
+                int controllerIndex = InputManager.Instance.AcquireController();
 
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameType, birdType);
+                _characterSelectStates.Add(new CharacterSelectState(controllerIndex, viewer));
+            }
+            CameraManager.Instance.ResizeViewports();
+        }
+
+        [CanBeNull]
+        public Player SpawnPlayer(GameType.GameTypes gameType, CharacterSelectState selectState)
+        {
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameType, selectState.PlayerBirdData);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {birdTypeId} in game type {gameType}");
-                return;
+                Debug.LogError($"No spawn points left for bird type {selectState.PlayerBirdId} in game type {gameType}");
+                return null;
             }
 
             Player player = Instantiate(_playerPrefab, _playerContainer.transform);
-            InitializePlayer(player, _players.Count, birdType, spawnPoint);
+            InitializePlayer(player, _players.Count, selectState, spawnPoint);
 
             Debug.Log($"Spawned {player.State.BirdType.Name} for local player {player.Id} at {spawnPoint.name} ({player.transform.position})");
 
             AddPlayer(player);
+            return player;
         }
 
-        private void InitializePlayer(Player player, int playerId, BirdData.BirdDataEntry birdType, SpawnPoint spawnPoint)
+        private void InitializePlayer(Player player, int playerId, CharacterSelectState selectState, SpawnPoint spawnPoint)
         {
             Bird birdModel = Instantiate(
-                birdType.IsPredator
+                selectState.PlayerBirdData.IsPredator
                     ? (Bird)PredatorModelPrefab
                     : (Bird)PreyModelPrefab,
                 player.transform);
 
-            // TODO: no....
-            int controllerNumber = playerId;
-
-            player.Initialize(playerId, controllerNumber, birdModel, birdType);
-
-            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(player.ControllerNumber) as Viewer;
-            viewer?.Initialize(player);
+            //if(player.isLocal) {
+                player.InitializeLocal(playerId, selectState.ControllerIndex, selectState.Viewer, birdModel, selectState.PlayerBirdData);
+            /*} else {
+                player.InitializeNetwork(playerId, birdModel, selectState.PlayerBirdData);
+            }*/
 
             spawnPoint.Spawn(player);
         }

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using ggj2018.Core.Camera;
+﻿using ggj2018.Core.Camera;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
 
@@ -35,9 +33,9 @@ namespace ggj2018.ggj2018
 
         public PlayerController Controller => _controller;
 
-        public int ControllerNumber { get; private set; }
+        public int ControllerIndex { get; private set; }
 
-// TODO: hold a link to the viewer
+        public Viewer Viewer { get; private set; }
 
 #region Unity Lifecycle
         private void Awake()
@@ -50,31 +48,41 @@ namespace ggj2018.ggj2018
         private void Update()
         {
             _playerState.Update(Time.deltaTime);
+
+            Viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType)); 
+            Viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer); 
         }
 #endregion
 
-        public void Initialize(int id, int controllerNumber, Bird birdModel, BirdData.BirdDataEntry birdType)
+        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird birdModel, BirdData.BirdDataEntry birdType)
+        {
+            Initialize(id, birdModel, birdType);
+
+            ControllerIndex = controllerIndex;
+
+            Viewer = viewer;
+            Viewer.Initialize(this);
+
+            Viewer.FollowCamera.SetTarget(gameObject);
+
+            Viewer.AddRenderLayer(State.BirdType.Layer);
+            Viewer.RemoveRenderLayer(State.BirdType.OtherLayer);
+        }
+
+        public void InitializeNetwork(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
+        {
+            Initialize(id, birdModel, birdType);
+        }
+
+        private void Initialize(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
         {
             _id = id;
-            ControllerNumber = controllerNumber;
             name = $"Player {Id}";
 
             _controller.Initialize(this, birdModel);
             State.Initialize(birdType);
 
-            //if(isLocalPlayer) {
-            Debug.Log($"Setting follow cam {ControllerNumber}");
-            CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(gameObject);
-
-            CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.Layer);
-            CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherLayer);       
-            //}
-
             _godRay.GetComponent<GodRay>().Setup(this);
-
-            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(ControllerNumber) as Viewer;
-            viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType));
-            viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IFollowTarget
     {
-        int ControllerNumber { get; }
+        int ControllerIndex { get; }
     }
 }
