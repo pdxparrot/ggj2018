@@ -20,6 +20,16 @@ namespace ggj2018.ggj2018.GameTypes
             // TODO: spawn a random message goal
         }
 
+        public override int ScoreLimit(BirdData.BirdDataEntry birdType)
+        {
+            return GameTypeData.ScoreLimit;
+        }
+
+        public override bool ShowScore(BirdData.BirdDataEntry birdType)
+        {
+            return true;
+        }
+
         public override void GoalCollision(Player player)
         {
             // TODO: handle message goals as well
@@ -28,7 +38,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             player.State.Score++;
 
-            if(player.State.Score >= GameTypeData.TargetGoalScore) {
+            if(player.State.Score >= GameTypeData.ScoreLimit) {
                 Debug.Log($"Player {player.Id} has reached the score limit!"); 
                 GameManager.Instance.State.Winner = player.Id;
                 GameManager.Instance.State.SetState(GameState.States.Victory);

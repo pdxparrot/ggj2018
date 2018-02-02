@@ -33,9 +33,15 @@ namespace ggj2018.ggj2018.GameTypes
 
         public abstract bool BirdTypesShareSpawnpoints { get; }
 
+        public bool ShowTimer => GameTypeData.TimeLimit > 0;
+
         public virtual void Initialize()
         {
         }
+
+        public abstract int ScoreLimit(BirdData.BirdDataEntry birdType);
+
+        public abstract bool ShowScore(BirdData.BirdDataEntry birdType);
 
         public virtual void GoalCollision(Player player)
         {

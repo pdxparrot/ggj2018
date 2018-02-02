@@ -37,9 +37,9 @@ namespace ggj2018.ggj2018.Data
 #endregion
 
             [SerializeField]
-            private int _targetGoalScore = -1;
+            private int _scoreLimit = -1;
 
-            public int TargetGoalScore => _targetGoalScore;
+            public int ScoreLimit => _scoreLimit;
 
             [SerializeField]
             private int _timeLimit = -1;

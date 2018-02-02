@@ -37,6 +37,8 @@ namespace ggj2018.ggj2018
 
         public int ControllerNumber { get; private set; }
 
+// TODO: hold a link to the viewer
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -69,6 +71,10 @@ namespace ggj2018.ggj2018
             //}
 
             _godRay.GetComponent<GodRay>().Setup(this);
+
+            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(ControllerNumber) as Viewer;
+            viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType));
+            viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer);
         }
     }
 }

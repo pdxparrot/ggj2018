@@ -94,10 +94,12 @@ namespace ggj2018.ggj2018
 
         private void Update()
         {
+            float dt = Time.deltaTime;
+
             CheckPause();
             CheckReload();
 
-            _gameState.Update();
+            _gameState.Update(dt);
         }
 #endregion
 

@@ -3,6 +3,7 @@
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
 
@@ -67,22 +68,24 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public void SwitchToGame()
+        public void SwitchToGame(GameType gameType)
         {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+                Player player = PlayerManager.Instance.Players.ElementAt(i);
                 Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                if(null == PlayerManager.Instance.Players.ElementAt(i))
+                if(null == player)
                     viewer?.PlayerUI.Hide();
                 else
-                    viewer?.PlayerUI.SwitchToGame();
+                    viewer?.PlayerUI.SwitchToGame(gameType, player.State.BirdType);
             }
         }
 
         public void SwitchToVictory(int winner)
         {
             for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+                Player player = PlayerManager.Instance.Players.ElementAt(i);
                 Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                if(null == PlayerManager.Instance.Players.ElementAt(i))
+                if(null == player)
                     viewer?.PlayerUI.Hide();
                 else
                     viewer?.PlayerUI.SwitchToVictory(winner == i);
