@@ -42,8 +42,8 @@ namespace ggj2018.ggj2018
 
         public void Spawn(Player player)
         {
-            player.GameObject.transform.position = transform.position;
-            player.GameObject.transform.rotation = transform.rotation;
+            player.transform.position = transform.position;
+            player.transform.rotation = transform.rotation;
         }
     }
 }

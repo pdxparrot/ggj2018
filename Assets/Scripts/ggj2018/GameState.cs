@@ -124,8 +124,8 @@ namespace ggj2018.ggj2018
         {
             // Check for all players ready
             int ready = 0, joined = 0;
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+            for(int i=0; i<PlayerManager.Instance.CharacterSelectStates.Count; ++i) {
+                PlayerManager.CharacterSelectState playerState = PlayerManager.Instance.CharacterSelectStates.ElementAt(i);
 
                 if(playerState.IsReady) {
                     ++ready;
@@ -141,18 +141,18 @@ namespace ggj2018.ggj2018
             }
 
             // Check for player joins
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+            for(int i=0; i<PlayerManager.Instance.CharacterSelectStates.Count; ++i) {
+                PlayerManager.CharacterSelectState playerState = PlayerManager.Instance.CharacterSelectStates.ElementAt(i);
 
                 if(playerState.IsReady) {
                     if(InputManager.Instance.Pressed(i, InputManager.Button.B)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.Joined;
+                        playerState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Joined;
                     }
                 } else if(playerState.IsJoined) {
                     if(InputManager.Instance.Pressed(i, InputManager.Button.A)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.Ready;
+                        playerState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Ready;
                     } else if(InputManager.Instance.Pressed(i, InputManager.Button.B)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.None;
+                        playerState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.None;
                     } else {
                         if(InputManager.Instance.DpadPressed(i, InputManager.DPadDir.Right)) {
                             playerState.NextBird();
@@ -162,7 +162,7 @@ namespace ggj2018.ggj2018
                     }
                 } else {
                     if(InputManager.Instance.PositivePressed(i)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.Joined;
+                        playerState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Joined;
                         playerState.SelectedBird = 0;
                     }
                 }
@@ -224,8 +224,8 @@ namespace ggj2018.ggj2018
             int predatorCount = 0;
             int preyCount = 0;
 
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+            for(int i=0; i<PlayerManager.Instance.CharacterSelectStates.Count; ++i) {
+                PlayerManager.CharacterSelectState playerState = PlayerManager.Instance.CharacterSelectStates.ElementAt(i);
                 if(playerState.IsReady) {
                     playerCount++;
                 }
@@ -245,10 +245,10 @@ namespace ggj2018.ggj2018
             DetermineGameType();
             Debug.Log($"Beginning game type {GameType.Type}");
 
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+            for(int i=0; i<PlayerManager.Instance.CharacterSelectStates.Count; ++i) {
+                PlayerManager.CharacterSelectState playerState = PlayerManager.Instance.CharacterSelectStates.ElementAt(i);
                 if(playerState.IsReady) {
-                    PlayerManager.Instance.SpawnPlayer(i, GameType.Type, playerState.PlayerBirdId);
+                    PlayerManager.Instance.SpawnPlayer(GameType.Type, playerState.PlayerBirdId);
                     CameraManager.Instance.EnableViewer(i, true);
                 } else {
                     CameraManager.Instance.EnableViewer(i, false);

@@ -16,9 +16,9 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {
-// TODO: merge this with the other PlayerState
+// TOOD: move this to its own file
         [Serializable]
-        public sealed class PlayerState
+        public sealed class CharacterSelectState
         {
             public enum JoinState
             {
@@ -27,6 +27,7 @@ namespace ggj2018.ggj2018
                 Ready
             }
 
+#region Join/Ready State
             [SerializeField]
             private JoinState _joinState = JoinState.None;
 
@@ -37,7 +38,9 @@ namespace ggj2018.ggj2018
             public bool IsJoinedOrReady => PlayerJoinState == JoinState.Joined || PlayerJoinState == JoinState.Ready;
 
             public bool IsReady => PlayerJoinState == JoinState.Ready;
+#endregion
 
+#region Selected Bird State
             [SerializeField]
             private int _selectedBird;
 
@@ -46,6 +49,7 @@ namespace ggj2018.ggj2018
             public BirdData.BirdDataEntry PlayerBirdData => GameManager.Instance.BirdData.Birds.ElementAt(SelectedBird);
 
             public string PlayerBirdId => PlayerBirdData.Id;
+#endregion
 
             public void NextBird()
             {
@@ -92,21 +96,20 @@ namespace ggj2018.ggj2018
 
         public PlayerData PlayerData => _playerData;
 
-        private Player[] _players;
+        public int MaxLocalPlayers => InputManager.Instance.MaxControllers;
+
+        private readonly List<Player> _players = new List<Player>();
 
         public IReadOnlyCollection<Player> Players => _players;
 
         [SerializeField]
         [ReadOnly]
-        private PlayerState[] _playerStates;
+        private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
 
-        public IReadOnlyCollection<PlayerState> PlayerStates => _playerStates;
+        public IReadOnlyCollection<CharacterSelectState> CharacterSelectStates => _characterSelectStates;
 
-        [SerializeField]
-        [ReadOnly]
-        private int _playerCount;
-
-        public int PlayerCount => _playerCount;
+#region Game Related State
+        public int PlayerCount => _players.Count;
 
         [SerializeField]
         [ReadOnly]
@@ -115,17 +118,15 @@ namespace ggj2018.ggj2018
         public int PreyCount => _preyCount;
 
         public int PredatorCount => PlayerCount - PreyCount;
+#endregion
 
 #region Unity Lifecycle
         private void Awake()
         {
             _playerContainer = new GameObject("Players");
 
-            _players = new Player[InputManager.Instance.MaxControllers];
-
-            _playerStates = new PlayerState[InputManager.Instance.MaxControllers];
-            for(int i=0; i<_playerStates.Length; ++i) {
-                _playerStates[i] = new PlayerState();
+            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+                _characterSelectStates.Add(new CharacterSelectState());
             }
         }
 
@@ -141,13 +142,8 @@ namespace ggj2018.ggj2018
 // TODO: separate instantiating/initializing/adding players
 // from spawning them (disable their object after creating, basically)
 
-        public void SpawnPlayer(int playerNumber, GameType.GameTypes gameType, string birdTypeId)
+        public void SpawnPlayer(GameType.GameTypes gameType, string birdTypeId)
         {
-            if(null != _players[playerNumber]) {
-                Debug.LogError("Cannot spawn a player on top of another player!");
-                return;
-            }
-
             BirdData.BirdDataEntry birdType = GameManager.Instance.BirdData.Entries.GetOrDefault(birdTypeId);
 
             SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameType, birdType);
@@ -157,88 +153,79 @@ namespace ggj2018.ggj2018
             }
 
             Player player = Instantiate(_playerPrefab, _playerContainer.transform);
-            InitializePlayer(player, playerNumber, birdType, spawnPoint);
+            InitializePlayer(player, _players.Count, birdType, spawnPoint);
 
-            Debug.Log($"Spawned {player.State.BirdType.Name} for local player {playerNumber} at {spawnPoint.name} ({player.transform.position})");
+            Debug.Log($"Spawned {player.State.BirdType.Name} for local player {player.Id} at {spawnPoint.name} ({player.transform.position})");
 
-            AddPlayer(playerNumber, player);
+            AddPlayer(player);
         }
 
-        private void InitializePlayer(Player player, int playerNumber, BirdData.BirdDataEntry birdType, SpawnPoint spawnPoint)
+        private void InitializePlayer(Player player, int playerId, BirdData.BirdDataEntry birdType, SpawnPoint spawnPoint)
         {
-            Bird model = Instantiate(
+            Bird birdModel = Instantiate(
                 birdType.IsPredator
                     ? (Bird)PredatorModelPrefab
                     : (Bird)PreyModelPrefab,
-                player.GameObject.transform);
+                player.transform);
 
-            player.Controller.Initialize(player, model);
-            player.State.Initialize(playerNumber, birdType);
-            player.Initialize();
+            // TODO: no....
+            int controllerNumber = playerId;
 
-            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(playerNumber) as Viewer;
+            player.Initialize(playerId, controllerNumber, birdModel, birdType);
+
+            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(player.ControllerNumber) as Viewer;
             viewer?.Initialize(player);
 
             spawnPoint.Spawn(player);
         }
 
-        public void DespawnPlayer(int playerNumber)
+        public void DespawnPlayer(Player player)
         {
-            if(null == _players[playerNumber]) {
-                return;
-            }
+            Debug.Log($"Despawning player {player.Id}");
 
-            Debug.Log($"Despawning player {playerNumber}");
-
-            RemovePlayer(playerNumber);
+            RemovePlayer(player);
         }
 
-        public void DespawnAllPlayers()
+        // TODO: this no longer works becuase List
+        /*public void DespawnAllPlayers()
         {
             Debug.Log("Despawning everybody");
-            for(int i=0; i<_players.Length; ++i) {
-                if(null == _players[i]) {
-                    continue;
-                }
+            for(int i=0; i<_players.Count; ++i) {
                 RemovePlayer(i);
             }
-        }
+        }*/
 
-        private void AddPlayer(int playerNumber, Player player)
+        private void AddPlayer(Player player)
         {
-            _players[playerNumber] = player;
+            _players.Add(player);
 
-            _playerCount++;
             if(player.State.BirdType.IsPrey) {
                 _preyCount++;
             }
         }
 
-        private void RemovePlayer(int playerNumber)
+        private void RemovePlayer(Player player)
         {
-            Player player = _players[playerNumber];
             if(player.State.BirdType.IsPrey) {
                 _preyCount--;
             }
 
-            Destroy(player.GameObject);
-            _players[playerNumber] = null;
-
-            _playerCount--;
+            _players.Remove(player);
+            Destroy(player.gameObject);
         }
 
 #if UNITY_EDITOR
         public void DebugStunAll()
         {
-            foreach(var player in _players) {
-                player?.State.DebugStun();
+            foreach(Player player in _players) {
+                player.State.DebugStun();
             }
         }
 
         public void DebugKillAll()
         {
-            foreach(var player in _players) {
-                player?.State.DebugKill();
+            foreach(Player player in _players) {
+                player.State.DebugKill();
             }
         }
 #endif

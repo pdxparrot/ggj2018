@@ -138,7 +138,7 @@ namespace ggj2018.ggj2018
 
         public void MoveTo(Vector3 position)
         {
-            Debug.Log($"Teleporting player {_owner.State.PlayerNumber} to {position}");
+            Debug.Log($"Teleporting player {_owner.Id} to {position}");
             transform.position = position;
         }
 

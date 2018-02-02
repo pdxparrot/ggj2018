@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: ConfigData
   m_EditorClassIdentifier: 
   _enableGVR: 0
-  _maxLocalPlayers: 4
+  _enableNetwork: 0

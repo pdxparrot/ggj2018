@@ -2,6 +2,7 @@
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -15,7 +16,11 @@ namespace ggj2018.ggj2018
     //[RequireComponent(typeof(NetworkTransform))]
     public sealed class Player : MonoBehaviour, IFollowTarget //NetworkBehavior
     {
-        public GameObject GameObject => gameObject;
+        [SerializeField]
+        [ReadOnly]
+        private int _id;
+
+        public int Id => _id;
 
         [SerializeField]
         private PlayerState _playerState;
@@ -25,30 +30,19 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private GameObject _godRay;
 
-        public PlayerController Controller { get; private set; }
+// TODO: probably don't need to expose this
+        private PlayerController _controller;
 
-// TODO: assign this, don't assume it
-        public int ControllerNumber => State.PlayerNumber;
+        public PlayerController Controller => _controller;
+
+        public int ControllerNumber { get; private set; }
 
 #region Unity Lifecycle
         private void Awake()
         {
             _playerState = new PlayerState(this);
 
-            Controller = GetComponent<PlayerController>();
-        }
-
-        public void Initialize()
-        {
-            //if(isLocalPlayer) {
-                Debug.Log($"Setting follow cam {ControllerNumber}");
-                CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(GameObject);
-
-                CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.Layer);
-                CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherLayer);       
-            //}
-
-            _godRay.GetComponent<GodRay>().Setup(this);
+            _controller = GetComponent<PlayerController>();
         }
 
         private void Update()
@@ -56,5 +50,25 @@ namespace ggj2018.ggj2018
             _playerState.Update(Time.deltaTime);
         }
 #endregion
+
+        public void Initialize(int id, int controllerNumber, Bird birdModel, BirdData.BirdDataEntry birdType)
+        {
+            _id = id;
+            ControllerNumber = controllerNumber;
+            name = $"Player {Id}";
+
+            _controller.Initialize(this, birdModel);
+            State.Initialize(birdType);
+
+            //if(isLocalPlayer) {
+            Debug.Log($"Setting follow cam {ControllerNumber}");
+            CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(gameObject);
+
+            CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.Layer);
+            CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherLayer);       
+            //}
+
+            _godRay.GetComponent<GodRay>().Setup(this);
+        }
     }
 }

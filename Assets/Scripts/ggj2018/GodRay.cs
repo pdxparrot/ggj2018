@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 
-using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace ggj2018.ggj2018
             var dist = FadeFarDist + 1;
 
             if(mode == Mode.Carrier) {
-                for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+                for(int i=0; i<PlayerManager.Instance.Players.Count; ++i) {
                     var p = PlayerManager.Instance.Players.ElementAt(i);
                     if(p != null && p.State.BirdType.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
@@ -32,9 +31,8 @@ namespace ggj2018.ggj2018
                         break;
                     }
                 }
-            }
-            else if(mode == Mode.Goal) {
-                for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
+            } else if(mode == Mode.Goal) {
+                for(int i=0; i<PlayerManager.Instance.Players.Count; ++i) {
                     var p = PlayerManager.Instance.Players.ElementAt(i);
                     if(p != null && !p.State.BirdType.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;

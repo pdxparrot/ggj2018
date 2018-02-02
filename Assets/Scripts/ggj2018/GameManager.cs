@@ -103,7 +103,7 @@ namespace ggj2018.ggj2018
 
         public void Initialize()
         {
-            CameraManager.Instance.SpawnViewers(InputManager.Instance.MaxControllers);
+            CameraManager.Instance.SpawnViewers(PlayerManager.Instance.MaxLocalPlayers);
             State.SetState(GameState.States.Menu);
         }
 

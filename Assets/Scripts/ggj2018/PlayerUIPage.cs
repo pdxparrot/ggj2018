@@ -103,19 +103,19 @@ namespace ggj2018.ggj2018
             FinishLose.SetActive(!won);
         }
 
-        public void SetStatus(PlayerManager.PlayerState playerState, bool allready)
+        public void SetStatus(PlayerManager.CharacterSelectState characterSelectState, bool allready)
         {
             SwitchToMenu();
 
-            JoinPanel.SetActive(!playerState.IsJoinedOrReady);
-            CharSelPanel.SetActive(playerState.IsJoined);
-            ReadyPanel.SetActive(playerState.IsReady);
+            JoinPanel.SetActive(!characterSelectState.IsJoinedOrReady);
+            CharSelPanel.SetActive(characterSelectState.IsJoined);
+            ReadyPanel.SetActive(characterSelectState.IsReady);
 
-            BirdLabel.text = playerState.PlayerBirdData.Name;
-            BirdImage1.sprite = playerState.PlayerBirdData.Icon;
-            BirdImage2.sprite = playerState.PlayerBirdData.Icon;
+            BirdLabel.text = characterSelectState.PlayerBirdData.Name;
+            BirdImage1.sprite = characterSelectState.PlayerBirdData.Icon;
+            BirdImage2.sprite = characterSelectState.PlayerBirdData.Icon;
 
-            if(playerState.IsReady) {
+            if(characterSelectState.IsReady) {
                 AllReady.SetActive(allready);
                 Waiting.SetActive(!allready);
             }
