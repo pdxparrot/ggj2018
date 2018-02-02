@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +47,12 @@ namespace ggj2018.ggj2018
         //[SerializeField] private Text BirdValue;
         //[SerializeField] private Text ReadyPrompt;
 
+        [SerializeField] private GameObject GameTimerPanel;
+        [SerializeField] private Text GameTimer;
+
+        [SerializeField] private GameObject ScorePanel;
+        [SerializeField] private Text Score;
+
         [SerializeField] private float _introPanelTime = 3.0f;
 
         private Player _owner;
@@ -74,14 +83,18 @@ namespace ggj2018.ggj2018
             IntroPanel.SetActive(false);
         }
 
-        public void SwitchToGame()
+        public void SwitchToGame(GameType gameType, BirdData.BirdDataEntry birdType)
         {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(true);
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(true);
 
-            Goal.text = GameManager.Instance.State.GameType.GameTypeData.GetWinConditionDescription(_owner.State.BirdType);
+            Goal.text = gameType.GameTypeData.GetWinConditionDescription(_owner.State.BirdType);
+            GameTimerPanel.SetActive(gameType.ShowTimer);
+
+            ScorePanel.SetActive(gameType.ShowScore(birdType));
+
             StartCoroutine(CloseIntroPanel());
         }
 
@@ -128,6 +141,16 @@ namespace ggj2018.ggj2018
 
             KillCard.SetActive(false);
             GoalCard.SetActive(false);
+        }
+
+        public void SetTimer(TimeSpan timeSpan)
+        {
+            GameTimer.text = $"{timeSpan.Minutes}:{timeSpan.Seconds}";
+        }
+
+        public void SetScore(int score, int maxScore)
+        {
+            Score.text = $"{score} / {maxScore}";
         }
 
         /*

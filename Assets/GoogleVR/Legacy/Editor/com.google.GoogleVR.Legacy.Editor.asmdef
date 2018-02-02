@@ -1,0 +1,10 @@
+{
+    "name": "com.google.GoogleVR.Legacy.Editor",
+    "references": [
+        "com.google.GoogleVR"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

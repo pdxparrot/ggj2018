@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using ggj2018.Core.Camera;
-using ggj2018.Core.Util;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -30,6 +29,8 @@ namespace ggj2018.ggj2018
 // TODO: assign this, don't assume it
         public int ControllerNumber => State.PlayerNumber;
 
+// TODO: hold a link to the viewer
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -37,6 +38,16 @@ namespace ggj2018.ggj2018
 
             Controller = GetComponent<PlayerController>();
         }
+
+        private void Update()
+        {
+            _playerState.Update(Time.deltaTime);
+
+            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(ControllerNumber) as Viewer;
+            viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType));
+            viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer);
+        }
+#endregion
 
         public void Initialize()
         {
@@ -50,11 +61,5 @@ namespace ggj2018.ggj2018
 
             _godRay.GetComponent<GodRay>().Setup(this);
         }
-
-        private void Update()
-        {
-            _playerState.Update(Time.deltaTime);
-        }
-#endregion
     }
 }

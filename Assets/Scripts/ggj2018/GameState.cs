@@ -39,11 +39,6 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private int _countdown;
 
-// TODO: unused?
-        [SerializeField]
-        [ReadOnly]
-        private float _timer;
-
         [SerializeField]
         [ReadOnly]
         private int _winner;
@@ -56,7 +51,11 @@ namespace ggj2018.ggj2018
 
         public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
 
-        public void Update()
+        private TimeSpan _timer;
+
+        public TimeSpan Timer => _timer;
+
+        public void Update(float dt)
         {
             switch(State)
             {
@@ -67,7 +66,7 @@ namespace ggj2018.ggj2018
                 RunCharacterSelect();
                 break;
             case States.Game:
-                RunGame();
+                RunGame(dt);
                 break;
             case States.Victory:
                 RunVictory();
@@ -257,13 +256,24 @@ namespace ggj2018.ggj2018
 
             CameraManager.Instance.ResizeViewports();
 
-            UIManager.Instance.SwitchToGame();
+            UIManager.Instance.SwitchToGame(_gameType);
 
             SpawnManager.Instance.ReleaseSpawnPoints();
+
+            _timer = GameType.GameTypeData.TimeLimit > 0
+                ? TimeSpan.FromMinutes(GameType.GameTypeData.TimeLimit)
+                : TimeSpan.Zero;
         }
 
-        private void RunGame()
+        private void RunGame(float dt)
         {
+            if(IsPaused) {
+                return;
+            }
+
+            if(GameType.GameTypeData.TimeLimit > 0) {
+                _timer = _timer.Subtract(TimeSpan.FromSeconds(dt));
+            }
         }
 #endregion
 

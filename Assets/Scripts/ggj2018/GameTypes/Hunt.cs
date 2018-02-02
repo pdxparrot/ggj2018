@@ -15,6 +15,16 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
+        public override int ScoreLimit(BirdData.BirdDataEntry birdType)
+        {
+            return birdType.IsPredator ? PlayerManager.Instance.PreyCount : 1;
+        }
+
+        public override bool ShowScore(BirdData.BirdDataEntry birdType)
+        {
+            return birdType.IsPredator;
+        }
+
         public override void GoalCollision(Player player)
         {
             if(player.State.BirdType.IsPredator) {
@@ -30,9 +40,9 @@ namespace ggj2018.ggj2018.GameTypes
         {
             Debug.Log($"Player {killer.State.PlayerNumber} has scored a kill!");
 
-            killer.State.Kills++;
+            killer.State.Score++;
 
-            if(killer.State.Kills == PlayerManager.Instance.PreyCount) {
+            if(killer.State.Score == PlayerManager.Instance.PreyCount) {
                 Debug.Log($"Player {killer.State.PlayerNumber} has killed all the messengers!"); 
                 GameManager.Instance.State.Winner = killer.State.PlayerNumber;
                 GameManager.Instance.State.SetState(GameState.States.Victory);

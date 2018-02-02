@@ -80,12 +80,6 @@ namespace ggj2018.ggj2018
 
         public int Score { get { return _score; } set { _score = value; } }
 
-        [SerializeField]
-        [ReadOnly]
-        private int _kills;
-
-        public int Kills { get { return _kills; } set { _kills = value; } }
-
         private readonly Player _owner;
 
         public PlayerState(Player owner)
