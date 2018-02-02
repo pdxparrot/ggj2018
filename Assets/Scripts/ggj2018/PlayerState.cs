@@ -86,9 +86,9 @@ namespace ggj2018.ggj2018
 
         public int Kills { get { return _kills; } set { _kills = value; } }
 
-        private readonly IPlayer _owner;
+        private readonly Player _owner;
 
-        public PlayerState(IPlayer owner)
+        public PlayerState(Player owner)
         {
             _owner = owner;
         }
@@ -176,7 +176,7 @@ namespace ggj2018.ggj2018
         public void EnvironmentStun(Collider collider)
         {
             if(IsDead) {
-                PlayerManager.Instance.DespawnLocalPlayer(PlayerNumber);
+                PlayerManager.Instance.DespawnPlayer(PlayerNumber);
                 return;
             } 
 
@@ -189,7 +189,7 @@ namespace ggj2018.ggj2018
             Stun(collider);
         }
 
-        public void PlayerStun(IPlayer stunner, Collider collider)
+        public void PlayerStun(Player stunner, Collider collider)
         {
             if(IsDead) {
                 return;
@@ -263,7 +263,7 @@ namespace ggj2018.ggj2018
             Kill();
         }
 
-        public void PlayerKill(IPlayer killer, Collider collider)
+        public void PlayerKill(Player killer, Collider collider)
         {
             if(IsDead) {
                 return;

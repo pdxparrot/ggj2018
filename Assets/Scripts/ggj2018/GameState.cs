@@ -248,7 +248,7 @@ namespace ggj2018.ggj2018
             for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
                 if(playerState.IsReady) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Type, playerState.PlayerBirdId);
+                    PlayerManager.Instance.SpawnPlayer(i, GameType.Type, playerState.PlayerBirdId);
                     CameraManager.Instance.EnableViewer(i, true);
                 } else {
                     CameraManager.Instance.EnableViewer(i, false);

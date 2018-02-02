@@ -15,7 +15,7 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
-        public override void GoalCollision(IPlayer player)
+        public override void GoalCollision(Player player)
         {
             if(player.State.BirdType.IsPredator) {
                 return;
@@ -26,7 +26,7 @@ namespace ggj2018.ggj2018.GameTypes
             GameManager.Instance.State.SetState(GameState.States.Victory);
         }
 
-        public override void PlayerKill(IPlayer killer)
+        public override void PlayerKill(Player killer)
         {
             Debug.Log($"Player {killer.State.PlayerNumber} has scored a kill!");
 

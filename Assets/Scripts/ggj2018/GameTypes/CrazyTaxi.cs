@@ -20,7 +20,7 @@ namespace ggj2018.ggj2018.GameTypes
             // TODO: spawn a random message goal
         }
 
-        public override void GoalCollision(IPlayer player)
+        public override void GoalCollision(Player player)
         {
             // TODO: handle message goals as well
 

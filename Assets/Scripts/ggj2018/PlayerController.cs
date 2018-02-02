@@ -11,7 +11,7 @@ using UnityEngine;
 namespace ggj2018.ggj2018
 {
 // TODO: this should be a NetworkBehavior
-    public sealed class PlayerController : MonoBehavior
+    public sealed class PlayerController : MonoBehavior//NetworkBehavior
     {
         public Bird Bird { get; private set; }
 
@@ -33,7 +33,7 @@ namespace ggj2018.ggj2018
 
         public float Speed => _velocity.magnitude;
 
-        private IPlayer _owner;
+        private Player _owner;
 
 #region Unity Lifecycle
         private void Awake()
@@ -46,6 +46,10 @@ namespace ggj2018.ggj2018
             if(GameManager.Instance.State.IsPaused) {
                 return;
             }
+
+            /*if(!isLocalPlayer) {
+                return;
+            }*/
 
 #if UNITY_EDITOR
             CheckForDebug();
@@ -77,6 +81,10 @@ namespace ggj2018.ggj2018
 
         private void FixedUpdate()
         {
+            /*if(!isLocalPlayer) {
+                return;
+            }*/
+
             if(GameManager.Instance.State.IsPaused) {
                 return;
             }
@@ -90,6 +98,10 @@ namespace ggj2018.ggj2018
 
         private void OnTriggerEnter(Collider other)
         {
+            /*if(!isLocalPlayer) {
+                return;
+            }*/
+
             if(CheckGoalCollision(other)) {
                 return;
             }
@@ -118,7 +130,7 @@ namespace ggj2018.ggj2018
             rigidbody.useGravity = false;
         }
 
-        public void Initialize(IPlayer owner, Bird bird)
+        public void Initialize(Player owner, Bird bird)
         {
             _owner = owner;
             Bird = bird;
@@ -281,7 +293,7 @@ namespace ggj2018.ggj2018
 
         private bool CheckPlayerCollision(Collider other)
         {
-            IPlayer player = other.GetComponentInParent<IPlayer>();
+            Player player = other.GetComponentInParent<Player>();
             if(null == player) {
                 return false;
             }

@@ -29,10 +29,10 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public bool Collision(IPlayer player, Collider other)
+        public bool Collision(Player player, Collider other)
         {
             if(BoundaryType.Ground == Type && player.State.IsDead) {
-                PlayerManager.Instance.DespawnLocalPlayer(player.State.PlayerNumber);
+                PlayerManager.Instance.DespawnPlayer(player.State.PlayerNumber);
                 return true;
             }
 

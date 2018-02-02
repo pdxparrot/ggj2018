@@ -40,7 +40,7 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void Spawn(IPlayer player)
+        public void Spawn(Player player)
         {
             player.GameObject.transform.position = transform.position;
             player.GameObject.transform.rotation = transform.rotation;

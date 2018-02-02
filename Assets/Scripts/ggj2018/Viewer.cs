@@ -27,7 +27,7 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void Initialize(IPlayer owner)
+        public void Initialize(Player owner)
         {
             SetFov(owner.State.BirdType.ViewFOV);
 

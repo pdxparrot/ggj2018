@@ -20,7 +20,7 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public bool Collision(IPlayer player, Collider thisCollider)
+        public bool Collision(Player player, Collider thisCollider)
         {
             GameManager.Instance.State.GameType.GoalCollision(player);
 

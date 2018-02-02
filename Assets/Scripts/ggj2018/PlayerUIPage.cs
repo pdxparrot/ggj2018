@@ -46,9 +46,9 @@ namespace ggj2018.ggj2018
 
         [SerializeField] private float _introPanelTime = 3.0f;
 
-        private IPlayer _owner;
+        private Player _owner;
 
-        public void Initialize(IPlayer owner)
+        public void Initialize(Player owner)
         {
             _owner = owner;
         }

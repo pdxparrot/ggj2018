@@ -37,11 +37,11 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
-        public virtual void GoalCollision(IPlayer player)
+        public virtual void GoalCollision(Player player)
         {
         }
 
-        public virtual void PlayerKill(IPlayer killer)
+        public virtual void PlayerKill(Player killer)
         {
         }
 

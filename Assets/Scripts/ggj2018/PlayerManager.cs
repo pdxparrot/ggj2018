@@ -10,6 +10,7 @@ using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ggj2018.ggj2018
 {
@@ -81,10 +82,8 @@ namespace ggj2018.ggj2018
 #endregion
 
         [SerializeField]
-        private LocalPlayer _localPlayerPrefab;
-
-        [SerializeField]
-        private NetworkPlayer _networkPlayerPrefab;
+        [FormerlySerializedAs("_localPlayerPrefab")]
+        private Player _playerPrefab;
 
         private GameObject _playerContainer;
 
@@ -93,9 +92,9 @@ namespace ggj2018.ggj2018
 
         public PlayerData PlayerData => _playerData;
 
-        private IPlayer[] _players;
+        private Player[] _players;
 
-        public IReadOnlyCollection<IPlayer> Players => _players;
+        public IReadOnlyCollection<Player> Players => _players;
 
         [SerializeField]
         [ReadOnly]
@@ -122,7 +121,7 @@ namespace ggj2018.ggj2018
         {
             _playerContainer = new GameObject("Players");
 
-            _players = new IPlayer[InputManager.Instance.MaxControllers];
+            _players = new Player[InputManager.Instance.MaxControllers];
 
             _playerStates = new PlayerState[InputManager.Instance.MaxControllers];
             for(int i=0; i<_playerStates.Length; ++i) {
@@ -142,7 +141,7 @@ namespace ggj2018.ggj2018
 // TODO: separate instantiating/initializing/adding players
 // from spawning them (disable their object after creating, basically)
 
-        public void SpawnLocalPlayer(int playerNumber, GameType.GameTypes gameType, string birdTypeId)
+        public void SpawnPlayer(int playerNumber, GameType.GameTypes gameType, string birdTypeId)
         {
             if(null != _players[playerNumber]) {
                 Debug.LogError("Cannot spawn a player on top of another player!");
@@ -157,7 +156,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            LocalPlayer player = Instantiate(_localPlayerPrefab, _playerContainer.transform);
+            Player player = Instantiate(_playerPrefab, _playerContainer.transform);
             InitializePlayer(player, playerNumber, birdType, spawnPoint);
 
             Debug.Log($"Spawned {player.State.BirdType.Name} for local player {playerNumber} at {spawnPoint.name} ({player.transform.position})");
@@ -165,30 +164,7 @@ namespace ggj2018.ggj2018
             AddPlayer(playerNumber, player);
         }
 
-        public void SpawnNetworkPlayer(int playerNumber, GameType.GameTypes gameTypeId, string birdTypeId)
-        {
-            if(null != _players[playerNumber]) {
-                Debug.LogError("Cannot spawn a player on top of another player!");
-                return;
-            }
-
-            BirdData.BirdDataEntry birdType = GameManager.Instance.BirdData.Entries.GetOrDefault(birdTypeId);
-
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeId, birdType);
-            if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {birdType} in game type {gameTypeId}");
-                return;
-            }
-
-            NetworkPlayer player = Instantiate(_networkPlayerPrefab, _playerContainer.transform);
-            InitializePlayer(player, playerNumber, birdType, spawnPoint);
-
-            Debug.Log($"Spawned {player.State.BirdType.Name} for local player {playerNumber} at {player.transform.position}");
-
-            AddPlayer(playerNumber, player);
-        }
-
-        private void InitializePlayer(IPlayer player, int playerNumber, BirdData.BirdDataEntry birdType, SpawnPoint spawnPoint)
+        private void InitializePlayer(Player player, int playerNumber, BirdData.BirdDataEntry birdType, SpawnPoint spawnPoint)
         {
             Bird model = Instantiate(
                 birdType.IsPredator
@@ -206,7 +182,7 @@ namespace ggj2018.ggj2018
             spawnPoint.Spawn(player);
         }
 
-        public void DespawnLocalPlayer(int playerNumber)
+        public void DespawnPlayer(int playerNumber)
         {
             if(null == _players[playerNumber]) {
                 return;
@@ -228,7 +204,7 @@ namespace ggj2018.ggj2018
             }
         }
 
-        private void AddPlayer(int playerNumber, IPlayer player)
+        private void AddPlayer(int playerNumber, Player player)
         {
             _players[playerNumber] = player;
 
@@ -240,7 +216,7 @@ namespace ggj2018.ggj2018
 
         private void RemovePlayer(int playerNumber)
         {
-            IPlayer player = _players[playerNumber];
+            Player player = _players[playerNumber];
             if(player.State.BirdType.IsPrey) {
                 _preyCount--;
             }

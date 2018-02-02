@@ -24,7 +24,7 @@ namespace ggj2018.ggj2018
 
             if(mode == Mode.Carrier) {
                 for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                    var p = PlayerManager.Instance.Players.ElementAt(i) as LocalPlayer;
+                    var p = PlayerManager.Instance.Players.ElementAt(i);
                     if(p != null && p.State.BirdType.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
                         vec.y = 0;
@@ -35,7 +35,7 @@ namespace ggj2018.ggj2018
             }
             else if(mode == Mode.Goal) {
                 for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                    var p = PlayerManager.Instance.Players.ElementAt(i) as LocalPlayer;
+                    var p = PlayerManager.Instance.Players.ElementAt(i);
                     if(p != null && !p.State.BirdType.IsPredator) {
                         var vec = p.gameObject.transform.position - transform.position;
                         vec.y = 0;
@@ -53,7 +53,7 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void Setup(IPlayer player)
+        public void Setup(Player player)
         {
             mode = player.State.BirdType.IsPredator ? Mode.Hawk : Mode.Carrier;
 

@@ -6,7 +6,7 @@ namespace ggj2018.ggj2018
 {
     public class Building : MonoBehavior
     {
-        public bool Collision(IPlayer player, Collider thisCollider)
+        public bool Collision(Player player, Collider thisCollider)
         {
             player.State.EnvironmentStun(thisCollider);
 
