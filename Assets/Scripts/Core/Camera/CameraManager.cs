@@ -62,7 +62,7 @@ namespace ggj2018.Core.Camera
             ResizeViewports();
         }
 
-        public void EnableCamera(int i, bool active)
+        public void EnableViewer(int i, bool active)
         {
             _viewers[i].gameObject.SetActive(active);
         }

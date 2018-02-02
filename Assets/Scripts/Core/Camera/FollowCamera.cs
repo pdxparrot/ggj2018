@@ -102,11 +102,8 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         [CanBeNull]
         private Collider _targetCollider;
-#endregion
 
-#region Controller
-        [SerializeField]
-        private int _controllerIndex = 0;
+        private IFollowTarget _followTarget;
 #endregion
 
         [SerializeField]
@@ -150,10 +147,7 @@ namespace ggj2018.Core.Camera
             _targetCollider = Target?.GetComponentInChildren<Collider>();   // :(
             _orbitRotation = _defaultOrbitRotation;
 
-            IFollowTarget followTarget = Target?.GetComponent<IFollowTarget>();
-            if(null != followTarget) {
-                _controllerIndex = followTarget.ControllerNumber;
-            }
+            _followTarget = Target?.GetComponent<IFollowTarget>();
         }
 
         private void HandleInput(float dt)
@@ -162,7 +156,7 @@ namespace ggj2018.Core.Camera
                 return;
             }
 
-            Vector3 axes = InputManager.Instance.GetLookAxes(_controllerIndex);
+            Vector3 axes = InputManager.Instance.GetLookAxes(_followTarget.ControllerNumber);
 
             Orbit(axes, dt);
             Zoom(axes, dt);

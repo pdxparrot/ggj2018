@@ -23,7 +23,7 @@ namespace ggj2018.Game.Scenes
         private readonly List<string> _loadedScenes = new List<string>();
 
 #region Load Scene
-        private void SetScene(string sceneName)
+        public void SetScene(string sceneName)
         {
             SceneManager.LoadScene(sceneName);
         }

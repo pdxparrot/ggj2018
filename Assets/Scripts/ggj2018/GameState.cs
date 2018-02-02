@@ -44,31 +44,11 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private float _timer;
 
-#region Player Things
-        [SerializeField]
-        [ReadOnly]
-        private int _playerCount;
-
-        public int PlayerCount => _playerCount;
-
-        [SerializeField]
-        [ReadOnly]
-        private int _predatorCount;
-
-        public int PredatorCount => _predatorCount;
-
-        [SerializeField]
-        [ReadOnly]
-        private int _preyCount;
-
-        public int PreyCount => _preyCount;
-
         [SerializeField]
         [ReadOnly]
         private int _winner;
 
         public int Winner { get { return _winner; } set { _winner = value; } }
-#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -144,7 +124,7 @@ namespace ggj2018.ggj2018
         {
             // Check for all players ready
             int ready = 0, joined = 0;
-            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
 
                 if(playerState.IsReady) {
@@ -161,7 +141,7 @@ namespace ggj2018.ggj2018
             }
 
             // Check for player joins
-            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
 
                 if(playerState.IsReady) {
@@ -197,12 +177,15 @@ namespace ggj2018.ggj2018
 #endregion
 
 #region Intro State
-        /*
+/*
         private void BeginIntro()
         {
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i)
-                if(PlayerManager.Instance.GetPlayerState(i).PlayerReady)
-                    PlayerManager.Instance.SpawnLocalPlayer(i, BirdType(PlayerManager.Instance.GetPlayerState(i).PlayerBird));
+            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
+                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+                if(playerState.IsReady) {
+                    PlayerManager.Instance.SpawnLocalPlayer(i, playerState.PlayerBirdId);
+                }
+            }
 
             // $$$ making this instant for now
             UIManager.Instance.HideMenu();
@@ -221,33 +204,40 @@ namespace ggj2018.ggj2018
                 --_countdown;
                 _timer = 1.0f;
 
-                if(_countdown == 0)
+                if(_countdown == 0) {
                     SetState(States.Game);
-                else
+                } else {
                     UIManager.Instance.Countdown(_countdown);
+                }
             }
-        }*/
+        }
+*/
 #endregion
 
 #region Game State
         private void DetermineGameType()
         {
-            _playerCount = _predatorCount = _preyCount = 0;
+// TODO: player manager already has these counts
+// if we can just determine the game type later in the process,
+// after we spawn the players
+            int playerCount = 0;
+            int predatorCount = 0;
+            int preyCount = 0;
 
-            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
                 PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
                 if(playerState.IsReady) {
-                    _playerCount++;
+                    playerCount++;
                 }
 
                 if(playerState.PlayerBirdData.IsPredator) {
-                    _predatorCount++;
+                    predatorCount++;
                 } else {
-                    _preyCount++;
+                    preyCount++;
                 }
             }
 
-            _gameType = GameType.GetGameType(this);
+            _gameType = GameType.GetGameType(playerCount, predatorCount, preyCount);
         }
 
         private void BeginGame()
@@ -255,12 +245,13 @@ namespace ggj2018.ggj2018
             DetermineGameType();
             Debug.Log($"Beginning game type {GameType.Type}");
 
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                if(PlayerManager.Instance.PlayerStates.ElementAt(i).IsReady) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Type, PlayerManager.Instance.PlayerStates.ElementAt(i).PlayerBirdId);
-                    CameraManager.Instance.EnableCamera(i, true);
+            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
+                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
+                if(playerState.IsReady) {
+                    PlayerManager.Instance.SpawnLocalPlayer(i, GameType.Type, playerState.PlayerBirdId);
+                    CameraManager.Instance.EnableViewer(i, true);
                 } else {
-                    CameraManager.Instance.EnableCamera(i, false);
+                    CameraManager.Instance.EnableViewer(i, false);
                 }
             }
 

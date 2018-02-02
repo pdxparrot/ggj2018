@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
+// TODO: rename this Player when NetworkPlayer is gone
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PlayerController))]
     public sealed class LocalPlayer : MonoBehavior, IPlayer
@@ -23,6 +24,7 @@ namespace ggj2018.ggj2018
 
         public PlayerController Controller { get; private set; }
 
+// TODO: assign this, don't assume it
         public int ControllerNumber => State.PlayerNumber;
 
 #region Unity Lifecycle

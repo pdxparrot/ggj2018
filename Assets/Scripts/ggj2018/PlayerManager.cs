@@ -125,7 +125,7 @@ namespace ggj2018.ggj2018
             _players = new IPlayer[InputManager.Instance.MaxControllers];
 
             _playerStates = new PlayerState[InputManager.Instance.MaxControllers];
-            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<_playerStates.Length; ++i) {
                 _playerStates[i] = new PlayerState();
             }
         }
@@ -138,6 +138,9 @@ namespace ggj2018.ggj2018
             base.OnDestroy();
         }
 #endregion
+
+// TODO: separate instantiating/initializing/adding players
+// from spawning them (disable their object after creating, basically)
 
         public void SpawnLocalPlayer(int playerNumber, GameType.GameTypes gameType, string birdTypeId)
         {

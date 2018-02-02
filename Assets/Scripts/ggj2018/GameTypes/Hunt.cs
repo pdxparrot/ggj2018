@@ -32,7 +32,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             killer.State.Kills++;
 
-            if(killer.State.Kills == GameManager.Instance.State.PreyCount) {
+            if(killer.State.Kills == PlayerManager.Instance.PreyCount) {
                 Debug.Log($"Player {killer.State.PlayerNumber} has killed all the messengers!"); 
                 GameManager.Instance.State.Winner = killer.State.PlayerNumber;
                 GameManager.Instance.State.SetState(GameState.States.Victory);

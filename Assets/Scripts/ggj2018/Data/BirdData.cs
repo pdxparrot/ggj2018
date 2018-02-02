@@ -63,6 +63,7 @@ namespace ggj2018.ggj2018.Data
                 ? _birdData.PredatorLayer
                 : _birdData.PreyLayer;
 
+            // TODO: rename this
             public string OtherLayer => IsPrey
                 ? _birdData.PredatorLayer
                 : _birdData.PreyLayer;

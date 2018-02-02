@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
+// TODO: this should be a NetworkBehavior
     public sealed class PlayerController : MonoBehavior
     {
         public Bird Bird { get; private set; }

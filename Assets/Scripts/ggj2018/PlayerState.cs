@@ -278,7 +278,7 @@ namespace ggj2018.ggj2018
 
             Kill();
 
-            GameManager.Instance.PlayerKilled(killer);
+            GameManager.Instance.State.GameType.PlayerKill(killer);
         }
 
 #if UNITY_EDITOR

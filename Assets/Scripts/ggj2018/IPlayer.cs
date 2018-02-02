@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
+// TODO: remove this when NetworkPlayer is gone
     public interface IPlayer : IFollowTarget
     {
         GameObject GameObject { get; }

@@ -60,7 +60,7 @@ namespace ggj2018.Core.Input
             public bool InvertZoom { get { return _invertZoom; } set { _invertZoom = value; } }
 
             [SerializeField]
-            private DPadState[] _dpadState = new DPadState[(int)DPadDir.NumAxes];
+            private /*readonly*/ DPadState[] _dpadState = new DPadState[(int)DPadDir.NumAxes];
 
             public IReadOnlyCollection<DPadState> DPadStates => _dpadState;
 

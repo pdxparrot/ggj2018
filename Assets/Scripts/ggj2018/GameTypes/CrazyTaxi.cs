@@ -15,8 +15,15 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
+        public override void Initialize()
+        {
+            // TODO: spawn a random message goal
+        }
+
         public override void GoalCollision(IPlayer player)
         {
+            // TODO: handle message goals as well
+
             Debug.Log($"Player {player.State.PlayerNumber} has scored a goal!");
 
             player.State.Score++;
@@ -26,6 +33,8 @@ namespace ggj2018.ggj2018.GameTypes
                 GameManager.Instance.State.Winner = player.State.PlayerNumber;
                 GameManager.Instance.State.SetState(GameState.States.Victory);
             }
+
+            // TODO: spawn the next appropriate goal type
         }
     }
 }

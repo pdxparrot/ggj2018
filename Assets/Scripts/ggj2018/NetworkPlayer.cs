@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 
 namespace ggj2018.ggj2018
 {
+// TODO: this doesn't need to exist, the controller is the NetworkBehavior
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PlayerController))]
     [RequireComponent(typeof(NetworkIdentity))]

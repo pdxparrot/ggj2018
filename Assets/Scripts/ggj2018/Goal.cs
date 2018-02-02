@@ -22,7 +22,7 @@ namespace ggj2018.ggj2018
 
         public bool Collision(IPlayer player, Collider thisCollider)
         {
-            GameManager.Instance.GoalCollision(player);
+            GameManager.Instance.State.GameType.GoalCollision(player);
 
             return true;
         }

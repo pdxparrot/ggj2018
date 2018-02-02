@@ -138,16 +138,6 @@ namespace ggj2018.ggj2018
             Application.Quit();
 #endif
         }
-
-        public void GoalCollision(IPlayer player)
-        {
-            _gameState.GameType.GoalCollision(player);
-        }
-
-        public void PlayerKilled(IPlayer killer)
-        {
-            _gameState.GameType.PlayerKill(killer);
-        }
     }
 }
 
