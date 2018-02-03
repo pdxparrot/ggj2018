@@ -3,8 +3,6 @@ using ggj2018.Core.Util;
 
 using UnityEngine;
 
-// TODO: use the rigidbody for physics
-
 namespace ggj2018.ggj2018
 {
     [RequireComponent(typeof(Rigidbody))]
@@ -21,15 +19,7 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private Vector3 _lastMoveAxes;
 
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _acceleration;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _velocity;
-
-        public float Speed => _velocity.magnitude;
+        public float Speed => _rigidbody.velocity.magnitude;
 
         private Rigidbody _rigidbody;
 
@@ -84,9 +74,7 @@ namespace ggj2018.ggj2018
 
             _boundaryCollision = null;
 
-            float dt = Time.fixedDeltaTime;
-
-            Move(_lastMoveAxes, dt);
+            Move(_lastMoveAxes);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -129,13 +117,15 @@ namespace ggj2018.ggj2018
         {
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.freezeRotation = true;
+            //_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             _rigidbody.useGravity = false;
+            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
         public void MoveTo(Vector3 position)
         {
             Debug.Log($"Teleporting player {_owner.Id} to {position}");
-            transform.position = position;
+            _rigidbody.position = position;
         }
 
 #if UNITY_EDITOR
@@ -184,8 +174,8 @@ namespace ggj2018.ggj2018
             }
 
             float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.TurnSpeedModifier;
-
-            transform.RotateAround(transform.position, Vector3.up, axes.x * turnSpeed * dt);
+            Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
+            _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
         }
 
         private void RotateModel(Vector3 axes, float dt)
@@ -224,54 +214,35 @@ namespace ggj2018.ggj2018
             Bird.transform.localRotation = rotation;
         }
 
-        private void Move(Vector3 axes, float dt)
+        private void Move(Vector3 axes)
         {
             if(_owner.State.IsStunned) {
-                _acceleration = Vector3.zero;
-                _velocity = Vector3.zero;
-
-                transform.position += _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed * dt;
+                _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
                 return;
             }
 
             if(_owner.State.IsStunned || _owner.State.IsDead) {
-                _acceleration = Vector3.zero;
-                _velocity = Vector3.zero;
-
-                transform.position += Vector3.down * PlayerManager.Instance.PlayerData.TerminalVelocity * dt;
+                _rigidbody.velocity = new Vector3(0.0f, PlayerManager.Instance.PlayerData.TerminalVelocity, 0.0f);
                 return;
             }
 
-#if false
-            float acceleration = PlayerManager.Instance.PlayerData.BaseAccleration + _owner.State.BirdType.BirdDataEntry.AccelerationModifier;
+            float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.SpeedModifier;
             if(_owner.State.IsBraking) {
-                acceleration -= PlayerManager.Instance.PlayerData.BaseBrakeDeceleration;
+                speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
             } else if(_owner.State.IsBoosting) {
-                acceleration += PlayerManager.Instance.PlayerData.BaseBoostAcceleration;
+                speed *= PlayerManager.Instance.PlayerData.BoostFactor;
             }
 
-            float velocity = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.BirdDataEntry.SpeedModifier + (acceleration * dt);
-            float speed = velocity.magnitude;
-// TODO: we need to bound this, I dunno... polish shit
-#else
-            float velocity = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.SpeedModifier;
-            if(_owner.State.IsBraking) {
-                velocity *= PlayerManager.Instance.PlayerData.BrakeFactor;
-            } else if(_owner.State.IsBoosting) {
-                velocity *= PlayerManager.Instance.PlayerData.BoostFactor;
-            }
-#endif
-
-            _velocity = transform.forward * velocity;
-            _velocity.y = 0.0f;
+            Vector3 velocity = transform.forward * speed;
+            velocity.y = 0.0f;
 
             if(axes.y < -Mathf.Epsilon) {
-                _velocity.y = -PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                velocity.y = -PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
             } else if(axes.y > Mathf.Epsilon) {
-                _velocity.y = PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                velocity.y = PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
             }
 
-            transform.position += _velocity * dt;
+            _rigidbody.velocity = velocity;
         }
 
 #region Collision Handlers

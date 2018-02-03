@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
+    [RequireComponent(typeof(Collider))]
     public class WorldBoundary : MonoBehavior
     {
         public enum BoundaryType
@@ -20,7 +21,15 @@ namespace ggj2018.ggj2018
 
         public bool IsVertical => BoundaryType.Ground == _boundaryType || BoundaryType.Sky == _boundaryType;
 
+        private Collider _collider;
+
 #region Unity Lifecycle
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+            _collider.material = GameManager.Instance.FrictionlessMaterial;
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);

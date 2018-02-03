@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
+    [RequireComponent(typeof(Collider))]
     public abstract class Bird : MonoBehavior
     {
         [SerializeField]
@@ -18,9 +19,14 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private SphereCollider _playerCollider;
 
+        private Collider _collider;
+
 #region Unity Lifecycle      
         protected virtual void Awake()
         {
+            _collider = GetComponent<Collider>();
+            _collider.sharedMaterial = GameManager.Instance.FrictionlessMaterial;
+
             _playerCollider.gameObject.layer = PlayerManager.Instance.PlayerCollisionLayer;
             _playerCollider.isTrigger = true;
         }

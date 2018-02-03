@@ -59,6 +59,8 @@ MonoBehaviour:
   _configData: {fileID: 11400000, guid: f7ed3d2f3679b5d47a4f830d8b7bb2b7, type: 2}
   _birdData: {fileID: 11400000, guid: 008fe9d8630fb01439dbf2af6c478a5e, type: 2}
   _gameTypeData: {fileID: 11400000, guid: 88dcf27b5a9125f4491398fb1dc1985c, type: 2}
+  _frictionlesssMaterial: {fileID: 13400000, guid: cb767bc49256e37428af3092d1b97895,
+    type: 2}
   _gameState:
     _state: 0
     _isPaused: 0

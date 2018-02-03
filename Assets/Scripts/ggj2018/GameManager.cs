@@ -58,6 +58,11 @@ namespace ggj2018.ggj2018
 #endregion
 
         [SerializeField]
+        private PhysicMaterial _frictionlesssMaterial;
+
+        public PhysicMaterial FrictionlessMaterial => _frictionlesssMaterial;
+
+        [SerializeField]
         [ReadOnly]
         private /*readonly*/ GameState _gameState = new GameState();
 
