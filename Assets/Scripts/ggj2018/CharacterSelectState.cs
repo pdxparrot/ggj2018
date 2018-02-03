@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using ggj2018.ggj2018.Data;
 
@@ -6,6 +7,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
+    [Serializable]
     public sealed class CharacterSelectState
     {
         public enum JoinState

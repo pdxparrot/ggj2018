@@ -15,7 +15,16 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private TrailRenderer _boostTrail;
 
+        [SerializeField]
+        private SphereCollider _playerCollider;
+
 #region Unity Lifecycle      
+        protected virtual void Awake()
+        {
+            _playerCollider.gameObject.layer = PlayerManager.Instance.PlayerCollisionLayer;
+            _playerCollider.isTrigger = true;
+        }
+
         protected virtual void Start()
         {
             ShowStun(false);
@@ -24,8 +33,7 @@ namespace ggj2018.ggj2018
 
         protected virtual void OnDrawGizmos()
         {
-            SphereCollider c = GetComponentInChildren<SphereCollider>();
-            Gizmos.DrawWireSphere(transform.position + c.center, c.radius);
+            Gizmos.DrawWireSphere(transform.position + _playerCollider.center, _playerCollider.radius);
         }
 #endregion
 

@@ -21,6 +21,10 @@ namespace ggj2018.ggj2018
             GameOver
         }
 
+// TODO: GameState === GameStateMachine
+// States == GameStateNode
+// Split into classes rather than switching a bunch
+
         [SerializeField]
         [ReadOnly]
         private GameType _gameType;

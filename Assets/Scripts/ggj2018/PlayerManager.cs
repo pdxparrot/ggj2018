@@ -39,13 +39,18 @@ namespace ggj2018.ggj2018
 
         public PlayerData PlayerData => _playerData;
 
+        [SerializeField]
+        private string _playerCollisionLayerName;
+
+        public LayerMask PlayerCollisionLayer => LayerMask.NameToLayer(_playerCollisionLayerName);
+
         public int MaxLocalPlayers => InputManager.Instance.MaxControllers;
 
         private readonly List<Player> _players = new List<Player>();
 
         public IReadOnlyCollection<Player> Players => _players;
 
-        [SerializeField]
+        //[SerializeField]
         [ReadOnly]
         private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
 

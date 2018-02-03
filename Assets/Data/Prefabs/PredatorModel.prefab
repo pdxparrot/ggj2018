@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4653409594617180}
   - component: {fileID: 135703914139266378}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PlayerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,6 +631,7 @@ MonoBehaviour:
   _stunParticles: {fileID: 198877301490289258}
   _featherParticles: {fileID: 198124788941645864}
   _boostTrail: {fileID: 96088007620055606}
+  _playerCollider: {fileID: 135703914139266378}
 --- !u!135 &135703914139266378
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -638,7 +639,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1422778429253910}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 6

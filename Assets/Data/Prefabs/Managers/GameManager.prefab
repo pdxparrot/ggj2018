@@ -57,6 +57,10 @@ MonoBehaviour:
   _networkManagerPrefab: {fileID: 114940941671366252, guid: 321d05647f5b8cb429c0926451d1e8a1,
     type: 2}
   _configData: {fileID: 11400000, guid: f7ed3d2f3679b5d47a4f830d8b7bb2b7, type: 2}
-  _environmentData: {fileID: 11400000, guid: 8ac1d55cfa12db14ab3cad818d2f49d4, type: 2}
   _birdData: {fileID: 11400000, guid: 008fe9d8630fb01439dbf2af6c478a5e, type: 2}
   _gameTypeData: {fileID: 11400000, guid: 88dcf27b5a9125f4491398fb1dc1985c, type: 2}
+  _playerCollisionLayerName: PlayerCollision
+  _gameState:
+    _state: 0
+    _isPaused: 0
+    _gameOverTimer: 0

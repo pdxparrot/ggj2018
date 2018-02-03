@@ -9,7 +9,7 @@ namespace ggj2018.ggj2018
 {
 // TODO: this should be a NetworkBehavior
     [RequireComponent(typeof(Rigidbody))]
-    public sealed class PlayerController : MonoBehavior//NetworkBehavior
+    public sealed class PlayerController : NetworkBehavior
     {
         public Bird Bird { get; private set; }
 

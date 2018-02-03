@@ -114,11 +114,11 @@ namespace ggj2018.Core.Input
 
         public int MaxControllers => _maxControllers;
 
-        [SerializeField]
+        //[SerializeField]
         [ReadOnly]
         private bool[] _controllerAcquired;
 
-        [SerializeField]
+        //[SerializeField]
         [ReadOnly]
         private ControllerState[] _controllerStates;
 
