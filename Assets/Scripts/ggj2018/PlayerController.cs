@@ -11,6 +11,23 @@ namespace ggj2018.ggj2018
     [RequireComponent(typeof(Rigidbody))]
     public sealed class PlayerController : MonoBehaviour
     {
+        [Serializable]
+        private struct PauseState
+        {
+            Vector3 velocity;
+
+            public void Save(Rigidbody rigidbody)
+            {
+                velocity = rigidbody.velocity;
+                rigidbody.velocity = Vector3.zero;
+            }
+
+            public void Restore(Rigidbody rigidbody)
+            {
+                rigidbody.velocity = velocity;
+            }
+        }
+
 // TODO: Player class should own this
         public Bird Bird { get; private set; }
 
@@ -27,6 +44,10 @@ namespace ggj2018.ggj2018
         private Rigidbody _rigidbody;
 
         public Rigidbody Rigidbody => _rigidbody;
+
+        [SerializeField]
+        [ReadOnly]
+        private PauseState _pauseState;
 
         private Player _owner;
 
@@ -312,6 +333,11 @@ namespace ggj2018.ggj2018
 #region Event Handlers
         private void PauseEventHandler(object sender, EventArgs args)
         {
+            if(GameManager.Instance.State.IsPaused) {
+                _pauseState.Save(_rigidbody);
+            } else {
+                _pauseState.Restore(_rigidbody);
+            }
             _rigidbody.isKinematic = GameManager.Instance.State.IsPaused;
         }
 #endregion
