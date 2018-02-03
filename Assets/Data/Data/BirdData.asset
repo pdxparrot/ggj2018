@@ -25,7 +25,7 @@ MonoBehaviour:
   - _id: hawk
     _name: Hawk
     _icon: {fileID: 21300000, guid: 2cc694c1e7bb9cb46ab88f9a91c3b73c, type: 3}
-    _followOrbitRadius: 15
+    _followOrbitRadius: 10
     _mass: 2
     _drag: 0
     _angularDrag: 0.05
@@ -36,7 +36,7 @@ MonoBehaviour:
   - _id: carrier1
     _name: Carrier 1
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
-    _followOrbitRadius: 10
+    _followOrbitRadius: 3
     _mass: 1
     _drag: 0
     _angularDrag: 0.05
@@ -47,7 +47,7 @@ MonoBehaviour:
   - _id: carrier2
     _name: Carrier 2
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
-    _followOrbitRadius: 10
+    _followOrbitRadius: 3
     _mass: 1
     _drag: 0
     _angularDrag: 0.05
@@ -58,7 +58,7 @@ MonoBehaviour:
   - _id: carrier3
     _name: Carrier 3
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
-    _followOrbitRadius: 10
+    _followOrbitRadius: 3
     _mass: 1
     _drag: 0
     _angularDrag: 0.05
