@@ -89,6 +89,11 @@ namespace ggj2018.ggj2018.Data
         }
 
         [SerializeField]
+        private int _gameOverWaitTime = 5;
+
+        public int GameOverWaitTime => _gameOverWaitTime;
+
+        [SerializeField]
         private GameTypeDataEntry[] _gameTypes;
 
         public IReadOnlyCollection<GameTypeDataEntry> GameTypes => _gameTypes;

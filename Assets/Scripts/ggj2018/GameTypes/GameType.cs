@@ -39,6 +39,18 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
+        public void Update()
+        {
+            if(PlayerManager.Instance.Players.Count > 0) {
+                foreach(Player player in PlayerManager.Instance.Players) {
+                    if(player.State.IsAlive) {
+                        return;
+                    }
+                }
+            }
+            GameManager.Instance.State.SetState(GameState.States.GameOver);
+        }
+
         public abstract int ScoreLimit(BirdData.BirdDataEntry birdType);
 
         public abstract bool ShowScore(BirdData.BirdDataEntry birdType);

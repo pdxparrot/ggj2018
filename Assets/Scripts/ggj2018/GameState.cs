@@ -41,6 +41,10 @@ namespace ggj2018.ggj2018
 
         public TimeSpan Timer { get; private set; }
 
+        [SerializeField]
+        [ReadOnly]
+        private float _gameOverTimer;
+
         public void Update(float dt)
         {
             switch(State)
@@ -55,7 +59,7 @@ namespace ggj2018.ggj2018
                 RunGame(dt);
                 break;
             case States.GameOver:
-                RunGameOver();
+                RunGameOver(dt);
                 break;
             }
         }
@@ -67,6 +71,9 @@ namespace ggj2018.ggj2018
             State = state;
             switch(State)
             {
+            case States.Init:
+                BeginInit();
+                break;
             case States.Menu:
                 BeginMenu();
                 break;
@@ -88,6 +95,14 @@ namespace ggj2018.ggj2018
         {
 // TODO
         }
+
+#region Init State
+        public void BeginInit()
+        {
+// TODO
+SetState(States.Menu);
+        }
+#endregion
 
 #region Menu State
         private void BeginMenu()
@@ -221,6 +236,8 @@ namespace ggj2018.ggj2018
                     SetState(States.GameOver);
                 }
             }
+
+            GameType.Update();
         }
 #endregion
 
@@ -228,10 +245,17 @@ namespace ggj2018.ggj2018
         private void BeginGameOver()
         {
             UIManager.Instance.SwitchToGameOver(GameType);
+
+            _gameOverTimer = 0.0f;
         }
 
-        private void RunGameOver()
+        private void RunGameOver(float dt)
         {
+            _gameOverTimer += dt;
+            if(_gameOverTimer >= GameManager.Instance.GameTypeData.GameOverWaitTime) {
+// TODO
+                //SetState(States.Init);
+            }
         }
 #endregion
     }
