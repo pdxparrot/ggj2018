@@ -105,7 +105,7 @@ namespace ggj2018.ggj2018
             IntroPanel.SetActive(false);
         }
 
-        public void SwitchToVictory(bool won)
+        public void SwitchToGameOver(bool won)
         {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(false);
@@ -116,19 +116,19 @@ namespace ggj2018.ggj2018
             FinishLose.SetActive(!won);
         }
 
-        public void SetStatus(PlayerManager.PlayerState playerState, bool allready)
+        public void SetStatus(PlayerManager.CharacterSelectState characterSelectState, bool allready)
         {
             SwitchToMenu();
 
-            JoinPanel.SetActive(!playerState.IsJoinedOrReady);
-            CharSelPanel.SetActive(playerState.IsJoined);
-            ReadyPanel.SetActive(playerState.IsReady);
+            JoinPanel.SetActive(!characterSelectState.IsJoinedOrReady);
+            CharSelPanel.SetActive(characterSelectState.IsJoined);
+            ReadyPanel.SetActive(characterSelectState.IsReady);
 
-            BirdLabel.text = playerState.PlayerBirdData.Name;
-            BirdImage1.sprite = playerState.PlayerBirdData.Icon;
-            BirdImage2.sprite = playerState.PlayerBirdData.Icon;
+            BirdLabel.text = characterSelectState.PlayerBirdData.Name;
+            BirdImage1.sprite = characterSelectState.PlayerBirdData.Icon;
+            BirdImage2.sprite = characterSelectState.PlayerBirdData.Icon;
 
-            if(playerState.IsReady) {
+            if(characterSelectState.IsReady) {
                 AllReady.SetActive(allready);
                 Waiting.SetActive(!allready);
             }
@@ -145,36 +145,13 @@ namespace ggj2018.ggj2018
 
         public void SetTimer(TimeSpan timeSpan)
         {
-            GameTimer.text = $"{timeSpan.Minutes}:{timeSpan.Seconds}";
+            GameTimer.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
         }
 
         public void SetScore(int score, int maxScore)
         {
             Score.text = $"{score} / {maxScore}";
         }
-
-        /*
-        public void HideCountdown()
-        {
-            JoinPrompt.gameObject.SetActive(false);
-            BirdLabel.gameObject.SetActive(false);
-            BirdValue.gameObject.SetActive(false);
-            ReadyPrompt.gameObject.SetActive(false);
-        }
-
-        public void SetCountdown(int i)
-        {
-            JoinPrompt.gameObject.SetActive(false);
-            BirdLabel.gameObject.SetActive(false);
-            BirdValue.gameObject.SetActive(false);
-            ReadyPrompt.gameObject.SetActive(true);
-
-            if(i > 0)
-                ReadyPrompt.text = $"{i}";
-            else
-                ReadyPrompt.text = "Go!";
-        }
-        */
     }
 }
 

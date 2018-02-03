@@ -1,8 +1,4 @@
-﻿using System.Linq;
-
-using ggj2018.Core.Camera;
-using ggj2018.Core.Input;
-using ggj2018.Core.Util;
+﻿using ggj2018.Core.Util;
 using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
@@ -62,33 +58,26 @@ namespace ggj2018.ggj2018
 
         public void SwitchToMenu()
         {
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                viewer?.PlayerUI.SwitchToMenu();
+            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                selectState.Viewer.PlayerUI.SwitchToMenu();
             }
         }
 
         public void SwitchToGame(GameType gameType)
         {
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Player player = PlayerManager.Instance.Players.ElementAt(i);
-                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                if(null == player)
-                    viewer?.PlayerUI.Hide();
-                else
-                    viewer?.PlayerUI.SwitchToGame(gameType, player.State.BirdType);
+            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                if(null == selectState.Player) {
+                    selectState.Viewer.PlayerUI.Hide();
+                } else {
+                    selectState.Viewer.PlayerUI.SwitchToGame(gameType, selectState.Player.State.BirdType);
+                }
             }
         }
 
-        public void SwitchToVictory(int winner)
+        public void SwitchToGameOver(int winner)
         {
-            for(int i = 0; i < InputManager.Instance.MaxControllers; ++i) {
-                Player player = PlayerManager.Instance.Players.ElementAt(i);
-                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                if(null == player)
-                    viewer?.PlayerUI.Hide();
-                else
-                    viewer?.PlayerUI.SwitchToVictory(winner == i);
+            foreach(Player player in PlayerManager.Instance.Players) {
+                player.Viewer.PlayerUI.SwitchToGameOver(winner == player.Id);
             }
         }
 
@@ -98,4 +87,3 @@ namespace ggj2018.ggj2018
         }
     }
 }
-

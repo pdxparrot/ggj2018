@@ -32,11 +32,11 @@ namespace ggj2018.ggj2018
         public bool Collision(Player player, Collider other)
         {
             if(BoundaryType.Ground == Type && player.State.IsDead) {
-                PlayerManager.Instance.DespawnPlayer(player.State.PlayerNumber);
+                PlayerManager.Instance.DespawnPlayer(player);
                 return true;
             }
 
-            Vector3 position = player.GameObject.transform.position;
+            Vector3 position = player.transform.position;
             switch(Type)
             {
             case BoundaryType.Ground:
@@ -49,7 +49,7 @@ namespace ggj2018.ggj2018
                 // TODO
                 break;
             }
-            player.GameObject.transform.position = position;
+            player.transform.position = position;
 
             return true;
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
@@ -19,7 +18,7 @@ namespace ggj2018.ggj2018
             Menu,
             CharacterSelect,
             Game,
-            Victory
+            GameOver
         }
 
         [SerializeField]
@@ -34,14 +33,9 @@ namespace ggj2018.ggj2018
 
         public States State { get { return _state; } private set { _state = value; } }
 
-// TODO: unused? bring intro back?
         [SerializeField]
         [ReadOnly]
-        private int _countdown;
-
-        [SerializeField]
-        [ReadOnly]
-        private int _winner;
+        private int _winner = -1;
 
         public int Winner { get { return _winner; } set { _winner = value; } }
 
@@ -51,9 +45,7 @@ namespace ggj2018.ggj2018
 
         public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
 
-        private TimeSpan _timer;
-
-        public TimeSpan Timer => _timer;
+        public TimeSpan Timer { get; private set; }
 
         public void Update(float dt)
         {
@@ -68,8 +60,8 @@ namespace ggj2018.ggj2018
             case States.Game:
                 RunGame(dt);
                 break;
-            case States.Victory:
-                RunVictory();
+            case States.GameOver:
+                RunGameOver();
                 break;
             }
         }
@@ -90,8 +82,8 @@ namespace ggj2018.ggj2018
             case States.Game:
                 BeginGame();
                 break;
-            case States.Victory:
-                BeginVictory();
+            case States.GameOver:
+                BeginGameOver();
                 break;
             }
 
@@ -123,13 +115,11 @@ namespace ggj2018.ggj2018
         {
             // Check for all players ready
             int ready = 0, joined = 0;
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
-
-                if(playerState.IsReady) {
+            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                if(selectState.IsReady) {
                     ++ready;
                     ++joined;
-                } else if(playerState.IsJoined) {
+                } else if(selectState.IsJoined) {
                     ++joined;
                 }
             }
@@ -140,77 +130,36 @@ namespace ggj2018.ggj2018
             }
 
             // Check for player joins
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
-
-                if(playerState.IsReady) {
-                    if(InputManager.Instance.Pressed(i, InputManager.Button.B)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.Joined;
+            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                if(selectState.IsReady) {
+                    if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
+                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Joined;
                     }
-                } else if(playerState.IsJoined) {
-                    if(InputManager.Instance.Pressed(i, InputManager.Button.A)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.Ready;
-                    } else if(InputManager.Instance.Pressed(i, InputManager.Button.B)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.None;
+                } else if(selectState.IsJoined) {
+                    if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.A)) {
+                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Ready;
+                    } else if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
+                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.None;
                     } else {
-                        if(InputManager.Instance.DpadPressed(i, InputManager.DPadDir.Right)) {
-                            playerState.NextBird();
-                        } else if(InputManager.Instance.DpadPressed(i, InputManager.DPadDir.Left)) {
-                            playerState.PrevBird();
+                        if(InputManager.Instance.DpadPressed(selectState.ControllerIndex, InputManager.DPadDir.Right)) {
+                            selectState.NextBird();
+                        } else if(InputManager.Instance.DpadPressed(selectState.ControllerIndex, InputManager.DPadDir.Left)) {
+                            selectState.PrevBird();
                         }
                     }
                 } else {
-                    if(InputManager.Instance.PositivePressed(i)) {
-                        playerState.PlayerJoinState = PlayerManager.PlayerState.JoinState.Joined;
-                        playerState.SelectedBird = 0;
+                    if(InputManager.Instance.PositivePressed(selectState.ControllerIndex)) {
+                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Joined;
+                        selectState.SelectedBird = 0;
                     }
                 }
 
-                Viewer viewer = CameraManager.Instance.Viewers.ElementAt(i) as Viewer;
-                viewer?.PlayerUI.SetStatus(playerState, ready == joined);
+                selectState.Viewer.PlayerUI.SetStatus(selectState, ready == joined);
 
                 UIManager.Instance.SwitchToMenu();
             }
 
         }
-#endregion
-
-#region Intro State
-/*
-        private void BeginIntro()
-        {
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
-                if(playerState.IsReady) {
-                    PlayerManager.Instance.SpawnLocalPlayer(i, playerState.PlayerBirdId);
-                }
-            }
-
-            // $$$ making this instant for now
-            UIManager.Instance.HideMenu();
-            _countdown = 3;
-            _timer = 1.0f;
-            UIManager.Instance.Countdown(_countdown);
-        }
-
-        private void RunIntro()
-        {
-            SetState(States.Game);
-
-            // $$$ making this instant for now
-            _timer -= Time.deltaTime;
-            if(_timer < 0) {
-                --_countdown;
-                _timer = 1.0f;
-
-                if(_countdown == 0) {
-                    SetState(States.Game);
-                } else {
-                    UIManager.Instance.Countdown(_countdown);
-                }
-            }
-        }
-*/
 #endregion
 
 #region Game State
@@ -223,13 +172,12 @@ namespace ggj2018.ggj2018
             int predatorCount = 0;
             int preyCount = 0;
 
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
-                if(playerState.IsReady) {
+            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                if(selectState.IsReady) {
                     playerCount++;
                 }
 
-                if(playerState.PlayerBirdData.IsPredator) {
+                if(selectState.PlayerBirdData.IsPredator) {
                     predatorCount++;
                 } else {
                     preyCount++;
@@ -244,13 +192,13 @@ namespace ggj2018.ggj2018
             DetermineGameType();
             Debug.Log($"Beginning game type {GameType.Type}");
 
-            for(int i=0; i<PlayerManager.Instance.PlayerStates.Count; ++i) {
-                PlayerManager.PlayerState playerState = PlayerManager.Instance.PlayerStates.ElementAt(i);
-                if(playerState.IsReady) {
-                    PlayerManager.Instance.SpawnPlayer(i, GameType.Type, playerState.PlayerBirdId);
-                    CameraManager.Instance.EnableViewer(i, true);
+            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                if(selectState.IsReady) {
+                    selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
                 } else {
-                    CameraManager.Instance.EnableViewer(i, false);
+                    selectState.Player = null;
+                    CameraManager.Instance.ReleaseViewer(selectState.Viewer);
+                    // TODO: release controller?
                 }
             }
 
@@ -260,7 +208,7 @@ namespace ggj2018.ggj2018
 
             SpawnManager.Instance.ReleaseSpawnPoints();
 
-            _timer = GameType.GameTypeData.TimeLimit > 0
+            Timer = GameType.GameTypeData.TimeLimit > 0
                 ? TimeSpan.FromMinutes(GameType.GameTypeData.TimeLimit)
                 : TimeSpan.Zero;
         }
@@ -272,18 +220,23 @@ namespace ggj2018.ggj2018
             }
 
             if(GameType.GameTypeData.TimeLimit > 0) {
-                _timer = _timer.Subtract(TimeSpan.FromSeconds(dt));
+                Timer = Timer.Subtract(TimeSpan.FromSeconds(dt));
+                if(Timer.Seconds <= 0) {
+                    Timer = TimeSpan.Zero;
+                    Winner = -1;
+                    SetState(States.GameOver);
+                }
             }
         }
 #endregion
 
-#region Victory State
-        private void BeginVictory()
+#region Game Over State
+        private void BeginGameOver()
         {
-            UIManager.Instance.SwitchToVictory(Winner);
+            UIManager.Instance.SwitchToGameOver(Winner);
         }
 
-        private void RunVictory()
+        private void RunGameOver()
         {
         }
 #endregion

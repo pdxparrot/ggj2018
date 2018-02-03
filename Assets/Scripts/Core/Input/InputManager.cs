@@ -116,11 +116,7 @@ namespace ggj2018.Core.Input
 
         [SerializeField]
         [ReadOnly]
-        private int _connectedJoystickCount;
-
-        public int ConnectedJoystickCount => _connectedJoystickCount;
-
-        public bool HasJoystickConnected => _connectedJoystickCount > 0;
+        private bool[] _controllerAcquired;
 
         [SerializeField]
         [ReadOnly]
@@ -133,8 +129,10 @@ namespace ggj2018.Core.Input
 #region Unity Lifecycle
         private void Awake()
         {
-            _controllerStates = new ControllerState[MaxControllers];
-            for(int i=0; i<MaxControllers; ++i) {
+            _controllerAcquired = new bool[_maxControllers];
+
+            _controllerStates = new ControllerState[_maxControllers];
+            for(int i=0; i<_maxControllers; ++i) {
                 _controllerStates[i] = new ControllerState();
             }
         }
@@ -142,9 +140,8 @@ namespace ggj2018.Core.Input
         private void Start()
         {
             string[] joystickNames = UnityEngine.Input.GetJoystickNames();
-            _connectedJoystickCount = joystickNames.Length;
 
-            Debug.Log($"Detected {ConnectedJoystickCount} joysticks:");
+            Debug.Log($"Detected {joystickNames.Length} joysticks:");
             foreach(string joystickName in joystickNames) {
                 Debug.Log($"\t{joystickName}");
             }
@@ -152,7 +149,7 @@ namespace ggj2018.Core.Input
 
         private void Update()
         {
-            for(int i=0; i<MaxControllers; ++i) {
+            for(int i=0; i<_maxControllers; ++i) {
                 if(Pressed(i, Button.RightBumper)) {
                     Debug.Log($"Inverting controller {i} look");
                     _controllerStates[i].InvertLookY = !_controllerStates[i].InvertLookY;
@@ -165,6 +162,17 @@ namespace ggj2018.Core.Input
             UpdateDpadAxes();
         }
 #endregion
+
+        public int AcquireController()
+        {
+            for(int i=0; i<_controllerAcquired.Length; ++i) {
+                if(!_controllerAcquired[i]) {
+                    _controllerAcquired[i] = true;
+                    return i;
+                }
+            }
+            return -1;
+        }
 
 #region Axes
         public Vector3 GetMoveAxes(int controllerIndex)
@@ -235,7 +243,7 @@ namespace ggj2018.Core.Input
 
         public bool StartPressed()
         {
-            for(int i=0; i<MaxControllers; ++i) {
+            for(int i=0; i<_maxControllers; ++i) {
                 if(StartPressed(i)) {
                     return true;
                 }
@@ -250,7 +258,7 @@ namespace ggj2018.Core.Input
 
         public bool SelectPressed()
         {
-            for(int i=0; i<MaxControllers; ++i) {
+            for(int i=0; i<_maxControllers; ++i) {
                 if(SelectPressed(i)) {
                     return true;
                 }

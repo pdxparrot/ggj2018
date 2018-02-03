@@ -65,18 +65,15 @@ namespace ggj2018.ggj2018
             transform.rotation = Quaternion.Euler(new Vector3(0.0f, transform.rotation.eulerAngles.y , 0.0f));
 #endif
 
-            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.ControllerNumber);
+            _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.ControllerIndex);
 
             float dt = Time.deltaTime;
 
             Turn(_lastMoveAxes, dt);
             RotateModel(_lastMoveAxes, dt);
 
-            float boostPct = _owner.State.BoostRemainingSeconds /
-                PlayerManager.Instance.PlayerData.BoostSeconds;
-
-            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(_owner.ControllerNumber) as Viewer;
-            viewer?.PlayerUI.SetSpeedAndBoost((int)Speed, boostPct);
+            float boostPct = _owner.State.BoostRemainingSeconds / PlayerManager.Instance.PlayerData.BoostSeconds;
+            _owner.Viewer.PlayerUI.SetSpeedAndBoost((int)Speed, boostPct);
         }
 
         private void FixedUpdate()
@@ -138,18 +135,18 @@ namespace ggj2018.ggj2018
 
         public void MoveTo(Vector3 position)
         {
-            Debug.Log($"Teleporting player {_owner.State.PlayerNumber} to {position}");
+            Debug.Log($"Teleporting player {_owner.Id} to {position}");
             transform.position = position;
         }
 
 #if UNITY_EDITOR
         private void CheckForDebug()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.LeftStick)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.LeftStick)) {
                 _owner.State.DebugStun();
             }
 
-            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.RightStick)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.RightStick)) {
                 _owner.State.DebugKill();
             }
         }
@@ -157,12 +154,12 @@ namespace ggj2018.ggj2018
 
         private bool CheckForBrake()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.B)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.B)) {
                 _owner.State.StartBrake();
                 return true;
             }
 
-            if(_owner.State.IsBraking && InputManager.Instance.Released(_owner.ControllerNumber, InputManager.Button.B)) {
+            if(_owner.State.IsBraking && InputManager.Instance.Released(_owner.ControllerIndex, InputManager.Button.B)) {
                 _owner.State.StopBrake();
             }
             return false;
@@ -170,12 +167,12 @@ namespace ggj2018.ggj2018
 
         private bool CheckForBoost()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerNumber, InputManager.Button.Y)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.Y)) {
                 _owner.State.StartBoost();
                 return true;
             }
 
-            if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerNumber, InputManager.Button.Y)) {
+            if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerIndex, InputManager.Button.Y)) {
                 _owner.State.StopBoost();
             }
             return false;

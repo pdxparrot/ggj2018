@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.Core.Input;
 using ggj2018.Core.Math;
 using ggj2018.Core.Util;
 
@@ -113,6 +112,8 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         private float _orbitRadius = 25.0f;
 
+        public float OrbitRadius { get { return _orbitRadius; } set { _orbitRadius = value; } }
+
         [SerializeField]
         [ReadOnly]
         private Vector2 _lookRotation;
@@ -152,15 +153,9 @@ namespace ggj2018.Core.Camera
 
         private void HandleInput(float dt)
         {
-            if(!InputManager.HasInstance) {
-                return;
-            }
-
-            Vector3 axes = InputManager.Instance.GetLookAxes(_followTarget.ControllerNumber);
-
-            Orbit(axes, dt);
-            Zoom(axes, dt);
-            Look(axes, dt);
+            Orbit(_followTarget.LookAxis, dt);
+            Zoom(_followTarget.LookAxis, dt);
+            Look(_followTarget.LookAxis, dt);
         }
 
         private void Orbit(Vector3 axes, float dt)

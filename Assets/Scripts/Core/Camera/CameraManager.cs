@@ -3,6 +3,8 @@ using System.Linq;
 
 using ggj2018.Core.Util;
 
+using JetBrains.Annotations;
+
 using UnityEngine;
 
 namespace ggj2018.Core.Camera
@@ -17,12 +19,12 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         private BaseViewer _viewerPrefab;
 
-        private readonly List<BaseViewer> _viewers = new List<BaseViewer>();
+        private readonly List<BaseViewer> _assignedViewers = new List<BaseViewer>();
+
+        private readonly Queue<BaseViewer> _unassignedViewers = new Queue<BaseViewer>();
 
         [SerializeField]
         private GameObject[] _postProcessObjectPrefabs;
-
-        public IReadOnlyCollection<BaseViewer> Viewers => _viewers;
 
         private GameObject _viewerContainer, _postProcessContainer;
 
@@ -53,31 +55,57 @@ namespace ggj2018.Core.Camera
 
             for(int i=0; i<count; ++i) {
                 BaseViewer viewer = Instantiate(_viewerPrefab, _viewerContainer.transform);
-                viewer.name = $"Viewer P{i}";
-                viewer.Camera.name = $"Camera P{i}";
-                viewer.UICamera.name = $"UI Camera P{i}";
-                _viewers.Add(viewer);
+                viewer.Initialize(i);
+                viewer.gameObject.SetActive(false);
+
+                _unassignedViewers.Enqueue(viewer);
             }
 
             ResizeViewports();
         }
 
-        public void EnableViewer(int i, bool active)
+        [CanBeNull]
+        public BaseViewer AcquireViewer()
         {
-            _viewers[i].gameObject.SetActive(active);
+            if(_unassignedViewers.Count < 1) {
+                return null;
+            }
+
+            BaseViewer viewer = _unassignedViewers.Dequeue();
+            viewer.gameObject.SetActive(true);
+            _assignedViewers.Add(viewer);
+
+            //Debug.Log($"Acquired viewer {viewer.name}");
+            return viewer;
+        }
+
+        public void ReleaseViewer(BaseViewer viewer)
+        {
+            //Debug.Log($"Releasing viewer {viewer.name}");
+
+            viewer.gameObject.SetActive(false);
+            _assignedViewers.Remove(viewer);
+            _unassignedViewers.Enqueue(viewer);
         }
 
         public void ResizeViewports()
         {
-            var activeViewers = Viewers.Where(x => x.gameObject.activeInHierarchy).ToList();
+            if(_assignedViewers.Count > 0) {
+                ResizeViewports(_assignedViewers);
+            } else if(_unassignedViewers.Count > 0) {
+                ResizeViewports(_unassignedViewers);
+            }
+        }
 
-            Debug.Log($"Resizing {_viewers.Count} viewports, found {activeViewers.Count} active...");
+        private void ResizeViewports(IReadOnlyCollection<BaseViewer> viewers)
+        {
+            Debug.Log($"Resizing {viewers.Count} viewports...");
 
-            int gridCols = Mathf.CeilToInt(Mathf.Sqrt(activeViewers.Count));
+            int gridCols = Mathf.CeilToInt(Mathf.Sqrt(viewers.Count));
             int gridRows = gridCols;
 
             // remove any extra full colums
-            int extraCols = (gridCols * gridRows) - activeViewers.Count;
+            int extraCols = (gridCols * gridRows) - viewers.Count;
             gridCols -= extraCols / gridRows;
 
             float viewportWidth = (1.0f / gridCols);
@@ -86,29 +114,9 @@ namespace ggj2018.Core.Camera
             for(int row=0; row<gridRows; ++row) {
                 for(int col=0; col<gridCols; ++col) {
                     int viewerIdx = (row * gridCols) + col;
-                    activeViewers[viewerIdx].SetViewport(col, (gridRows - 1) - row, viewportWidth, viewportHeight);
+                    viewers.ElementAt(viewerIdx).SetViewport(col, (gridRows - 1) - row, viewportWidth, viewportHeight);
                 }
             }
-        }
-
-        public void AddRenderLayer(int viewerIndex, string layer)
-        {
-            AddRenderLayer(viewerIndex, LayerMask.NameToLayer(layer));
-        }
-
-        public void AddRenderLayer(int viewerIndex, LayerMask layer)
-        {
-            _viewers[viewerIndex].Camera.cullingMask |= (1 << layer.value);
-        }
-
-        public void RemoveRenderLayer(int viewerIndex, string layer)
-        {
-            RemoveRenderLayer(viewerIndex, LayerMask.NameToLayer(layer));
-        }
-
-        public void RemoveRenderLayer(int viewerIndex, LayerMask layer)
-        {
-            _viewers[viewerIndex].Camera.cullingMask &= ~(1 << layer.value);
         }
     }
 }

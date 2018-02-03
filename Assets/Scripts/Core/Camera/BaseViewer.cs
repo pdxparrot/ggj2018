@@ -9,14 +9,20 @@ namespace ggj2018.Core.Camera
     public abstract class BaseViewer : MonoBehavior
     {
         [SerializeField]
+        [ReadOnly]
+        private int _id;
+
+        public int Id => _id;
+
+        [SerializeField]
         private UnityEngine.Camera _camera;
 
-        public UnityEngine.Camera Camera => _camera;
+        protected UnityEngine.Camera Camera => _camera;
 
         [SerializeField]
         private UnityEngine.Camera _uiCamera;
 
-        public UnityEngine.Camera UICamera => _uiCamera;
+        protected UnityEngine.Camera UICamera => _uiCamera;
 
         private FollowCamera _followCamera;
 
@@ -28,6 +34,15 @@ namespace ggj2018.Core.Camera
             _followCamera = GetComponent<FollowCamera>();
         }
 #endregion
+
+        public void Initialize(int id)
+        {
+            _id = id;
+
+            name = $"Viewer P{Id}";
+            Camera.name = $"Camera P{Id}";
+            UICamera.name = $"UI Camera P{Id}";
+        }
 
         public void SetViewport(int x, int y, float viewportWidth, float viewportHeight)
         {
@@ -49,6 +64,11 @@ namespace ggj2018.Core.Camera
             }
         }
 
+        public void SetOrbitRadius(float orbitRadius)
+        {
+            _followCamera.OrbitRadius = orbitRadius;
+        }
+
         public void SetFov(float fov)
         {
             Camera.fieldOfView = fov;
@@ -59,5 +79,27 @@ namespace ggj2018.Core.Camera
             PostProcessLayer layer = Camera.GetComponent<PostProcessLayer>();
             layer.volumeLayer = postProcessLayerMask;
         }
+
+#region Render Layers
+        public void AddRenderLayer(string layer)
+        {
+            AddRenderLayer(LayerMask.NameToLayer(layer));
+        }
+
+        public void AddRenderLayer(LayerMask layer)
+        {
+            Camera.cullingMask |= (1 << layer.value);
+        }
+
+        public void RemoveRenderLayer(string layer)
+        {
+            RemoveRenderLayer(LayerMask.NameToLayer(layer));
+        }
+
+        public void RemoveRenderLayer(LayerMask layer)
+        {
+            Camera.cullingMask &= ~(1 << layer.value);
+        }
+#endregion
     }
 }

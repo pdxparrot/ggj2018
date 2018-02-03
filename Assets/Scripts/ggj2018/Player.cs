@@ -1,6 +1,7 @@
-﻿using System.Linq;
-
-using ggj2018.Core.Camera;
+﻿using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
+using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,7 +15,11 @@ namespace ggj2018.ggj2018
     //[RequireComponent(typeof(NetworkTransform))]
     public sealed class Player : MonoBehaviour, IFollowTarget //NetworkBehavior
     {
-        public GameObject GameObject => gameObject;
+        [SerializeField]
+        [ReadOnly]
+        private int _id = -1;
+
+        public int Id => _id;
 
         [SerializeField]
         private PlayerState _playerState;
@@ -24,40 +29,61 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private GameObject _godRay;
 
-        public PlayerController Controller { get; private set; }
+// TODO: probably don't need to expose this
+        private PlayerController _controller;
 
-// TODO: assign this, don't assume it
-        public int ControllerNumber => State.PlayerNumber;
+        public PlayerController Controller => _controller;
 
-// TODO: hold a link to the viewer
+        public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
+
+        public int ControllerIndex { get; private set; }
+
+        public Viewer Viewer { get; private set; }
 
 #region Unity Lifecycle
         private void Awake()
         {
             _playerState = new PlayerState(this);
 
-            Controller = GetComponent<PlayerController>();
+            _controller = GetComponent<PlayerController>();
         }
 
         private void Update()
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer viewer = CameraManager.Instance.Viewers.ElementAt(ControllerNumber) as Viewer;
-            viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType));
-            viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer);
+            Viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType)); 
+            Viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer); 
         }
 #endregion
 
-        public void Initialize()
+        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird birdModel, BirdData.BirdDataEntry birdType)
         {
-            //if(isLocalPlayer) {
-                Debug.Log($"Setting follow cam {ControllerNumber}");
-                CameraManager.Instance.Viewers.ElementAt(ControllerNumber).FollowCamera.SetTarget(GameObject);
+            Initialize(id, birdModel, birdType);
 
-                CameraManager.Instance.AddRenderLayer(ControllerNumber, State.BirdType.Layer);
-                CameraManager.Instance.RemoveRenderLayer(ControllerNumber, State.BirdType.OtherLayer);       
-            //}
+            ControllerIndex = controllerIndex;
+
+            Viewer = viewer;
+            Viewer.Initialize(this);
+
+            Viewer.FollowCamera.SetTarget(gameObject);
+
+            Viewer.AddRenderLayer(State.BirdType.Layer);
+            Viewer.RemoveRenderLayer(State.BirdType.OtherLayer);
+        }
+
+        public void InitializeNetwork(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
+        {
+            Initialize(id, birdModel, birdType);
+        }
+
+        private void Initialize(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
+        {
+            _id = id;
+            name = $"Player {Id}";
+
+            _controller.Initialize(this, birdModel);
+            State.Initialize(birdType);
 
             _godRay.GetComponent<GodRay>().Setup(this);
         }

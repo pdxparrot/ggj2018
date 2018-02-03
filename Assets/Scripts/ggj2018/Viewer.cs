@@ -30,10 +30,14 @@ namespace ggj2018.ggj2018
         public void Initialize(Player owner)
         {
             SetFov(owner.State.BirdType.ViewFOV);
+            SetOrbitRadius(owner.State.BirdType.FollowOrbitRadius);
 
             SetPostProcessLayer(owner.State.BirdType.PostProcessLayerMask);
 
             PlayerUI.Initialize(owner);
+
+            PlayerUI.SetScore(0, GameManager.Instance.State.GameType.ScoreLimit(owner.State.BirdType));
+            PlayerUI.SetTimer(GameManager.Instance.State.Timer);
         }
     }
 }

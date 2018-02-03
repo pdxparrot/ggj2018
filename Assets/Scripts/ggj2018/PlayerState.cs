@@ -16,12 +16,6 @@ namespace ggj2018.ggj2018
 
         public BirdData.BirdDataEntry BirdType => _birdType;
 
-        [SerializeField]
-        [ReadOnly]
-        private int _playerNumber;
-
-        public int PlayerNumber => _playerNumber;
-
 #region Alive
         [SerializeField]
         [ReadOnly]
@@ -87,10 +81,8 @@ namespace ggj2018.ggj2018
             _owner = owner;
         }
 
-        public void Initialize(int playerNumber, BirdData.BirdDataEntry birdType)
+        public void Initialize(BirdData.BirdDataEntry birdType)
         {
-            _playerNumber = playerNumber;
-            _owner.GameObject.name = $"Player {PlayerNumber}";
             _birdType = birdType;
 
             _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
@@ -114,13 +106,13 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            Debug.Log($"Player {PlayerNumber} is boosting!");
+            Debug.Log($"Player {_owner.Id} is boosting!");
             EnableBoost(true);
         }
 
         public void StopBoost()
         {
-            Debug.Log($"Player {PlayerNumber} slows down!");
+            Debug.Log($"Player {_owner.Id} slows down!");
             EnableBoost(false);
         }
 
@@ -155,13 +147,13 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            Debug.Log($"Player {PlayerNumber} is braking!");
+            Debug.Log($"Player {_owner.Id} is braking!");
             _isBraking = true;
         }
 
         public void StopBrake()
         {
-            Debug.Log($"Player {PlayerNumber} is stops braking!");
+            Debug.Log($"Player {_owner.Id} is stops braking!");
             _isBraking = false;
         }
 #endregion
@@ -170,7 +162,7 @@ namespace ggj2018.ggj2018
         public void EnvironmentStun(Collider collider)
         {
             if(IsDead) {
-                PlayerManager.Instance.DespawnPlayer(PlayerNumber);
+                PlayerManager.Instance.DespawnPlayer(_owner);
                 return;
             } 
 
@@ -178,7 +170,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            Debug.Log($"Player {PlayerNumber} stunned by the environment!");
+            Debug.Log($"Player {_owner.Id} stunned by the environment!");
 
             Stun(collider);
         }
@@ -191,7 +183,7 @@ namespace ggj2018.ggj2018
 
             // players can re-stun other players
 
-            Debug.Log($"Player {PlayerNumber} stunned by player {stunner.State.PlayerNumber}!");
+            Debug.Log($"Player {_owner.Id} stunned by player {stunner.State._owner.Id}!");
 
             Stun(collider);
         }
@@ -213,15 +205,15 @@ namespace ggj2018.ggj2018
         {
             Stun();
 
-            Vector3 playerPosition = _owner.GameObject.transform.position;
+            Vector3 playerPosition = _owner.transform.position;
             Vector3 collisionPosition = collider.transform.position;
             collisionPosition.y = playerPosition.y;
 
             _stunBounceDirection = (playerPosition - collisionPosition).normalized;
 
             if(PlayerManager.Instance.PlayerData.StunBounceRotation) {
-                _owner.GameObject.transform.forward = _stunBounceDirection;
-                _stunBounceDirection = _owner.GameObject.transform.rotation * _stunBounceDirection;
+                _owner.transform.forward = _stunBounceDirection;
+                _stunBounceDirection = _owner.transform.rotation * _stunBounceDirection;
             }
         }
 
@@ -252,7 +244,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            Debug.Log($"Player {PlayerNumber} killed by environment!");
+            Debug.Log($"Player {_owner.Id} killed by environment!");
 
             Kill();
         }
@@ -268,7 +260,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            Debug.Log($"Player {PlayerNumber} killed by player {killer.State.PlayerNumber}!");
+            Debug.Log($"Player {_owner.Id} killed by player {killer.Id}!");
 
             Kill();
 

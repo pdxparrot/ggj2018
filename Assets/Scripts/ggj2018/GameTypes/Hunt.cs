@@ -31,21 +31,21 @@ namespace ggj2018.ggj2018.GameTypes
                 return;
             }
 
-            Debug.Log($"Player {player.State.PlayerNumber} has reached the goal!"); 
-            GameManager.Instance.State.Winner = player.State.PlayerNumber;
-            GameManager.Instance.State.SetState(GameState.States.Victory);
+            Debug.Log($"Player {player.Id} has reached the goal!"); 
+            GameManager.Instance.State.Winner = player.Id;
+            GameManager.Instance.State.SetState(GameState.States.GameOver);
         }
 
         public override void PlayerKill(Player killer)
         {
-            Debug.Log($"Player {killer.State.PlayerNumber} has scored a kill!");
+            Debug.Log($"Player {killer.Id} has scored a kill!");
 
             killer.State.Score++;
 
             if(killer.State.Score == PlayerManager.Instance.PreyCount) {
-                Debug.Log($"Player {killer.State.PlayerNumber} has killed all the messengers!"); 
-                GameManager.Instance.State.Winner = killer.State.PlayerNumber;
-                GameManager.Instance.State.SetState(GameState.States.Victory);
+                Debug.Log($"Player {killer.Id} has killed all the messengers!"); 
+                GameManager.Instance.State.Winner = killer.Id;
+                GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
         }
     }

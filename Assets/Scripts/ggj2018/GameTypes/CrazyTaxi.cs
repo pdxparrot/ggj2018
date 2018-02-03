@@ -34,14 +34,14 @@ namespace ggj2018.ggj2018.GameTypes
         {
             // TODO: handle message goals as well
 
-            Debug.Log($"Player {player.State.PlayerNumber} has scored a goal!");
+            Debug.Log($"Player {player.Id} has scored a goal!");
 
             player.State.Score++;
 
             if(player.State.Score >= GameTypeData.ScoreLimit) {
-                Debug.Log($"Player {player.State.PlayerNumber} has reached the score limit!"); 
-                GameManager.Instance.State.Winner = player.State.PlayerNumber;
-                GameManager.Instance.State.SetState(GameState.States.Victory);
+                Debug.Log($"Player {player.Id} has reached the score limit!"); 
+                GameManager.Instance.State.Winner = player.Id;
+                GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
 
             // TODO: spawn the next appropriate goal type
