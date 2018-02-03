@@ -172,7 +172,7 @@ namespace ggj2018.ggj2018
 #endregion
 
 #region Stun
-        public void EnvironmentStun(Collider collider)
+        public void EnvironmentStun(Collision collision)
         {
             if(IsDead) {
                 PlayerManager.Instance.DespawnPlayer(_owner);
@@ -185,10 +185,10 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Player {_owner.Id} stunned by the environment!");
 
-            Stun(collider);
+            Stun(collision);
         }
 
-        public void PlayerStun(Player stunner, Collider collider)
+        public void PlayerStun(Player stunner, Collision collision)
         {
             if(IsDead) {
                 return;
@@ -198,7 +198,7 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Player {_owner.Id} stunned by player {stunner.State._owner.Id}!");
 
-            Stun(collider);
+            Stun(collision);
         }
 
 #if UNITY_EDITOR
@@ -214,12 +214,12 @@ namespace ggj2018.ggj2018
         }
 #endif
 
-        private void Stun(Collider collider)
+        private void Stun(Collision collision)
         {
             Stun();
 
             Vector3 playerPosition = _owner.transform.position;
-            Vector3 collisionPosition = collider.transform.position;
+            Vector3 collisionPosition = collision.collider.transform.position;
             collisionPosition.y = playerPosition.y;
 
             _stunBounceDirection = (playerPosition - collisionPosition).normalized;
@@ -251,7 +251,7 @@ namespace ggj2018.ggj2018
 #endregion
 
 #region Kill
-        public void EnvironmentKill(Collider collider)
+        public void EnvironmentKill()
         {
             if(IsDead) {
                 return;
@@ -262,14 +262,14 @@ namespace ggj2018.ggj2018
             Kill();
         }
 
-        public void PlayerKill(Player killer, Collider collider)
+        public void PlayerKill(Player killer, Collision collision)
         {
             if(IsDead) {
                 return;
             }
 
             if(killer.State.IsDead) {
-                PlayerStun(killer, collider);
+                PlayerStun(killer, collision);
                 return;
             }
 

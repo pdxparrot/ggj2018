@@ -9,7 +9,6 @@ using UnityEngine.Networking;
 namespace ggj2018.ggj2018
 {
 // TODO: rename this Player when NetworkPlayer is gone
-    [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PlayerController))]
     //[RequireComponent(typeof(NetworkIdentity))]
     //[RequireComponent(typeof(NetworkTransform))]

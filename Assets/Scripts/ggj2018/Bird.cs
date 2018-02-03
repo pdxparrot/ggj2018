@@ -15,11 +15,17 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private TrailRenderer _boostTrail;
 
-#region Unity Lifecycle
+#region Unity Lifecycle      
         protected virtual void Start()
         {
             ShowStun(false);
             ShowBoostTrail(false);
+        }
+
+        protected virtual void OnDrawGizmos()
+        {
+            SphereCollider c = GetComponentInChildren<SphereCollider>();
+            Gizmos.DrawWireSphere(transform.position + c.center, c.radius);
         }
 #endregion
 

@@ -20,37 +20,18 @@ namespace ggj2018.ggj2018
 
         public bool IsVertical => BoundaryType.Ground == _boundaryType || BoundaryType.Sky == _boundaryType;
 
-        private BoxCollider _collider;
-
 #region Unity Lifecycle
-        private void Awake()
+        private void OnDrawGizmos()
         {
-            _collider = GetComponent<BoxCollider>();
+            Gizmos.DrawWireCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
         }
 #endregion
 
-        public bool Collision(Player player, Collider other)
+        public bool Collision(Player player)
         {
             if(BoundaryType.Ground == Type && player.State.IsDead) {
                 PlayerManager.Instance.DespawnPlayer(player);
-                return true;
             }
-
-            Vector3 position = player.transform.position;
-            switch(Type)
-            {
-            case BoundaryType.Ground:
-                position.y = transform.position.y + _collider.size.y + GameManager.Instance.EnvironmentData.BoundaryCollisionPushback;
-                break;
-            case BoundaryType.Sky:
-                position.y = transform.position.y - _collider.size.y - GameManager.Instance.EnvironmentData.BoundaryCollisionPushback;
-                break;
-            case BoundaryType.Wall:
-                // TODO
-                break;
-            }
-            player.transform.position = position;
-
             return true;
         }
     }

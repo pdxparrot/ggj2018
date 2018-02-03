@@ -42,11 +42,6 @@ namespace ggj2018.ggj2018
         public ConfigData ConfigData => _configData;
 
         [SerializeField]
-        private EnvironmentData _environmentData;
-
-        public EnvironmentData EnvironmentData => _environmentData;
-
-        [SerializeField]
         private BirdData _birdData;
 
         public BirdData BirdData => _birdData;
