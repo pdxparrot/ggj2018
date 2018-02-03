@@ -1,5 +1,8 @@
-﻿using ggj2018.Core.Input;
+﻿using System;
+
+using ggj2018.Core.Input;
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 
@@ -31,6 +34,15 @@ namespace ggj2018.ggj2018
         private void Awake()
         {
             InitRigidbody();
+
+            GameManager.Instance.PauseEvent += PauseEventHandler;
+        }
+
+        private void OnDestroy()
+        {
+            if(GameManager.HasInstance) {
+                GameManager.Instance.PauseEvent -= PauseEventHandler;
+            }
         }
 
         private void Update()
@@ -107,19 +119,26 @@ namespace ggj2018.ggj2018
         }
 #endregion
 
-        public void Initialize(Player owner, Bird bird)
-        {
-            _owner = owner;
-            Bird = bird;
-        }
-
         private void InitRigidbody()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.isKinematic = false;
+            _rigidbody.useGravity = false;
             _rigidbody.freezeRotation = true;
             //_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-            _rigidbody.useGravity = false;
+            _rigidbody.detectCollisions = true;
+            _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        }
+
+        public void Initialize(Player owner, BirdData.BirdDataEntry birdType, Bird bird)
+        {
+            _owner = owner;
+            Bird = bird;
+
+            _rigidbody.mass = birdType.Mass;
+            _rigidbody.drag = birdType.Drag;
+            _rigidbody.angularDrag = birdType.AngularDrag;
         }
 
         public void MoveTo(Vector3 position)
@@ -287,6 +306,13 @@ namespace ggj2018.ggj2018
             }
 
             return true;
+        }
+#endregion
+
+#region Event Handlers
+        private void PauseEventHandler(object sender, EventArgs args)
+        {
+            _rigidbody.isKinematic = GameManager.Instance.State.IsPaused;
         }
 #endregion
     }
