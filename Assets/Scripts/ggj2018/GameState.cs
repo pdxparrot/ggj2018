@@ -43,6 +43,8 @@ namespace ggj2018.ggj2018
 
         public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
 
+        public bool CanPause => States.Game == State || States.GameOver == State;
+
         public TimeSpan Timer { get; private set; }
 
         [SerializeField]

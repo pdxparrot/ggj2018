@@ -11,6 +11,7 @@ namespace ggj2018.ggj2018
     [RequireComponent(typeof(Rigidbody))]
     public sealed class PlayerController : NetworkBehavior
     {
+// TODO: Player class should own this
         public Bird Bird { get; private set; }
 
         [SerializeField]

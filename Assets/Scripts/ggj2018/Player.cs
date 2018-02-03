@@ -28,10 +28,9 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private GameObject _godRay;
 
-// TODO: probably don't need to expose this
         private PlayerController _controller;
 
-        public PlayerController Controller => _controller;
+        public Bird Bird => _controller.Bird;
 
         public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
 

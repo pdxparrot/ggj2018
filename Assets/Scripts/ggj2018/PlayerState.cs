@@ -151,7 +151,7 @@ namespace ggj2018.ggj2018
         private void EnableBoost(bool enable)
         {
             _isBoosting = enable;
-            _owner.Controller.Bird.ShowBoostTrail(enable);
+            _owner.Bird.ShowBoostTrail(enable);
         }
 
         private void UpdateBoost(float dt)
@@ -253,7 +253,7 @@ namespace ggj2018.ggj2018
         {
             _stunTimer = PlayerManager.Instance.PlayerData.StunTimeSeconds;
 
-            _owner.Controller.Bird.ShowStun(true);
+            _owner.Bird.ShowStun(true);
         }
 
         private void UpdateStun(float dt)
@@ -264,7 +264,7 @@ namespace ggj2018.ggj2018
 
             _stunTimer -= dt;
             if(!IsStunned) {
-                _owner.Controller.Bird.ShowStun(false);
+                _owner.Bird.ShowStun(false);
                 MakeImmune();
             }
         }
@@ -323,7 +323,7 @@ namespace ggj2018.ggj2018
         {
             _isAlive = false;
 
-            Prey prey = _owner.Controller.Bird as Prey;
+            Prey prey = _owner.Bird as Prey;
             if(null != prey) {
                 prey.ShowBlood(true);
             }

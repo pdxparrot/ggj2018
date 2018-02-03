@@ -106,15 +106,17 @@ namespace ggj2018.ggj2018
 
         private void CheckPause()
         {
-            if(_gameState.State != GameState.States.Game || !InputManager.Instance.StartPressed()) {
+            if(!State.CanPause) {
                 return;
             }
 
-            _gameState.IsPaused = !_gameState.IsPaused;
+            if(InputManager.Instance.StartPressed()) {
+                _gameState.IsPaused = !_gameState.IsPaused;
 
-            UIManager.Instance.EnablePauseUI(_gameState.IsPaused);
+                UIManager.Instance.EnablePauseUI(_gameState.IsPaused);
 
-            PauseEvent?.Invoke(this, EventArgs.Empty);
+                PauseEvent?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void CheckReload()
@@ -123,17 +125,15 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            if(!InputManager.Instance.SelectPressed()) {
-                return;
-            }
-
+            if(InputManager.Instance.SelectPressed()) {
 #if false
-            Debug.Log("Restarting game!");
-            GameSceneManager.Instance.ReloadMainScene();
+                Debug.Log("Restarting game!");
+                GameSceneManager.Instance.ReloadMainScene();
 #else
-            Debug.Log("Quitting game!");
-            Application.Quit();
+                Debug.Log("Quitting game!");
+                Application.Quit();
 #endif
+            }
         }
     }
 }
