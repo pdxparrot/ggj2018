@@ -58,14 +58,14 @@ namespace ggj2018.ggj2018
 
         public void SwitchToMenu()
         {
-            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 selectState.Viewer.PlayerUI.SwitchToMenu();
             }
         }
 
         public void SwitchToGame(GameType gameType)
         {
-            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 selectState.Viewer.PlayerUI.Hide();
             }
 

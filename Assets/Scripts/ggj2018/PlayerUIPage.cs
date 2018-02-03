@@ -2,7 +2,6 @@
 using System.Collections;
 
 using ggj2018.Core.Util;
-using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
@@ -134,7 +133,7 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public void SetStatus(PlayerManager.CharacterSelectState characterSelectState, bool allready)
+        public void SetStatus(CharacterSelectState characterSelectState, bool allready)
         {
             SwitchToMenu();
 

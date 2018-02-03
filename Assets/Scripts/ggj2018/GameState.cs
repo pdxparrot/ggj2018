@@ -109,7 +109,7 @@ namespace ggj2018.ggj2018
         {
             // Check for all players ready
             int ready = 0, joined = 0;
-            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     ++ready;
                     ++joined;
@@ -124,16 +124,16 @@ namespace ggj2018.ggj2018
             }
 
             // Check for player joins
-            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
-                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Joined;
+                        selectState.PlayerJoinState = CharacterSelectState.JoinState.Joined;
                     }
                 } else if(selectState.IsJoined) {
                     if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.A)) {
-                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Ready;
+                        selectState.PlayerJoinState = CharacterSelectState.JoinState.Ready;
                     } else if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
-                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.None;
+                        selectState.PlayerJoinState = CharacterSelectState.JoinState.None;
                     } else {
                         if(InputManager.Instance.DpadPressed(selectState.ControllerIndex, InputManager.DPadDir.Right)) {
                             selectState.NextBird();
@@ -143,7 +143,7 @@ namespace ggj2018.ggj2018
                     }
                 } else {
                     if(InputManager.Instance.PositivePressed(selectState.ControllerIndex)) {
-                        selectState.PlayerJoinState = PlayerManager.CharacterSelectState.JoinState.Joined;
+                        selectState.PlayerJoinState = CharacterSelectState.JoinState.Joined;
                         selectState.SelectedBird = 0;
                     }
                 }
@@ -166,7 +166,7 @@ namespace ggj2018.ggj2018
             int predatorCount = 0;
             int preyCount = 0;
 
-            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     playerCount++;
                 }
@@ -186,7 +186,7 @@ namespace ggj2018.ggj2018
             DetermineGameType();
             Debug.Log($"Beginning game type {GameType.Type}");
 
-            foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
                 } else {
