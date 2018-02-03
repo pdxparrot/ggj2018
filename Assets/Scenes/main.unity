@@ -530,6 +530,8 @@ MonoBehaviour:
     type: 2}
   _playerManagerPrefab: {fileID: 114979071328360754, guid: 2098e32b6df862f44ba4bbfcde8831ed,
     type: 2}
+  _goalManagerPrefab: {fileID: 114793714514747862, guid: 1c148b28c0a253c4f820914ade33db60,
+    type: 2}
   _uiManagerPrefab: {fileID: 114347455139782268, guid: b0b1b434793aa834383f2ba561982096,
     type: 2}
 --- !u!4 &1541085457

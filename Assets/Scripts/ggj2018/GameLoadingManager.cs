@@ -16,6 +16,9 @@ namespace ggj2018.ggj2018
         private PlayerManager _playerManagerPrefab;
 
         [SerializeField]
+        private GoalManager _goalManagerPrefab;
+
+        [SerializeField]
         private UIManager _uiManagerPrefab;
 
         protected override void CreateManagers()
@@ -26,7 +29,7 @@ namespace ggj2018.ggj2018
             GameManager.CreateFromPrefab(_gameManagerPrefab, ManagersContainer);
             PlayerManager.CreateFromPrefab(_playerManagerPrefab, ManagersContainer);
             SpawnManager.Create(ManagersContainer);
-            GoalManager.Create(ManagersContainer);
+            GoalManager.CreateFromPrefab(_goalManagerPrefab, ManagersContainer);
             UIManager.CreateFromPrefab(_uiManagerPrefab, ManagersContainer);
         }
 

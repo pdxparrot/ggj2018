@@ -86,10 +86,6 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            if(CheckGoalCollision(collision)) {
-                return;
-            }
-
             if(CheckBuildingCollision(collision)) {
                 return;
             }
@@ -101,6 +97,10 @@ namespace ggj2018.ggj2018
 
         private void OnTriggerEnter(Collider other)
         {
+            if(CheckGoalCollision(other)) {
+                return;
+            }
+
             if(CheckPlayerCollision(other)) {
                 return;
             }
@@ -246,9 +246,9 @@ namespace ggj2018.ggj2018
         }
 
 #region Collision Handlers
-        private bool CheckGoalCollision(Collision collision)
+        private bool CheckGoalCollision(Collider other)
         {
-            Goal goal = collision.collider.GetComponent<Goal>();
+            Goal goal = other.GetComponent<Goal>();
             return goal?.Collision(_owner) ?? false;
         }
 

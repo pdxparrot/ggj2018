@@ -9,7 +9,6 @@ using ggj2018.Game.Scenes;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Networking;
 
 namespace ggj2018.ggj2018
 {
