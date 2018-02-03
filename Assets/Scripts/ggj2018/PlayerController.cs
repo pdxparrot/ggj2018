@@ -257,9 +257,9 @@ namespace ggj2018.ggj2018
             velocity.y = 0.0f;
 
             if(axes.y < -Mathf.Epsilon) {
-                velocity.y = -PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
             } else if(axes.y > Mathf.Epsilon) {
-                velocity.y = PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
             }
 
             _rigidbody.velocity = velocity;
