@@ -74,10 +74,10 @@ namespace ggj2018.ggj2018
             }
         }
 
-        public void SwitchToVictory(int winner)
+        public void SwitchToGameOver(int winner)
         {
             foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToVictory(winner == player.Id);
+                player.Viewer.PlayerUI.SwitchToGameOver(winner == player.Id);
             }
         }
 
@@ -87,4 +87,3 @@ namespace ggj2018.ggj2018
         }
     }
 }
-

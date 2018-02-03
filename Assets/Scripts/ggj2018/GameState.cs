@@ -18,7 +18,7 @@ namespace ggj2018.ggj2018
             Menu,
             CharacterSelect,
             Game,
-            Victory
+            GameOver
         }
 
         [SerializeField]
@@ -33,14 +33,9 @@ namespace ggj2018.ggj2018
 
         public States State { get { return _state; } private set { _state = value; } }
 
-// TODO: unused? bring intro back?
         [SerializeField]
         [ReadOnly]
-        private int _countdown;
-
-        [SerializeField]
-        [ReadOnly]
-        private int _winner;
+        private int _winner = -1;
 
         public int Winner { get { return _winner; } set { _winner = value; } }
 
@@ -65,8 +60,8 @@ namespace ggj2018.ggj2018
             case States.Game:
                 RunGame(dt);
                 break;
-            case States.Victory:
-                RunVictory();
+            case States.GameOver:
+                RunGameOver();
                 break;
             }
         }
@@ -87,8 +82,8 @@ namespace ggj2018.ggj2018
             case States.Game:
                 BeginGame();
                 break;
-            case States.Victory:
-                BeginVictory();
+            case States.GameOver:
+                BeginGameOver();
                 break;
             }
 
@@ -226,17 +221,22 @@ namespace ggj2018.ggj2018
 
             if(GameType.GameTypeData.TimeLimit > 0) {
                 Timer = Timer.Subtract(TimeSpan.FromSeconds(dt));
+                if(Timer.Seconds <= 0) {
+                    Timer = TimeSpan.Zero;
+                    Winner = -1;
+                    SetState(States.GameOver);
+                }
             }
         }
 #endregion
 
-#region Victory State
-        private void BeginVictory()
+#region Game Over State
+        private void BeginGameOver()
         {
-            UIManager.Instance.SwitchToVictory(Winner);
+            UIManager.Instance.SwitchToGameOver(Winner);
         }
 
-        private void RunVictory()
+        private void RunGameOver()
         {
         }
 #endregion

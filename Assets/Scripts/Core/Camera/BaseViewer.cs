@@ -64,6 +64,11 @@ namespace ggj2018.Core.Camera
             }
         }
 
+        public void SetOrbitRadius(float orbitRadius)
+        {
+            _followCamera.OrbitRadius = orbitRadius;
+        }
+
         public void SetFov(float fov)
         {
             Camera.fieldOfView = fov;

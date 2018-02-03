@@ -1,4 +1,5 @@
 ﻿using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
 
@@ -16,7 +17,7 @@ namespace ggj2018.ggj2018
     {
         [SerializeField]
         [ReadOnly]
-        private int _id;
+        private int _id = -1;
 
         public int Id => _id;
 
@@ -32,6 +33,8 @@ namespace ggj2018.ggj2018
         private PlayerController _controller;
 
         public PlayerController Controller => _controller;
+
+        public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
 
         public int ControllerIndex { get; private set; }
 

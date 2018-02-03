@@ -17,7 +17,7 @@ MonoBehaviour:
     _predatorWinConditionDescription: Deliver messages to the goals!
     _preyWinConditionDescription: Deliver messages to the goals!
     _scoreLimit: 1
-    _timeLimit: 10
+    _timeLimit: 1
   - _gameType: 1
     _name: Hunt and Deliver
     _predatorWinConditionDescription: Kill the messengers!

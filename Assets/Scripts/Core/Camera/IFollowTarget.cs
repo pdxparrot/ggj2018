@@ -1,7 +1,9 @@
-﻿namespace ggj2018.Core.Camera
+﻿using UnityEngine;
+
+namespace ggj2018.Core.Camera
 {
     public interface IFollowTarget
     {
-        int ControllerIndex { get; }
+        Vector3 LookAxis { get; }
     }
 }

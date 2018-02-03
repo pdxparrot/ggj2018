@@ -33,7 +33,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             Debug.Log($"Player {player.Id} has reached the goal!"); 
             GameManager.Instance.State.Winner = player.Id;
-            GameManager.Instance.State.SetState(GameState.States.Victory);
+            GameManager.Instance.State.SetState(GameState.States.GameOver);
         }
 
         public override void PlayerKill(Player killer)
@@ -45,7 +45,7 @@ namespace ggj2018.ggj2018.GameTypes
             if(killer.State.Score == PlayerManager.Instance.PreyCount) {
                 Debug.Log($"Player {killer.Id} has killed all the messengers!"); 
                 GameManager.Instance.State.Winner = killer.Id;
-                GameManager.Instance.State.SetState(GameState.States.Victory);
+                GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
         }
     }

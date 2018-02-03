@@ -7,13 +7,13 @@ namespace ggj2018.ggj2018
     public abstract class Bird : MonoBehavior
     {
         [SerializeField]
-        private GameObject _stunParticles;
+        private ParticleSystem _stunParticles;
 
         [SerializeField]
-        private GameObject _featherParticles;
+        private ParticleSystem _featherParticles;
 
         [SerializeField]
-        private GameObject _boostTrail;
+        private TrailRenderer _boostTrail;
 
 #region Unity Lifecycle
         protected virtual void Start()
@@ -25,13 +25,18 @@ namespace ggj2018.ggj2018
 
         public void ShowStun(bool show)
         {
-            _stunParticles.SetActive(show);
+            _stunParticles.gameObject.SetActive(show);
         }
 
-        public void ShowBoostTrail(bool enable)
+        public void ShowBoostTrail(bool show)
         {
-            _featherParticles.SetActive(enable);
-            _boostTrail.SetActive(enable);
+            if(show) {
+                _featherParticles.Play();
+            } else {
+                _featherParticles.Stop();
+
+            }
+            _boostTrail.gameObject.SetActive(show);
         }
     }
 }

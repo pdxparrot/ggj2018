@@ -27,6 +27,13 @@ namespace ggj2018.ggj2018.Data
 
             public Sprite Icon => _icon;
 
+#region Viewer
+            [SerializeField]
+            private float _followOrbitRadius = 15.0f;
+
+            public float FollowOrbitRadius => _followOrbitRadius;
+#endregion
+
 #region Stat Modifiers
             [SerializeField]
             private float _speedModifier;
