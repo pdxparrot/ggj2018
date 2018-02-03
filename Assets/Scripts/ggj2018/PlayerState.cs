@@ -185,10 +185,10 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Player {_owner.Id} stunned by the environment!");
 
-            Stun(collision);
+            Stun(collision.collider);
         }
 
-        public void PlayerStun(Player stunner, Collision collision)
+        public void PlayerStun(Player stunner, Collider other)
         {
             if(IsDead) {
                 return;
@@ -198,7 +198,7 @@ namespace ggj2018.ggj2018
 
             Debug.Log($"Player {_owner.Id} stunned by player {stunner.State._owner.Id}!");
 
-            Stun(collision);
+            Stun(other);
         }
 
 #if UNITY_EDITOR
@@ -214,12 +214,12 @@ namespace ggj2018.ggj2018
         }
 #endif
 
-        private void Stun(Collision collision)
+        private void Stun(Collider other)
         {
             Stun();
 
             Vector3 playerPosition = _owner.transform.position;
-            Vector3 collisionPosition = collision.collider.transform.position;
+            Vector3 collisionPosition = other.transform.position;
             collisionPosition.y = playerPosition.y;
 
             _stunBounceDirection = (playerPosition - collisionPosition).normalized;
@@ -262,14 +262,14 @@ namespace ggj2018.ggj2018
             Kill();
         }
 
-        public void PlayerKill(Player killer, Collision collision)
+        public void PlayerKill(Player killer, Collider other)
         {
             if(IsDead) {
                 return;
             }
 
             if(killer.State.IsDead) {
-                PlayerStun(killer, collision);
+                PlayerStun(killer, other);
                 return;
             }
 

@@ -106,11 +106,14 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            if(CheckPlayerCollision(collision)) {
+            if(CheckWorldCollision(collision)) {
                 return;
             }
+        }
 
-            if(CheckWorldCollision(collision)) {
+        private void OnTriggerEnter(Collider other)
+        {
+            if(CheckPlayerCollision(other)) {
                 return;
             }
         }
@@ -284,23 +287,6 @@ namespace ggj2018.ggj2018
             return building?.Collision(_owner, collision) ?? false;
         }
 
-        private bool CheckPlayerCollision(Collision collision)
-        {
-            Player player = collision.collider.GetComponentInParent<Player>();
-            if(null == player) {
-                return false;
-            }
-
-            if(_owner.State.BirdType.IsPredator && player.State.BirdType.IsPrey) {
-                player.State.PlayerKill(_owner, collision);
-            } else {
-                _owner.State.PlayerStun(player, collision);
-                player.State.PlayerStun(_owner, collision);
-            }
-
-            return true;
-        }
-
         private bool CheckWorldCollision(Collision collision)
         {
             WorldBoundary boundary = collision.collider.GetComponent<WorldBoundary>();
@@ -310,6 +296,23 @@ namespace ggj2018.ggj2018
 
             _boundaryCollision = boundary;
             return boundary.Collision(_owner);
+        }
+
+        private bool CheckPlayerCollision(Collider other)
+        {
+            Player player = other.GetComponentInParent<Player>();
+            if(null == player) {
+                return false;
+            }
+
+            if(_owner.State.BirdType.IsPredator && player.State.BirdType.IsPrey) {
+                player.State.PlayerKill(_owner, other);
+            } else {
+                _owner.State.PlayerStun(player, other);
+                player.State.PlayerStun(_owner, other);
+            }
+
+            return true;
         }
 #endregion
     }
