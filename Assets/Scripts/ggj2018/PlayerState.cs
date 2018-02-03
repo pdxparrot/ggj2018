@@ -49,6 +49,12 @@ namespace ggj2018.ggj2018
 
         public bool IsIncapacitated => IsStunned || IsDead;
 
+        [SerializeField]
+        [ReadOnly]
+        private float _immuneTimer;
+
+        public bool IsImmune => IsDead || _immuneTimer > 0.0f;
+
 #region Boost
         [SerializeField]
         [ReadOnly]
@@ -107,8 +113,21 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+            UpdateImmune(dt);
             UpdateBoost(dt);
             UpdateStun(dt);
+        }
+
+        private void UpdateImmune(float dt)
+        {
+            if(_immuneTimer > 0.0f) {
+                _immuneTimer -= dt;
+            }
+        }
+
+        private void MakeImmune()
+        {
+            _immuneTimer = GameManager.Instance.GameTypeData.ImmuneTime;
         }
 
 #region Boost
@@ -179,7 +198,7 @@ namespace ggj2018.ggj2018
                 return;
             } 
 
-            if(IsStunned) {
+            if(IsImmune || IsStunned) {
                 return;
             }
 
@@ -190,7 +209,7 @@ namespace ggj2018.ggj2018
 
         public void PlayerStun(Player stunner, Collider other)
         {
-            if(IsDead) {
+            if(IsImmune) {
                 return;
             }
 
@@ -246,6 +265,7 @@ namespace ggj2018.ggj2018
             _stunTimer -= dt;
             if(!IsStunned) {
                 _owner.Controller.Bird.ShowStun(false);
+                MakeImmune();
             }
         }
 #endregion
@@ -253,7 +273,7 @@ namespace ggj2018.ggj2018
 #region Kill
         public void EnvironmentKill()
         {
-            if(IsDead) {
+            if(IsImmune) {
                 return;
             }
 
@@ -264,7 +284,7 @@ namespace ggj2018.ggj2018
 
         public void PlayerKill(Player killer, Collider other)
         {
-            if(IsDead) {
+            if(IsImmune) {
                 return;
             }
 
@@ -273,9 +293,15 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+            if(killer.State.IsStunned) {
+                return;
+            }
+
             Debug.Log($"Player {_owner.Id} killed by player {killer.Id}!");
 
             Kill();
+
+            killer.State.MakeImmune();
 
             GameManager.Instance.State.GameType.PlayerKill(killer);
         }

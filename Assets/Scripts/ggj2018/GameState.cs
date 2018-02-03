@@ -246,13 +246,14 @@ SetState(States.Menu);
         {
             UIManager.Instance.SwitchToGameOver(GameType);
 
-            _gameOverTimer = 0.0f;
+            _gameOverTimer = GameManager.Instance.GameTypeData.GameOverWaitTime;
         }
 
         private void RunGameOver(float dt)
         {
-            _gameOverTimer += dt;
-            if(_gameOverTimer >= GameManager.Instance.GameTypeData.GameOverWaitTime) {
+            _gameOverTimer -= dt;
+            if(_gameOverTimer <= 0.0f) {
+                _gameOverTimer = 0.0f;
 // TODO
                 //SetState(States.Init);
             }

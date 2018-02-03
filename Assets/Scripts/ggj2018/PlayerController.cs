@@ -306,7 +306,9 @@ namespace ggj2018.ggj2018
             }
 
             if(_owner.State.BirdType.IsPredator && player.State.BirdType.IsPrey) {
-                player.State.PlayerKill(_owner, other);
+                player.State.PlayerKill(_owner, GetComponentInChildren<Collider>());
+            } else if(_owner.State.BirdType.IsPrey && player.State.BirdType.IsPredator) {
+                _owner.State.PlayerKill(player, other);
             } else {
                 _owner.State.PlayerStun(player, other);
                 player.State.PlayerStun(_owner, other);
