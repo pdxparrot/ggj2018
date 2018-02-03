@@ -173,6 +173,7 @@ namespace ggj2018.ggj2018
                 return;
             }
 
+            // TODO: torque
             float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.TurnSpeedModifier;
             Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
             _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
