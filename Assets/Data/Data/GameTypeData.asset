@@ -15,18 +15,33 @@ MonoBehaviour:
   - _gameType: 0
     _name: Delivery
     _predatorWinConditionDescription: Deliver messages to the goals!
+    _predatorWinText: You Win!
+    _predatorLossText: You Lose!
     _preyWinConditionDescription: Deliver messages to the goals!
+    _preyWinText: You Win!
+    _preyLossText: You Lose!
     _scoreLimit: 1
     _timeLimit: 1
+    _timesUpText: Time's Up!
   - _gameType: 1
     _name: Hunt and Deliver
     _predatorWinConditionDescription: Kill the messengers!
+    _predatorWinText: Winner winner, pigeon dinner!
+    _predatorLossText: Better luck next time!
     _preyWinConditionDescription: Deliver the message to the goal!
+    _preyWinText: You Win!
+    _preyLossText: You Lose!
     _scoreLimit: -1
     _timeLimit: -1
+    _timesUpText: 
   - _gameType: 2
     _name: Revenge
     _predatorWinConditionDescription: Survive!
+    _predatorWinText: You Win!
+    _predatorLossText: You Lose!
     _preyWinConditionDescription: Kill the hunters!
+    _preyWinText: You Win!
+    _preyLossText: You Lose!
     _scoreLimit: -1
     _timeLimit: 5
+    _timesUpText: Time's Up!

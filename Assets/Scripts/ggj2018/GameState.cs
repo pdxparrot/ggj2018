@@ -35,12 +35,6 @@ namespace ggj2018.ggj2018
 
         [SerializeField]
         [ReadOnly]
-        private int _winner = -1;
-
-        public int Winner { get { return _winner; } set { _winner = value; } }
-
-        [SerializeField]
-        [ReadOnly]
         private bool _isPaused;
 
         public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
@@ -223,7 +217,7 @@ namespace ggj2018.ggj2018
                 Timer = Timer.Subtract(TimeSpan.FromSeconds(dt));
                 if(Timer.Seconds <= 0) {
                     Timer = TimeSpan.Zero;
-                    Winner = -1;
+                    GameType.TimerFinish();
                     SetState(States.GameOver);
                 }
             }
@@ -233,7 +227,7 @@ namespace ggj2018.ggj2018
 #region Game Over State
         private void BeginGameOver()
         {
-            UIManager.Instance.SwitchToGameOver(Winner);
+            UIManager.Instance.SwitchToGameOver(GameType);
         }
 
         private void RunGameOver()

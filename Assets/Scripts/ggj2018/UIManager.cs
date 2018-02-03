@@ -66,18 +66,18 @@ namespace ggj2018.ggj2018
         public void SwitchToGame(GameType gameType)
         {
             foreach(PlayerManager.CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
-                if(null == selectState.Player) {
-                    selectState.Viewer.PlayerUI.Hide();
-                } else {
-                    selectState.Viewer.PlayerUI.SwitchToGame(gameType, selectState.Player.State.BirdType);
-                }
+                selectState.Viewer.PlayerUI.Hide();
+            }
+
+            foreach(Player player in PlayerManager.Instance.Players) {
+                player.Viewer.PlayerUI.SwitchToGame(gameType);
             }
         }
 
-        public void SwitchToGameOver(int winner)
+        public void SwitchToGameOver(GameType gameType)
         {
             foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToGameOver(winner == player.Id);
+                player.Viewer.PlayerUI.SwitchToGameOver(gameType);
             }
         }
 

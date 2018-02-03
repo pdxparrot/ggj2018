@@ -10,6 +10,13 @@ namespace ggj2018.ggj2018
     [Serializable]
     public sealed class PlayerState
     {
+        public enum GameOverType
+        {
+            Win,
+            Loss,
+            TimerUp
+        }
+
         [SerializeField]
         [ReadOnly]
         private BirdData.BirdDataEntry _birdType;
@@ -73,6 +80,12 @@ namespace ggj2018.ggj2018
         private int _score;
 
         public int Score { get { return _score; } set { _score = value; } }
+
+        [SerializeField]
+        [ReadOnly]
+        private GameOverType _gameOverState = GameOverType.Loss;
+
+        public GameOverType GameOverState { get { return _gameOverState; } set { _gameOverState = value; } }
 
         private readonly Player _owner;
 
@@ -288,6 +301,8 @@ namespace ggj2018.ggj2018
             if(null != prey) {
                 prey.ShowBlood(true);
             }
+
+            _owner.Viewer.PlayerUI.SwitchToDead();
         }
 #endregion
     }

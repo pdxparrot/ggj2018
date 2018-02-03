@@ -51,6 +51,13 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
+        public virtual void TimerFinish()
+        {
+            foreach(Player player in PlayerManager.Instance.Players) {
+                player.State.GameOverState = PlayerState.GameOverType.TimerUp;
+            }
+        }
+
         protected GameType(GameTypeData.GameTypeDataEntry gameTypeData)
         {
             GameTypeData = gameTypeData;

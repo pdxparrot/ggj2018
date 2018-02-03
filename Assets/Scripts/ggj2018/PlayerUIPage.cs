@@ -25,8 +25,10 @@ namespace ggj2018.ggj2018
         [SerializeField] private GameObject AllReady;
         [SerializeField] private GameObject Waiting;
 
-        [SerializeField] private GameObject FinishWin;
-        [SerializeField] private GameObject FinishLose;
+        [SerializeField] private GameObject DeadPanel;
+
+        [SerializeField] private GameObject WinLossPanel;
+        [SerializeField] private Text WinLossText;
 
         [SerializeField] private GameObject KillCard;
         [SerializeField] private GameObject Kill1;
@@ -83,7 +85,7 @@ namespace ggj2018.ggj2018
             IntroPanel.SetActive(false);
         }
 
-        public void SwitchToGame(GameType gameType, BirdData.BirdDataEntry birdType)
+        public void SwitchToGame(GameType gameType)
         {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(true);
@@ -93,7 +95,7 @@ namespace ggj2018.ggj2018
             Goal.text = gameType.GameTypeData.GetWinConditionDescription(_owner.State.BirdType);
             GameTimerPanel.SetActive(gameType.ShowTimer);
 
-            ScorePanel.SetActive(gameType.ShowScore(birdType));
+            ScorePanel.SetActive(gameType.ShowScore(_owner.State.BirdType));
 
             StartCoroutine(CloseIntroPanel());
         }
@@ -105,15 +107,31 @@ namespace ggj2018.ggj2018
             IntroPanel.SetActive(false);
         }
 
-        public void SwitchToGameOver(bool won)
+        public void SwitchToDead()
+        {
+            DeadPanel.SetActive(true);
+        }
+
+        public void SwitchToGameOver(GameType gameType)
         {
             MenuPanel.SetActive(false);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(true);
             IntroPanel.SetActive(false);
 
-            FinishWin.SetActive(won);
-            FinishLose.SetActive(!won);
+            WinLossPanel.SetActive(true);
+            switch(_owner.State.GameOverState)
+            {
+            case PlayerState.GameOverType.Win:
+                WinLossText.text = gameType.GameTypeData.GetWinText(_owner.State.BirdType);
+                break;
+            case PlayerState.GameOverType.Loss:
+                WinLossText.text = gameType.GameTypeData.GetLossText(_owner.State.BirdType);
+                break;
+            case PlayerState.GameOverType.TimerUp:
+                WinLossText.text = gameType.GameTypeData.TimesUpText;
+                break;
+            }
         }
 
         public void SetStatus(PlayerManager.CharacterSelectState characterSelectState, bool allready)

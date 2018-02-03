@@ -31,8 +31,13 @@ namespace ggj2018.ggj2018.GameTypes
                 return;
             }
 
-            Debug.Log($"Player {player.Id} has reached the goal!"); 
-            GameManager.Instance.State.Winner = player.Id;
+            Debug.Log($"Player {player.Id} has reached the goal!");
+            foreach(Player p in PlayerManager.Instance.Players) {
+                if(p.State.BirdType.IsPredator) {
+                    continue;
+                }
+                p.State.GameOverState = PlayerState.GameOverType.Win;
+            }
             GameManager.Instance.State.SetState(GameState.States.GameOver);
         }
 
@@ -43,8 +48,8 @@ namespace ggj2018.ggj2018.GameTypes
             killer.State.Score++;
 
             if(killer.State.Score == PlayerManager.Instance.PreyCount) {
-                Debug.Log($"Player {killer.Id} has killed all the messengers!"); 
-                GameManager.Instance.State.Winner = killer.Id;
+                Debug.Log($"Player {killer.Id} has killed all the messengers!");
+                killer.State.GameOverState = PlayerState.GameOverType.Win;
                 GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
         }

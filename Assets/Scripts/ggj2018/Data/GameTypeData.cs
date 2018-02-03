@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ggj2018.ggj2018.Data
 {
@@ -24,16 +25,36 @@ namespace ggj2018.ggj2018.Data
 
             public string Name => _name;
 
-#region Win Conditions
+#region Win/Loss Texts
             [SerializeField]
             private string _predatorWinConditionDescription;
 
             public string PredatorWinConditionDescription => _predatorWinConditionDescription;
 
             [SerializeField]
+            private string _predatorWinText;
+
+            public string PredatorWinText => _predatorWinText;
+
+            [SerializeField]
+            private string _predatorLossText;
+
+            public string PredatorLossText => _predatorLossText;
+
+            [SerializeField]
             private string _preyWinConditionDescription;
 
             public string PreyWinConditionDescription => _preyWinConditionDescription;
+
+            [SerializeField]
+            private string _preyWinText;
+
+            public string PreyWinText => _preyWinText;
+
+            [SerializeField]
+            private string _preyLossText;
+
+            public string PreyLossText => _preyLossText;
 #endregion
 
             [SerializeField]
@@ -46,9 +67,24 @@ namespace ggj2018.ggj2018.Data
 
             public int TimeLimit => _timeLimit;
 
+            [SerializeField]
+            private string _timesUpText;
+
+            public string TimesUpText => _timesUpText;
+
             public string GetWinConditionDescription(BirdData.BirdDataEntry birdType)
             {
                 return birdType.IsPredator ? PredatorWinConditionDescription : PreyWinConditionDescription;
+            }
+
+            public string GetWinText(BirdData.BirdDataEntry birdType)
+            {
+                return birdType.IsPredator ? PredatorWinText : PreyWinText;
+            }
+
+            public string GetLossText(BirdData.BirdDataEntry birdType)
+            {
+                return birdType.IsPredator ? PredatorLossText : PreyLossText;
             }
         }
 
