@@ -41,16 +41,25 @@ namespace ggj2018.ggj2018
         public string PlayerBirdId => PlayerBirdData.Id;
 #endregion
 
-        public Viewer Viewer { get; }
+        [SerializeField]
+        private Viewer _viewer;
 
-        public int ControllerIndex { get; }
+        public Viewer Viewer => _viewer;
 
-        public Player Player { get; set; }
+        [SerializeField]
+        private int _controllerIndex;
+
+        public int ControllerIndex => _controllerIndex;
+
+        [SerializeField]
+        private Player _player;
+
+        public Player Player { get { return _player; } set { _player = value; } }
 
         public CharacterSelectState(int controllerIndex, Viewer viewer)
         {
-            ControllerIndex = controllerIndex;
-            Viewer = viewer;
+            _controllerIndex = controllerIndex;
+            _viewer = viewer;
         }
 
         public void NextBird()

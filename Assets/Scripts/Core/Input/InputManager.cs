@@ -129,10 +129,10 @@ namespace ggj2018.Core.Input
 #region Unity Lifecycle
         private void Awake()
         {
-            _controllerAcquired = new bool[_maxControllers];
+            _controllerAcquired = new bool[MaxControllers];
 
-            _controllerStates = new ControllerState[_maxControllers];
-            for(int i=0; i<_maxControllers; ++i) {
+            _controllerStates = new ControllerState[MaxControllers];
+            for(int i=0; i<MaxControllers; ++i) {
                 _controllerStates[i] = new ControllerState();
             }
         }
@@ -149,7 +149,7 @@ namespace ggj2018.Core.Input
 
         private void Update()
         {
-            for(int i=0; i<_maxControllers; ++i) {
+            for(int i=0; i<MaxControllers; ++i) {
                 if(Pressed(i, Button.RightBumper)) {
                     Debug.Log($"Inverting controller {i} look");
                     _controllerStates[i].InvertLookY = !_controllerStates[i].InvertLookY;
@@ -243,7 +243,7 @@ namespace ggj2018.Core.Input
 
         public bool StartPressed()
         {
-            for(int i=0; i<_maxControllers; ++i) {
+            for(int i=0; i<MaxControllers; ++i) {
                 if(StartPressed(i)) {
                     return true;
                 }
@@ -258,7 +258,7 @@ namespace ggj2018.Core.Input
 
         public bool SelectPressed()
         {
-            for(int i=0; i<_maxControllers; ++i) {
+            for(int i=0; i<MaxControllers; ++i) {
                 if(SelectPressed(i)) {
                     return true;
                 }

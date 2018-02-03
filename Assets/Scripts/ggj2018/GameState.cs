@@ -6,6 +6,7 @@ using ggj2018.Core.Util;
 using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ggj2018.ggj2018
 {
@@ -121,7 +122,7 @@ SetState(States.Menu);
         }
 #endregion
 
-#region Menu State
+#region Character Select State
         private void BeginCharacterSelect()
         {
         }
@@ -140,8 +141,12 @@ SetState(States.Menu);
             }
 
             if(ready == joined && ready > 0 && InputManager.Instance.StartPressed()) {
-                SetState(States.Game);
-                return;
+                if(!GameManager.Instance.NetworkManager.IsClientConnected()) {
+                    Debug.LogError("Need to connect to a server!");
+                } else {
+                    SetState(States.Game);
+                    return;
+                }
             }
 
             // Check for player joins

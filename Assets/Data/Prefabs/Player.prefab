@@ -187,25 +187,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867eb9a94ecf9bb4da1f266b2136b94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: -1
   _playerState:
     _birdType:
       _id: 
       _name: 
       _icon: {fileID: 0}
+      _followOrbitRadius: 15
       _speedModifier: 0
       _turnSpeedModifier: 0
       _pitchSpeedModifier: 0
       _isPredator: 0
-    _playerNumber: 0
     _isAlive: 0
     _stunTimer: 0
     _stunBounceDirection: {x: 0, y: 0, z: 0}
+    _immuneTimer: 0
     _isBoosting: 0
     _boostRemainingSeconds: 0
     _isBraking: 0
     _score: 0
-    _kills: 0
+    _gameOverState: 0
   _godRay: {fileID: 1263100251746664}
+  _controllerIndex: 0
+  _viewer: {fileID: 0}
 --- !u!114 &114409893506739372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
   m_SendInterval: 0.1
-  m_SyncRotationAxis: 1
+  m_SyncRotationAxis: 0
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001

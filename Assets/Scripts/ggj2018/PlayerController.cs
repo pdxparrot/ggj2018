@@ -7,9 +7,8 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018
 {
-// TODO: this should be a NetworkBehavior
     [RequireComponent(typeof(Rigidbody))]
-    public sealed class PlayerController : NetworkBehavior
+    public sealed class PlayerController : MonoBehaviour
     {
 // TODO: Player class should own this
         public Bird Bird { get; private set; }
@@ -50,9 +49,9 @@ namespace ggj2018.ggj2018
                 return;
             }
 
-            /*if(!isLocalPlayer) {
+            if(!_owner.IsLocalPlayer) {
                 return;
-            }*/
+            }
 
 #if UNITY_EDITOR
             CheckForDebug();
@@ -75,9 +74,9 @@ namespace ggj2018.ggj2018
 
         private void FixedUpdate()
         {
-            /*if(!isLocalPlayer) {
+            if(!_owner.IsLocalPlayer) {
                 return;
-            }*/
+            }
 
             if(GameManager.Instance.State.IsPaused) {
                 return;
@@ -95,9 +94,9 @@ namespace ggj2018.ggj2018
             // this fixes the weird rotation that occurs on collision
             _rigidbody.ResetCenterOfMass();
 
-            /*if(!isLocalPlayer) {
+            if(!_owner.IsLocalPlayer) {
                 return;
-            }*/
+            }
 
             if(CheckGoalCollision(collision)) {
                 return;

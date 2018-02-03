@@ -10,6 +10,7 @@ using ggj2018.ggj2018.GameTypes;
 using JetBrains.Annotations;
 
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
 namespace ggj2018.ggj2018
@@ -44,14 +45,10 @@ namespace ggj2018.ggj2018
 
         public LayerMask PlayerCollisionLayer => LayerMask.NameToLayer(_playerCollisionLayerName);
 
-        public int MaxLocalPlayers => InputManager.Instance.MaxControllers;
-
         private readonly List<Player> _players = new List<Player>();
 
         public IReadOnlyCollection<Player> Players => _players;
 
-        //[SerializeField]
-        [ReadOnly]
         private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
 
         public IReadOnlyCollection<CharacterSelectState> CharacterSelectStates => _characterSelectStates;
@@ -85,9 +82,10 @@ namespace ggj2018.ggj2018
 
         public void Initialize()
         {
-            for(int i=0; i<InputManager.Instance.MaxControllers; ++i) {
+            for(int i=0; i<GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
                 Viewer viewer = CameraManager.Instance.AcquireViewer() as Viewer;
                 int controllerIndex = InputManager.Instance.AcquireController();
+                Debug.Log($"Acquired viewer {viewer?.name} and controller {controllerIndex}");
 
                 _characterSelectStates.Add(new CharacterSelectState(controllerIndex, viewer));
             }
@@ -105,6 +103,7 @@ namespace ggj2018.ggj2018
 
             Player player = Instantiate(_playerPrefab, _playerContainer.transform);
             InitializePlayer(player, _players.Count, selectState, spawnPoint);
+            //NetworkServer.Spawn(player.gameObject);
 
             Debug.Log($"Spawned {player.State.BirdType.Name} for local player {player.Id} at {spawnPoint.name} ({player.transform.position})");
 
@@ -120,11 +119,11 @@ namespace ggj2018.ggj2018
                     : (Bird)PreyModelPrefab,
                 player.transform);
 
-            //if(player.isLocal) {
+            if(player.IsLocalPlayer) {
                 player.InitializeLocal(playerId, selectState.ControllerIndex, selectState.Viewer, birdModel, selectState.PlayerBirdData);
-            /*} else {
+            } else {
                 player.InitializeNetwork(playerId, birdModel, selectState.PlayerBirdData);
-            }*/
+            }
 
             spawnPoint.Spawn(player);
         }

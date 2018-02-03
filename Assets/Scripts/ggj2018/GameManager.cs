@@ -3,6 +3,7 @@
 using ggj2018.Core.Util;
 using ggj2018.Core.Input;
 using ggj2018.Core.Camera;
+using ggj2018.Core.Network;
 using ggj2018.ggj2018.Data;
 using ggj2018.Game.Scenes;
 
@@ -29,10 +30,14 @@ namespace ggj2018.ggj2018
 
         private EventSystem _eventSystem;
 
-        [SerializeField]
-        private NetworkManager _networkManagerPrefab;
+        public EventSystem EventSystem => _eventSystem;
 
-        private NetworkManager _networkManager;
+        [SerializeField]
+        private Core.Network.NetworkManager _networkManagerPrefab;
+
+        private Core.Network.NetworkManager _networkManager;
+
+        public Core.Network.NetworkManager NetworkManager => _networkManager;
 #endregion
 
 #region Data
@@ -65,14 +70,15 @@ namespace ggj2018.ggj2018
             _gameTypeData.Initialize();
 
             if(ConfigData.EnableGVR) {
+                Debug.Log("Creating GVR managers...");
                 _gvr = Instantiate(_gvrPrefab);
             } else {
+                Debug.Log("Creating EventSystem (no VR)...");
                 _eventSystem = Instantiate(_eventSystemPrefab);
             }
 
-            if(ConfigData.EnableNetwork) {
-                _networkManager = Instantiate(_networkManagerPrefab);
-            }
+            Debug.Log("Creating NetworkManager...");
+            _networkManager = Instantiate(_networkManagerPrefab);
         }
 
         protected override void OnDestroy()
@@ -100,7 +106,9 @@ namespace ggj2018.ggj2018
 
         public void Initialize()
         {
-            CameraManager.Instance.SpawnViewers(PlayerManager.Instance.MaxLocalPlayers);
+            NetworkManager.Initialize(ConfigData.EnableNetwork);
+
+            CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
             State.SetState(GameState.States.Menu);
         }
 

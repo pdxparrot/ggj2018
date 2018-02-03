@@ -54,12 +54,11 @@ MonoBehaviour:
   _gvrPrefab: {fileID: 1273152247136632, guid: 952da6131158e1a4290b815649634c40, type: 2}
   _eventSystemPrefab: {fileID: 114280561948617406, guid: ca6aa1640be9b4c4cbddd80378c2a768,
     type: 2}
-  _networkManagerPrefab: {fileID: 114940941671366252, guid: 321d05647f5b8cb429c0926451d1e8a1,
+  _networkManagerPrefab: {fileID: 114547354678362602, guid: 321d05647f5b8cb429c0926451d1e8a1,
     type: 2}
   _configData: {fileID: 11400000, guid: f7ed3d2f3679b5d47a4f830d8b7bb2b7, type: 2}
   _birdData: {fileID: 11400000, guid: 008fe9d8630fb01439dbf2af6c478a5e, type: 2}
   _gameTypeData: {fileID: 11400000, guid: 88dcf27b5a9125f4491398fb1dc1985c, type: 2}
-  _playerCollisionLayerName: PlayerCollision
   _gameState:
     _state: 0
     _isPaused: 0

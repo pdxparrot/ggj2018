@@ -99,8 +99,6 @@ namespace ggj2018.Core.Camera
 
         private void ResizeViewports(IReadOnlyCollection<BaseViewer> viewers)
         {
-            Debug.Log($"Resizing {viewers.Count} viewports...");
-
             int gridCols = Mathf.CeilToInt(Mathf.Sqrt(viewers.Count));
             int gridRows = gridCols;
 
@@ -110,6 +108,8 @@ namespace ggj2018.Core.Camera
 
             float viewportWidth = (1.0f / gridCols);
             float viewportHeight = (1.0f / gridRows);
+
+            Debug.Log($"Resizing {viewers.Count} viewports, Grid Size: {gridCols}x{gridRows} Viewport Size: {viewportWidth}x{viewportHeight}");
 
             for(int row=0; row<gridRows; ++row) {
                 for(int col=0; col<gridCols; ++col) {

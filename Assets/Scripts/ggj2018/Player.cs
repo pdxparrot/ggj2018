@@ -10,9 +10,9 @@ namespace ggj2018.ggj2018
 {
 // TODO: rename this Player when NetworkPlayer is gone
     [RequireComponent(typeof(PlayerController))]
-    //[RequireComponent(typeof(NetworkIdentity))]
-    //[RequireComponent(typeof(NetworkTransform))]
-    public sealed class Player : MonoBehaviour, IFollowTarget //NetworkBehavior
+    [RequireComponent(typeof(NetworkIdentity))]
+    [RequireComponent(typeof(NetworkTransform))]
+    public sealed class Player : NetworkBehavior, IFollowTarget
     {
         [SerializeField]
         [ReadOnly]
@@ -34,9 +34,19 @@ namespace ggj2018.ggj2018
 
         public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
 
-        public int ControllerIndex { get; private set; }
+        [SerializeField]
+        [ReadOnly]
+        private int _controllerIndex;
 
-        public Viewer Viewer { get; private set; }
+        public int ControllerIndex => _controllerIndex;
+
+        [SerializeField]
+        [ReadOnly]
+        private Viewer _viewer;
+
+        public Viewer Viewer => _viewer;
+
+        public bool IsLocalPlayer => !GameManager.Instance.ConfigData.EnableNetwork || isLocalPlayer;
 
 #region Unity Lifecycle
         private void Awake()
@@ -57,11 +67,12 @@ namespace ggj2018.ggj2018
 
         public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird birdModel, BirdData.BirdDataEntry birdType)
         {
+            Debug.Log($"Initializing local player {id}");
             Initialize(id, birdModel, birdType);
 
-            ControllerIndex = controllerIndex;
+            _controllerIndex = controllerIndex;
 
-            Viewer = viewer;
+            _viewer = viewer;
             Viewer.Initialize(this);
 
             Viewer.FollowCamera.SetTarget(gameObject);
@@ -72,6 +83,7 @@ namespace ggj2018.ggj2018
 
         public void InitializeNetwork(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
         {
+            Debug.Log($"Initializing network player {id}");
             Initialize(id, birdModel, birdType);
         }
 
@@ -84,6 +96,17 @@ namespace ggj2018.ggj2018
             State.Initialize(birdType);
 
             _godRay.GetComponent<GodRay>().Setup(this);
+
+            LogInfo();
+        }
+
+        private void LogInfo()
+        {
+            Debug.Log($@"Player(Id: {Id}, Networkid: {netId})
+isLocalPlayer: {IsLocalPlayer}
+isClient: {isClient}
+isServer: {isServer}"
+            );
         }
     }
 }

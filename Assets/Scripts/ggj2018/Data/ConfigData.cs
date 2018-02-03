@@ -1,5 +1,7 @@
 ﻿using System;
 
+using ggj2018.Core.Input;
+
 using UnityEngine;
 
 namespace ggj2018.ggj2018.Data
@@ -21,5 +23,7 @@ namespace ggj2018.ggj2018.Data
         private bool _enableNetwork;
 
         public bool EnableNetwork => _enableNetwork;
+
+        public int MaxLocalPlayers => (EnableGVR || EnableNetwork) ? 1 : InputManager.Instance.MaxControllers;
     }
 }
