@@ -34,6 +34,23 @@ namespace ggj2018.ggj2018.Data
             public float FollowOrbitRadius => _followOrbitRadius;
 #endregion
 
+#region Physics
+            [SerializeField]
+            private float _mass = 1.0f;
+
+            public float Mass => _mass;
+
+            [SerializeField]
+            private float _drag = 0.0f;
+
+            public float Drag => _drag;
+
+            [SerializeField]
+            private float _angularDrag = 0.05f;
+
+            public float AngularDrag => _angularDrag;
+#endregion
+
 #region Stat Modifiers
             [SerializeField]
             private float _speedModifier;

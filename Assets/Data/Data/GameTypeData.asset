@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04a0a652dfaebd4ca3197b61928e1f4, type: 3}
   m_Name: GameTypeData
   m_EditorClassIdentifier: 
+  _immuneTime: 1
+  _gameOverWaitTime: 5
   _gameTypes:
   - _gameType: 0
     _name: Delivery

@@ -92,7 +92,7 @@ namespace ggj2018.ggj2018
             _id = id;
             name = $"Player {Id}";
 
-            _controller.Initialize(this, birdModel);
+            _controller.Initialize(this, birdType, birdModel);
             State.Initialize(birdType);
 
             _godRay.GetComponent<GodRay>().Setup(this);
