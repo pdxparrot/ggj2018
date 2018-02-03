@@ -83,7 +83,7 @@ Shader "SH_BuildingStencil"
 }
 /*ASEBEGIN
 Version=14301
-902;91;480;651;687.2174;885.001;2.979879;True;False
+568;91;632;651;687.2174;885.001;2.979879;True;False
 Node;AmplifyShaderEditor.CommentaryNode;65;-1445.594,506.3217;Float;False;297.1897;243;Correction for near plane clipping;1;66;;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;64;-1458.785,51.20762;Float;False;1047.541;403.52;Scale depth from start to end;8;73;72;71;70;69;68;67;74;;1,1,1,1;0;0
 Node;AmplifyShaderEditor.ProjectionParams;66;-1372.894,555.6218;Float;False;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -119,4 +119,4 @@ WireConnection;0;0;85;0
 WireConnection;0;4;88;0
 WireConnection;0;10;86;0
 ASEEND*/
-//CHKSM=5C08976EC0374788424AB293D18F2B553E37C294
+//CHKSM=A57F20C073B9E16E38EBAA12032D0E2B1638CA54

@@ -12,9 +12,53 @@ MonoBehaviour:
   m_Name: PPP_Hawk
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 114445384716144140}
-  - {fileID: 114453567222959760}
---- !u!114 &114197895188999768
+  - {fileID: 114528123033396058}
+  - {fileID: 114248912097636870}
+  - {fileID: 114023458721692162}
+  - {fileID: 114158415825399240}
+--- !u!114 &114021584175642034
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 0
+    value: 0
+  color:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    overrideState: 0
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 0
+    value: 0
+  smoothness:
+    overrideState: 0
+    value: 0.2
+  roundness:
+    overrideState: 0
+    value: 1
+  rounded:
+    overrideState: 0
+    value: 0
+  mask:
+    overrideState: 0
+    value: {fileID: 0}
+  opacity:
+    overrideState: 0
+    value: 1
+--- !u!114 &114023458721692162
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -30,14 +74,14 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
     overrideState: 0
     value: {fileID: 0}
   tonemapper:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
   toneCurveToeStrength:
     overrideState: 0
     value: 0
@@ -63,56 +107,56 @@ MonoBehaviour:
     overrideState: 0
     value: {fileID: 0}
   temperature:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -23.7
   tint:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 64.9
   colorFilter:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -14
   saturation:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.254
   brightness:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.5
   contrast:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1.447
   mixerRedOutRedIn:
-    overrideState: 0
-    value: 100
+    overrideState: 1
+    value: 93
   mixerRedOutGreenIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerRedOutBlueIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerGreenOutRedIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerGreenOutGreenIn:
-    overrideState: 0
+    overrideState: 1
     value: 100
   mixerGreenOutBlueIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerBlueOutRedIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 4
   mixerBlueOutGreenIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 10
   mixerBlueOutBlueIn:
-    overrideState: 0
-    value: 100
+    overrideState: 1
+    value: 99
   lift:
     overrideState: 0
     value: {x: 1, y: 1, z: 1, w: 0}
@@ -226,7 +270,7 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       m_Loop: 1
       m_ZeroValue: 0.5
       m_Range: 1
@@ -238,7 +282,7 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       m_Loop: 1
       m_ZeroValue: 0.5
       m_Range: 1
@@ -250,7 +294,7 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       m_Loop: 0
       m_ZeroValue: 0.5
       m_Range: 1
@@ -262,11 +306,53 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       m_Loop: 0
       m_ZeroValue: 0.5
       m_Range: 1
---- !u!114 &114445384716144140
+--- !u!114 &114158415825399240
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 0
+  color:
+    overrideState: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    overrideState: 1
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 1
+    value: 0.44
+  smoothness:
+    overrideState: 1
+    value: 0.28
+  roundness:
+    overrideState: 1
+    value: 1
+  rounded:
+    overrideState: 1
+    value: 0
+  mask:
+    overrideState: 1
+    value: {fileID: 0}
+  opacity:
+    overrideState: 1
+    value: 1
+--- !u!114 &114248912097636870
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -283,19 +369,19 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 5
+    value: 0.1
   threshold:
     overrideState: 1
-    value: 2
+    value: 0.96
   softKnee:
     overrideState: 1
-    value: 0.152
+    value: 0.767
   diffusion:
     overrideState: 1
     value: 5
   anamorphicRatio:
-    overrideState: 1
-    value: 1
+    overrideState: 0
+    value: 0
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -304,11 +390,11 @@ MonoBehaviour:
     value: 1
   dirtTexture:
     overrideState: 1
-    value: {fileID: 0}
+    value: {fileID: 2800000, guid: d41b61e52d41d624d9a45c46b6a15ac6, type: 3}
   dirtIntensity:
     overrideState: 1
-    value: 0
---- !u!114 &114453567222959760
+    value: 5
+--- !u!114 &114528123033396058
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -316,37 +402,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette
+  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+  m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   mode:
     overrideState: 1
     value: 0
+  intensity:
+    overrideState: 1
+    value: 2.64
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
-  center:
-    overrideState: 1
-    value: {x: 0.5, y: 0.5}
-  intensity:
-    overrideState: 1
-    value: 0.465
-  smoothness:
-    overrideState: 1
-    value: 0.777
-  roundness:
-    overrideState: 1
+  ambientOnly:
+    overrideState: 0
     value: 1
-  rounded:
-    overrideState: 1
+  noiseFilterTolerance:
+    overrideState: 0
     value: 0
-  mask:
-    overrideState: 1
-    value: {fileID: 0}
-  opacity:
-    overrideState: 1
+  blurTolerance:
+    overrideState: 0
+    value: -4.6
+  upsampleTolerance:
+    overrideState: 0
+    value: -12
+  thicknessModifier:
+    overrideState: 0
     value: 1
+  directLightingStrength:
+    overrideState: 0
+    value: 0
+  radius:
+    overrideState: 1
+    value: 3.8
+  quality:
+    overrideState: 1
+    value: 2

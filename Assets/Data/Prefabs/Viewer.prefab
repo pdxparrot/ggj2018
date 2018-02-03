@@ -195,14 +195,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   stopNaNPropagation: 1
-  antialiasingMode: 3
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.5
     stationaryBlending: 0.95
     motionBlending: 0.85
   fastApproximateAntialiasing:
-    fastMode: 0
+    fastMode: 1
     keepAlpha: 0
   fog:
     enabled: 1
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bc3e3b7febd844c97837c483315763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: 0
   _camera: {fileID: 20499584597188918}
   _uiCamera: {fileID: 20295695093120854}
   _playerUIPrefab: {fileID: 114062390217345816, guid: c839dc0f7140c8640a1fe019b091953c,
@@ -309,7 +310,6 @@ MonoBehaviour:
   _lookSpeedY: 100
   _target: {fileID: 0}
   _targetCollider: {fileID: 0}
-  _controllerIndex: 0
   _orbitRotation: {x: 0, y: 0}
   _orbitRadius: 15
   _lookRotation: {x: 0, y: 0}
