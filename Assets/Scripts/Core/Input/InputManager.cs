@@ -154,7 +154,7 @@ namespace ggj2018.Core.Input
                     Debug.Log($"Inverting controller {i} look");
                     _controllerStates[i].InvertLookY = !_controllerStates[i].InvertLookY;
                 } else if(Pressed(i, Button.LeftBumper)) {
-                    Debug.Log($"Uninverting controller {i} move");
+                    Debug.Log($"Inverting controller {i} move");
                     _controllerStates[i].InvertMoveY = !_controllerStates[i].InvertMoveY;
                 }
             }
