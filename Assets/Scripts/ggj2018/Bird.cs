@@ -14,6 +14,9 @@ namespace ggj2018.ggj2018
         private ParticleSystem _featherParticles;
 
         [SerializeField]
+        private ParticleSystem _immunityParticles;
+
+        [SerializeField]
         private TrailRenderer _boostTrail;
 
         [SerializeField]
@@ -33,6 +36,7 @@ namespace ggj2018.ggj2018
 
         protected virtual void Start()
         {
+            ShowImmunity(false);
             ShowStun(false);
             ShowBoostTrail(false);
         }
@@ -42,6 +46,11 @@ namespace ggj2018.ggj2018
             Gizmos.DrawWireSphere(transform.position + _playerCollider.center, _playerCollider.radius);
         }
 #endregion
+
+        public void ShowImmunity(bool show)
+        {
+            _immunityParticles.gameObject.SetActive(show);
+        }
 
         public void ShowStun(bool show)
         {

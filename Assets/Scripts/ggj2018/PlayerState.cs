@@ -122,12 +122,17 @@ namespace ggj2018.ggj2018
         {
             if(_immuneTimer > 0.0f) {
                 _immuneTimer -= dt;
+
+                if(!IsImmune) {
+                    _owner.Bird.ShowImmunity(false);
+                }
             }
         }
 
         private void MakeImmune()
         {
             _immuneTimer = GameManager.Instance.GameTypeData.ImmuneTime;
+            _owner.Bird.ShowImmunity(true);
         }
 
 #region Boost
