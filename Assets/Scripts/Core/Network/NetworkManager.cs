@@ -6,6 +6,11 @@ namespace ggj2018.Core.Network
     [RequireComponent(typeof(NetworkManagerHUD))]
     public sealed class NetworkManager : UnityEngine.Networking.NetworkManager
     {
+        [SerializeField]
+        private int _maxNetworkPlayers = 16;
+
+        public int MaxNetworkPlayers => _maxNetworkPlayers;
+
         public void Initialize(bool enableNetwork)
         {
             if(!enableNetwork) {

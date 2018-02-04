@@ -25,6 +25,8 @@ MonoBehaviour:
   - _id: hawk
     _name: Hawk
     _icon: {fileID: 21300000, guid: 2cc694c1e7bb9cb46ab88f9a91c3b73c, type: 3}
+    _modelPrefab: {fileID: 114441340850751900, guid: 9cf5127fdf8bde74c872560bc098d36f,
+      type: 2}
     _followOrbitRadius: 10
     _mass: 2
     _drag: 0
@@ -36,6 +38,8 @@ MonoBehaviour:
   - _id: carrier1
     _name: Carrier 1
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
+    _modelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
+      type: 2}
     _followOrbitRadius: 3
     _mass: 1
     _drag: 0
@@ -47,6 +51,8 @@ MonoBehaviour:
   - _id: carrier2
     _name: Carrier 2
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
+    _modelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
+      type: 2}
     _followOrbitRadius: 3
     _mass: 1
     _drag: 0
@@ -58,6 +64,8 @@ MonoBehaviour:
   - _id: carrier3
     _name: Carrier 3
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
+    _modelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
+      type: 2}
     _followOrbitRadius: 3
     _mass: 1
     _drag: 0

@@ -57,9 +57,19 @@ namespace ggj2018.ggj2018
 #endregion
 
         [SerializeField]
+        private bool _enableImmunity;
+
+        public bool EnableImmunity => _enableImmunity;
+
+        [SerializeField]
         private PhysicMaterial _frictionlesssMaterial;
 
         public PhysicMaterial FrictionlessMaterial => _frictionlesssMaterial;
+
+        [SerializeField]
+        private float _gravity = 9.81f;
+
+        public float Gravity => _gravity;
 
         [SerializeField]
         [ReadOnly]
@@ -70,6 +80,8 @@ namespace ggj2018.ggj2018
 #region Unity Lifecycle
         private void Awake()
         {
+            Physics.gravity = new Vector3(0.0f, Gravity, 0.0f);
+
             _birdData.Initialize();
             _gameTypeData.Initialize();
 

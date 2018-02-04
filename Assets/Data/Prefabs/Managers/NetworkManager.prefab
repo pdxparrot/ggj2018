@@ -123,6 +123,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+  _maxNetworkPlayers: 16
 --- !u!114 &114839328356673284
 MonoBehaviour:
   m_ObjectHideFlags: 1

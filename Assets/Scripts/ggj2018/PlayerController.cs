@@ -107,7 +107,9 @@ namespace ggj2018.ggj2018
 
             _boundaryCollision = null;
 
-            Move(_lastMoveAxes);
+            float dt = Time.deltaTime;
+
+            Move(_lastMoveAxes, dt);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -221,66 +223,64 @@ namespace ggj2018.ggj2018
 
         private void RotateModel(Vector3 axes, float dt)
         {
+            Quaternion rotation = Bird.transform.localRotation;
+            Vector3 eulerAngles = Bird.transform.localRotation.eulerAngles;
+
             if(_owner.State.IsDead) {
-                Bird.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
-                return;
-            }
+                rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+            } else if(_owner.State.IsStunned) {
+                rotation = Quaternion.Euler(0.0f, eulerAngles.y, 0.0f);
+            } else {
+                Vector3 targetEuler = new Vector3();
 
-            if(_owner.State.IsStunned) {
-                Vector3 modelRotation = Bird.transform.localRotation.eulerAngles;
-                Bird.transform.localRotation = Quaternion.Euler(0.0f, modelRotation.y, 0.0f);
-                return;
-            }
-
-            Vector3 targetEuler = new Vector3();
-
-            if(null == _boundaryCollision || _boundaryCollision.IsVertical) {
-                if(axes.x < -Mathf.Epsilon) {
-                    targetEuler.z = PlayerManager.Instance.PlayerData.TurnAnimationAngle;
-                } else if(axes.x > Mathf.Epsilon) {
-                    targetEuler.z = -PlayerManager.Instance.PlayerData.TurnAnimationAngle;
+                if(null == _boundaryCollision || _boundaryCollision.IsVertical) {
+                    if(axes.x < -Mathf.Epsilon) {
+                        targetEuler.z = PlayerManager.Instance.PlayerData.TurnAnimationAngle;
+                    } else if(axes.x > Mathf.Epsilon) {
+                        targetEuler.z = -PlayerManager.Instance.PlayerData.TurnAnimationAngle;
+                    }
                 }
-            }
 
-            if(null == _boundaryCollision || !_boundaryCollision.IsVertical) {
-                if(axes.y < -Mathf.Epsilon) {
-                    targetEuler.x = PlayerManager.Instance.PlayerData.PitchAnimationAngle;
-                } else if(axes.y > Mathf.Epsilon) {
-                    targetEuler.x = -PlayerManager.Instance.PlayerData.PitchAnimationAngle;
+                if(null == _boundaryCollision || !_boundaryCollision.IsVertical) {
+                    if(axes.y < -Mathf.Epsilon) {
+                        targetEuler.x = PlayerManager.Instance.PlayerData.PitchAnimationAngle;
+                    } else if(axes.y > Mathf.Epsilon) {
+                        targetEuler.x = -PlayerManager.Instance.PlayerData.PitchAnimationAngle;
+                    }
                 }
+
+                Quaternion targetRotation = Quaternion.Euler(targetEuler);
+                rotation = Quaternion.Lerp(rotation, targetRotation, PlayerManager.Instance.PlayerData.RotationAnimationSpeed * dt);
             }
 
-            Quaternion targetRotation = Quaternion.Euler(targetEuler);
-            Quaternion rotation = Quaternion.Lerp(Bird.transform.localRotation, targetRotation, PlayerManager.Instance.PlayerData.RotationAnimationSpeed * dt);
             Bird.transform.localRotation = rotation;
         }
 
-        private void Move(Vector3 axes)
+        private void Move(Vector3 axes, float dt)
         {
-            if(_owner.State.IsStunned) {
-                _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
-                return;
-            }
+            Vector3 velocity = _rigidbody.velocity;
 
-            if(_owner.State.IsStunned || _owner.State.IsDead) {
-                _rigidbody.velocity = new Vector3(0.0f, PlayerManager.Instance.PlayerData.TerminalVelocity, 0.0f);
-                return;
-            }
+            if(_owner.State.IsDead) {
+                velocity.x = velocity.z = 0.0f;
+                velocity.y -= GameManager.Instance.Gravity * dt;
+            } else if(_owner.State.IsStunned) {
+                velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
+            } else {
+                float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.SpeedModifier;
+                if(_owner.State.IsBraking) {
+                    speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
+                } else if(_owner.State.IsBoosting) {
+                    speed *= PlayerManager.Instance.PlayerData.BoostFactor;
+                }
 
-            float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.SpeedModifier;
-            if(_owner.State.IsBraking) {
-                speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
-            } else if(_owner.State.IsBoosting) {
-                speed *= PlayerManager.Instance.PlayerData.BoostFactor;
-            }
+                velocity = transform.forward * speed;
+                velocity.y = 0.0f;
 
-            Vector3 velocity = transform.forward * speed;
-            velocity.y = 0.0f;
-
-            if(axes.y < -Mathf.Epsilon) {
-                velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
-            } else if(axes.y > Mathf.Epsilon) {
-                velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                if(axes.y < -Mathf.Epsilon) {
+                    velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                } else if(axes.y > Mathf.Epsilon) {
+                    velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                }
             }
 
             _rigidbody.velocity = velocity;
@@ -317,6 +317,8 @@ namespace ggj2018.ggj2018
                 return false;
             }
 
+            // TODO: hande this logic off to something else
+            // maybe the Player or the PlayerState
             if(_owner.State.BirdType.IsPredator && player.State.BirdType.IsPrey) {
                 player.State.PlayerKill(_owner, GetComponentInChildren<Collider>());
             } else if(_owner.State.BirdType.IsPrey && player.State.BirdType.IsPredator) {

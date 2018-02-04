@@ -118,6 +118,7 @@ namespace ggj2018.ggj2018
             UpdateStun(dt);
         }
 
+#region Immunity
         private void UpdateImmune(float dt)
         {
             if(_immuneTimer > 0.0f) {
@@ -131,9 +132,14 @@ namespace ggj2018.ggj2018
 
         private void MakeImmune()
         {
+            if(!GameManager.Instance.EnableImmunity) {
+                return;
+            }
+
             _immuneTimer = GameManager.Instance.GameTypeData.ImmuneTime;
             _owner.Bird.ShowImmunity(true);
         }
+#endregion
 
 #region Boost
         public void StartBoost()

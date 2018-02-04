@@ -17,18 +17,6 @@ namespace ggj2018.ggj2018
 {
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {
-#region Models
-        [SerializeField]
-        private Predator _predatorModelPrefab;
-
-        public Predator PredatorModelPrefab => _predatorModelPrefab;
-
-        [SerializeField]
-        private Prey _preyModelPrefab;
-
-        public Prey PreyModelPrefab => _preyModelPrefab;
-#endregion
-
         [SerializeField]
         [FormerlySerializedAs("_localPlayerPrefab")]
         private Player _playerPrefab;
@@ -113,11 +101,7 @@ namespace ggj2018.ggj2018
 
         private void InitializePlayer(Player player, int playerId, CharacterSelectState selectState, SpawnPoint spawnPoint)
         {
-            Bird birdModel = Instantiate(
-                selectState.PlayerBirdData.IsPredator
-                    ? (Bird)PredatorModelPrefab
-                    : (Bird)PreyModelPrefab,
-                player.transform);
+            Bird birdModel = Instantiate(selectState.PlayerBirdData.ModelPrefab, player.transform);
 
             if(player.IsLocalPlayer) {
                 player.InitializeLocal(playerId, selectState.ControllerIndex, selectState.Viewer, birdModel, selectState.PlayerBirdData);

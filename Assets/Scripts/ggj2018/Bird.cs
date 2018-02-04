@@ -8,6 +8,11 @@ namespace ggj2018.ggj2018
     public abstract class Bird : MonoBehavior
     {
         [SerializeField]
+        private GameObject _model;
+
+        public GameObject Model => _model;
+
+        [SerializeField]
         private ParticleSystem _stunParticles;
 
         [SerializeField]

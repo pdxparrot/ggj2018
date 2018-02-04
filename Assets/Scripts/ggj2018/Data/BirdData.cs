@@ -27,6 +27,11 @@ namespace ggj2018.ggj2018.Data
 
             public Sprite Icon => _icon;
 
+            [SerializeField]
+            private Bird _modelPrefab;
+
+            public Bird ModelPrefab => _modelPrefab;
+
 #region Viewer
             [SerializeField]
             private float _followOrbitRadius = 15.0f;
