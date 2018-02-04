@@ -55,5 +55,5 @@ MonoBehaviour:
   _viewerPrefab: {fileID: 114596710191927046, guid: 9adc09dbba531ab4bb536cdf17650509,
     type: 2}
   _postProcessObjectPrefabs:
-  - {fileID: 1982866422091396, guid: 0603dfef7b1a0a741a0b120056a697aa, type: 2}
-  - {fileID: 1510660879132680, guid: 31a88ebd949a70940a6c8bd7e4b68839, type: 2}
+  - {fileID: 114626964153379778, guid: 0603dfef7b1a0a741a0b120056a697aa, type: 2}
+  - {fileID: 114950320499392660, guid: 31a88ebd949a70940a6c8bd7e4b68839, type: 2}

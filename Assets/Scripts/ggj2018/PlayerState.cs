@@ -17,12 +17,6 @@ namespace ggj2018.ggj2018
             TimerUp
         }
 
-        [SerializeField]
-        [ReadOnly]
-        private BirdData.BirdDataEntry _birdType;
-
-        public BirdData.BirdDataEntry BirdType => _birdType;
-
 #region Alive
         [SerializeField]
         [ReadOnly]
@@ -100,10 +94,8 @@ namespace ggj2018.ggj2018
             _owner = owner;
         }
 
-        public void Initialize(BirdData.BirdDataEntry birdType)
+        public void Initialize()
         {
-            _birdType = birdType;
-
             _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
         }
 

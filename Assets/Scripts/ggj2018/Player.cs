@@ -30,7 +30,7 @@ namespace ggj2018.ggj2018
 
         private PlayerController _controller;
 
-        public Bird Bird => _controller.Bird;
+        public Bird Bird { get; private set; }
 
         public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
 
@@ -60,15 +60,15 @@ namespace ggj2018.ggj2018
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(State.BirdType)); 
+            Viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(Bird.Type)); 
             Viewer?.PlayerUI.SetTimer(GameManager.Instance.State.Timer); 
         }
 #endregion
 
-        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird birdModel, BirdData.BirdDataEntry birdType)
+        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird bird, BirdData.BirdDataEntry birdType)
         {
             Debug.Log($"Initializing local player {id}");
-            Initialize(id, birdModel, birdType);
+            Initialize(id, bird, birdType);
 
             _controllerIndex = controllerIndex;
 
@@ -77,23 +77,25 @@ namespace ggj2018.ggj2018
 
             Viewer.FollowCamera.SetTarget(gameObject);
 
-            Viewer.AddRenderLayer(State.BirdType.Layer);
-            Viewer.RemoveRenderLayer(State.BirdType.OtherLayer);
+            Viewer.AddRenderLayer(Bird.Type.Layer);
+            Viewer.RemoveRenderLayer(Bird.Type.OtherLayer);
         }
 
-        public void InitializeNetwork(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
+        public void InitializeNetwork(int id, Bird bird, BirdData.BirdDataEntry birdType)
         {
             Debug.Log($"Initializing network player {id}");
-            Initialize(id, birdModel, birdType);
+            Initialize(id, bird, birdType);
         }
 
-        private void Initialize(int id, Bird birdModel, BirdData.BirdDataEntry birdType)
+        private void Initialize(int id, Bird bird, BirdData.BirdDataEntry birdType)
         {
             _id = id;
             name = $"Player {Id}";
+            Bird = bird;
 
-            _controller.Initialize(this, birdType, birdModel);
-            State.Initialize(birdType);
+            Bird.Initialize(this, birdType);
+            _controller.Initialize(this);
+            State.Initialize();
 
             _godRay.GetComponent<GodRay>().Setup(this);
 

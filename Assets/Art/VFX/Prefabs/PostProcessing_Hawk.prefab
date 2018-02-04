@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114626964153379778}
   m_Layer: 13
   m_Name: PostProcessing_Hawk
-  m_TagString: Untagged
+  m_TagString: PP_Predator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

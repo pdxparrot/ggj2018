@@ -3,7 +3,8 @@
     "references": [
         "com.pdxpartyparrot.Core",
         "com.pdxpartyparrot.Game",
-        "com.google.GoogleVR"
+        "com.google.GoogleVR",
+        "com.unity.postprocessing.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

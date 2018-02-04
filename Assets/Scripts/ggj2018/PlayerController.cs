@@ -28,9 +28,6 @@ namespace ggj2018.ggj2018
             }
         }
 
-// TODO: Player class should own this
-        public Bird Bird { get; private set; }
-
         [SerializeField]
         [ReadOnly]
         private WorldBoundary _boundaryCollision;
@@ -154,14 +151,13 @@ namespace ggj2018.ggj2018
             _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
-        public void Initialize(Player owner, BirdData.BirdDataEntry birdType, Bird bird)
+        public void Initialize(Player owner)
         {
             _owner = owner;
-            Bird = bird;
 
-            _rigidbody.mass = birdType.Mass;
-            _rigidbody.drag = birdType.Drag;
-            _rigidbody.angularDrag = birdType.AngularDrag;
+            _rigidbody.mass = owner.Bird.Type.Mass;
+            _rigidbody.drag = owner.Bird.Type.Drag;
+            _rigidbody.angularDrag = owner.Bird.Type.AngularDrag;
         }
 
         public void MoveTo(Vector3 position)
@@ -216,15 +212,15 @@ namespace ggj2018.ggj2018
             }
 
             // TODO: torque
-            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.State.BirdType.TurnSpeedModifier;
+            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.Bird.Type.TurnSpeedModifier;
             Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
             _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
         }
 
         private void RotateModel(Vector3 axes, float dt)
         {
-            Quaternion rotation = Bird.transform.localRotation;
-            Vector3 eulerAngles = Bird.transform.localRotation.eulerAngles;
+            Quaternion rotation = _owner.Bird.transform.localRotation;
+            Vector3 eulerAngles = _owner.Bird.transform.localRotation.eulerAngles;
 
             if(_owner.State.IsDead) {
                 rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
@@ -253,7 +249,7 @@ namespace ggj2018.ggj2018
                 rotation = Quaternion.Lerp(rotation, targetRotation, PlayerManager.Instance.PlayerData.RotationAnimationSpeed * dt);
             }
 
-            Bird.transform.localRotation = rotation;
+            _owner.Bird.transform.localRotation = rotation;
         }
 
         private void Move(Vector3 axes, float dt)
@@ -266,7 +262,7 @@ namespace ggj2018.ggj2018
             } else if(_owner.State.IsStunned) {
                 velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
             } else {
-                float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.State.BirdType.SpeedModifier;
+                float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.Bird.Type.SpeedModifier;
                 if(_owner.State.IsBraking) {
                     speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
                 } else if(_owner.State.IsBoosting) {
@@ -277,9 +273,9 @@ namespace ggj2018.ggj2018
                 velocity.y = 0.0f;
 
                 if(axes.y < -Mathf.Epsilon) {
-                    velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                    velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.Bird.Type.PitchSpeedModifier;
                 } else if(axes.y > Mathf.Epsilon) {
-                    velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.State.BirdType.PitchSpeedModifier;
+                    velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.Bird.Type.PitchSpeedModifier;
                 }
             }
 
@@ -319,9 +315,9 @@ namespace ggj2018.ggj2018
 
             // TODO: hande this logic off to something else
             // maybe the Player or the PlayerState
-            if(_owner.State.BirdType.IsPredator && player.State.BirdType.IsPrey) {
+            if(_owner.Bird.Type.IsPredator && player.Bird.Type.IsPrey) {
                 player.State.PlayerKill(_owner, GetComponentInChildren<Collider>());
-            } else if(_owner.State.BirdType.IsPrey && player.State.BirdType.IsPredator) {
+            } else if(_owner.Bird.Type.IsPrey && player.Bird.Type.IsPredator) {
                 _owner.State.PlayerKill(player, other);
             } else {
                 _owner.State.PlayerStun(player, other);

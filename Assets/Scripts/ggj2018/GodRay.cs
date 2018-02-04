@@ -23,7 +23,7 @@ namespace ggj2018.ggj2018
 
             if(mode == Mode.Carrier) {
                 foreach(Player player in PlayerManager.Instance.Players) {
-                    if(player.State.BirdType.IsPredator) {
+                    if(player.Bird.Type.IsPredator) {
                         var vec = player.gameObject.transform.position - transform.position;
                         vec.y = 0;
                         dist = vec.magnitude;
@@ -32,7 +32,7 @@ namespace ggj2018.ggj2018
                 }
             } else if(mode == Mode.Goal) {
                 foreach(Player player in PlayerManager.Instance.Players) {
-                    if(player.State.BirdType.IsPredator) {
+                    if(player.Bird.Type.IsPredator) {
                         var vec = player.gameObject.transform.position - transform.position;
                         vec.y = 0;
                         var d = vec.magnitude;
@@ -51,10 +51,10 @@ namespace ggj2018.ggj2018
 
         public void Setup(Player player)
         {
-            mode = player.State.BirdType.IsPredator ? Mode.Hawk : Mode.Carrier;
+            mode = player.Bird.Type.IsPredator ? Mode.Hawk : Mode.Carrier;
 
-            gameObject.SetActive(player.State.BirdType.IsPrey);
-            SetLayer(gameObject, player.State.BirdType.OtherLayer);
+            gameObject.SetActive(player.Bird.Type.IsPrey);
+            SetLayer(gameObject, player.Bird.Type.OtherLayer);
         }
 
         private void SetLayer(GameObject obj, string layer)

@@ -27,13 +27,13 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override void GoalCollision(Player player)
         {
-            if(player.State.BirdType.IsPredator) {
+            if(player.Bird.Type.IsPredator) {
                 return;
             }
 
             Debug.Log($"Player {player.Id} has reached the goal!");
             foreach(Player p in PlayerManager.Instance.Players) {
-                if(p.State.BirdType.IsPredator) {
+                if(p.Bird.Type.IsPredator) {
                     continue;
                 }
                 p.State.GameOverState = PlayerState.GameOverType.Win;

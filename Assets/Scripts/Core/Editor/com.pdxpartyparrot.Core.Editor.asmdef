@@ -1,0 +1,10 @@
+{
+    "name": "com.pdxpartyparrot.Core.Editor",
+    "references": [
+        "com.pdxpartyparrot.Core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

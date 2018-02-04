@@ -3,7 +3,7 @@
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class HawkVisionMaterialPropertyChanger : MonoBehaviour
+public class HawkVisionMaterialPropertyChanger : MonoBehavior
 {
     [SerializeField]
     private bool _enabled;

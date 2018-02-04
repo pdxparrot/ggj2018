@@ -99,6 +99,11 @@ namespace ggj2018.ggj2018.Data
         public int GameOverWaitTime => _gameOverWaitTime;
 
         [SerializeField]
+        private float _hawkAlertDistance = 25.0f;
+
+        public float HawkAlertDistance => _hawkAlertDistance;
+
+        [SerializeField]
         private GameTypeDataEntry[] _gameTypes;
 
         public IReadOnlyCollection<GameTypeDataEntry> GameTypes => _gameTypes;

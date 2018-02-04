@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
@@ -93,7 +94,7 @@ namespace ggj2018.ggj2018
             InitializePlayer(player, _players.Count, selectState, spawnPoint);
             //NetworkServer.Spawn(player.gameObject);
 
-            Debug.Log($"Spawned {player.State.BirdType.Name} for local player {player.Id} at {spawnPoint.name} ({player.transform.position})");
+            Debug.Log($"Spawned {player.Bird.Type.Name} for local player {player.Id} at {spawnPoint.name} ({player.transform.position})");
 
             AddPlayer(player);
             return player;
@@ -132,20 +133,50 @@ namespace ggj2018.ggj2018
         {
             _players.Add(player);
 
-            if(player.State.BirdType.IsPrey) {
+            if(player.Bird.Type.IsPrey) {
                 _preyCount++;
             }
         }
 
         private void RemovePlayer(Player player)
         {
-            if(player.State.BirdType.IsPrey) {
+            if(player.Bird.Type.IsPrey) {
                 _preyCount--;
             }
 
             _players.Remove(player);
             Destroy(player.gameObject);
         }
+
+#region Players by Distance
+        public Player GetNearestPredator(Player player, out float distance)
+        {
+            return GetNearestPlayer(player, other => other.Bird.Type.IsPredator, out distance);
+        }
+
+        public Player GetNearestPrey(Player player, out float distance)
+        {
+            return GetNearestPlayer(player, other => other.Bird.Type.IsPrey, out distance);
+        }
+
+        private Player GetNearestPlayer(Player player, Func<Player, bool> condition, out float distance)
+        {
+            Player nearest = null;
+            distance = float.MaxValue;
+
+            foreach(Player other in Players) {
+                if(!condition(other)) {
+                    continue;
+                }
+
+                float d = (other.transform.position - player.transform.position).sqrMagnitude;
+                if(null == nearest || d < distance) {
+                    nearest = other;
+                }
+            }
+            return nearest;
+        }
+#endregion
 
 #if UNITY_EDITOR
         public void DebugStunAll()

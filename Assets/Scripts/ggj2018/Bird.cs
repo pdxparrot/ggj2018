@@ -1,4 +1,5 @@
 ﻿using ggj2018.Core.Util;
+using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 
@@ -27,6 +28,10 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private SphereCollider _playerCollider;
 
+        public Player Owner { get; private set; }
+
+        public BirdData.BirdDataEntry Type { get; private set; }
+
         private Collider _collider;
 
 #region Unity Lifecycle      
@@ -51,6 +56,12 @@ namespace ggj2018.ggj2018
             Gizmos.DrawWireSphere(transform.position + _playerCollider.center, _playerCollider.radius);
         }
 #endregion
+
+        public void Initialize(Player owner, BirdData.BirdDataEntry birdType)
+        {
+            Owner = owner;
+            Type = birdType;
+        }
 
         public void ShowImmunity(bool show)
         {

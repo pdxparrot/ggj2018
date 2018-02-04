@@ -91,10 +91,10 @@ namespace ggj2018.ggj2018
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(true);
 
-            Goal.text = gameType.GameTypeData.GetWinConditionDescription(_owner.State.BirdType);
+            Goal.text = gameType.GameTypeData.GetWinConditionDescription(_owner.Bird.Type);
             GameTimerPanel.SetActive(gameType.ShowTimer);
 
-            ScorePanel.SetActive(gameType.ShowScore(_owner.State.BirdType));
+            ScorePanel.SetActive(gameType.ShowScore(_owner.Bird.Type));
 
             StartCoroutine(CloseIntroPanel());
         }
@@ -122,10 +122,10 @@ namespace ggj2018.ggj2018
             switch(_owner.State.GameOverState)
             {
             case PlayerState.GameOverType.Win:
-                WinLossText.text = gameType.GameTypeData.GetWinText(_owner.State.BirdType);
+                WinLossText.text = gameType.GameTypeData.GetWinText(_owner.Bird.Type);
                 break;
             case PlayerState.GameOverType.Loss:
-                WinLossText.text = gameType.GameTypeData.GetLossText(_owner.State.BirdType);
+                WinLossText.text = gameType.GameTypeData.GetLossText(_owner.Bird.Type);
                 break;
             case PlayerState.GameOverType.TimerUp:
                 WinLossText.text = gameType.GameTypeData.TimesUpText;

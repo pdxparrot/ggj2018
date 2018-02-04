@@ -6,6 +6,7 @@ using ggj2018.Core.Util;
 using JetBrains.Annotations;
 
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace ggj2018.Core.Camera
 {
@@ -24,9 +25,13 @@ namespace ggj2018.Core.Camera
         private readonly Queue<BaseViewer> _unassignedViewers = new Queue<BaseViewer>();
 
         [SerializeField]
-        private GameObject[] _postProcessObjectPrefabs;
+        private PostProcessVolume[] _postProcessObjectPrefabs;
 
         private GameObject _viewerContainer, _postProcessContainer;
+
+        private readonly Dictionary<string, PostProcessVolume> _postProcessVolumes = new Dictionary<string, PostProcessVolume>();
+
+        public IReadOnlyDictionary<string, PostProcessVolume> PostProcessVolumes => _postProcessVolumes;
 
 #region Unity Lifecycle
         private void Awake()
@@ -34,8 +39,10 @@ namespace ggj2018.Core.Camera
             _viewerContainer = new GameObject("Viewers");
             _postProcessContainer = new GameObject("Post Process");
 
-            foreach(GameObject ppp in _postProcessObjectPrefabs) {
-                Instantiate(ppp, _postProcessContainer.transform);
+            foreach(PostProcessVolume ppp in _postProcessObjectPrefabs) {
+                PostProcessVolume volume = Instantiate(ppp, _postProcessContainer.transform);
+                Debug.Log($"Registering PostProcessVolume {volume.tag}");
+                _postProcessVolumes.Add(volume.tag, volume);
             }
         }
 
