@@ -9,7 +9,7 @@ Material:
   m_Name: Building Material
   m_Shader: {fileID: 4800000, guid: 4e88d820f76dbc04da47115bcae8e5d9, type: 3}
   m_ShaderKeywords: _ALPHADITHER_ON
-  m_LightmapFlags: 0
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -60,9 +60,9 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DitherDistance: 200
-    - _DitherEndDistance: 800
+    - _DitherEndDistance: 2300
     - _DitherFalloff: 100
-    - _DitherStartDistance: 750
+    - _DitherStartDistance: 2200
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
