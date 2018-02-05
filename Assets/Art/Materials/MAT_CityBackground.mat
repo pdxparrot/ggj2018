@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_CityBackground
   m_Shader: {fileID: 4800000, guid: 9a742b62d2f28b64eb26b413a9339f67, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _USETEXTURECOLOR_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -55,7 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture0:
-        m_Texture: {fileID: 2800000, guid: a5e7db6b468838245a74d647772f9e75, type: 3}
+        m_Texture: {fileID: 2800000, guid: bcbecbbf0fae3d84fb9d72497e31af19, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -79,9 +79,9 @@ Material:
     - _SrcBlend: 1
     - _TextureAlphaOnly: 0
     - _UVSec: 0
-    - _UseTextureColor: 0
+    - _UseTextureColor: 1
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.10380622, g: 0.106833905, b: 0.17647058, a: 1}
+    - _Color: {r: 0.8455882, g: 0.90415823, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
