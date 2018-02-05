@@ -1,48 +1,40 @@
-﻿using ggj2018.Game.Data;
-using ggj2018.Core.Util;
+﻿using ggj2018.Core.Util;
 
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace ggj2018.Game.Audio
 {
     public sealed class AudioManager : SingletonBehavior<AudioManager>
     {
         [SerializeField]
-        private AudioMixer _audioMixer;
-
-        [SerializeField]
         private AudioSource _oneShotAudioSource;
 
         [SerializeField]
-        private AudioData _audioData;
-
-        public AudioData AudioData => _audioData;
-
-        public void Initialize()
-        {
-            // TODO: why isn't this working???
-            _oneShotAudioSource.outputAudioMixerGroup = _audioMixer.outputAudioMixerGroup;
-        }
+        private AudioSource _musicAudioSource;
 
 #region Unity Lifecycle
         private void Awake()
         {
-            _audioData.Initialize();
+            _musicAudioSource.loop = true;
         }
 #endregion
-
-        public void PlayAudioOneShot(string id)
-        {
-            AudioClip audioClip = _audioData.Entries.GetOrDefault(id)?.AudioClip;
-            if(null != audioClip) {
-                PlayAudioOneShot(audioClip);
-            }
-        }
 
         public void PlayAudioOneShot(AudioClip audioClip)
         {
             _oneShotAudioSource.PlayOneShot(audioClip);
+        }
+
+        public void PlayMusic(AudioClip audioClip)
+        {
+            StopMusic();
+
+            _musicAudioSource.clip = audioClip;
+            _musicAudioSource.Play();
+        }
+
+        public void StopMusic()
+        {
+            _musicAudioSource.Stop();
         }
     }
 }

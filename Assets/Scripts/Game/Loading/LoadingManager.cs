@@ -85,8 +85,6 @@ namespace ggj2018.Game.Loading
 
         protected virtual void InitializeManagers()
         {
-            AudioManager.Instance.Initialize();
-
             GameSceneManager.Instance.DefaultSceneName = _defaultSceneName;
         }
 

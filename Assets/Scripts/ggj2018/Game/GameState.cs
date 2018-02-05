@@ -7,8 +7,9 @@ using ggj2018.ggj2018.GameTypes;
 using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.UI;
 using ggj2018.ggj2018.World;
-
+using ggj2018.Game.Audio;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace ggj2018.ggj2018.Game
 {
@@ -105,11 +106,28 @@ namespace ggj2018.ggj2018.Game
 
         private void FinishState()
         {
-// TODO
+            switch(State)
+            {
+                case States.Init:
+                    FinishInit();
+                    break;
+                case States.Menu:
+                    FinishMenu();
+                    break;
+                case States.CharacterSelect:
+                    FinishCharacterSelect();
+                    break;
+                case States.Game:
+                    FinishGame();
+                    break;
+                case States.GameOver:
+                    FinishGameOver();
+                    break;
+            }
         }
 
 #region Init State
-        public void BeginInit()
+        private void BeginInit()
         {
             PlayerManager.Instance.DespawnAllPlayers();
 
@@ -120,9 +138,13 @@ namespace ggj2018.ggj2018.Game
             PlayerManager.Instance.ResetCharacterSelect();
         }
 
-        public void RunInit()
+        private void RunInit()
         {
             SetState(States.Menu);
+        }
+
+        private void FinishInit()
+        {
         }
 #endregion
 
@@ -135,12 +157,18 @@ namespace ggj2018.ggj2018.Game
         {
             SetState(States.CharacterSelect);
         }
+
+        private void FinishMenu()
+        {
+        }
 #endregion
 
 #region Character Select State
         private void BeginCharacterSelect()
         {
             UIManager.Instance.SwitchToCharacterSelect();
+
+            AudioManager.Instance.PlayMusic(GameManager.Instance.CharacterSelectMusicClip);
         }
 
         private void RunCharacterSelect()
@@ -194,7 +222,11 @@ namespace ggj2018.ggj2018.Game
 
                 UIManager.Instance.SwitchToCharacterSelect();
             }
+        }
 
+        private void FinishCharacterSelect()
+        {
+            AudioManager.Instance.StopMusic();
         }
 #endregion
 
@@ -242,6 +274,8 @@ namespace ggj2018.ggj2018.Game
 
             UIManager.Instance.SwitchToGame(_gameType);
 
+            AudioManager.Instance.PlayMusic(GameManager.Instance.GameMusicAudioClip);
+
             Timer = GameType.GameTypeData.TimeLimit > 0
                 ? TimeSpan.FromMinutes(GameType.GameTypeData.TimeLimit)
                 : TimeSpan.Zero;
@@ -264,12 +298,19 @@ namespace ggj2018.ggj2018.Game
 
             GameType.Update();
         }
+
+        private void FinishGame()
+        {
+            AudioManager.Instance.StopMusic();
+        }
 #endregion
 
 #region Game Over State
         private void BeginGameOver()
         {
             UIManager.Instance.SwitchToGameOver(GameType);
+
+            AudioManager.Instance.PlayMusic(GameManager.Instance.GameOverMusicAudioClip);
 
             _gameOverTimer = GameManager.Instance.GameTypeData.GameOverWaitTime;
         }
@@ -284,6 +325,11 @@ namespace ggj2018.ggj2018.Game
                     SetState(States.Init);
                 }
             }
+        }
+
+        private void FinishGameOver()
+        {
+            AudioManager.Instance.StopMusic();
         }
 #endregion
     }

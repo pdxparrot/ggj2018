@@ -20,6 +20,8 @@ namespace ggj2018.ggj2018.Game
 #endregion
 
 #region Systems
+        [Header("Systems")]
+
         [SerializeField]
         private GameObject _gvrPrefab;
 
@@ -33,14 +35,18 @@ namespace ggj2018.ggj2018.Game
         public EventSystem EventSystem => _eventSystem;
 
         [SerializeField]
-        private Core.Network.NetworkManager _networkManagerPrefab;
+        private NetworkManager _networkManagerPrefab;
 
-        private Core.Network.NetworkManager _networkManager;
+        private NetworkManager _networkManager;
 
-        public Core.Network.NetworkManager NetworkManager => _networkManager;
+        public NetworkManager NetworkManager => _networkManager;
 #endregion
 
+        [Space(10)]
+
 #region Data
+        [Header("Data")]
+
         [SerializeField]
         private ConfigData _configData;
 
@@ -57,10 +63,31 @@ namespace ggj2018.ggj2018.Game
         public GameTypeData GameTypeData => _gameTypeData;
 #endregion
 
-        [SerializeField]
-        private bool _enableImmunity;
+        [Space(10)]
 
-        public bool EnableImmunity => _enableImmunity;
+#region Audio
+        [Header("Audio")]
+
+        [SerializeField]
+        private AudioClip _characterSelectMusicClip;
+
+        public AudioClip CharacterSelectMusicClip => _characterSelectMusicClip;
+
+        [SerializeField]
+        private AudioClip _gameMusicAudioClip;
+
+        public AudioClip GameMusicAudioClip => _gameMusicAudioClip;
+
+        [SerializeField]
+        private AudioClip _gameOverMusicAudioClip;
+
+        public AudioClip GameOverMusicAudioClip => _gameOverMusicAudioClip;
+#endregion
+
+        [Space(10)]
+
+#region Physics
+        [Header("Physics")]
 
         [SerializeField]
         private PhysicMaterial _frictionlesssMaterial;
@@ -71,6 +98,14 @@ namespace ggj2018.ggj2018.Game
         private float _gravity = 9.81f;
 
         public float Gravity => _gravity;
+#endregion
+
+        [Space(10)]
+
+        [SerializeField]
+        private bool _enableImmunity;
+
+        public bool EnableImmunity => _enableImmunity;
 
         [SerializeField]
         [ReadOnly]
