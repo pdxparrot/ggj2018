@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -132,5 +133,21 @@ namespace ggj2018.ggj2018.Data
 
         public float BrakeFactor => _brakeFactor;
 #endregion
+
+        [Space(10)]
+
+#region Player Colors
+        [Header("Player Colors")]
+
+        [SerializeField]
+        private Color[] _playerColors;
+
+        public IReadOnlyCollection<Color> PlayerColors => _playerColors;
+#endregion
+
+        public Color GetPlayerColor(int playerId)
+        {
+            return _playerColors.Length < 1 ? Color.magenta : _playerColors[playerId % _playerColors.Length];
+        }
     }
 }

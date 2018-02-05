@@ -27,7 +27,8 @@ namespace ggj2018.ggj2018.Players
         public int Id => _id;
 
         [SerializeField]
-        private PlayerState _playerState;
+        [ReadOnly]
+        private  PlayerState _playerState;
 
         public PlayerState State => _playerState;
 
@@ -38,21 +39,27 @@ namespace ggj2018.ggj2018.Players
 
         public Bird Bird { get; private set; }
 
-        public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
-
+#region Input
         [SerializeField]
         [ReadOnly]
         private int _controllerIndex;
 
         public int ControllerIndex => _controllerIndex;
 
+        public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
+#endregion
+
+#region Camera
         [SerializeField]
         [ReadOnly]
         private Viewer _viewer;
 
         public Viewer Viewer => _viewer;
+#endregion
 
+#region Network
         public bool IsLocalPlayer => !GameManager.Instance.ConfigData.EnableNetwork || isLocalPlayer;
+#endregion
 
         [CanBeNull]
         public Player NearestPredator { get; private set; }

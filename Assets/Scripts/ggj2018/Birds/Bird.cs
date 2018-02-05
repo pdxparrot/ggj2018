@@ -10,6 +10,7 @@ namespace ggj2018.ggj2018.Birds
     [RequireComponent(typeof(Collider))]
     public abstract class Bird : MonoBehavior
     {
+#region VFX
         [SerializeField]
         private ParticleSystem _stunParticles;
 
@@ -21,6 +22,7 @@ namespace ggj2018.ggj2018.Birds
 
         [SerializeField]
         private TrailRenderer _boostTrail;
+#endregion
 
         [SerializeField]
         private SphereCollider _playerCollider;
@@ -28,6 +30,9 @@ namespace ggj2018.ggj2018.Birds
         public Player Owner { get; private set; }
 
         public BirdData.BirdDataEntry Type { get; private set; }
+
+        [SerializeField]
+        private Material[] _colorMaterials;
 
         private Collider _collider;
 
@@ -58,6 +63,11 @@ namespace ggj2018.ggj2018.Birds
         {
             Owner = owner;
             Type = birdType;
+
+            Color playerColor = PlayerManager.Instance.PlayerData.GetPlayerColor(owner.Id);
+            foreach(Material material in _colorMaterials) {
+                material.color = playerColor;
+            }
         }
 
         public void ShowImmunity(bool show)
