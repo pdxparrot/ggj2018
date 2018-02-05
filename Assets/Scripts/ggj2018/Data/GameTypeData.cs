@@ -25,7 +25,11 @@ namespace ggj2018.ggj2018.Data
 
             public string Name => _name;
 
+            [Space(10)]
+
 #region Win/Loss Texts
+            [Header("Win/Loss Text")]
+
             [SerializeField]
             private string _predatorWinConditionDescription;
 
@@ -57,6 +61,11 @@ namespace ggj2018.ggj2018.Data
             public string PreyLossText => _preyLossText;
 #endregion
 
+            [Space(10)]
+
+#region End Game
+            [Header("End Game")]
+
             [SerializeField]
             private int _scoreLimit = -1;
 
@@ -71,6 +80,7 @@ namespace ggj2018.ggj2018.Data
             private string _timesUpText;
 
             public string TimesUpText => _timesUpText;
+#endregion
 
             public string GetWinConditionDescription(BirdData.BirdDataEntry birdType)
             {

@@ -34,14 +34,32 @@ namespace ggj2018.ggj2018.Data
 
             public Bird ModelPrefab => _modelPrefab;
 
+#region Bird Type
+
+            [SerializeField]
+            private bool _isPredator;
+
+            public bool IsPredator => _isPredator;
+
+            public bool IsPrey => !_isPredator;
+#endregion
+
+            [Space(10)]
+
 #region Viewer
+            [Header("Viewer")]
+
             [SerializeField]
             private float _followOrbitRadius = 15.0f;
 
             public float FollowOrbitRadius => _followOrbitRadius;
 #endregion
 
+            [Space(10)]
+
 #region Physics
+            [Header("Physics")]
+
             [SerializeField]
             private float _mass = 1.0f;
 
@@ -58,7 +76,11 @@ namespace ggj2018.ggj2018.Data
             public float AngularDrag => _angularDrag;
 #endregion
 
+            [Space(10)]
+
 #region Stat Modifiers
+            [Header("Stat Modifiers")]
+
             [SerializeField]
             private bool _canBoost;
 
@@ -78,15 +100,6 @@ namespace ggj2018.ggj2018.Data
             private float _pitchSpeedModifier;
 
             public float PitchSpeedModifier => _pitchSpeedModifier;
-#endregion
-
-#region Bird Type
-            [SerializeField]
-            private bool _isPredator;
-
-            public bool IsPredator => _isPredator;
-
-            public bool IsPrey => !_isPredator;
 #endregion
 
             private BirdData _birdData;
