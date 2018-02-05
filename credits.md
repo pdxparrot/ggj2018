@@ -13,13 +13,19 @@
 
 * Jordan Kulm
 
+## Technical Artist
+
+* Jordan Kulm
+
 ## Music
 
 * Jordan Kulm
+* Sean McDermott
 
 ## Audio
 
 * Jordan Kulm
+* Tanya Groeneveld
 
 ## Design
 
