@@ -664,6 +664,11 @@ MonoBehaviour:
   _immunityParticles: {fileID: 198683484168425828}
   _boostTrail: {fileID: 96088007620055606}
   _playerCollider: {fileID: 135703914139266378}
+  _colorMaterials:
+  - {fileID: 2100000, guid: 87ed33db4980af54f883c5db9a9139f7, type: 2}
+  - {fileID: 2100000, guid: 19f22d0574a6f5749bf13d3ef43dc95d, type: 2}
+  - {fileID: 2100000, guid: 849f122426b559948a6a2fa2564b184c, type: 2}
+  - {fileID: 2100000, guid: 63f0deb836519bd4786323a670133075, type: 2}
 --- !u!135 &135703914139266378
 SphereCollider:
   m_ObjectHideFlags: 1

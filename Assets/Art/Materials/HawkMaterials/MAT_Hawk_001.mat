@@ -152,10 +152,11 @@ Material:
     - __dirty: 0
     m_Colors:
     - _ASEOutlineColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
     - _PrimaryColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SecondaryColor: {r: 0.625, g: 0, b: 0, a: 0}
+    - _SecondaryColor: {r: 0.625, g: 0, b: 0.60775876, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _color: {r: 0.28676468, g: 0.25186428, b: 0.16025087, a: 0}
