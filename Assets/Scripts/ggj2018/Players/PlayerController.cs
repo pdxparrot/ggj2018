@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
@@ -30,9 +31,9 @@ namespace ggj2018.ggj2018.Players
             }
         }
 
-        [SerializeField]
-        [ReadOnly]
-        private WorldBoundary _boundaryCollision;
+        private WorldBoundary _verticalBoundaryCollision;
+
+        private readonly List<WorldBoundary> _horizontalBoundaryCollisions = new List<WorldBoundary>();
 
         [SerializeField]
         [ReadOnly]
@@ -104,8 +105,6 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            _boundaryCollision = null;
-
             float dt = Time.deltaTime;
 
             Move(_lastMoveAxes, dt);
@@ -124,7 +123,18 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            if(CheckWorldCollision(collision)) {
+            if(CheckWorldCollisionEnter(collision)) {
+                return;
+            }
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            if(!_owner.IsLocalPlayer) {
+                return;
+            }
+
+            if(CheckWorldCollisionExit(collision)) {
                 return;
             }
         }
@@ -231,7 +241,7 @@ namespace ggj2018.ggj2018.Players
             } else {
                 Vector3 targetEuler = new Vector3();
 
-                if(null == _boundaryCollision || _boundaryCollision.IsVertical) {
+                if(_horizontalBoundaryCollisions.Count < 1) {
                     if(axes.x < -Mathf.Epsilon) {
                         targetEuler.z = PlayerManager.Instance.PlayerData.TurnAnimationAngle;
                     } else if(axes.x > Mathf.Epsilon) {
@@ -239,7 +249,7 @@ namespace ggj2018.ggj2018.Players
                     }
                 }
 
-                if(null == _boundaryCollision || !_boundaryCollision.IsVertical) {
+                if(null == _verticalBoundaryCollision) {
                     if(axes.y < -Mathf.Epsilon) {
                         targetEuler.x = PlayerManager.Instance.PlayerData.PitchAnimationAngle;
                     } else if(axes.y > Mathf.Epsilon) {
@@ -297,15 +307,36 @@ namespace ggj2018.ggj2018.Players
             return building?.Collision(_owner, collision) ?? false;
         }
 
-        private bool CheckWorldCollision(Collision collision)
+        private bool CheckWorldCollisionEnter(Collision collision)
         {
             WorldBoundary boundary = collision.collider.GetComponent<WorldBoundary>();
             if(null == boundary) {
                 return false;
             }
 
-            _boundaryCollision = boundary;
+            if(boundary.IsVertical) {
+                _verticalBoundaryCollision = boundary;
+            } else {
+                _horizontalBoundaryCollisions.Add(boundary);
+            }
+
             return boundary.Collision(_owner);
+        }
+
+        private bool CheckWorldCollisionExit(Collision collision)
+        {
+            WorldBoundary boundary = collision.collider.GetComponent<WorldBoundary>();
+            if(null == boundary) {
+                return false;
+            }
+
+            if(boundary.IsVertical) {
+                _verticalBoundaryCollision = null;
+            } else {
+                _horizontalBoundaryCollisions.Remove(boundary);
+            }
+
+            return true;
         }
 
         private bool CheckPlayerCollision(Collider other)
