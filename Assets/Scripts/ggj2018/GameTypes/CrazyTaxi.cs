@@ -34,6 +34,10 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override void GoalCollision(Player player)
         {
+            if(!CanScore) {
+                return;
+            }
+
             // TODO: handle message goals as well
 
             Debug.Log($"Player {player.Id} has scored a goal!");

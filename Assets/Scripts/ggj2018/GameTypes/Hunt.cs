@@ -29,6 +29,10 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override void GoalCollision(Player player)
         {
+            if(!CanScore) {
+                return;
+            }
+
             if(player.Bird.Type.IsPredator) {
                 return;
             }
@@ -42,6 +46,10 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override void PlayerKill(Player killer)
         {
+            if(!CanScore) {
+                return;
+            }
+
             Debug.Log($"Player {killer.Id} has scored a kill!");
 
             killer.State.Score++;

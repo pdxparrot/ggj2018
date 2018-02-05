@@ -37,6 +37,8 @@ namespace ggj2018.ggj2018.GameTypes
 
         public bool ShowTimer => GameTypeData.TimeLimit > 0;
 
+        public bool CanScore => GameManager.Instance.State.CanScore;
+
         public virtual void Initialize()
         {
         }

@@ -8,8 +8,8 @@ using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.UI;
 using ggj2018.ggj2018.World;
 using ggj2018.Game.Audio;
+
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace ggj2018.ggj2018.Game
 {
@@ -48,6 +48,8 @@ namespace ggj2018.ggj2018.Game
         public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
 
         public bool CanPause => States.Game == State || States.GameOver == State;
+
+        public bool CanScore => States.Game == State;
 
         public TimeSpan Timer { get; private set; }
 

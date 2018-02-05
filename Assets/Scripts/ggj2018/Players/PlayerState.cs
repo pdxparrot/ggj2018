@@ -117,7 +117,7 @@ namespace ggj2018.ggj2018.Players
             if(_immuneTimer > 0.0f) {
                 _immuneTimer -= dt;
 
-                if(!IsImmune) {
+                if(IsDead || !IsImmune) {
                     _owner.Bird.ShowImmunity(false);
                 }
             }
