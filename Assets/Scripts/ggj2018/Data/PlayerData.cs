@@ -9,8 +9,9 @@ namespace ggj2018.ggj2018.Data
     [Serializable]
     public sealed class PlayerData : ScriptableObject
     {
+// TODO: move to bird data
 #region Base Stats
-        [Header("Stats")]
+        [Header("Base Stats")]
 
         [SerializeField]
         private float _baseSpeed = 20.0f;
@@ -45,6 +46,7 @@ namespace ggj2018.ggj2018.Data
 
         [Space(10)]
 
+// TODO: move to bird data
 #region Animations
         [Header("Animations")]
 
@@ -66,6 +68,7 @@ namespace ggj2018.ggj2018.Data
 
         [Space(10)]
 
+// TODO: move to game type data
 #region Stun
         [Header("Stun")]
 
@@ -87,6 +90,7 @@ namespace ggj2018.ggj2018.Data
 
         [Space(10)]
 
+// TODO: move to game type data
 #region Boost
         [Header("Boost")]
 
@@ -114,6 +118,7 @@ namespace ggj2018.ggj2018.Data
 
         [Space(10)]
 
+// TODO: move to game type data
 #region Braking
         [Header("Braking")]
 
