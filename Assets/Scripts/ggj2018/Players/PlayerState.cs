@@ -339,9 +339,10 @@ namespace ggj2018.ggj2018.Players
 #endregion
 
 #region Game Over
-        public void GameOver(GameOverType type)
+        public void GameOver(GameOverType state)
         {
-            switch(type)
+            Debug.Log($"Player {_owner.Id} game over state: {state}");
+            switch(state)
             {
             case GameOverType.Win:
                 AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.WinAudioClip);
@@ -353,7 +354,7 @@ namespace ggj2018.ggj2018.Players
                 AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.LossAudioClip);
                 break;
             }
-            _gameOverState = type;
+            _gameOverState = state;
         }
 #endregion
     }
