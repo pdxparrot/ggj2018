@@ -45,6 +45,9 @@ namespace ggj2018.ggj2018.World
         {
             player.transform.position = transform.position;
             player.transform.rotation = transform.rotation;
+
+            player.gameObject.SetActive(true);
+            player.Spawned();
         }
     }
 }

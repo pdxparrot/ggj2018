@@ -6,6 +6,7 @@ namespace ggj2018.Core.Util
 {
     public static class RandomExtensions
     {
+#region Random Collection Entries
         public static T GetRandomEntry<T>(this Random random, IReadOnlyCollection<T> collection)
         {
             if(collection.Count < 1) {
@@ -27,15 +28,26 @@ namespace ggj2018.Core.Util
             collection.RemoveAt(idx);
             return v;
         }
+#endregion
 
         public static float NextSign(this Random random)
         {
             return random.Next(0, 1) == 0 ? -1 : 1;
         }
 
-        public static double NextDouble(this Random random, float minValue, float maxValue)
+        public static float NextSingle(this Random random)
+        {
+            return (float)random.NextDouble();
+        }
+
+        public static double NextDouble(this Random random, double minValue, double maxValue)
         {
             return minValue + random.NextDouble() * (maxValue - minValue);
+        }
+
+        public static float NextSingle(this Random random, float minValue, float maxValue)
+        {
+            return (float)random.NextDouble(minValue, maxValue);
         }
     }
 }

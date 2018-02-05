@@ -102,6 +102,32 @@ namespace ggj2018.ggj2018.Data
             public float PitchSpeedModifier => _pitchSpeedModifier;
 #endregion
 
+            [Space(10)]
+
+#region Audio
+            [Header("Audio")]
+
+            [SerializeField]
+            private AudioClip _spawnAudioClip;
+
+            public AudioClip SpawnAudioClip => _spawnAudioClip;
+
+            [SerializeField]
+            private AudioClip _flightAudioClip;
+
+            public AudioClip FlightAudioClip => _flightAudioClip;
+
+            [SerializeField]
+            private AudioClip _winAudioClip;
+
+            public AudioClip WinAudioClip => _winAudioClip;
+
+            [SerializeField]
+            private AudioClip _lossAudioClip;
+
+            public AudioClip LossAudioClip => _lossAudioClip;
+#endregion
+
             private BirdData _birdData;
 
             public float ViewFOV => IsPredator

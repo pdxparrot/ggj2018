@@ -3,6 +3,7 @@
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Birds;
 using ggj2018.ggj2018.Game;
+using ggj2018.Game.Audio;
 
 using UnityEngine;
 
@@ -86,7 +87,7 @@ namespace ggj2018.ggj2018.Players
         [ReadOnly]
         private GameOverType _gameOverState = GameOverType.Loss;
 
-        public GameOverType GameOverState { get { return _gameOverState; } set { _gameOverState = value; } }
+        public GameOverType GameOverState => _gameOverState;
 
         private readonly Player _owner;
 
@@ -333,6 +334,26 @@ namespace ggj2018.ggj2018.Players
             }
 
             _owner.Viewer.PlayerUI.SwitchToDead();
+            _owner.Died();
+        }
+#endregion
+
+#region Game Over
+        public void GameOver(GameOverType type)
+        {
+            switch(type)
+            {
+            case GameOverType.Win:
+                AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.WinAudioClip);
+                break;
+            case GameOverType.Loss:
+                AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.LossAudioClip);
+                break;
+            case GameOverType.TimerUp:
+                AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.LossAudioClip);
+                break;
+            }
+            _gameOverState = type;
         }
 #endregion
     }

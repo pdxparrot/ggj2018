@@ -46,7 +46,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             if(player.State.Score >= GameTypeData.ScoreLimit) {
                 Debug.Log($"Player {player.Id} has reached the score limit!"); 
-                player.State.GameOverState = PlayerState.GameOverType.Win;
+                player.State.GameOver(PlayerState.GameOverType.Win);
                 GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
 

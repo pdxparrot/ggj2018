@@ -6,6 +6,7 @@ using ggj2018.Core.Util;
 using ggj2018.ggj2018.Birds;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
+using ggj2018.Game.Audio;
 
 using JetBrains.Annotations;
 
@@ -80,6 +81,7 @@ namespace ggj2018.ggj2018.Players
         private void Start()
         {
             StartCoroutine(UpdateNearestPlayers());
+            StartCoroutine(PlayFlightAnimation());
         }
 
         private void Update()
@@ -128,6 +130,16 @@ namespace ggj2018.ggj2018.Players
             LogInfo();
         }
 
+        public void Spawned()
+        {
+            AudioManager.Instance.PlayAudioOneShot(Bird.Type.SpawnAudioClip);
+        }
+
+        public void Died()
+        {
+            StopAllCoroutines();
+        }
+
         private IEnumerator UpdateNearestPlayers()
         {
             WaitForSeconds wait = new WaitForSeconds(PlayerManager.Instance.NearestPlayerUpdateMs / 1000.0f);
@@ -136,6 +148,19 @@ namespace ggj2018.ggj2018.Players
 
                 NearestPredator = PlayerManager.Instance.GetNearestPredator(this);
                 NearestPrey = PlayerManager.Instance.GetNearestPrey(this);
+            }
+        }
+
+        private IEnumerator PlayFlightAnimation()
+        {
+            System.Random random = new System.Random();
+            while(true) {
+                // TODO: animate
+
+                AudioManager.Instance.PlayAudioOneShot(Bird.Type.FlightAudioClip);
+
+                float wait = random.NextSingle(PlayerManager.Instance.PlayerData.MinFlightAnimationCooldown, PlayerManager.Instance.PlayerData.MaxFlightAnimationCooldown);
+                yield return new WaitForSeconds(wait);
             }
         }
 

@@ -39,7 +39,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             Debug.Log($"Player {player.Id} has reached the goal!");
             foreach(Player p in PlayerManager.Instance.Prey) {
-                p.State.GameOverState = PlayerState.GameOverType.Win;
+                p.State.GameOver(PlayerState.GameOverType.Win);
             }
             GameManager.Instance.State.SetState(GameState.States.GameOver);
         }
@@ -56,7 +56,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             if(killer.State.Score >= PlayerManager.Instance.Prey.Count) {
                 Debug.Log($"Player {killer.Id} has killed all the messengers!");
-                killer.State.GameOverState = PlayerState.GameOverType.Win;
+                killer.State.GameOver(PlayerState.GameOverType.Win);
                 GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
         }

@@ -51,6 +51,16 @@ namespace ggj2018.ggj2018.Data
         [Header("Animations")]
 
         [SerializeField]
+        private float _minFlightAnimationCooldown = 5.0f;
+
+        public float MinFlightAnimationCooldown => _minFlightAnimationCooldown;
+
+        [SerializeField]
+        private float _maxFlightAnimationCooldown = 15.0f;
+
+        public float MaxFlightAnimationCooldown => _maxFlightAnimationCooldown;
+
+        [SerializeField]
         private float _pitchAnimationAngle = 45.0f;
 
         public float PitchAnimationAngle => _pitchAnimationAngle;

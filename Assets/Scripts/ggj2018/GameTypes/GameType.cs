@@ -68,7 +68,7 @@ namespace ggj2018.ggj2018.GameTypes
         public virtual void TimerFinish()
         {
             foreach(Player player in PlayerManager.Instance.Players) {
-                player.State.GameOverState = PlayerState.GameOverType.TimerUp;
+                player.State.GameOver(PlayerState.GameOverType.TimerUp);
             }
         }
 

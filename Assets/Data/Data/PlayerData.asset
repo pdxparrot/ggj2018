@@ -16,6 +16,8 @@ MonoBehaviour:
   _basePitchUpSpeed: 25
   _basePitchDownSpeed: 35
   _terminalVelocity: 50
+  _minFlightAnimationCooldown: 10
+  _maxFlightAnimationCooldown: 20
   _pitchAnimationAngle: 45
   _turnAnimationAngle: 45
   _rotationAnimationSpeed: 6
