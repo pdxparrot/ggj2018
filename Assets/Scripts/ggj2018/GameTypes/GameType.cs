@@ -41,11 +41,9 @@ namespace ggj2018.ggj2018.GameTypes
 
         public void Update()
         {
-            if(PlayerManager.Instance.Players.Count > 0) {
-                foreach(Player player in PlayerManager.Instance.Players) {
-                    if(player.State.IsAlive) {
-                        return;
-                    }
+            foreach(Player player in PlayerManager.Instance.Players) {
+                if(player.State.IsAlive) {
+                    return;
                 }
             }
             GameManager.Instance.State.SetState(GameState.States.GameOver);

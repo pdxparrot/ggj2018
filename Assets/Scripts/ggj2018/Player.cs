@@ -1,7 +1,11 @@
-﻿using ggj2018.Core.Camera;
+﻿using System.Collections;
+
+using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
+
+using JetBrains.Annotations;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -48,12 +52,23 @@ namespace ggj2018.ggj2018
 
         public bool IsLocalPlayer => !GameManager.Instance.ConfigData.EnableNetwork || isLocalPlayer;
 
+        [CanBeNull]
+        public Player NearestPredator { get; private set; }
+
+        [CanBeNull]
+        public Player NearestPrey { get; private set; }
+
 #region Unity Lifecycle
         private void Awake()
         {
             _playerState = new PlayerState(this);
 
             _controller = GetComponent<PlayerController>();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(UpdateNearestPlayers());
         }
 
         private void Update()
@@ -100,6 +115,17 @@ namespace ggj2018.ggj2018
             _godRay.GetComponent<GodRay>().Setup(this);
 
             LogInfo();
+        }
+
+        private IEnumerator UpdateNearestPlayers()
+        {
+            WaitForSeconds wait = new WaitForSeconds(PlayerManager.Instance.NearestPlayerUpdateMs / 1000.0f);
+            while(true) {
+                yield return wait;
+
+                NearestPredator = PlayerManager.Instance.GetNearestPredator(this);
+                NearestPrey = PlayerManager.Instance.GetNearestPrey(this);
+            }
         }
 
         private void LogInfo()

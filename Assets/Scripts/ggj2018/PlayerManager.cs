@@ -34,24 +34,33 @@ namespace ggj2018.ggj2018
 
         public LayerMask PlayerCollisionLayer => LayerMask.NameToLayer(_playerCollisionLayerName);
 
+        [SerializeField]
+        private float _nearestPlayerUpdateMs = 100.0f;
+
+        public float NearestPlayerUpdateMs => _nearestPlayerUpdateMs;
+
+#region Character Selection
+        private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
+
+        public IReadOnlyCollection<CharacterSelectState> CharacterSelectStates => _characterSelectStates;
+#endregion
+
+#region Players
+        // TODO: if we wrap this it would be easier to track alive and dead player counts
+
         private readonly List<Player> _players = new List<Player>();
 
         public IReadOnlyCollection<Player> Players => _players;
 
-        private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
+        private readonly List<Player> _predators = new List<Player>();
 
-        public IReadOnlyCollection<CharacterSelectState> CharacterSelectStates => _characterSelectStates;
+        public IReadOnlyCollection<Player> Predators => _predators;
 
-#region Game Related State
-        public int PlayerCount => _players.Count;
+        private readonly List<Player> _prey = new List<Player>();
 
-        [SerializeField]
-        [ReadOnly]
-        private int _preyCount;
+        public IReadOnlyCollection<Player> Prey => _prey;
 
-        public int PreyCount => _preyCount;
-
-        public int PredatorCount => PlayerCount - PreyCount;
+        public int PlayerCount => _predators.Count + _prey.Count;
 #endregion
 
 #region Unity Lifecycle
@@ -91,7 +100,7 @@ namespace ggj2018.ggj2018
             }
 
             Player player = Instantiate(_playerPrefab, _playerContainer.transform);
-            InitializePlayer(player, _players.Count, selectState, spawnPoint);
+            InitializePlayer(player, PlayerCount, selectState, spawnPoint);
             //NetworkServer.Spawn(player.gameObject);
 
             Debug.Log($"Spawned {player.Bird.Type.Name} for local player {player.Id} at {spawnPoint.name} ({player.transform.position})");
@@ -120,75 +129,84 @@ namespace ggj2018.ggj2018
             RemovePlayer(player);
         }
 
-        // TODO: this no longer works becuase List
-        /*public void DespawnAllPlayers()
-        {
-            Debug.Log("Despawning everybody");
-            for(int i=0; i<_players.Count; ++i) {
-                RemovePlayer(i);
-            }
-        }*/
-
         private void AddPlayer(Player player)
         {
-            _players.Add(player);
-
-            if(player.Bird.Type.IsPrey) {
-                _preyCount++;
+            if(player.Bird.Type.IsPredator) {
+                _predators.Add(player);
+            } else {
+                _prey.Add(player);
             }
+            _players.Add(player);
         }
 
         private void RemovePlayer(Player player)
         {
-            if(player.Bird.Type.IsPrey) {
-                _preyCount--;
+            if(player.Bird.Type.IsPredator) {
+                _predators.Remove(player);
+            } else {
+                _prey.Remove(player);
             }
-
             _players.Remove(player);
+
             Destroy(player.gameObject);
         }
 
 #region Players by Distance
-        public Player GetNearestPredator(Player player, out float distance)
+        public Player GetNearestPlayer(Player player)
         {
-            return GetNearestPlayer(player, other => other.Bird.Type.IsPredator, out distance);
+            return GetNearestPlayer(player, _players);
         }
 
-        public Player GetNearestPrey(Player player, out float distance)
+        public Player GetNearestPredator(Player player)
         {
-            return GetNearestPlayer(player, other => other.Bird.Type.IsPrey, out distance);
+            return GetNearestPlayer(player, _predators);
         }
 
-        private Player GetNearestPlayer(Player player, Func<Player, bool> condition, out float distance)
+        public Player GetNearestPrey(Player player)
         {
-            Player nearest = null;
-            distance = float.MaxValue;
+            return GetNearestPlayer(player, _prey);
+        }
 
-            foreach(Player other in Players) {
-                if(!condition(other)) {
-                    continue;
+        private Player GetNearestPlayer(Player player, List<Player> players)
+        {
+            return GetPlayerByComparison(player, players, (x, y) => {
+                float xd = (x.transform.position - player.transform.position).sqrMagnitude;
+                float yd = (y.transform.position - player.transform.position).sqrMagnitude;
+
+                if(xd < yd) {
+                    return -1;
                 }
 
-                float d = (other.transform.position - player.transform.position).sqrMagnitude;
-                if(null == nearest || d < distance) {
-                    nearest = other;
+                if(xd > yd) {
+                    return 1;
                 }
-            }
-            return nearest;
+
+                return 0;
+            });
         }
 #endregion
+
+        private Player GetPlayerByComparison(Player player, List<Player> players, Comparison<Player> comparison)
+        {
+            if(players.Count < 1) {
+                return null;
+            }
+
+            players.Sort(comparison);
+            return players[0];
+        }
 
 #if UNITY_EDITOR
         public void DebugStunAll()
         {
-            foreach(Player player in _players) {
+            foreach(Player player in Players) {
                 player.State.DebugStun();
             }
         }
 
         public void DebugKillAll()
         {
-            foreach(Player player in _players) {
+            foreach(Player player in Players) {
                 player.State.DebugKill();
             }
         }

@@ -17,27 +17,23 @@ namespace ggj2018.ggj2018
         [SerializeField] private MeshRenderer mesh;
 
 #region Unity Lifecycle
-        private void Update()
+        // TODO: wtf is this even doing?
+        /*private void Update()
         {
             var dist = FadeFarDist + 1;
 
             if(mode == Mode.Carrier) {
-                foreach(Player player in PlayerManager.Instance.Players) {
-                    if(player.Bird.Type.IsPredator) {
-                        var vec = player.gameObject.transform.position - transform.position;
-                        vec.y = 0;
-                        dist = vec.magnitude;
-                        break;
-                    }
+                foreach(Player player in PlayerManager.Instance.Predators) {
+                    var vec = player.gameObject.transform.position - transform.position;
+                    vec.y = 0;
+                    dist = vec.magnitude;
                 }
             } else if(mode == Mode.Goal) {
-                foreach(Player player in PlayerManager.Instance.Players) {
-                    if(player.Bird.Type.IsPredator) {
-                        var vec = player.gameObject.transform.position - transform.position;
-                        vec.y = 0;
-                        var d = vec.magnitude;
-                        dist = Mathf.Min(dist, d);
-                    }
+                foreach(Player player in PlayerManager.Instance.Predators) {
+                    var vec = player.gameObject.transform.position - transform.position;
+                    vec.y = 0;
+                    var d = vec.magnitude;
+                    dist = Mathf.Min(dist, d);
                 }
             }
 
@@ -46,7 +42,7 @@ namespace ggj2018.ggj2018
             Color c = mesh.material.color;
             c.a = alpha;
             mesh.material.color = c;
-        }
+        }*/
 #endregion
 
         public void Setup(Player player)
