@@ -155,6 +155,7 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
+    - _PlayerColor: {r: 0.49264705, g: 0.11953936, b: 0.42059854, a: 0}
     - _PrimaryColor: {r: 1, g: 1, b: 1, a: 0}
     - _SecondaryColor: {r: 0.625, g: 0, b: 0.60775876, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
