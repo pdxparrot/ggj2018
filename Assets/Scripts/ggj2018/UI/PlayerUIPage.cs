@@ -3,11 +3,11 @@ using System.Collections;
 
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.GameTypes;
-
+using ggj2018.ggj2018.Players;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.UI
 {
     [RequireComponent(typeof(Canvas))]
     public sealed class PlayerUIPage : MonoBehavior

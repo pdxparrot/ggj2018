@@ -3,10 +3,11 @@
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Birds;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.Game;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Players
 {
     [Serializable]
     public sealed class PlayerState

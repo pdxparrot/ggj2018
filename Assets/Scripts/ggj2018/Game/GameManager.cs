@@ -5,12 +5,13 @@ using ggj2018.Core.Input;
 using ggj2018.Core.Camera;
 using ggj2018.Core.Network;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.UI;
 using ggj2018.Game.Scenes;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Game
 {
     public sealed class GameManager : SingletonBehavior<GameManager>
     {

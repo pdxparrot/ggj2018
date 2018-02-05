@@ -1,8 +1,12 @@
-﻿using ggj2018.Game.Loading;
+﻿using ggj2018.ggj2018.Game;
+using ggj2018.ggj2018.Players;
+using ggj2018.ggj2018.UI;
+using ggj2018.ggj2018.World;
+using ggj2018.Game.Loading;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Loading
 {
     public sealed class GameLoadingManager : LoadingManager<GameLoadingManager>
     {

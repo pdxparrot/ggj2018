@@ -6,7 +6,9 @@ using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Birds;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.GameTypes;
+using ggj2018.ggj2018.World;
 
 using JetBrains.Annotations;
 
@@ -14,7 +16,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Players
 {
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {

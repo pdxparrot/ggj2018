@@ -1,5 +1,7 @@
 ﻿using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.Game;
+using ggj2018.ggj2018.Players;
 
 using UnityEngine;
 

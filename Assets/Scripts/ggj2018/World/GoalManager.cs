@@ -4,7 +4,7 @@ using ggj2018.Core.Util;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.World
 {
     public sealed class GoalManager : SingletonBehavior<GoalManager>
     {

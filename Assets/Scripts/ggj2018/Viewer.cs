@@ -1,4 +1,7 @@
 ﻿using ggj2018.Core.Camera;
+using ggj2018.ggj2018.Game;
+using ggj2018.ggj2018.Players;
+using ggj2018.ggj2018.UI;
 
 using UnityEngine;
 

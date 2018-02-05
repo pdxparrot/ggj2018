@@ -3,10 +3,12 @@
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.Game;
+using ggj2018.ggj2018.World;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Players
 {
     [RequireComponent(typeof(Rigidbody))]
     public sealed class PlayerController : MonoBehaviour
