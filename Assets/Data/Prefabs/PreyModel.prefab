@@ -796,8 +796,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultIntensity: 0
-  _maxIntensity: 1
-  _intensityRate: 0.25
 --- !u!114 &114769505393240148
 MonoBehaviour:
   m_ObjectHideFlags: 1
