@@ -18,6 +18,8 @@ namespace ggj2018.ggj2018.World
 
         private class SpawnPoints
         {
+            private readonly GameType.GameTypes _gameType;
+
 // TODO: dictionary would work better
             private readonly List<SpawnPoint> _predatorSpawnPoints = new List<SpawnPoint>();
 
@@ -26,6 +28,11 @@ namespace ggj2018.ggj2018.World
             private readonly List<SpawnPoint> _preySpawnPoints = new List<SpawnPoint>();
 
             private readonly List<SpawnPoint> _usedPreySpawnPoints = new List<SpawnPoint>();
+
+            public SpawnPoints(GameType.GameTypes gameType)
+            {
+                _gameType = gameType;
+            }
 
             public void Add(SpawnPoint spawnPoint)
             {
@@ -103,7 +110,7 @@ namespace ggj2018.ggj2018.World
 
             public void Reset()
             {
-                Debug.Log("Resetting used spawnpoints");
+                Debug.Log($"Resetting used spawnpoints for game type {_gameType}");
 
                 _predatorSpawnPoints.AddRange(_usedPredatorSpawnPoints);
                 _usedPredatorSpawnPoints.Clear();
@@ -122,7 +129,7 @@ namespace ggj2018.ggj2018.World
             foreach(GameType.GameTypes gameType in spawnPoint.GameTypes) {
                 SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
                 if(null == spawnPoints) {
-                    spawnPoints = new SpawnPoints();
+                    spawnPoints = new SpawnPoints(gameType);
                     _spawnPoints.Add(gameType, spawnPoints);
                 }
                 spawnPoints.Add(spawnPoint);

@@ -20,6 +20,8 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         private BaseViewer _viewerPrefab;
 
+        private readonly List<BaseViewer> _viewers = new List<BaseViewer>();
+
         private readonly List<BaseViewer> _assignedViewers = new List<BaseViewer>();
 
         private readonly Queue<BaseViewer> _unassignedViewers = new Queue<BaseViewer>();
@@ -65,6 +67,7 @@ namespace ggj2018.Core.Camera
                 viewer.Initialize(i);
                 viewer.gameObject.SetActive(false);
 
+                _viewers.Add(viewer);
                 _unassignedViewers.Enqueue(viewer);
             }
 
@@ -82,17 +85,36 @@ namespace ggj2018.Core.Camera
             viewer.gameObject.SetActive(true);
             _assignedViewers.Add(viewer);
 
-            //Debug.Log($"Acquired viewer {viewer.name}");
+            //Debug.Log($"Acquired viewer {viewer.name}  (assigned: {_assignedViewers.Count}, unassigned: {_unassignedViewers.Count})");
             return viewer;
         }
 
         public void ReleaseViewer(BaseViewer viewer)
         {
-            //Debug.Log($"Releasing viewer {viewer.name}");
+            if(!_assignedViewers.Contains(viewer)) {
+                return;
+            }
+
+            //Debug.Log($"Releasing viewer {viewer.name} (assigned: {_assignedViewers.Count}, unassigned: {_unassignedViewers.Count})");
 
             viewer.gameObject.SetActive(false);
             _assignedViewers.Remove(viewer);
             _unassignedViewers.Enqueue(viewer);
+        }
+
+        public void ResetViewers()
+        {
+            Debug.Log($"Releasing all ({_assignedViewers.Count}) viewers");
+
+            // we loop through all of the viewers
+            // because we can't loop over the assigned viewers
+            foreach(BaseViewer viewer in _viewers) {
+                ReleaseViewer(viewer);
+
+                viewer.transform.position = Vector3.zero;
+                viewer.transform.rotation = Quaternion.identity;
+            }
+            ResizeViewports();
         }
 
         public void ResizeViewports()

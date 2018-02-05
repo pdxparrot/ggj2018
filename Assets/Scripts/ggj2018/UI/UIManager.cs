@@ -57,10 +57,10 @@ namespace ggj2018.ggj2018.UI
         }
         */
 
-        public void SwitchToMenu()
+        public void SwitchToCharacterSelect()
         {
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
-                selectState.Viewer.PlayerUI.SwitchToMenu();
+                selectState.Viewer.PlayerUI.SwitchToCharacterSelect();
             }
         }
 

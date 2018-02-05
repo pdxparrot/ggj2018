@@ -83,11 +83,18 @@ namespace ggj2018.ggj2018.Players
         public void Initialize()
         {
             for(int i=0; i<GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
-                Viewer viewer = CameraManager.Instance.AcquireViewer() as Viewer;
                 int controllerIndex = InputManager.Instance.AcquireController();
-                Debug.Log($"Acquired viewer {viewer?.name} and controller {controllerIndex}");
+                Debug.Log($"Acquired controller {controllerIndex}");
 
-                _characterSelectStates.Add(new CharacterSelectState(controllerIndex, viewer));
+                _characterSelectStates.Add(new CharacterSelectState(controllerIndex));
+            }
+            ResetCharacterSelect();
+        }
+
+        public void ResetCharacterSelect()
+        {
+            foreach(CharacterSelectState selectState in CharacterSelectStates) {
+                selectState.Reset();
             }
             CameraManager.Instance.ResizeViewports();
         }
@@ -97,7 +104,7 @@ namespace ggj2018.ggj2018.Players
         {
             SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameType, selectState.PlayerBirdData);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {selectState.PlayerBirdId} in game type {gameType}");
+                Debug.LogError($"No spawn points left for bird type {selectState.PlayerBirdData.Id} in game type {gameType}");
                 return null;
             }
 
@@ -128,7 +135,16 @@ namespace ggj2018.ggj2018.Players
         {
             Debug.Log($"Despawning player {player.Id}");
 
-            RemovePlayer(player);
+            RemovePlayer(player, true);
+        }
+
+        public void DespawnAllPlayers()
+        {
+            Debug.Log($"Despawning all ({Players.Count}) players");
+            foreach(Player player in Players) {
+                RemovePlayer(player, false);
+            }
+            _players.Clear();
         }
 
         private void AddPlayer(Player player)
@@ -141,14 +157,17 @@ namespace ggj2018.ggj2018.Players
             _players.Add(player);
         }
 
-        private void RemovePlayer(Player player)
+        private void RemovePlayer(Player player, bool removeFromPlayers)
         {
             if(player.Bird.Type.IsPredator) {
                 _predators.Remove(player);
             } else {
                 _prey.Remove(player);
             }
-            _players.Remove(player);
+
+            if(removeFromPlayers) {
+                _players.Remove(player);
+            }
 
             Destroy(player.gameObject);
         }

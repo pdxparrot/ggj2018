@@ -126,7 +126,6 @@ namespace ggj2018.ggj2018.Game
             NetworkManager.Initialize(ConfigData.EnableNetwork);
 
             CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
-            State.SetState(GameState.States.Menu);
         }
 
         private void CheckPause()

@@ -103,11 +103,23 @@ namespace ggj2018.ggj2018.Data
 
         public float ImmuneTime => _immuneTime;
 
+        [Space(10)]
+
+#region Game Over
+        [Header("Game Over")]
+
+        [SerializeField]
+        private bool _restartOnGameOver;
+
+        public bool RestartOnGameOver => _restartOnGameOver;
+
         [SerializeField]
         private int _gameOverWaitTime = 5;
 
         public int GameOverWaitTime => _gameOverWaitTime;
+#endregion
 
+// TODO: move to bird data
         [SerializeField]
         private float _hawkAlertDistance = 25.0f;
 

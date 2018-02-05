@@ -58,6 +58,9 @@ namespace ggj2018.ggj2018.Game
         {
             switch(State)
             {
+            case States.Init:
+                RunInit();
+                break;
             case States.Menu:
                 RunMenu();
                 break;
@@ -108,8 +111,18 @@ namespace ggj2018.ggj2018.Game
 #region Init State
         public void BeginInit()
         {
-// TODO
-SetState(States.Menu);
+            PlayerManager.Instance.DespawnAllPlayers();
+
+            SpawnManager.Instance.ReleaseSpawnPoints();
+
+            CameraManager.Instance.ResetViewers();
+
+            PlayerManager.Instance.ResetCharacterSelect();
+        }
+
+        public void RunInit()
+        {
+            SetState(States.Menu);
         }
 #endregion
 
@@ -127,6 +140,7 @@ SetState(States.Menu);
 #region Character Select State
         private void BeginCharacterSelect()
         {
+            UIManager.Instance.SwitchToCharacterSelect();
         }
 
         private void RunCharacterSelect()
@@ -178,7 +192,7 @@ SetState(States.Menu);
 
                 selectState.Viewer.PlayerUI.SetStatus(selectState, ready == joined);
 
-                UIManager.Instance.SwitchToMenu();
+                UIManager.Instance.SwitchToCharacterSelect();
             }
 
         }
@@ -228,8 +242,6 @@ SetState(States.Menu);
 
             UIManager.Instance.SwitchToGame(_gameType);
 
-            SpawnManager.Instance.ReleaseSpawnPoints();
-
             Timer = GameType.GameTypeData.TimeLimit > 0
                 ? TimeSpan.FromMinutes(GameType.GameTypeData.TimeLimit)
                 : TimeSpan.Zero;
@@ -267,8 +279,10 @@ SetState(States.Menu);
             _gameOverTimer -= dt;
             if(_gameOverTimer <= 0.0f) {
                 _gameOverTimer = 0.0f;
-// TODO
-                //SetState(States.Init);
+
+                if(GameManager.Instance.GameTypeData.RestartOnGameOver) {
+                    SetState(States.Init);
+                }
             }
         }
 #endregion

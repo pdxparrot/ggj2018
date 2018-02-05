@@ -41,12 +41,9 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private Image Boost;
         [SerializeField] private Text Goal;
 
-        //[SerializeField] private Text JoinPrompt;
         [SerializeField] private Text BirdLabel;
         [SerializeField] private Image BirdImage1;
         [SerializeField] private Image BirdImage2;
-        //[SerializeField] private Text BirdValue;
-        //[SerializeField] private Text ReadyPrompt;
 
         [SerializeField] private GameObject GameTimerPanel;
         [SerializeField] private Text GameTimer;
@@ -69,19 +66,16 @@ namespace ggj2018.ggj2018.UI
             HudPanel.SetActive(false);
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(false);
-
-            //JoinPrompt.gameObject.SetActive(false);
-            //BirdLabel.gameObject.SetActive(false);
-            //BirdValue.gameObject.SetActive(false);
-            //ReadyPrompt.gameObject.SetActive(false);
+            DeadPanel.SetActive(false);
         }
 
-        public void SwitchToMenu()
+        public void SwitchToCharacterSelect()
         {
             MenuPanel.SetActive(true);
             HudPanel.SetActive(false);
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(false);
+            DeadPanel.SetActive(false);
         }
 
         public void SwitchToGame(GameType gameType)
@@ -90,6 +84,7 @@ namespace ggj2018.ggj2018.UI
             HudPanel.SetActive(true);
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(true);
+            DeadPanel.SetActive(false);
 
             Goal.text = gameType.GameTypeData.GetWinConditionDescription(_owner.Bird.Type);
             GameTimerPanel.SetActive(gameType.ShowTimer);
@@ -135,7 +130,7 @@ namespace ggj2018.ggj2018.UI
 
         public void SetStatus(CharacterSelectState characterSelectState, bool allready)
         {
-            SwitchToMenu();
+            SwitchToCharacterSelect();
 
             JoinPanel.SetActive(!characterSelectState.IsJoinedOrReady);
             CharSelPanel.SetActive(characterSelectState.IsJoined);

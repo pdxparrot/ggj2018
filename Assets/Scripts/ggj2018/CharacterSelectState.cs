@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using ggj2018.Core.Camera;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.Players;
@@ -39,8 +40,6 @@ namespace ggj2018.ggj2018
         public int SelectedBird { get { return _selectedBird; } set { _selectedBird = value; } }
 
         public BirdData.BirdDataEntry PlayerBirdData => GameManager.Instance.BirdData.Birds.ElementAt(SelectedBird);
-
-        public string PlayerBirdId => PlayerBirdData.Id;
 #endregion
 
         [SerializeField]
@@ -58,10 +57,17 @@ namespace ggj2018.ggj2018
 
         public Player Player { get { return _player; } set { _player = value; } }
 
-        public CharacterSelectState(int controllerIndex, Viewer viewer)
+        public CharacterSelectState(int controllerIndex)
         {
             _controllerIndex = controllerIndex;
-            _viewer = viewer;
+        }
+
+        public void Reset()
+        {
+            _joinState = JoinState.None;
+            _selectedBird = 0;
+            _viewer = CameraManager.Instance.AcquireViewer() as Viewer;
+            _player = null;
         }
 
         public void NextBird()
