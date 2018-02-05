@@ -163,6 +163,11 @@ namespace ggj2018.ggj2018.Data
         private Color[] _playerColors;
 
         public IReadOnlyCollection<Color> PlayerColors => _playerColors;
+
+        [SerializeField]
+        private string _playerColorProperty = "_PlayerColor";
+
+        public string PlayerColorProperty => _playerColorProperty;
 #endregion
 
         public Color GetPlayerColor(int playerId)
