@@ -27,5 +27,15 @@ namespace ggj2018.Core.Util
             collection.RemoveAt(idx);
             return v;
         }
+
+        public static float NextSign(this Random random)
+        {
+            return random.Next(0, 1) == 0 ? -1 : 1;
+        }
+
+        public static double NextDouble(this Random random, float minValue, float maxValue)
+        {
+            return minValue + random.NextDouble() * (maxValue - minValue);
+        }
     }
 }

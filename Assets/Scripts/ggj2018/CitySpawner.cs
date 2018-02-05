@@ -1,13 +1,20 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+
+using ggj2018.Core.Util;
+
 using UnityEngine;
 
-public class CitySpawner : MonoBehaviour {
-
-	[System.Serializable] public struct BlockPrefab {
+public class CitySpawner : MonoBehavior
+{
+	[Serializable]
+    public struct BlockPrefab
+    {
 		public GameObject prefab;
 		public int frequency;
 	}
+
+    [SerializeField] private bool generateOnAwake = true;
 
     [SerializeField] private GameObject hawkSpawnPrefab;
     [SerializeField] private GameObject pigeonSpawnPrefab;
@@ -25,29 +32,40 @@ public class CitySpawner : MonoBehaviour {
     private Vector3 hawkStart;
     private Vector3 goalPos;
 
-    float RandSign() {
-        return (Random.Range(0,1) == 0) ? -1 : 1;
-    }
+    private readonly System.Random random = new System.Random();
 
-	// Use this for initialization
-	void Start () {
-		maxFrequency = 0;
-		for(int i = 0; i < blockPrefabs.Count; ++i)
-			maxFrequency += blockPrefabs[i].frequency;
+    // Random block spawning
+    private float maxFrequency;
+
+#region Unity Lifecycle
+	private void Start ()
+    {
+        if(generateOnAwake) {
+            Generate(false);
+        }
+	}
+#endregion
+
+    public void Generate(bool fromEditorGenerate)
+    {
+        maxFrequency = 0.0f;
+        for(int i = 0; i < blockPrefabs.Count; ++i) {
+            maxFrequency += blockPrefabs[i].frequency;
+        }
 
         int minSize = pigeonSpawnRange.x;
         int maxSize =  pigeonSpawnRange.y;
         pigeonStart = new Vector3(
-            Mathf.Min(Random.Range(minSize, maxSize), citySize.x) * RandSign(),
+            Mathf.Min(random.Next(minSize, maxSize), citySize.x) * random.NextSign(),
             0.0f,
-            Mathf.Min(Random.Range(minSize, maxSize), citySize.y) * RandSign());
+            Mathf.Min(random.Next(minSize, maxSize), citySize.y) * random.NextSign());
 
         minSize = hawkSpawnRange.x;
         maxSize =  hawkSpawnRange.y;
         hawkStart = new Vector3(
-            Mathf.Clamp(pigeonStart.x + Random.Range(minSize, maxSize), -citySize.x, citySize.x),
+            Mathf.Clamp(pigeonStart.x + random.Next(minSize, maxSize), -citySize.x, citySize.x),
             0.0f,
-            Mathf.Clamp(pigeonStart.y + Random.Range(minSize, maxSize), -citySize.y, citySize.y));
+            Mathf.Clamp(pigeonStart.y + random.Next(minSize, maxSize), -citySize.y, citySize.y));
 
         pigeonStart.x *= blockDimensions;
         pigeonStart.z *= blockDimensions;
@@ -55,18 +73,17 @@ public class CitySpawner : MonoBehaviour {
         hawkStart.z *= blockDimensions;
         goalPos = -pigeonStart;
 
-		Spawn();
-	}
+        Spawn(fromEditorGenerate);
+    }
 
-	// Random block spawning
-	private float maxFrequency = 0;
-	private GameObject RandomBlock() {
-		var rnd = Random.Range(0, maxFrequency - 1);
+	private GameObject RandomBlock()
+    {
+		var rnd = random.NextDouble(0, maxFrequency - 1.0f);
 		int i = 0;
 
 		for(; i < blockPrefabs.Count; ++i) {
 			rnd -= blockPrefabs[i].frequency;
-			if(rnd < 0)
+			if(rnd < 0.0f)
 				break;
 		}
 
@@ -74,9 +91,15 @@ public class CitySpawner : MonoBehaviour {
 	}
 
 	// Spawn
-	public void Spawn() {
-        Destroy(_root);
-        _root = null;
+    private void Spawn(bool fromEditorGenerate)
+    {
+        if(fromEditorGenerate) {
+            DestroyImmediate(_root);
+            _root = null;
+        } else {
+            Destroy(_root);
+            _root = null;
+        }
 
 		Vector2Int max = new Vector2Int(citySize.x, citySize.y);
 		Vector2Int min = new Vector2Int(-max.x, -max.y);
@@ -106,8 +129,9 @@ public class CitySpawner : MonoBehaviour {
         Spawn(goalPrefab, goalPos);
 	} 
 
-    private GameObject Spawn(GameObject p, Vector3 pos) {
-        var block = Instantiate(p) as GameObject;
+    private GameObject Spawn(GameObject p, Vector3 pos)
+    {
+        var block = Instantiate(p);
         block.transform.parent = _root.transform;
         block.transform.position = pos;
         return block;

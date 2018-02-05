@@ -1,0 +1,11 @@
+{
+    "name": "com.pdxpartyparrot.ggj2018.Editor",
+    "references": [
+        "com.pdxpartyparrot.ggj2018",
+        "com.pdxpartyparrot.Core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
