@@ -60,6 +60,11 @@ namespace ggj2018.ggj2018.Data
 
 #region Stat Modifiers
             [SerializeField]
+            private bool _canBoost;
+
+            public bool CanBoost => _canBoost;
+
+            [SerializeField]
             private float _speedModifier;
 
             public float SpeedModifier => _speedModifier;

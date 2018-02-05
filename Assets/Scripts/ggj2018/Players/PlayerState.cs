@@ -64,7 +64,7 @@ namespace ggj2018.ggj2018.Players
 
         public float BoostRemainingSeconds => _boostRemainingSeconds;
 
-        public bool CanBoost => !IsIncapacitated && BoostRemainingSeconds > 0.0f;
+        public bool CanBoost => _owner.Bird.Type.CanBoost && !IsIncapacitated && BoostRemainingSeconds > 0.0f;
 #endregion
 
 #region Brake
