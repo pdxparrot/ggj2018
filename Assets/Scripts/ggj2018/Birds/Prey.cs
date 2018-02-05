@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Birds
 {
     public class Prey : Bird
     {

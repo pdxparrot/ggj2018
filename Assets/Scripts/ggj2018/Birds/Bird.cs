@@ -3,16 +3,11 @@ using ggj2018.ggj2018.Data;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace ggj2018.ggj2018.Birds
 {
     [RequireComponent(typeof(Collider))]
     public abstract class Bird : MonoBehavior
     {
-        [SerializeField]
-        private GameObject _model;
-
-        public GameObject Model => _model;
-
         [SerializeField]
         private ParticleSystem _stunParticles;
 
