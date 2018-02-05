@@ -4,7 +4,7 @@ Shader "SH_VFX_BirdTrail"
 {
 	Properties
 	{
-		_TrailColor("Trail Color", Color) = (0,0,0,0)
+		_PlayerColor("PlayerColor", Color) = (0,0,0,0)
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
 
@@ -21,11 +21,11 @@ Shader "SH_VFX_BirdTrail"
 			float4 vertexColor : COLOR;
 		};
 
-		uniform float4 _TrailColor;
+		uniform float4 _PlayerColor;
 
 		void surf( Input i , inout SurfaceOutputStandard o )
 		{
-			o.Emission = _TrailColor.rgb;
+			o.Emission = _PlayerColor.rgb;
 			o.Alpha = i.vertexColor.a;
 		}
 
@@ -104,11 +104,11 @@ Shader "SH_VFX_BirdTrail"
 }
 /*ASEBEGIN
 Version=14301
-876;91;1044;927;1421.688;657.6186;2.037665;True;True
-Node;AmplifyShaderEditor.ColorNode;1;-783.8932,-265.6312;Float;False;Property;_TrailColor;Trail Color;0;0;Create;True;0,0,0,0;0,0,0,0;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.VertexColorNode;11;-699.4822,290.988;Float;False;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;SH_VFX_BirdTrail;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;Off;0;0;False;0;0;False;0;Transparent;0.5;True;True;0;False;Transparent;Transparent;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;True;2;SrcAlpha;OneMinusSrcAlpha;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;False;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+924;91;996;651;1421.688;657.6186;2.037665;True;False
+Node;AmplifyShaderEditor.VertexColorNode;11;-322.5152,150.3894;Float;False;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;1;-341.7205,-67.97798;Float;False;Property;_PlayerColor;PlayerColor;0;0;Create;True;0,0,0,0;0,0,0,0;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;SH_VFX_BirdTrail;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;Off;0;0;False;0;0;False;0;Transparent;0.5;True;True;0;False;Transparent;Transparent;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;True;2;SrcAlpha;OneMinusSrcAlpha;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;-1;-1;-1;-1;0;0;0;False;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;0;2;1;0
 WireConnection;0;9;11;4
 ASEEND*/
-//CHKSM=A04D03104D9A2A3821537B956A4A27D4299B0D73
+//CHKSM=CD1391C2264FCA0BA9ED1503322F2B4B4EC66DA3
