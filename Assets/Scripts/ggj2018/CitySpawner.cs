@@ -93,13 +93,7 @@ public class CitySpawner : MonoBehavior
 	// Spawn
     private void Spawn(bool fromEditorGenerate)
     {
-        if(fromEditorGenerate) {
-            DestroyImmediate(_root);
-            _root = null;
-        } else {
-            Destroy(_root);
-            _root = null;
-        }
+        DestroyRoot(fromEditorGenerate);
 
 		Vector2Int max = new Vector2Int(citySize.x, citySize.y);
 		Vector2Int min = new Vector2Int(-max.x, -max.y);
@@ -135,5 +129,23 @@ public class CitySpawner : MonoBehavior
         block.transform.parent = _root.transform;
         block.transform.position = pos;
         return block;
+    }
+
+    private void DestroyRoot(bool fromEditorGenerate)
+    {
+        DestroyRoot(_root, fromEditorGenerate);
+        _root = null;
+
+        GameObject danglingRoot = GameObject.Find("City");
+        DestroyRoot(danglingRoot, fromEditorGenerate);
+    }
+
+    private void DestroyRoot(GameObject root, bool fromEditorGenerate)
+    {
+        if(fromEditorGenerate) {
+            DestroyImmediate(root);
+        } else {
+            Destroy(root);
+        }
     }
 }
