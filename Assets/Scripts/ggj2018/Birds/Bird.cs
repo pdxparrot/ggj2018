@@ -64,9 +64,8 @@ namespace ggj2018.ggj2018.Birds
             Owner = owner;
             Type = birdType;
 
-            Color playerColor = PlayerManager.Instance.PlayerData.GetPlayerColor(owner.Id);
             foreach(Material material in _colorMaterials) {
-                material.color = playerColor;
+                material.color = owner.PlayerColor;
             }
         }
 

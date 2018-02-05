@@ -145,6 +145,11 @@ namespace ggj2018.ggj2018.Data
         [Header("Player Colors")]
 
         [SerializeField]
+        private Color _defaultPlayerColor = Color.magenta;
+
+        public Color DefaultPlayerColor => _defaultPlayerColor;
+
+        [SerializeField]
         private Color[] _playerColors;
 
         public IReadOnlyCollection<Color> PlayerColors => _playerColors;
@@ -152,7 +157,7 @@ namespace ggj2018.ggj2018.Data
 
         public Color GetPlayerColor(int playerId)
         {
-            return _playerColors.Length < 1 ? Color.magenta : _playerColors[playerId % _playerColors.Length];
+            return _playerColors.Length < 1 ? DefaultPlayerColor : _playerColors[playerId % _playerColors.Length];
         }
     }
 }

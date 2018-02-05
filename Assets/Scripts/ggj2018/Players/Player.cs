@@ -39,6 +39,8 @@ namespace ggj2018.ggj2018.Players
 
         public Bird Bird { get; private set; }
 
+        public Color PlayerColor => PlayerManager.Instance.PlayerData.GetPlayerColor(Id);
+
 #region Input
         [SerializeField]
         [ReadOnly]

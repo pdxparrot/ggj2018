@@ -17,6 +17,8 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private GameObject FinishPanel;
         [SerializeField] private GameObject IntroPanel;
 
+        [SerializeField] private Image CharacterFrame;
+
         [SerializeField] private GameObject JoinPanel;
         [SerializeField] private GameObject CharSelPanel;
         [SerializeField] private GameObject ReadyPanel;
@@ -76,6 +78,8 @@ namespace ggj2018.ggj2018.UI
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(false);
             DeadPanel.SetActive(false);
+
+            CharacterFrame.color = _owner?.PlayerColor ?? PlayerManager.Instance.PlayerData.DefaultPlayerColor;
         }
 
         public void SwitchToGame(GameType gameType)

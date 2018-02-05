@@ -2090,6 +2090,7 @@ MonoBehaviour:
   HudPanel: {fileID: 1922395873692448}
   FinishPanel: {fileID: 1602711769071056}
   IntroPanel: {fileID: 1906540235182920}
+  CharacterFrame: {fileID: 114053434344482764}
   JoinPanel: {fileID: 1567905709235752}
   CharSelPanel: {fileID: 1767366793604838}
   ReadyPanel: {fileID: 1175405479875098}
