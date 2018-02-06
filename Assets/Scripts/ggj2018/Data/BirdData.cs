@@ -67,7 +67,7 @@ namespace ggj2018.ggj2018.Data
             public float Mass => _mass;
 
             [SerializeField]
-            private float _drag = 0.0f;
+            private float _drag = 1.0f;
 
             public float Drag => _drag;
 
@@ -75,6 +75,11 @@ namespace ggj2018.ggj2018.Data
             private float _angularDrag = 0.05f;
 
             public float AngularDrag => _angularDrag;
+
+            [SerializeField]
+            private float _terminalVelocity = 100.0f;
+
+            public float TerminalVelocity => _terminalVelocity;
 #endregion
 
             [Space(10)]
@@ -86,6 +91,8 @@ namespace ggj2018.ggj2018.Data
             private bool _canBoost;
 
             public bool CanBoost => _canBoost;
+
+            // -- OLD STATS --
 
             [SerializeField]
             private float _speedModifier;
@@ -101,6 +108,23 @@ namespace ggj2018.ggj2018.Data
             private float _pitchSpeedModifier;
 
             public float PitchSpeedModifier => _pitchSpeedModifier;
+
+            // -- NEW STATS --
+
+            [SerializeField]
+            private float _horizontalForceModifier;
+
+            public float HorizontalForceModifier => _horizontalForceModifier;
+
+            [SerializeField]
+            private float _verticalForceModifier;
+
+            public float VerticalForceModifier => _verticalForceModifier;
+
+            [SerializeField]
+            private float _turnForceModifier;
+
+            public float TurnForceModifier => _turnForceModifier;
 #endregion
 
             [Space(10)]

@@ -357,18 +357,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _velocityText: {fileID: 1347076368}
   _angularVelocityText: {fileID: 1028875502}
-  _horizontalForce: 100
-  _verticalSpeed: 25
+  _maxHorizontalForce: 100
+  _maxVerticalForce: 50
   _terminalVelocity: 50
   _turnForce: 25
   _brakeForce: 25
   _boostForce: 25
   _lastInput: {x: 0, y: 0}
   _angularAcceleration: {x: 0, y: 0, z: 0}
-  _horizontalAcceleration: {x: 0, y: 0, z: 0}
-  _horizontalVelocity: {x: 0, y: 0, z: 0}
-  _verticalVelocity: {x: 0, y: 0, z: 0}
-  _lastVerticalSpeed: 0
+  _acceleration: {x: 0, y: 0, z: 0}
   _isBraking: 0
   _isBoosting: 0
   _model: {fileID: 351232266}

@@ -20,10 +20,10 @@ namespace ggj2018.ggj2018.Testing
 
 #region Physics
         [SerializeField]
-        private float _horizontalForce = 25.0f;
+        private float _maxHorizontalForce = 25.0f;
 
         [SerializeField]
-        private float _verticalSpeed = 10.0f;
+        private float _maxVerticalForce = 10.0f;
 
         [SerializeField]
         private float _terminalVelocity = 50.0f;
@@ -53,19 +53,7 @@ namespace ggj2018.ggj2018.Testing
 
         [SerializeField]
         [ReadOnly]
-        private Vector3 _horizontalAcceleration;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _horizontalVelocity;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _verticalVelocity;
-
-        [SerializeField]
-        [ReadOnly]
-        private float _lastVerticalSpeed;
+        private Vector3 _acceleration;
 
         [SerializeField]
         [ReadOnly]
@@ -139,16 +127,38 @@ namespace ggj2018.ggj2018.Testing
         private void Move(float dt)
         {
 #region Angular Acceleration
-            float turnAccelerationMagnitude = _turnForce / _rigidbody.mass;
+            float turnAcceleration = _turnForce / _rigidbody.mass;
 
-            _angularAcceleration = Vector3.up * (turnAccelerationMagnitude * _lastInput.x);
+#if false
+            _angularAcceleration = Vector3.up * (turnAcceleration * _lastInput.x);
             _rigidbody.angularVelocity += _angularAcceleration * dt;
+#else
+            Quaternion rotation = Quaternion.AngleAxis(turnAcceleration * _lastInput.x * dt, Vector3.up);
+            _rigidbody.MoveRotation(transform.rotation * rotation);
+#endif
 #endregion
 
 #region Linear Acceleration
-            // horizontal acceleration
-            float horizontalAcceleration = _horizontalForce / _rigidbody.mass;
+            // vertical acceleration
+            float verticalAcceleration = _maxVerticalForce / _rigidbody.mass;
 
+            float ypct = _lastInput.y * (_invertMoveY ? -1.0f : 1.0f);
+            verticalAcceleration *= ypct;
+
+            // only fight gravity if we're not falling
+            if(ypct >= 0.0f) {
+                verticalAcceleration -= Physics.gravity.y;
+            }
+
+            // cap our fall speed
+            if(verticalAcceleration < -_terminalVelocity) {
+                verticalAcceleration = -_terminalVelocity;
+            }
+
+            // horizontal acceleration
+            float horizontalAcceleration = _maxHorizontalForce / _rigidbody.mass;
+
+            // modififers
             if(_isBraking) {
                 float brakeAcceleration = _brakeForce / _rigidbody.mass;
                 horizontalAcceleration -= brakeAcceleration;
@@ -159,108 +169,13 @@ namespace ggj2018.ggj2018.Testing
                 horizontalAcceleration += boostAcceleration;
             }
 
-            _horizontalAcceleration = transform.forward * horizontalAcceleration;
-
-            // vertical speed
-            float verticalPct = _lastInput.y * (_invertMoveY ? -1.0f : 1.0f);
-            _verticalSpeed = _verticalSpeed * verticalPct;
-
-            // fight gravity
-            _verticalSpeed -= Physics.gravity.y;
-
-            // clamp
-            _verticalSpeed = Mathf.Clamp(_verticalSpeed, -_terminalVelocity, Mathf.Infinity);
-
-            // adjust
-            _verticalVelocity = Vector3.up * _verticalSpeed * dt;
-            _horizontalVelocity = (_horizontalAcceleration * dt) - (transform.forward * _verticalVelocity.magnitude);
-
-            _rigidbody.velocity += _horizontalVelocity + _verticalVelocity;
-
-
-/*
-            float maxHorizontalAcceleration = _maxHorizontalForce / _rigidbody.mass;
-            float maxVerticalAcceleration = _maxVerticalForce / _rigidbody.mass;
-
-            // start with 100% horizontal acceleration
-            float linearAccelerationMagnitudeX = maxHorizontalAcceleration;
-            float linearAccelerationMagnitudeY = 0.0f;
-
-            // use some vertical to fight gravity unless we're falling
-            float verticalPct = _lastInput.y * (_invertMoveY ? -1.0f : 1.0f);
-            if(verticalPct >= -float.Epsilon) {
-                linearAccelerationMagnitudeY -= Physics.gravity.y;
+            // take away some horizontal if we're not falling
+            if(verticalAcceleration > 0.0f) {
+                horizontalAcceleration -= verticalAcceleration;
             }
 
-            // the rest of the veritcal is determined by the stick
-            linearAccelerationMagnitudeY += verticalPct * maxVerticalAcceleration;
-
-            if(_isBraking) {
-                float brakeAccelerationMagnitude = _brakeForce / _rigidbody.mass;
-                linearAccelerationMagnitudeX -= brakeAccelerationMagnitude;
-            }
-
-            if(_isBoosting) {
-                float boostAccelerationMagnitude = _boostForce / _rigidbody.mass;
-                linearAccelerationMagnitudeX += boostAccelerationMagnitude;
-            }
-
-
-            linearAccelerationMagnitudeX -= Mathf.Abs(linearAccelerationMagnitudeY);
-            _linearAcceleration = (transform.forward * linearAccelerationMagnitudeX) + (Vector3.up * linearAccelerationMagnitudeY);
-
-            _rigidbody.velocity += _linearAcceleration * dt;
-*/
-
-/*
-            // gravity
-            float gravityPct = Physics.gravity.magnitude / linearAccelerationMagnitude;
-            linearAccelerationDirection += Vector3.up * gravityPct;
-
-            // up/down
-            float verticalPct = _lastInput.y * (_invertMoveY ? -1.0f : 1.0f);
-            linearAccelerationDirection += Vector3.up * verticalPct;
-
-            // braking
-            if(_isBraking) {
-                float brakeAccelerationMagnitude = _brakeForce / _rigidbody.mass;
-                linearAccelerationMagnitude -= brakeAccelerationMagnitude;
-            }
-
-            // boosting
-            if(_isBoosting) {
-                float boostAccelerationMagnitude = _boostForce / _rigidbody.mass;
-                linearAccelerationMagnitude += boostAccelerationMagnitude;
-            }
-
-            _linearAcceleration = linearAccelerationDirection.normalized * linearAccelerationMagnitude;
-
-            _rigidbody.velocity += _linearAcceleration * dt;
-*/
-
-            // overcome gravity
-            //_linearAcceleration = -Physics.gravity;
-
-            // up/down
-            //_linearAcceleration += Vector3.up * flapAcceleration * (_lastInput.y * (_invertMoveY ? -1.0f : 1.0f));
-
-            // move forward
-            //_linearAcceleration += Vector3.forward * flapAcceleration;
-
-            //float brakeAcceleration = _brakeForce / _rigidbody.mass;
-
-            // modifiers
-            //if(_isBraking) {
-                //_linearAcceleration += Vector3.forward * brakeAcceleration;
-            //}
-
-            //float boostAcceleration = _boostForce / _rigidbody.mass;
-
-            //if(_isBoosting) {
-                //_linearAcceleration += Vector3.forward * boostAcceleration;
-            //}
-
-            //_rigidbody.velocity += (transform.rotation * _linearAcceleration) * _rigidbody.mass * dt;
+            _acceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
+            _rigidbody.velocity += _acceleration * dt;
 #endregion
         }
     }

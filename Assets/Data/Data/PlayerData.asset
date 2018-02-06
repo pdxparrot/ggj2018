@@ -15,7 +15,9 @@ MonoBehaviour:
   _baseTurnSpeed: 50
   _basePitchUpSpeed: 25
   _basePitchDownSpeed: 35
-  _terminalVelocity: 50
+  _baseHorizontalForce: 100
+  _baseVerticalForce: 50
+  _baseTurnForce: 1
   _minFlightAnimationCooldown: 10
   _maxFlightAnimationCooldown: 20
   _pitchAnimationAngle: 45
@@ -24,12 +26,15 @@ MonoBehaviour:
   _stunTimeSeconds: 2
   _stunBounceSpeed: 7
   _stunBounceRotation: 0
-  _boostFactor: 2
   _boostSeconds: 5
+  _boostFactor: 2
+  _boostForce: 50
   _brakeFactor: 0.5
+  _brakeForce: 50
   _defaultPlayerColor: {r: 1, g: 0, b: 1, a: 1}
   _playerColors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 0, g: 1, b: 0.006896496, a: 0}
   - {r: 0, g: 0.04827571, b: 1, a: 0}
   - {r: 0.9448278, g: 1, b: 0, a: 0}
+  _playerColorProperty: _PlayerColor

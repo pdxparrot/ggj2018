@@ -13,15 +13,12 @@ namespace ggj2018.ggj2018.Data
 #region Base Stats
         [Header("Base Stats")]
 
+        // -- OLD STATS --
+
         [SerializeField]
         private float _baseSpeed = 20.0f;
 
         public float BaseSpeed => _baseSpeed;
-
-        /*[SerializeField]
-        private float _baseAccleration = 5.0f;
-
-        public float BaseAccleration => _baseAccleration;*/
 
         [SerializeField]
         private float _baseTurnSpeed = 50.0f;
@@ -38,10 +35,22 @@ namespace ggj2018.ggj2018.Data
 
         public float BasePitchDownSpeed => _basePitchDownSpeed;
 
-        [SerializeField]
-        private float _terminalVelocity = 100.0f;
+        // -- NEW STATS --
 
-        public float TerminalVelocity => _terminalVelocity;
+        [SerializeField]
+        private float _baseHorizontalForce = 25.0f;
+
+        public float BaseHorizontalForce => _baseHorizontalForce;
+
+        [SerializeField]
+        private float _baseVerticalForce = 5.0f;
+
+        public float BaseVerticalForce => _baseVerticalForce;
+
+        [SerializeField]
+        private float _baseTurnForce = 1.0f;
+
+        public float BaseTurnForce => _baseTurnForce;
 #endregion
 
         [Space(10)]
@@ -104,26 +113,24 @@ namespace ggj2018.ggj2018.Data
 #region Boost
         [Header("Boost")]
 
-        /*[SerializeField]
-        private float _baseBoostAcceleration = 2.0f;
-
-        public float BaseBoostAcceleration => _baseBoostAcceleration;
-
         [SerializeField]
-        private float _maxBoostFactor = 2.0f;
+        private int _boostSeconds = 5;
 
-        public float MaxBoostFactor => _maxBoostFactor;*/
+        public int BoostSeconds => _boostSeconds;
 
-// TODO: REMOVEME when acceleration works
+        // -- OLD STATS --
+
         [SerializeField]
         private float _boostFactor = 2.0f;
 
         public float BoostFactor => _boostFactor;
 
-        [SerializeField]
-        private int _boostSeconds = 5;
+        // -- NEW STATS
 
-        public int BoostSeconds => _boostSeconds;
+        [SerializeField]
+        private float _boostForce = 5.0f;
+
+        public float BoostForce => _boostForce;
 #endregion
 
         [Space(10)]
@@ -132,21 +139,19 @@ namespace ggj2018.ggj2018.Data
 #region Braking
         [Header("Braking")]
 
-        /*[SerializeField]
-        private float _baseBrakeDeceleration = 5.0f;
+        // -- OLD STATS --
 
-        public float BaseBrakeDeceleration => _baseBrakeDeceleration;
-
-        [SerializeField]
-        private float _maxBrakeFactor = 0.5f;
-
-        public float MaxBrakeFactor => _maxBrakeFactor;*/
-
-// TODO: REMOVEME when acceleration works
         [SerializeField]
         private float _brakeFactor = 0.5f;
 
         public float BrakeFactor => _brakeFactor;
+
+        // -- NEW STATS --
+
+        [SerializeField]
+        private float _brakeForce = 5.0f;
+
+        public float BrakeForce => _brakeForce;
 #endregion
 
         [Space(10)]

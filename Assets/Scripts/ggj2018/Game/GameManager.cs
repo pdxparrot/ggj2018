@@ -98,11 +98,6 @@ namespace ggj2018.ggj2018.Game
         private PhysicMaterial _frictionlesssMaterial;
 
         public PhysicMaterial FrictionlessMaterial => _frictionlesssMaterial;
-
-        [SerializeField]
-        private float _gravity = 9.81f;
-
-        public float Gravity => _gravity;
 #endregion
 
         [Space(10)]
@@ -121,8 +116,6 @@ namespace ggj2018.ggj2018.Game
 #region Unity Lifecycle
         private void Awake()
         {
-            Physics.gravity = new Vector3(0.0f, Gravity, 0.0f);
-
             _birdData.Initialize();
             _gameTypeData.Initialize();
 

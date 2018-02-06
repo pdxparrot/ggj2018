@@ -39,6 +39,14 @@ namespace ggj2018.ggj2018.Players
         [ReadOnly]
         private Vector3 _lastMoveAxes;
 
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _angularAcceleration;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _linearAcceleration;
+
         public float Speed => _rigidbody.velocity.magnitude;
 
         private Rigidbody _rigidbody;
@@ -156,8 +164,11 @@ namespace ggj2018.ggj2018.Players
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = false;
+#if true
             _rigidbody.freezeRotation = true;
-            //_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+#else
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+#endif
             _rigidbody.detectCollisions = true;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
@@ -223,10 +234,15 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            // TODO: torque
+#if true
             float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.Bird.Type.TurnSpeedModifier;
             Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
             _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
+#else
+            float turnAcceleration = (PlayerManager.Instance.PlayerData.BaseTurnForce + _owner.Bird.Type.TurnForceModifier) / _rigidbody.mass;
+            _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
+            _rigidbody.angularVelocity += _angularAcceleration * dt;
+#endif
         }
 
         private void RotateModel(Vector3 axes, float dt)
@@ -266,32 +282,73 @@ namespace ggj2018.ggj2018.Players
 
         private void Move(Vector3 axes, float dt)
         {
-            Vector3 velocity = _rigidbody.velocity;
-
             if(_owner.State.IsDead) {
-                velocity.x = velocity.z = 0.0f;
-                velocity.y -= GameManager.Instance.Gravity * dt;
-            } else if(_owner.State.IsStunned) {
-                velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
-            } else {
-                float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.Bird.Type.SpeedModifier;
-                if(_owner.State.IsBraking) {
-                    speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
-                } else if(_owner.State.IsBoosting) {
-                    speed *= PlayerManager.Instance.PlayerData.BoostFactor;
-                }
+                _rigidbody.velocity += Physics.gravity * dt;
+                return;
+            }
 
-                velocity = transform.forward * speed;
-                velocity.y = 0.0f;
+            if(_owner.State.IsStunned) {
+                _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
+                return;
+            }
 
-                if(axes.y < -Mathf.Epsilon) {
-                    velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.Bird.Type.PitchSpeedModifier;
-                } else if(axes.y > Mathf.Epsilon) {
-                    velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.Bird.Type.PitchSpeedModifier;
-                }
+#if true
+            float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.Bird.Type.SpeedModifier;
+            if(_owner.State.IsBraking) {
+                speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
+            } else if(_owner.State.IsBoosting) {
+                speed *= PlayerManager.Instance.PlayerData.BoostFactor;
+            }
+
+            Vector3 velocity = transform.forward * speed;
+            velocity.y = 0.0f;
+
+            if(axes.y < -Mathf.Epsilon) {
+                velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.Bird.Type.PitchSpeedModifier;
+            } else if(axes.y > Mathf.Epsilon) {
+                velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.Bird.Type.PitchSpeedModifier;
             }
 
             _rigidbody.velocity = velocity;
+#else
+            // vertical acceleration
+            float verticalAcceleration = (PlayerManager.Instance.PlayerData.BaseVerticalForce + _owner.Bird.Type.VerticalForceModifier) / _rigidbody.mass;
+
+            // input
+            verticalAcceleration *= axes.y;
+
+            // only fight gravity if we're not falling
+            if(axes.y >= 0.0f) {
+                verticalAcceleration -= Physics.gravity.y;
+            }
+
+            // cap our fall speed
+            if(verticalAcceleration < -_owner.Bird.Type.TerminalVelocity) {
+                verticalAcceleration = -_owner.Bird.Type.TerminalVelocity;
+            }
+
+            // horizontal acceleration
+            float horizontalAcceleration = (PlayerManager.Instance.PlayerData.BaseHorizontalForce + _owner.Bird.Type.HorizontalForceModifier) / _rigidbody.mass;
+
+            // modififers
+            if(_owner.State.IsBraking) {
+                float brakeAcceleration = PlayerManager.Instance.PlayerData.BrakeForce / _rigidbody.mass;
+                horizontalAcceleration -= brakeAcceleration;
+            }
+
+            if(_owner.State.IsBoosting) {
+                float boostAcceleration = PlayerManager.Instance.PlayerData.BoostForce / _rigidbody.mass;
+                horizontalAcceleration += boostAcceleration;
+            }
+
+            // take away some horizontal if we're not falling
+            if(verticalAcceleration > 0.0f) {
+                horizontalAcceleration -= verticalAcceleration;
+            }
+
+            _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
+            _rigidbody.velocity += _linearAcceleration * dt;
+#endif
         }
 
 #region Collision Handlers

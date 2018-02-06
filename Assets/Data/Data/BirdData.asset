@@ -28,12 +28,16 @@ MonoBehaviour:
     _isPredator: 1
     _followOrbitRadius: 10
     _mass: 2
-    _drag: 0.2
-    _angularDrag: 0.05
+    _drag: 1
+    _angularDrag: 5
+    _terminalVelocity: 100
     _canBoost: 1
     _speedModifier: 30
     _turnSpeedModifier: 10
     _pitchSpeedModifier: 20
+    _horizontalForceModifier: 100
+    _verticalForceModifier: 50
+    _turnForceModifier: 10
     _spawnAudioClip: {fileID: 8300000, guid: bdaabeb7e958a244289c3687abb90b3f, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: c80992fbd015fc34ba60d1ecc8ed99eb, type: 3}
     _winAudioClip: {fileID: 8300000, guid: 38107c7e244251347a57609ca9b329e2, type: 3}
@@ -46,12 +50,16 @@ MonoBehaviour:
     _isPredator: 0
     _followOrbitRadius: 3
     _mass: 1
-    _drag: 0.4
-    _angularDrag: 0.05
+    _drag: 1
+    _angularDrag: 5
+    _terminalVelocity: 100
     _canBoost: 0
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
+    _horizontalForceModifier: 0
+    _verticalForceModifier: 0
+    _turnForceModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
     _winAudioClip: {fileID: 0}
@@ -64,12 +72,16 @@ MonoBehaviour:
     _isPredator: 0
     _followOrbitRadius: 3
     _mass: 1
-    _drag: 0.4
-    _angularDrag: 0.05
+    _drag: 1
+    _angularDrag: 5
+    _terminalVelocity: 100
     _canBoost: 0
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
+    _horizontalForceModifier: 0
+    _verticalForceModifier: 0
+    _turnForceModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
     _winAudioClip: {fileID: 0}
@@ -82,12 +94,16 @@ MonoBehaviour:
     _isPredator: 0
     _followOrbitRadius: 3
     _mass: 1
-    _drag: 0.4
-    _angularDrag: 0.05
+    _drag: 1
+    _angularDrag: 5
+    _terminalVelocity: 100
     _canBoost: 0
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
+    _horizontalForceModifier: 0
+    _verticalForceModifier: 0
+    _turnForceModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
     _winAudioClip: {fileID: 0}
