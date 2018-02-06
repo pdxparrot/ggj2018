@@ -41,6 +41,11 @@ namespace ggj2018.Core.Camera
 
             _followCamera = GetComponent<FollowCamera>();
         }
+
+        protected virtual void OnDestroy()
+        {
+            Reset();
+        }
 #endregion
 
         public void Initialize(int id)
@@ -92,6 +97,8 @@ namespace ggj2018.Core.Camera
 
         public virtual void Reset()
         {
+            GlobalPostProcessVolume.profile?.Reset();
+
             Destroy(GlobalPostProcessVolume.profile);
             GlobalPostProcessVolume.profile = null;
         }

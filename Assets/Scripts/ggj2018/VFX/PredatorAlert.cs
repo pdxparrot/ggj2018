@@ -37,7 +37,7 @@ namespace ggj2018.ggj2018.VFX
                 return;
             }
 
-            if(_bird.Owner.State.IsDead) {
+            /*if(_bird.Owner.State.IsDead) {
                 _vignetteSettings.intensity.value = 1.0f;
                 return;
             }
@@ -57,7 +57,7 @@ namespace ggj2018.ggj2018.VFX
             float step = (1.0f - _defaultIntensity);
 
             float intensity = _defaultIntensity + (pct * step);
-            _vignetteSettings.intensity.value = intensity;
+            _vignetteSettings.intensity.value = intensity;*/
         }
 
         private void OnDrawGizmos()
