@@ -221,8 +221,6 @@ namespace ggj2018.ggj2018.Game
                 }
 
                 selectState.Viewer.PlayerUI.SetStatus(selectState, ready == joined);
-
-                UIManager.Instance.SwitchToCharacterSelect();
             }
         }
 

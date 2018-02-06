@@ -4,6 +4,7 @@ using System.Collections;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.GameTypes;
 using ggj2018.ggj2018.Players;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,12 +56,20 @@ namespace ggj2018.ggj2018.UI
 
         [SerializeField] private float _introPanelTime = 3.0f;
 
-        private Player _owner;
+        private Player _ownerPlayer;
+
+        private CharacterSelectState _ownerSelectState;
 
         public void Initialize(Player owner)
         {
-            _owner = owner;
+            _ownerPlayer = owner;
         }
+
+        public void Initialize(CharacterSelectState owner)
+        {
+            _ownerSelectState = owner;
+        }
+
 
         public void Hide()
         {
@@ -79,7 +88,10 @@ namespace ggj2018.ggj2018.UI
             IntroPanel.SetActive(false);
             DeadPanel.SetActive(false);
 
-            CharacterFrame.color = _owner?.PlayerColor ?? PlayerManager.Instance.PlayerData.DefaultPlayerColor;
+            // TODO: this is a biiiig assumption :\
+            Color frameColor = PlayerManager.Instance.PlayerData.GetPlayerColor(_ownerSelectState.ControllerIndex);
+            frameColor.a = 1.0f;
+            CharacterFrame.color = frameColor;
         }
 
         public void SwitchToGame(GameType gameType)
@@ -90,10 +102,10 @@ namespace ggj2018.ggj2018.UI
             IntroPanel.SetActive(true);
             DeadPanel.SetActive(false);
 
-            Goal.text = gameType.GameTypeData.GetWinConditionDescription(_owner.Bird.Type);
+            Goal.text = gameType.GameTypeData.GetWinConditionDescription(_ownerPlayer.Bird.Type);
             GameTimerPanel.SetActive(gameType.ShowTimer);
 
-            ScorePanel.SetActive(gameType.ShowScore(_owner.Bird.Type));
+            ScorePanel.SetActive(gameType.ShowScore(_ownerPlayer.Bird.Type));
 
             StartCoroutine(CloseIntroPanel());
         }
@@ -118,13 +130,13 @@ namespace ggj2018.ggj2018.UI
             IntroPanel.SetActive(false);
 
             WinLossPanel.SetActive(true);
-            switch(_owner.State.GameOverState)
+            switch(_ownerPlayer.State.GameOverState)
             {
             case PlayerState.GameOverType.Win:
-                WinLossText.text = gameType.GameTypeData.GetWinText(_owner.Bird.Type);
+                WinLossText.text = gameType.GameTypeData.GetWinText(_ownerPlayer.Bird.Type);
                 break;
             case PlayerState.GameOverType.Loss:
-                WinLossText.text = gameType.GameTypeData.GetLossText(_owner.Bird.Type);
+                WinLossText.text = gameType.GameTypeData.GetLossText(_ownerPlayer.Bird.Type);
                 break;
             case PlayerState.GameOverType.TimerUp:
                 WinLossText.text = gameType.GameTypeData.TimesUpText;
@@ -134,6 +146,7 @@ namespace ggj2018.ggj2018.UI
 
         public void SetStatus(CharacterSelectState characterSelectState, bool allready)
         {
+            _ownerSelectState = characterSelectState;
             SwitchToCharacterSelect();
 
             JoinPanel.SetActive(!characterSelectState.IsJoinedOrReady);

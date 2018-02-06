@@ -783,11 +783,8 @@ MonoBehaviour:
   _immunityParticles: {fileID: 198227251749963822}
   _boostTrail: {fileID: 96180626044700432}
   _playerCollider: {fileID: 135774987376151378}
-  _colorMaterials:
-  - {fileID: 2100000, guid: 396a5ca90c1d1874fa98152fbff61654, type: 2}
-  - {fileID: 2100000, guid: 22da149f5568dde4698dc34b98ac0897, type: 2}
-  - {fileID: 2100000, guid: b68a91a750d86d94aacd7d762a35afbf, type: 2}
-  - {fileID: 2100000, guid: 8edb6036bf7bb6a43a6372eae651160e, type: 2}
+  _coloredRenderers:
+  - {fileID: 23468091575625432}
   _bloodObject: {fileID: 198828456198379226}
 --- !u!135 &135774987376151378
 SphereCollider:

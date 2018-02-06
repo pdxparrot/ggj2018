@@ -32,7 +32,7 @@ namespace ggj2018.ggj2018.Birds
         public BirdData.BirdDataEntry Type { get; private set; }
 
         [SerializeField]
-        private Material[] _colorMaterials;
+        private Renderer[] _coloredRenderers;
 
         private Collider _collider;
 
@@ -64,8 +64,8 @@ namespace ggj2018.ggj2018.Birds
             Owner = owner;
             Type = birdType;
 
-            foreach(Material material in _colorMaterials) {
-                material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, owner.PlayerColor);
+            foreach(Renderer renderer in _coloredRenderers) {
+                renderer.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, owner.PlayerColor);
             }
         }
 

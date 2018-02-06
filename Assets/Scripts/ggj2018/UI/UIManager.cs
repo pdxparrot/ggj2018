@@ -60,6 +60,7 @@ namespace ggj2018.ggj2018.UI
         public void SwitchToCharacterSelect()
         {
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+                selectState.Viewer.PlayerUI.Initialize(selectState);
                 selectState.Viewer.PlayerUI.SwitchToCharacterSelect();
             }
         }
