@@ -59,9 +59,9 @@ MonoBehaviour:
   _configData: {fileID: 11400000, guid: f7ed3d2f3679b5d47a4f830d8b7bb2b7, type: 2}
   _birdData: {fileID: 11400000, guid: 008fe9d8630fb01439dbf2af6c478a5e, type: 2}
   _gameTypeData: {fileID: 11400000, guid: 88dcf27b5a9125f4491398fb1dc1985c, type: 2}
-  _characterSelectMusicClip: {fileID: 8300000, guid: 07fb4f5b51d019d48ab6a3e6a5ea1a09,
+  _characterSelectMusicClip: {fileID: 8300000, guid: 0c039829b9fdc31438cab360656ac49e,
     type: 3}
-  _gameMusicAudioClip: {fileID: 8300000, guid: bf3d28dc7046ac543821b68d2c3f02ff, type: 3}
+  _gameMusicAudioClip: {fileID: 8300000, guid: 5132c927a058da1459b82eec3602b5c9, type: 3}
   _gameOverMusicAudioClip: {fileID: 8300000, guid: 38107c7e244251347a57609ca9b329e2,
     type: 3}
   _frictionlesssMaterial: {fileID: 13400000, guid: cb767bc49256e37428af3092d1b97895,
