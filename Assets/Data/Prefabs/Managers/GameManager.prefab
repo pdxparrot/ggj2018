@@ -61,7 +61,10 @@ MonoBehaviour:
   _gameTypeData: {fileID: 11400000, guid: 88dcf27b5a9125f4491398fb1dc1985c, type: 2}
   _characterSelectMusicClip: {fileID: 8300000, guid: 0c039829b9fdc31438cab360656ac49e,
     type: 3}
-  _gameMusicAudioClip: {fileID: 8300000, guid: 5132c927a058da1459b82eec3602b5c9, type: 3}
+  _gameMusic1AudioClip: {fileID: 8300000, guid: 0c039829b9fdc31438cab360656ac49e,
+    type: 3}
+  _gameMusic2AudioClip: {fileID: 8300000, guid: 5132c927a058da1459b82eec3602b5c9,
+    type: 3}
   _gameOverMusicAudioClip: {fileID: 8300000, guid: 38107c7e244251347a57609ca9b329e2,
     type: 3}
   _frictionlesssMaterial: {fileID: 13400000, guid: cb767bc49256e37428af3092d1b97895,

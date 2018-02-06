@@ -74,9 +74,14 @@ namespace ggj2018.ggj2018.Game
         public AudioClip CharacterSelectMusicClip => _characterSelectMusicClip;
 
         [SerializeField]
-        private AudioClip _gameMusicAudioClip;
+        private AudioClip _gameMusic1AudioClip;
 
-        public AudioClip GameMusicAudioClip => _gameMusicAudioClip;
+        public AudioClip GameMusic1AudioClip => _gameMusic1AudioClip;
+
+        [SerializeField]
+        private AudioClip _gameMusic2AudioClip;
+
+        public AudioClip GameMusic2AudioClip => _gameMusic2AudioClip;
 
         [SerializeField]
         private AudioClip _gameOverMusicAudioClip;

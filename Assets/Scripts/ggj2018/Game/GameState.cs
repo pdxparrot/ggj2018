@@ -276,7 +276,7 @@ namespace ggj2018.ggj2018.Game
 
             UIManager.Instance.SwitchToGame(_gameType);
 
-            AudioManager.Instance.PlayMusic(GameManager.Instance.GameMusicAudioClip);
+            AudioManager.Instance.PlayMusic(GameManager.Instance.GameMusic1AudioClip, GameManager.Instance.GameMusic2AudioClip);
 
             Timer = GameType.GameTypeData.TimeLimit > 0
                 ? TimeSpan.FromMinutes(GameType.GameTypeData.TimeLimit)
