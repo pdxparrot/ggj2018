@@ -24,6 +24,11 @@ namespace ggj2018.Core.Camera
 
         protected UnityEngine.Camera UICamera => _uiCamera;
 
+        [SerializeField]
+        private PostProcessVolume _globalPostProcessVolume;
+
+        public PostProcessVolume GlobalPostProcessVolume => _globalPostProcessVolume;
+
         private FollowCamera _followCamera;
 
         public FollowCamera FollowCamera => _followCamera;
@@ -31,6 +36,9 @@ namespace ggj2018.Core.Camera
 #region Unity Lifecycle
         protected virtual void Awake()
         {
+            _globalPostProcessVolume.isGlobal = true;
+            _globalPostProcessVolume.priority = 1;
+
             _followCamera = GetComponent<FollowCamera>();
         }
 #endregion
@@ -42,6 +50,14 @@ namespace ggj2018.Core.Camera
             name = $"Viewer P{Id}";
             Camera.name = $"Camera P{Id}";
             UICamera.name = $"UI Camera P{Id}";
+
+            // setup the camera to only render it's own post processing volume
+            LayerMask postProcessLayer =  LayerMask.NameToLayer($"P{Id}_PostProcess");
+
+            GlobalPostProcessVolume.gameObject.layer = postProcessLayer;
+
+            PostProcessLayer layer = Camera.GetComponent<PostProcessLayer>();
+            layer.volumeLayer = 1 << postProcessLayer.value;
         }
 
         public void SetViewport(int x, int y, float viewportWidth, float viewportHeight)
@@ -74,10 +90,10 @@ namespace ggj2018.Core.Camera
             Camera.fieldOfView = fov;
         }
 
-        public void SetPostProcessLayer(LayerMask postProcessLayerMask)
+        public virtual void Reset()
         {
-            PostProcessLayer layer = Camera.GetComponent<PostProcessLayer>();
-            layer.volumeLayer = postProcessLayerMask;
+            Destroy(GlobalPostProcessVolume.profile);
+            GlobalPostProcessVolume.profile = null;
         }
 
 #region Render Layers

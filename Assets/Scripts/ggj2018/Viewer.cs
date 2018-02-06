@@ -35,7 +35,7 @@ namespace ggj2018.ggj2018
             SetFov(owner.Bird.Type.ViewFOV);
             SetOrbitRadius(owner.Bird.Type.FollowOrbitRadius);
 
-            SetPostProcessLayer(owner.Bird.Type.PostProcessLayerMask);
+            GlobalPostProcessVolume.profile = Instantiate(owner.Bird.Type.PostProcessProfile);
 
             PlayerUI.Initialize(owner);
 

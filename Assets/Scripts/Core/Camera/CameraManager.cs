@@ -17,6 +17,7 @@ namespace ggj2018.Core.Camera
 
         public float ViewportEpsilon => _viewportEpsilon;
 
+#region Viewers
         [SerializeField]
         private BaseViewer _viewerPrefab;
 
@@ -25,34 +26,18 @@ namespace ggj2018.Core.Camera
         private readonly List<BaseViewer> _assignedViewers = new List<BaseViewer>();
 
         private readonly Queue<BaseViewer> _unassignedViewers = new Queue<BaseViewer>();
+#endregion
 
-        [SerializeField]
-        private PostProcessVolume[] _postProcessObjectPrefabs;
-
-        private GameObject _viewerContainer, _postProcessContainer;
-
-        private readonly Dictionary<string, PostProcessVolume> _postProcessVolumes = new Dictionary<string, PostProcessVolume>();
-
-        public IReadOnlyDictionary<string, PostProcessVolume> PostProcessVolumes => _postProcessVolumes;
+        private GameObject _viewerContainer;
 
 #region Unity Lifecycle
         private void Awake()
         {
             _viewerContainer = new GameObject("Viewers");
-            _postProcessContainer = new GameObject("Post Process");
-
-            foreach(PostProcessVolume ppp in _postProcessObjectPrefabs) {
-                PostProcessVolume volume = Instantiate(ppp, _postProcessContainer.transform);
-                Debug.Log($"Registering PostProcessVolume {volume.tag}");
-                _postProcessVolumes.Add(volume.tag, volume);
-            }
         }
 
         protected override void OnDestroy()
         {
-            Destroy(_postProcessContainer);
-            _postProcessContainer = null;
-
             Destroy(_viewerContainer);
             _viewerContainer = null;
         }
@@ -96,6 +81,8 @@ namespace ggj2018.Core.Camera
             }
 
             //Debug.Log($"Releasing viewer {viewer.name} (assigned: {_assignedViewers.Count}, unassigned: {_unassignedViewers.Count})");
+
+            viewer.Reset();
 
             viewer.gameObject.SetActive(false);
             _assignedViewers.Remove(viewer);

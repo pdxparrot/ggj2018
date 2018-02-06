@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - PP_Predator
-  - PP_Prey
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -19,10 +17,10 @@ TagManager:
   - Pigeon
   - Goal
   - PlayerCollision
-  - PP_Pigeon
-  - PP_Hawk
-  - 
-  - 
+  - P0_PostProcess
+  - P1_PostProcess
+  - P2_PostProcess
+  - P3_PostProcess
   - 
   - 
   - 

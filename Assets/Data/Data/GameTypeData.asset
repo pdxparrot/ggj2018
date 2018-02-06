@@ -14,7 +14,7 @@ MonoBehaviour:
   _immuneTime: 1
   _restartOnGameOver: 1
   _gameOverWaitTime: 5
-  _hawkAlertDistance: 25
+  _hawkAlertDistance: 250
   _gameTypes:
   - _gameType: 0
     _name: Delivery

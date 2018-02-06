@@ -155,8 +155,7 @@ GameObject:
   - component: {fileID: 4016912521315426}
   - component: {fileID: 65537488926544166}
   - component: {fileID: 114769505393240148}
-  - component: {fileID: 114067237156785376}
-  - component: {fileID: 114192840364980212}
+  - component: {fileID: 114239280266392112}
   m_Layer: 0
   m_Name: PreyModel
   m_TagString: Untagged
@@ -743,19 +742,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &114067237156785376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1625982474714072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 410613fc4fb265e49b74e2d67940982a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _postProcessVolumeTag: PP_Prey
---- !u!114 &114192840364980212
+--- !u!114 &114239280266392112
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

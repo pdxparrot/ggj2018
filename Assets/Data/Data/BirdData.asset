@@ -15,12 +15,10 @@ MonoBehaviour:
   _preyFOV: 90
   _predatorLayer: Hawk
   _preyLayer: Pigeon
-  _predatorPostProcessLayerMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  _preyPostProcessLayerMask:
-    serializedVersion: 2
-    m_Bits: 4096
+  _predatorPostProcessProfile: {fileID: 11400000, guid: 6b4d067a04eef734fa139166144a45a3,
+    type: 2}
+  _preyPostProcessProfile: {fileID: 11400000, guid: 366ba31fc8f0437438bc993b09adbffa,
+    type: 2}
   _birds:
   - _id: hawk
     _name: Hawk

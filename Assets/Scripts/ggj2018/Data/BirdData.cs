@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ggj2018.ggj2018.Birds;
 
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace ggj2018.ggj2018.Data
 {
@@ -143,9 +144,9 @@ namespace ggj2018.ggj2018.Data
                 ? _birdData.PredatorLayer
                 : _birdData.PreyLayer;
 
-            public LayerMask PostProcessLayerMask => IsPredator
-                ? _birdData.PredatorPostProcessLayerMask
-                : _birdData.PreyPostProcessLayerMask;
+            public PostProcessProfile PostProcessProfile => IsPredator
+                ? _birdData.PredatorPostProcessProfile
+                : _birdData.PreyPostProcessProfile;
 
             public void Initialize(BirdData birdData)
             {
@@ -177,16 +178,16 @@ namespace ggj2018.ggj2018.Data
         public string PreyLayer => _preyLayer;
 #endregion
 
-#region Post Processing Layers
+#region Post Processing
         [SerializeField]
-        private LayerMask _predatorPostProcessLayerMask;
+        private PostProcessProfile _predatorPostProcessProfile;
 
-        public LayerMask PredatorPostProcessLayerMask => _predatorPostProcessLayerMask;
+        public PostProcessProfile PredatorPostProcessProfile => _predatorPostProcessProfile;
 
         [SerializeField]
-        private LayerMask _preyPostProcessLayerMask;
+        private PostProcessProfile _preyPostProcessProfile;
 
-        public LayerMask PreyPostProcessLayerMask => _preyPostProcessLayerMask;
+        public PostProcessProfile PreyPostProcessProfile => _preyPostProcessProfile;
 #endregion
 
         [SerializeField]

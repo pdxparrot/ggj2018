@@ -64,8 +64,8 @@ namespace ggj2018.ggj2018.Birds
             Owner = owner;
             Type = birdType;
 
-            foreach(Renderer renderer in _coloredRenderers) {
-                renderer.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, owner.PlayerColor);
+            foreach(Renderer r in _coloredRenderers) {
+                r.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, owner.PlayerColor);
             }
         }
 
