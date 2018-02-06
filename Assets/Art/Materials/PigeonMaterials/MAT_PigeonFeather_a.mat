@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_PigeonFeather_a_001
+  m_Name: MAT_PigeonFeather_a
   m_Shader: {fileID: 4800000, guid: 98f68df4c19784640aafd25601104b62, type: 3}
   m_ShaderKeywords: _TEXTURE_ON
   m_LightmapFlags: 0

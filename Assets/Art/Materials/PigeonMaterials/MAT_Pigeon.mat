@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_Pigeon_001
+  m_Name: MAT_Pigeon
   m_Shader: {fileID: 4800000, guid: 6f2704a9769f16145b0607a331b991cd, type: 3}
   m_ShaderKeywords: _NOTEXTURE_ON _TEXTURE_ON _TOONRAMP_ON
   m_LightmapFlags: 0
@@ -165,6 +165,7 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatColor: {r: 0.033088237, g: 0.13291073, b: 0.5, a: 0}
+    - _PlayerColor: {r: 0.28676468, g: 0.25186428, b: 0.16025087, a: 0}
     - _PrimaryColor: {r: 1, g: 1, b: 1, a: 0}
     - _SecondaryColor: {r: 1, g: 0.67058825, b: 0.977282, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
