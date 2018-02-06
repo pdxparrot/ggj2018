@@ -317,6 +317,10 @@ namespace ggj2018.ggj2018.Game
 
         private void RunGameOver(float dt)
         {
+            if(IsPaused) {
+                return;
+            }
+
             _gameOverTimer -= dt;
             if(_gameOverTimer <= 0.0f) {
                 _gameOverTimer = 0.0f;
