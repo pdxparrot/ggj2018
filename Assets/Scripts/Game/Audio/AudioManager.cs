@@ -16,10 +16,7 @@ namespace ggj2018.Game.Audio
         [Header("Mixer Groups")]
 
         [SerializeField]
-        private string _music1MixerGroupName = "Music1";
-
-        [SerializeField]
-        private string _music2MixerGroupName = "Music2";
+        private string _musicMixerGroupName = "Music";
 
         [SerializeField]
         private string _sfxMixerGroupName = "SFX";
@@ -49,20 +46,6 @@ namespace ggj2018.Game.Audio
 
         [SerializeField]
         private float _updateCrossfadeUpdateMs = 100.0f;
-
-        private float _minVolume, _volumeDistance;
-#endregion
-
-        [Space(10)]
-
-#region Expoded Vars
-        [Header("Mixer Variables")]
-
-        [SerializeField]
-        private string _music1VolumeParamName = "Music Volume 1";
-
-        [SerializeField]
-        private string _music2VolumeParamName = "Music Volume 2";
 #endregion
 
 #region Unity Lifecycle
@@ -70,20 +53,11 @@ namespace ggj2018.Game.Audio
         {
             InitAudioMixerGroup(_oneShotAudioSource, _sfxMixerGroupName);
 
-            InitAudioMixerGroup(_music1AudioSource, _music1MixerGroupName);
+            InitAudioMixerGroup(_music1AudioSource, _musicMixerGroupName);
             _music1AudioSource.loop = true;
 
-            float music1Volume;
-            _mixer.GetFloat(_music1VolumeParamName, out music1Volume);
-
-            InitAudioMixerGroup(_music2AudioSource, _music2MixerGroupName);
+            InitAudioMixerGroup(_music2AudioSource, _musicMixerGroupName);
             _music2AudioSource.loop = true;
-
-            float music2Volume;
-            _mixer.GetFloat(_music2VolumeParamName, out music2Volume);
-
-            _minVolume = Mathf.Min(music1Volume, music2Volume);
-            _volumeDistance = Mathf.Max(music1Volume, music2Volume) - _minVolume;
         }
 
         private void Start()
@@ -132,8 +106,8 @@ namespace ggj2018.Game.Audio
         {
             WaitForSeconds wait = new WaitForSeconds(_updateCrossfadeUpdateMs / 1000.0f);
             while(true) {
-                _mixer.SetFloat(_music1VolumeParamName, _minVolume + (_volumeDistance * (1.0f - _musicCrossFade)));
-                _mixer.SetFloat(_music2VolumeParamName, _minVolume + (_volumeDistance * _musicCrossFade));
+                _music1AudioSource.volume = 1.0f - _musicCrossFade;
+                _music2AudioSource.volume = _musicCrossFade;
 
                 yield return wait;
             }
