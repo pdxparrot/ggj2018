@@ -37,6 +37,11 @@ namespace ggj2018.ggj2018.VFX
                 return;
             }
 
+            if(_bird.Owner.State.IsDead) {
+                _vignetteSettings.intensity.value = 1.0f;
+                return;
+            }
+
             if(null == _bird.Owner.NearestPredator) {
                 _vignetteSettings.intensity.value = _defaultIntensity;
                 return;
