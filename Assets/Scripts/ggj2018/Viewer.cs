@@ -1,4 +1,5 @@
 ﻿using ggj2018.Core.Camera;
+using ggj2018.Core.VFX;
 using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.UI;
@@ -23,10 +24,12 @@ namespace ggj2018.ggj2018
             PlayerUI.GetComponent<Canvas>().worldCamera = UICamera;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             Destroy(PlayerUI);
             PlayerUI = null;
+
+            base.OnDestroy();
         }
 #endregion
 
@@ -35,7 +38,7 @@ namespace ggj2018.ggj2018
             SetFov(owner.Bird.Type.ViewFOV);
             SetOrbitRadius(owner.Bird.Type.FollowOrbitRadius);
 
-            GlobalPostProcessVolume.profile = Instantiate(owner.Bird.Type.PostProcessProfile);
+            SetGlobalPostProcessProfile(owner.Bird.Type.PostProcessProfile.Clone());
 
             PlayerUI.Initialize(owner);
 

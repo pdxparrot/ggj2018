@@ -1,4 +1,5 @@
 ﻿using ggj2018.Core.Util;
+using ggj2018.Core.VFX;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -27,7 +28,7 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         private PostProcessVolume _globalPostProcessVolume;
 
-        public PostProcessVolume GlobalPostProcessVolume => _globalPostProcessVolume;
+        public PostProcessProfile GlobalPostProcessProfile { get; private set; }
 
         private FollowCamera _followCamera;
 
@@ -59,10 +60,23 @@ namespace ggj2018.Core.Camera
             // setup the camera to only render it's own post processing volume
             LayerMask postProcessLayer =  LayerMask.NameToLayer($"P{Id}_PostProcess");
 
-            GlobalPostProcessVolume.gameObject.layer = postProcessLayer;
+            _globalPostProcessVolume.gameObject.layer = postProcessLayer;
 
             PostProcessLayer layer = Camera.GetComponent<PostProcessLayer>();
             layer.volumeLayer = 1 << postProcessLayer.value;
+        }
+
+        public virtual void Reset()
+        {
+            ResetPostProcessProfile();
+        }
+
+        private void ResetPostProcessProfile()
+        {
+            GlobalPostProcessProfile?.Destroy();
+            GlobalPostProcessProfile = null;
+
+            _globalPostProcessVolume.profile = null;
         }
 
         public void SetViewport(int x, int y, float viewportWidth, float viewportHeight)
@@ -95,12 +109,12 @@ namespace ggj2018.Core.Camera
             Camera.fieldOfView = fov;
         }
 
-        public virtual void Reset()
+        public void SetGlobalPostProcessProfile(PostProcessProfile profile)
         {
-            GlobalPostProcessVolume.profile?.Reset();
+            ResetPostProcessProfile();
 
-            Destroy(GlobalPostProcessVolume.profile);
-            GlobalPostProcessVolume.profile = null;
+            GlobalPostProcessProfile = profile;
+            _globalPostProcessVolume.profile = profile;
         }
 
 #region Render Layers
