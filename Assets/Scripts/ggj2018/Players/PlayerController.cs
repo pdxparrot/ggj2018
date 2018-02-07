@@ -47,6 +47,10 @@ namespace ggj2018.ggj2018.Players
 
         [SerializeField]
         [ReadOnly]
+        private Vector3 _velocity;
+
+        [SerializeField]
+        [ReadOnly]
         private PauseState _pauseState;
 
         private Player _owner;
@@ -270,7 +274,7 @@ namespace ggj2018.ggj2018.Players
 
             if(_owner.State.IsDead) {
                 velocity.x = velocity.z = 0.0f;
-                velocity.y -= GameManager.Instance.Gravity * dt;
+                velocity.y += GameManager.Instance.Gravity.y * dt;
             } else if(_owner.State.IsStunned) {
                 velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
             } else {
@@ -291,7 +295,8 @@ namespace ggj2018.ggj2018.Players
                 }
             }
 
-            _rigidbody.velocity = velocity;
+            _velocity = velocity;
+            _rigidbody.velocity = _velocity;
         }
 
 #region Collision Handlers

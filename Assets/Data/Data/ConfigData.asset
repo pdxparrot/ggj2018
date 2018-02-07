@@ -13,3 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enableGVR: 0
   _enableNetwork: 0
+  _worldScale: 6
