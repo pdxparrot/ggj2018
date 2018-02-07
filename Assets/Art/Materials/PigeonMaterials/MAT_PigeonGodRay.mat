@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_GodRay
+  m_Name: MAT_PigeonGodRay
   m_Shader: {fileID: 4800000, guid: 7cfae2ac4c5eec14db76c2c9e34a2045, type: 3}
-  m_ShaderKeywords: _DOUEVENDITHERBRO_ON _EMISSION _USEDITHERTEXTURE_ON
+  m_ShaderKeywords: _DOUEVENDITHERBRO_ON _EMISSION _USEALPHATEXTURE_ON _USEDITHERTEXTURE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -96,7 +96,7 @@ Material:
     - _ToggleSwitch1: 0
     - _UVSec: 0
     - _UseDitherTexture: 1
-    - _Usealphatexture: 0
+    - _Usealphatexture: 1
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
