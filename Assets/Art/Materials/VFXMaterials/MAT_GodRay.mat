@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_GodRay
   m_Shader: {fileID: 4800000, guid: 7cfae2ac4c5eec14db76c2c9e34a2045, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_ShaderKeywords: _DOUEVENDITHERBRO_ON _EMISSION _USEALPHATEXTURE_ON _USEDITHERTEXTURE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -18,6 +18,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTexture:
+        m_Texture: {fileID: 2800000, guid: def0b3838e1616743b65aa958255ef00, type: 3}
+        m_Scale: {x: 1, y: 24}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -33,6 +37,10 @@ Material:
     - _DetailNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DitherTexture:
+        m_Texture: {fileID: 2800000, guid: def0b3838e1616743b65aa958255ef00, type: 3}
+        m_Scale: {x: 1, y: 23}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
@@ -54,12 +62,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Brightness: 1
+    - _BaseBrightness: 2
+    - _Brightness: 25
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DitherEndDistance: 100
+    - _DitherStartDistance: 200
+    - _DoUEvenDitherBro: 1
     - _DstBlend: 0
+    - _Float0: 600
+    - _Float1: 500
     - _GlossMapScale: 1
     - _Glossiness: 0.32
     - _GlossyReflections: 1
@@ -67,12 +85,19 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PulseBrightnessScale: 10
+    - _PulseSpeed: 2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _ToggleSwitch0: 0
+    - _ToggleSwitch1: 0
     - _UVSec: 0
+    - _UseDitherTexture: 1
+    - _Usealphatexture: 1
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _AlphaTiling: {r: 1, g: 23.42, b: 0, a: 0}
     - _Color: {r: 0, g: 0.67058825, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
