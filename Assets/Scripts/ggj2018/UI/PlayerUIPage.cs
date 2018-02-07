@@ -172,9 +172,12 @@ namespace ggj2018.ggj2018.UI
             GoalCard.SetActive(false);
         }
 
-        public void SetTimer(TimeSpan timeSpan)
+        public void SetTimer(float timerSeconds)
         {
-            GameTimer.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
+            float minutes = Mathf.Floor(timerSeconds / 60.0f);
+            float seconds = Mathf.Floor(timerSeconds % 60.0f);
+
+            GameTimer.text = $"{minutes:0}:{seconds:00}";
         }
 
         public void SetScore(int score, int maxScore)

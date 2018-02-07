@@ -25,7 +25,7 @@ MonoBehaviour:
     _preyWinText: You Win!
     _preyLossText: You Lose!
     _scoreLimit: 1
-    _timeLimit: 1
+    _timeLimit: 5
     _timesUpText: Time's Up!
   - _gameType: 1
     _name: Hunt and Deliver
