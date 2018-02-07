@@ -52,3 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goalLayerName: Goal
+  _goalGodRayPrefab: {fileID: 114091452163400356, guid: a8a43605c3065934f8d806b901bce00d,
+    type: 2}

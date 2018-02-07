@@ -8,6 +8,7 @@ using ggj2018.ggj2018.Birds;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.GameTypes;
+using ggj2018.ggj2018.VFX;
 using ggj2018.ggj2018.World;
 
 using JetBrains.Annotations;
@@ -23,6 +24,11 @@ namespace ggj2018.ggj2018.Players
         [SerializeField]
         [FormerlySerializedAs("_localPlayerPrefab")]
         private Player _playerPrefab;
+
+        [SerializeField]
+        private GodRay _playerGodRayPrefab;
+
+        public GodRay PlayerGodRayPrefab => _playerGodRayPrefab;
 
         private GameObject _playerContainer;
 

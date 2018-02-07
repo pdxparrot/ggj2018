@@ -4,8 +4,10 @@ using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Birds;
+using ggj2018.ggj2018.Camera;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
+using ggj2018.ggj2018.VFX;
 using ggj2018.Game.Audio;
 
 using JetBrains.Annotations;
@@ -15,7 +17,6 @@ using UnityEngine.Networking;
 
 namespace ggj2018.ggj2018.Players
 {
-// TODO: rename this Player when NetworkPlayer is gone
     [RequireComponent(typeof(PlayerController))]
     [RequireComponent(typeof(NetworkIdentity))]
     [RequireComponent(typeof(NetworkTransform))]
@@ -33,8 +34,7 @@ namespace ggj2018.ggj2018.Players
 
         public PlayerState State => _playerState;
 
-        [SerializeField]
-        private GameObject _godRay;
+        private GodRay _godRay;
 
         private PlayerController _controller;
 
@@ -76,6 +76,12 @@ namespace ggj2018.ggj2018.Players
             _playerState = new PlayerState(this);
 
             _controller = GetComponent<PlayerController>();
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(_godRay);
+            _godRay = null;
         }
 
         private void Start()
@@ -125,7 +131,8 @@ namespace ggj2018.ggj2018.Players
             _controller.Initialize(this);
             State.Initialize();
 
-            _godRay.GetComponent<GodRay>().Setup(this);
+            _godRay = Instantiate(PlayerManager.Instance.PlayerGodRayPrefab, transform);
+            _godRay.SetupPlayer(this);
 
             LogInfo();
         }
