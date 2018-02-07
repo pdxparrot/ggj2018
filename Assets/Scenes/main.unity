@@ -637,7 +637,7 @@ MonoBehaviour:
     type: 2}
   _gameSceneManagerPrefab: {fileID: 114993109945140696, guid: 001813623a138b644b2aabbbdfc09b3d,
     type: 2}
-  _defaultSceneName: test
+  _defaultSceneName: new level
   _debugManagerPrefab: {fileID: 114176430621354346, guid: cfbefd30cacff76479eeb6b9b8cb6987,
     type: 2}
   _gameManagerPrefab: {fileID: 114887168970083654, guid: 350cdcbcb36491240ac9cf4bebb906e7,
