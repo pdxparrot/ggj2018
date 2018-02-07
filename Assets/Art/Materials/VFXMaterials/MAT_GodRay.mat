@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_GodRay
   m_Shader: {fileID: 4800000, guid: 7cfae2ac4c5eec14db76c2c9e34a2045, type: 3}
-  m_ShaderKeywords: _DOUEVENDITHERBRO_ON _EMISSION _USEDITHERTEXTURE_ON
+  m_ShaderKeywords: _DOUEVENDITHERBRO_ON _EMISSION _USEALPHATEXTURE_ON _USEDITHERTEXTURE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -96,11 +96,11 @@ Material:
     - _ToggleSwitch1: 0
     - _UVSec: 0
     - _UseDitherTexture: 1
-    - _Usealphatexture: 0
+    - _Usealphatexture: 1
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
     - _AlphaTiling: {r: 1, g: 23.42, b: 0, a: 0}
     - _Color: {r: 0, g: 0.67058825, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _PlayerColor: {r: 0, g: 1, b: 0.95862055, a: 0}
+    - _PlayerColor: {r: 0, g: 1, b: 0, a: 0}
