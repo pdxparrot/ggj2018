@@ -32,6 +32,11 @@ namespace ggj2018.ggj2018.Data
         public float WorldScale => _worldScale;
 
         [SerializeField]
+        private bool _useArcadeFlightControls;
+
+        public bool UseArcadeFlightControls => _useArcadeFlightControls;
+
+        [SerializeField]
         private string _godRayAlphaProperty = "_Usealphatexture";
 
         public string GodRayAlphaProperty => _godRayAlphaProperty;

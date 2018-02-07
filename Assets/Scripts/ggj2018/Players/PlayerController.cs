@@ -1,9 +1,10 @@
-﻿using System;
+﻿//#define USE_ANGULAR_ACCEL
+
+using System;
 using System.Collections.Generic;
 
 using ggj2018.Core.Input;
 using ggj2018.Core.Util;
-using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.World;
 
@@ -39,19 +40,29 @@ namespace ggj2018.ggj2018.Players
         [ReadOnly]
         private Vector3 _lastMoveAxes;
 
+#region Physics
         [SerializeField]
         [ReadOnly]
         private Vector3 _angularAcceleration;
 
         [SerializeField]
         [ReadOnly]
+        private Vector3 _angularVelocity;
+
+        [SerializeField]
+        [ReadOnly]
         private Vector3 _linearAcceleration;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _linearVelocity;
 
         public float Speed => _rigidbody.velocity.magnitude;
 
         private Rigidbody _rigidbody;
 
         public Rigidbody Rigidbody => _rigidbody;
+#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -163,11 +174,11 @@ namespace ggj2018.ggj2018.Players
         {
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = false;
-            _rigidbody.useGravity = false;
-#if true
-            _rigidbody.freezeRotation = true;
-#else
+            _rigidbody.useGravity = !GameManager.Instance.ConfigData.UseArcadeFlightControls;
+#if USE_ANGULAR_ACCEL
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+#else
+            _rigidbody.freezeRotation = true;
 #endif
             _rigidbody.detectCollisions = true;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
@@ -234,14 +245,15 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-#if true
+#if USE_ANGULAR_ACCEL
+            float turnAcceleration = (PlayerManager.Instance.PlayerData.BaseAngularForce + _owner.Bird.Type.AngularForceModifier) / _rigidbody.mass;
+            _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
+            _rigidbody.angularVelocity += _angularAcceleration * dt;
+            _angularVelocity = _rigidbody.angularVelocity;
+#else
             float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.Bird.Type.TurnSpeedModifier;
             Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
             _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
-#else
-            float turnAcceleration = (PlayerManager.Instance.PlayerData.BaseTurnForce + _owner.Bird.Type.TurnForceModifier) / _rigidbody.mass;
-            _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
-            _rigidbody.angularVelocity += _angularAcceleration * dt;
 #endif
         }
 
@@ -283,72 +295,78 @@ namespace ggj2018.ggj2018.Players
         private void Move(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
-                _rigidbody.velocity += GameManager.Instance.Gravity * dt;
-                return;
-            }
-
-            if(_owner.State.IsStunned) {
+                if(GameManager.Instance.ConfigData.UseArcadeFlightControls) {
+                    _rigidbody.velocity += Physics.gravity * dt;
+                }
+            } else if(_owner.State.IsStunned) {
+// TODO: use a force for this
                 _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
-                return;
-            }
+            } else {
+                if(GameManager.Instance.ConfigData.UseArcadeFlightControls) {
+// TODO: calculate this stuff from the physical forces
+// rather than having separate values to tweak (and get rid of those values)
+                    float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.Bird.Type.SpeedModifier;
+                    if(_owner.State.IsBraking) {
+                        speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
+                    } else if(_owner.State.IsBoosting) {
+                        speed *= PlayerManager.Instance.PlayerData.BoostFactor;
+                    }
 
-#if true
-            float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.Bird.Type.SpeedModifier;
-            if(_owner.State.IsBraking) {
-                speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
-            } else if(_owner.State.IsBoosting) {
-                speed *= PlayerManager.Instance.PlayerData.BoostFactor;
-            }
+                    Vector3 velocity = transform.forward * speed;
+                    velocity.y = 0.0f;
 
-            Vector3 velocity = transform.forward * speed;
-            velocity.y = 0.0f;
+                    if(axes.y < -Mathf.Epsilon) {
+                        velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.Bird.Type.PitchSpeedModifier;
+                    } else if(axes.y > Mathf.Epsilon) {
+                        velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.Bird.Type.PitchSpeedModifier;
+                    }
 
-            if(axes.y < -Mathf.Epsilon) {
-                velocity.y -= PlayerManager.Instance.PlayerData.BasePitchDownSpeed + _owner.Bird.Type.PitchSpeedModifier;
-            } else if(axes.y > Mathf.Epsilon) {
-                velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.Bird.Type.PitchSpeedModifier;
-            }
+                    _rigidbody.velocity = velocity;
+                } else {
+                    // vertical acceleration
+                    float verticalAcceleration = (PlayerManager.Instance.PlayerData.BaseVerticalForce + _owner.Bird.Type.VerticalForceModifier) / _rigidbody.mass;
 
-            _rigidbody.velocity = velocity;
-#else
-            // vertical acceleration
-            float verticalAcceleration = (PlayerManager.Instance.PlayerData.BaseVerticalForce + _owner.Bird.Type.VerticalForceModifier) / _rigidbody.mass;
+                    // input
+                    verticalAcceleration *= axes.y;
 
-            // input
-            verticalAcceleration *= axes.y;
+                    // only fight gravity if we're not falling
+                    if(axes.y >= 0.0f) {
+                        verticalAcceleration -= Physics.gravity.y;
+                    }
 
-            // only fight gravity if we're not falling
-            if(axes.y >= 0.0f) {
-                verticalAcceleration -= Physics.gravity.y;
+                    // horizontal acceleration
+                    float horizontalAcceleration = (PlayerManager.Instance.PlayerData.BaseHorizontalForce + _owner.Bird.Type.HorizontalForceModifier) / _rigidbody.mass;
+
+                    // modififers
+                    if(_owner.State.IsBraking) {
+                        float brakeAcceleration = (PlayerManager.Instance.PlayerData.BrakeForce + _owner.Bird.Type.BrakeForceModifier) / _rigidbody.mass;
+                        horizontalAcceleration -= brakeAcceleration;
+                    }
+
+                    if(_owner.State.IsBoosting) {
+                        float boostAcceleration = (PlayerManager.Instance.PlayerData.BoostForce + _owner.Bird.Type.BoostForceModifier) / _rigidbody.mass;
+                        horizontalAcceleration += boostAcceleration;
+                    }
+
+                    // take away some horizontal if we're not falling
+                    if(verticalAcceleration > 0.0f) {
+                        horizontalAcceleration -= verticalAcceleration;
+                    }
+
+                    if(horizontalAcceleration < 0.0f) {
+                        horizontalAcceleration = 0.0f;
+                    }
+
+                    _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
+                    _rigidbody.velocity += _linearAcceleration * dt;
+                }
             }
 
             // cap our fall speed
-            if(verticalAcceleration < -_owner.Bird.Type.TerminalVelocity) {
-                verticalAcceleration = -_owner.Bird.Type.TerminalVelocity;
+            if(_rigidbody.velocity.y < -_owner.Bird.Type.TerminalVelocity) {
+                _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, -_owner.Bird.Type.TerminalVelocity, _rigidbody.velocity.z);
             }
-
-            // horizontal acceleration
-            float horizontalAcceleration = (PlayerManager.Instance.PlayerData.BaseHorizontalForce + _owner.Bird.Type.HorizontalForceModifier) / _rigidbody.mass;
-
-            // modififers
-            if(_owner.State.IsBraking) {
-                float brakeAcceleration = PlayerManager.Instance.PlayerData.BrakeForce / _rigidbody.mass;
-                horizontalAcceleration -= brakeAcceleration;
-            }
-
-            if(_owner.State.IsBoosting) {
-                float boostAcceleration = PlayerManager.Instance.PlayerData.BoostForce / _rigidbody.mass;
-                horizontalAcceleration += boostAcceleration;
-            }
-
-            // take away some horizontal if we're not falling
-            if(verticalAcceleration > 0.0f) {
-                horizontalAcceleration -= verticalAcceleration;
-            }
-
-            _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
-            _rigidbody.velocity += _linearAcceleration * dt;
-#endif
+            _linearVelocity = _rigidbody.velocity;
         }
 
 #region Collision Handlers

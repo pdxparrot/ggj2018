@@ -11,13 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb47facf0454284780cbd9a9fe790e1, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  _baseSpeed: 50
-  _baseTurnSpeed: 50
-  _basePitchUpSpeed: 25
-  _basePitchDownSpeed: 35
-  _baseHorizontalForce: 100
-  _baseVerticalForce: 50
-  _baseTurnForce: 1
+  _baseSpeed: 10
+  _baseTurnSpeed: 10
+  _basePitchUpSpeed: 5
+  _basePitchDownSpeed: 10
+  _baseHorizontalForce: 120
+  _baseVerticalForce: 40
+  _baseAngularForce: 10
   _minFlightAnimationCooldown: 10
   _maxFlightAnimationCooldown: 20
   _pitchAnimationAngle: 45
@@ -28,9 +28,9 @@ MonoBehaviour:
   _stunBounceRotation: 0
   _boostSeconds: 5
   _boostFactor: 2
-  _boostForce: 50
+  _boostForce: 55
   _brakeFactor: 0.5
-  _brakeForce: 50
+  _brakeForce: 37
   _defaultPlayerColor: {r: 1, g: 0, b: 1, a: 1}
   _playerColors:
   - {r: 1, g: 0, b: 0, a: 0}

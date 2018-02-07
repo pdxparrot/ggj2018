@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using ggj2018.ggj2018.Game;
+
 using UnityEngine;
 
 namespace ggj2018.ggj2018.Data
@@ -11,46 +13,44 @@ namespace ggj2018.ggj2018.Data
     {
 // TODO: move to bird data
 #region Base Stats
-        [Header("Base Stats")]
-
-        // -- OLD STATS --
+        [Header("Arcade Base Stats")]
 
         [SerializeField]
-        private float _baseSpeed = 20.0f;
+        private float _baseSpeed = 10.0f;
 
-        public float BaseSpeed => _baseSpeed;
-
-        [SerializeField]
-        private float _baseTurnSpeed = 50.0f;
-
-        public float BaseTurnSpeed => _baseTurnSpeed;
+        public float BaseSpeed => _baseSpeed * GameManager.Instance.ConfigData.WorldScale;
 
         [SerializeField]
-        private float _basePitchUpSpeed = 25.0f;
+        private float _baseTurnSpeed = 10.0f;
 
-        public float BasePitchUpSpeed => _basePitchUpSpeed;
+        public float BaseTurnSpeed => _baseTurnSpeed * GameManager.Instance.ConfigData.WorldScale;
 
         [SerializeField]
-        private float _basePitchDownSpeed = 50.0f;
+        private float _basePitchUpSpeed = 5.0f;
 
-        public float BasePitchDownSpeed => _basePitchDownSpeed;
+        public float BasePitchUpSpeed => _basePitchUpSpeed * GameManager.Instance.ConfigData.WorldScale;
 
-        // -- NEW STATS --
+        [SerializeField]
+        private float _basePitchDownSpeed = 10.0f;
+
+        public float BasePitchDownSpeed => _basePitchDownSpeed * GameManager.Instance.ConfigData.WorldScale;
+
+        [Header("Physical Base Stats")]
 
         [SerializeField]
         private float _baseHorizontalForce = 25.0f;
 
-        public float BaseHorizontalForce => _baseHorizontalForce;
+        public float BaseHorizontalForce => _baseHorizontalForce * GameManager.Instance.ConfigData.WorldScale;
 
         [SerializeField]
         private float _baseVerticalForce = 5.0f;
 
-        public float BaseVerticalForce => _baseVerticalForce;
+        public float BaseVerticalForce => _baseVerticalForce * GameManager.Instance.ConfigData.WorldScale;
 
         [SerializeField]
-        private float _baseTurnForce = 1.0f;
+        private float _baseAngularForce = 1.0f;
 
-        public float BaseTurnForce => _baseTurnForce;
+        public float BaseAngularForce => _baseAngularForce * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
         [Space(10)]
@@ -96,6 +96,7 @@ namespace ggj2018.ggj2018.Data
 
         public int StunTimeSeconds => _stunTimeSeconds;
 
+        // TODO: make this a force
         [SerializeField]
         private float _stunBounceSpeed = 1.0f;
 
@@ -118,40 +119,38 @@ namespace ggj2018.ggj2018.Data
 
         public int BoostSeconds => _boostSeconds;
 
-        // -- OLD STATS --
+        [Header("Arcade Boost")]
 
         [SerializeField]
         private float _boostFactor = 2.0f;
 
         public float BoostFactor => _boostFactor;
 
-        // -- NEW STATS
+        [Header("Physical Boost")]
 
         [SerializeField]
         private float _boostForce = 5.0f;
 
-        public float BoostForce => _boostForce;
+        public float BoostForce => _boostForce * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
         [Space(10)]
 
 // TODO: move to game type data
 #region Braking
-        [Header("Braking")]
-
-        // -- OLD STATS --
+        [Header("Arcade Braking")]
 
         [SerializeField]
         private float _brakeFactor = 0.5f;
 
         public float BrakeFactor => _brakeFactor;
 
-        // -- NEW STATS --
+        [Header("Physical Braking")]
 
         [SerializeField]
         private float _brakeForce = 5.0f;
 
-        public float BrakeForce => _brakeForce;
+        public float BrakeForce => _brakeForce * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
         [Space(10)]

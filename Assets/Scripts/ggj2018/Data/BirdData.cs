@@ -93,7 +93,7 @@ namespace ggj2018.ggj2018.Data
 
             public bool CanBoost => _canBoost;
 
-            // -- OLD STATS --
+            [Header("Arcade Stat Modifiers")]
 
             [SerializeField]
             private float _speedModifier;
@@ -110,7 +110,7 @@ namespace ggj2018.ggj2018.Data
 
             public float PitchSpeedModifier => _pitchSpeedModifier;
 
-            // -- NEW STATS --
+            [Header("Physical Stat Modifiers")]
 
             [SerializeField]
             private float _horizontalForceModifier;
@@ -123,9 +123,19 @@ namespace ggj2018.ggj2018.Data
             public float VerticalForceModifier => _verticalForceModifier;
 
             [SerializeField]
-            private float _turnForceModifier;
+            private float _angularForceModifier;
 
-            public float TurnForceModifier => _turnForceModifier;
+            public float AngularForceModifier => _angularForceModifier;
+
+            [SerializeField]
+            private float _brakeForceModifier;
+
+            public float BrakeForceModifier => _brakeForceModifier;
+
+            [SerializeField]
+            private float _boostForceModifier;
+
+            public float BoostForceModifier => _boostForceModifier;
 #endregion
 
             [Space(10)]
