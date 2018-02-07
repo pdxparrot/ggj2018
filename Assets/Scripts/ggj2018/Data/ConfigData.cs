@@ -25,5 +25,15 @@ namespace ggj2018.ggj2018.Data
         public bool EnableNetwork => _enableNetwork;
 
         public int MaxLocalPlayers => (EnableGVR || EnableNetwork) ? 1 : InputManager.Instance.MaxControllers;
+
+        [SerializeField]
+        private float _worldScale = 1.0f;
+
+        public float WorldScale => _worldScale;
+
+        [SerializeField]
+        private string _godRayAlphaProperty = "_Usealphatexture";
+
+        public string GodRayAlphaProperty => _godRayAlphaProperty;
     }
 }

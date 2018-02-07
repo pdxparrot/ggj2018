@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using ggj2018.ggj2018.Birds;
+using ggj2018.ggj2018.Game;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -64,22 +65,22 @@ namespace ggj2018.ggj2018.Data
             [SerializeField]
             private float _mass = 1.0f;
 
-            public float Mass => _mass;
+            public float Mass => _mass * GameManager.Instance.ConfigData.WorldScale;
 
             [SerializeField]
             private float _drag = 1.0f;
 
-            public float Drag => _drag;
+            public float Drag => _drag * GameManager.Instance.ConfigData.WorldScale;
 
             [SerializeField]
             private float _angularDrag = 0.05f;
 
-            public float AngularDrag => _angularDrag;
+            public float AngularDrag => _angularDrag * GameManager.Instance.ConfigData.WorldScale;
 
             [SerializeField]
-            private float _terminalVelocity = 100.0f;
+            private float _terminalVelocity = 20.0f;
 
-            public float TerminalVelocity => _terminalVelocity;
+            public float TerminalVelocity => _terminalVelocity * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
             [Space(10)]
@@ -180,12 +181,12 @@ namespace ggj2018.ggj2018.Data
 
 #region FOVs
         [SerializeField]
-        private float _predatorFOV = 90.0f;
+        private float _predatorFOV = 60.0f;
 
         public float PredatorFOV => _predatorFOV;
 
         [SerializeField]
-        private float _preyFOV = 60;
+        private float _preyFOV = 90.0f;
 
         public float PreyFOV => _preyFOV;
 #endregion

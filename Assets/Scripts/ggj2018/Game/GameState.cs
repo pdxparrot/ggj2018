@@ -51,7 +51,11 @@ namespace ggj2018.ggj2018.Game
 
         public bool CanScore => States.Game == State;
 
-        public TimeSpan Timer { get; private set; }
+        [SerializeField]
+        [ReadOnly]
+        private float _gameTimer;
+
+        public float GameTimer => _gameTimer;
 
         [SerializeField]
         [ReadOnly]
@@ -276,9 +280,7 @@ namespace ggj2018.ggj2018.Game
 
             AudioManager.Instance.PlayMusic(GameManager.Instance.GameMusic1AudioClip, GameManager.Instance.GameMusic2AudioClip);
 
-            Timer = GameType.GameTypeData.TimeLimit > 0
-                ? TimeSpan.FromMinutes(GameType.GameTypeData.TimeLimit)
-                : TimeSpan.Zero;
+            _gameTimer = GameType.GameTypeData.TimeLimit * 60.0f;
         }
 
         private void RunGame(float dt)
@@ -288,9 +290,10 @@ namespace ggj2018.ggj2018.Game
             }
 
             if(GameType.GameTypeData.TimeLimit > 0) {
-                Timer = Timer.Subtract(TimeSpan.FromSeconds(dt));
-                if(Timer.Seconds <= 0) {
-                    Timer = TimeSpan.Zero;
+                _gameTimer -= dt;
+                if(_gameTimer <= 0.0f) {
+                    _gameTimer = 0.0f;
+
                     GameType.TimerFinish();
                     SetState(States.GameOver);
                 }

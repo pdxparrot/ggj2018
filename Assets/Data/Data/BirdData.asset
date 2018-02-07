@@ -27,9 +27,9 @@ MonoBehaviour:
       type: 2}
     _isPredator: 1
     _followOrbitRadius: 10
-    _mass: 2
-    _drag: 1
-    _angularDrag: 5
+    _mass: 1
+    _drag: 0.2
+    _angularDrag: 0.05
     _terminalVelocity: 100
     _canBoost: 1
     _speedModifier: 30
@@ -49,9 +49,9 @@ MonoBehaviour:
       type: 2}
     _isPredator: 0
     _followOrbitRadius: 3
-    _mass: 1
-    _drag: 1
-    _angularDrag: 5
+    _mass: 0.5
+    _drag: 0.4
+    _angularDrag: 0.05
     _terminalVelocity: 100
     _canBoost: 0
     _speedModifier: 0
@@ -71,9 +71,9 @@ MonoBehaviour:
       type: 2}
     _isPredator: 0
     _followOrbitRadius: 3
-    _mass: 1
-    _drag: 1
-    _angularDrag: 5
+    _mass: 0.5
+    _drag: 0.4
+    _angularDrag: 0.05
     _terminalVelocity: 100
     _canBoost: 0
     _speedModifier: 0
@@ -93,9 +93,9 @@ MonoBehaviour:
       type: 2}
     _isPredator: 0
     _followOrbitRadius: 3
-    _mass: 1
-    _drag: 1
-    _angularDrag: 5
+    _mass: 0.5
+    _drag: 0.5
+    _angularDrag: 0.05
     _terminalVelocity: 100
     _canBoost: 0
     _speedModifier: 0

@@ -55,6 +55,10 @@ namespace ggj2018.ggj2018.Players
 
         [SerializeField]
         [ReadOnly]
+        private Vector3 _velocity;
+
+        [SerializeField]
+        [ReadOnly]
         private PauseState _pauseState;
 
         private Player _owner;
@@ -283,7 +287,8 @@ namespace ggj2018.ggj2018.Players
         private void Move(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
-                _rigidbody.velocity += Physics.gravity * dt;
+                _rigidbody.velocity += GameManager.Instance.Gravity * dt;
+		_rigidbody.velocity.x = _rigidody.velocity.z = 0.0f
                 return;
             }
 
@@ -309,7 +314,8 @@ namespace ggj2018.ggj2018.Players
                 velocity.y += PlayerManager.Instance.PlayerData.BasePitchUpSpeed + _owner.Bird.Type.PitchSpeedModifier;
             }
 
-            _rigidbody.velocity = velocity;
+	    _velocity = velocity;
+            _rigidbody.velocity = _velocity;
 #else
             // vertical acceleration
             float verticalAcceleration = (PlayerManager.Instance.PlayerData.BaseVerticalForce + _owner.Bird.Type.VerticalForceModifier) / _rigidbody.mass;
@@ -349,6 +355,10 @@ namespace ggj2018.ggj2018.Players
             _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
             _rigidbody.velocity += _linearAcceleration * dt;
 #endif
+=======
+            _velocity = velocity;
+            _rigidbody.velocity = _velocity;
+>>>>>>> master
         }
 
 #region Collision Handlers

@@ -98,6 +98,8 @@ namespace ggj2018.ggj2018.Game
         private PhysicMaterial _frictionlesssMaterial;
 
         public PhysicMaterial FrictionlessMaterial => _frictionlesssMaterial;
+
+        public Vector3 Gravity => Physics.gravity * ConfigData.WorldScale;
 #endregion
 
         [Space(10)]
