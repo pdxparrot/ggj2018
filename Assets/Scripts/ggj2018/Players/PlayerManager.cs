@@ -166,7 +166,11 @@ namespace ggj2018.ggj2018.Players
             foreach(Player player in Players) {
                 RemovePlayer(player, false);
             }
+
             _players.Clear();
+            _predators.Clear();
+            _prey.Clear();
+            _deadPlayers.Clear();
         }
 
         private void AddPlayer(Player player)
