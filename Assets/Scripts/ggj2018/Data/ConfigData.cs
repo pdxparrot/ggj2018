@@ -27,11 +27,6 @@ namespace ggj2018.ggj2018.Data
         public int MaxLocalPlayers => (EnableGVR || EnableNetwork) ? 1 : InputManager.Instance.MaxControllers;
 
         [SerializeField]
-        private float _worldScale = 1.0f;
-
-        public float WorldScale => _worldScale;
-
-        [SerializeField]
         private bool _useArcadeFlightControls;
 
         public bool UseArcadeFlightControls => _useArcadeFlightControls;

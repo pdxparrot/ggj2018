@@ -51,6 +51,10 @@ namespace ggj2018.ggj2018.Players
 
         [SerializeField]
         [ReadOnly]
+        private Vector3 _bankForce;
+
+        [SerializeField]
+        [ReadOnly]
         private Vector3 _linearAcceleration;
 
         [SerializeField]
@@ -107,7 +111,6 @@ namespace ggj2018.ggj2018.Players
 
             float dt = Time.deltaTime;
 
-            Turn(_lastMoveAxes, dt);
             RotateModel(_lastMoveAxes, dt);
 
             float boostPct = _owner.State.BoostRemainingSeconds / PlayerManager.Instance.PlayerData.BoostSeconds;
@@ -126,6 +129,7 @@ namespace ggj2018.ggj2018.Players
 
             float dt = Time.deltaTime;
 
+            Turn(_lastMoveAxes, dt);
             Move(_lastMoveAxes, dt);
         }
 
@@ -168,6 +172,18 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + _rigidbody.angularVelocity * 2.0f);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position + _rigidbody.velocity * 2.0f);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + _bankForce * 2.0f);
+        }
 #endregion
 
         private void InitRigidbody()
@@ -203,6 +219,11 @@ namespace ggj2018.ggj2018.Players
 #if UNITY_EDITOR
         private void CheckForDebug()
         {
+            if(Input.GetKeyDown(KeyCode.B)) {
+                _rigidbody.angularVelocity = Vector3.zero;
+                _rigidbody.velocity = Vector3.zero;
+            }
+
             if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.LeftStick)) {
                 _owner.State.DebugStun();
             }
@@ -239,24 +260,6 @@ namespace ggj2018.ggj2018.Players
             return false;
         }
 
-        private void Turn(Vector3 axes, float dt)
-        {
-            if(_owner.State.IsDead) {
-                return;
-            }
-
-#if USE_ANGULAR_ACCEL
-            float turnAcceleration = PlayerManager.Instance.PlayerData.BaseAngularAcceleration + _owner.Bird.Type.AngularAccelerationModifier;
-            _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
-            _rigidbody.angularVelocity += _angularAcceleration * dt;
-            _angularVelocity = _rigidbody.angularVelocity;
-#else
-            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.Bird.Type.TurnSpeedModifier;
-            Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
-            _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
-#endif
-        }
-
         private void RotateModel(Vector3 axes, float dt)
         {
             Quaternion rotation = _owner.Bird.transform.localRotation;
@@ -290,6 +293,29 @@ namespace ggj2018.ggj2018.Players
             }
 
             _owner.Bird.transform.localRotation = rotation;
+        }
+
+        private void Turn(Vector3 axes, float dt)
+        {
+            if(_owner.State.IsDead) {
+                return;
+            }
+
+#if USE_ANGULAR_ACCEL
+            float turnAcceleration = PlayerManager.Instance.PlayerData.BaseAngularAcceleration + _owner.Bird.Type.AngularAccelerationModifier;
+            _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
+            _rigidbody.angularVelocity += _angularAcceleration * dt;
+            _angularVelocity = _rigidbody.angularVelocity;
+#else
+            float turnSpeed = PlayerManager.Instance.PlayerData.BaseTurnSpeed + _owner.Bird.Type.TurnSpeedModifier;
+            Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
+            _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
+#endif
+
+            // adding a force opposite our current x velocity should help stop us drifting
+            Vector3 relativeVelocity = transform.InverseTransformDirection(_rigidbody.velocity);
+            _bankForce = -relativeVelocity.x * _rigidbody.angularDrag * transform.right;
+            _rigidbody.AddForce(_bankForce);
         }
 
         private void Move(Vector3 axes, float dt)

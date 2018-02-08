@@ -116,8 +116,7 @@ namespace ggj2018.ggj2018.Game
 #region Unity Lifecycle
         private void Awake()
         {
-            Physics.gravity *= ConfigData.WorldScale;
-            Debug.Log($"World Scale: {ConfigData.WorldScale}, Gravity: {Physics.gravity}");
+            Debug.Log($"Gravity: {Physics.gravity}");
 
             _birdData.Initialize();
             _gameTypeData.Initialize();

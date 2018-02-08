@@ -55,6 +55,7 @@ namespace ggj2018.ggj2018.Birds
 
         protected virtual void OnDrawGizmos()
         {
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position + _playerCollider.center, _playerCollider.radius);
         }
 #endregion

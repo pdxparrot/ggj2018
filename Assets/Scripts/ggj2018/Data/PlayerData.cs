@@ -18,39 +18,39 @@ namespace ggj2018.ggj2018.Data
         [SerializeField]
         private float _baseSpeed = 10.0f;
 
-        public float BaseSpeed => _baseSpeed * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseSpeed => _baseSpeed;
 
         [SerializeField]
         private float _baseTurnSpeed = 10.0f;
 
-        public float BaseTurnSpeed => _baseTurnSpeed * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseTurnSpeed => _baseTurnSpeed;
 
         [SerializeField]
         private float _basePitchUpSpeed = 5.0f;
 
-        public float BasePitchUpSpeed => _basePitchUpSpeed * GameManager.Instance.ConfigData.WorldScale;
+        public float BasePitchUpSpeed => _basePitchUpSpeed;
 
         [SerializeField]
         private float _basePitchDownSpeed = 10.0f;
 
-        public float BasePitchDownSpeed => _basePitchDownSpeed * GameManager.Instance.ConfigData.WorldScale;
+        public float BasePitchDownSpeed => _basePitchDownSpeed;
 
         [Header("Physical Base Stats")]
 
         [SerializeField]
         private float _baseHorizontalAcceleration = 25.0f;
 
-        public float BaseHorizontalAcceleration => _baseHorizontalAcceleration * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseHorizontalAcceleration => _baseHorizontalAcceleration;
 
         [SerializeField]
         private float _baseVerticalAcceleration = 5.0f;
 
-        public float BaseVerticalAcceleration => _baseVerticalAcceleration * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseVerticalAcceleration => _baseVerticalAcceleration;
 
         [SerializeField]
         private float _baseAngularAcceleration = 1.0f;
 
-        public float BaseAngularAcceleration => _baseAngularAcceleration * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseAngularAcceleration => _baseAngularAcceleration;
 #endregion
 
         [Space(10)]
@@ -131,7 +131,7 @@ namespace ggj2018.ggj2018.Data
         [SerializeField]
         private float _boostAcceleration = 5.0f;
 
-        public float BoostAcceleration => _boostAcceleration * GameManager.Instance.ConfigData.WorldScale;
+        public float BoostAcceleration => _boostAcceleration;
 #endregion
 
         [Space(10)]
@@ -150,7 +150,7 @@ namespace ggj2018.ggj2018.Data
         [SerializeField]
         private float _brakeAcceleration = 5.0f;
 
-        public float BrakeAcceleration => _brakeAcceleration * GameManager.Instance.ConfigData.WorldScale;
+        public float BrakeAcceleration => _brakeAcceleration;
 #endregion
 
         [Space(10)]

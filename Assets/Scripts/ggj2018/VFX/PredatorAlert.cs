@@ -63,6 +63,7 @@ namespace ggj2018.ggj2018.VFX
         private void OnDrawGizmos()
         {
             if(GameManager.HasInstance) {
+                Gizmos.color = Color.cyan;
                 Gizmos.DrawWireSphere(transform.position, GameManager.Instance.GameTypeData.HawkAlertDistance);
             }
         }

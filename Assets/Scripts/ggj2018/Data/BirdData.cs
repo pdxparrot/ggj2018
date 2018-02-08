@@ -65,22 +65,22 @@ namespace ggj2018.ggj2018.Data
             [SerializeField]
             private float _mass = 1.0f;
 
-            public float Mass => _mass * GameManager.Instance.ConfigData.WorldScale;
+            public float Mass => _mass;
 
             [SerializeField]
             private float _drag = 1.0f;
 
-            public float Drag => _drag * GameManager.Instance.ConfigData.WorldScale;
+            public float Drag => _drag;
 
             [SerializeField]
-            private float _angularDrag = 0.05f;
+            private float _angularDrag = 1.0f;
 
-            public float AngularDrag => _angularDrag * GameManager.Instance.ConfigData.WorldScale;
+            public float AngularDrag => _angularDrag;
 
             [SerializeField]
-            private float _terminalVelocity = 20.0f;
+            private float _terminalVelocity = 10.0f;
 
-            public float TerminalVelocity => _terminalVelocity * GameManager.Instance.ConfigData.WorldScale;
+            public float TerminalVelocity => _terminalVelocity;
 #endregion
 
             [Space(10)]
@@ -115,27 +115,27 @@ namespace ggj2018.ggj2018.Data
             [SerializeField]
             private float _horizontalAccelerationModifier;
 
-            public float HorizontalAccelerationModifier => _horizontalAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+            public float HorizontalAccelerationModifier => _horizontalAccelerationModifier;
 
             [SerializeField]
             private float _verticalAccelerationModifier;
 
-            public float VerticalAccelerationModifier => _verticalAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+            public float VerticalAccelerationModifier => _verticalAccelerationModifier;
 
             [SerializeField]
             private float _angularAccelerationModifier;
 
-            public float AngularAccelerationModifier => _angularAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+            public float AngularAccelerationModifier => _angularAccelerationModifier;
 
             [SerializeField]
             private float _brakeAccelerationModifier;
 
-            public float BrakeAccelerationModifier => _brakeAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+            public float BrakeAccelerationModifier => _brakeAccelerationModifier;
 
             [SerializeField]
             private float _boostAccelerationModifier;
 
-            public float BoostAccelerationModifier => _boostAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+            public float BoostAccelerationModifier => _boostAccelerationModifier;
 #endregion
 
             [Space(10)]

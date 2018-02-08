@@ -28,8 +28,8 @@ MonoBehaviour:
     _isPredator: 1
     _followOrbitRadius: 3
     _mass: 1
-    _drag: 0.25
-    _angularDrag: 0.1
+    _drag: 0.4
+    _angularDrag: 1
     _terminalVelocity: 10
     _canBoost: 1
     _speedModifier: 30
