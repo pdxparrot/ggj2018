@@ -298,6 +298,7 @@ namespace ggj2018.ggj2018.Players
                 if(GameManager.Instance.ConfigData.UseArcadeFlightControls) {
                     _rigidbody.velocity += Physics.gravity * dt;
                 }
+                // physical flight we just let gravity drop us
             } else if(_owner.State.IsStunned) {
 // TODO: use a force for this
                 _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
@@ -306,6 +307,8 @@ namespace ggj2018.ggj2018.Players
 // TODO: calculate this stuff from the physical forces
 // rather than having separate values to tweak (and get rid of those values)
                     float speed = PlayerManager.Instance.PlayerData.BaseSpeed + _owner.Bird.Type.SpeedModifier;
+
+// TODO: what if we AddRelativeForce() just for these??
                     if(_owner.State.IsBraking) {
                         speed *= PlayerManager.Instance.PlayerData.BrakeFactor;
                     } else if(_owner.State.IsBoosting) {
