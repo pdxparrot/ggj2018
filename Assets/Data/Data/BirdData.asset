@@ -26,7 +26,7 @@ MonoBehaviour:
     _modelPrefab: {fileID: 114441340850751900, guid: 9cf5127fdf8bde74c872560bc098d36f,
       type: 2}
     _isPredator: 1
-    _followOrbitRadius: 10
+    _followOrbitRadius: 3
     _mass: 1
     _drag: 0.25
     _angularDrag: 0.1
