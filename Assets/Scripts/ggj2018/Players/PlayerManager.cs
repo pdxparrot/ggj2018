@@ -69,6 +69,8 @@ namespace ggj2018.ggj2018.Players
         public IReadOnlyCollection<Player> Prey => _prey;
 
         public int PlayerCount => _predators.Count + _prey.Count;
+
+        private readonly List<Player> _deadPlayers = new List<Player>();
 #endregion
 
 #region Unity Lifecycle
@@ -137,6 +139,20 @@ namespace ggj2018.ggj2018.Players
             spawnPoint.Spawn(player);
         }
 
+        public void KillPlayer(Player player)
+        {
+            if(player.Bird.Type.IsPredator) {
+                _predators.Remove(player);
+            } else {
+                _prey.Remove(player);
+            }
+
+            _deadPlayers.Add(player);
+
+            player.Viewer.PlayerUI.SwitchToDead();
+            player.Died();
+        }
+
         public void DespawnPlayer(Player player)
         {
             Debug.Log($"Despawning player {player.Id}");
@@ -165,6 +181,10 @@ namespace ggj2018.ggj2018.Players
 
         private void RemovePlayer(Player player, bool removeFromPlayers)
         {
+            if(player.State.IsDead) {
+                _deadPlayers.Remove(player);
+            }
+
             if(player.Bird.Type.IsPredator) {
                 _predators.Remove(player);
             } else {

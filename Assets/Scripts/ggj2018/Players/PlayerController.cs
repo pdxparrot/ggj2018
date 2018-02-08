@@ -372,7 +372,7 @@ namespace ggj2018.ggj2018.Players
 #region Collision Handlers
         private bool CheckGoalCollision(Collider other)
         {
-            Goal goal = other.GetComponent<Goal>();
+            Goal goal = other.GetComponentInParent<Goal>();
             return goal?.Collision(_owner) ?? false;
         }
 

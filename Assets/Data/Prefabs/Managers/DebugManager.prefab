@@ -57,3 +57,4 @@ MonoBehaviour:
   _pigeonModelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
     type: 2}
   _pigeonSpawnPosition: {x: -30, y: 125, z: 0}
+  _spawnMaxLocalPlayers: 0

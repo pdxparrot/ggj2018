@@ -267,6 +267,9 @@ namespace ggj2018.ggj2018.Game
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
+                } else if(DebugManager.Instance.SpawnMaxLocalPlayers) {
+                    selectState.SelectedBird = selectState.ControllerIndex;
+                    selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
                 } else {
                     selectState.Player = null;
                     CameraManager.Instance.ReleaseViewer(selectState.Viewer);

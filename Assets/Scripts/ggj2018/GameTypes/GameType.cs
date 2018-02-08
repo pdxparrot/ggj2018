@@ -19,6 +19,9 @@ namespace ggj2018.ggj2018.GameTypes
         public static GameType GetGameType(int playerCount, int predatorCount, int preyCount)
         {
 // TODO: this is an awful hack :\
+            if(DebugManager.Instance.SpawnMaxLocalPlayers) {
+                return new Hunt(GameManager.Instance.GameTypeData.Entries.GetOrDefault(GameTypes.Hunt));
+            }
             if(1 == playerCount || 0 == predatorCount || 0 == preyCount) {
                 return new CrazyTaxi(GameManager.Instance.GameTypeData.Entries.GetOrDefault(GameTypes.CrazyTaxi));
             }

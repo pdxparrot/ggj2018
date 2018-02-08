@@ -50,11 +50,11 @@ namespace ggj2018.ggj2018.GameTypes
                 return;
             }
 
-            Debug.Log($"Player {killer.Id} has scored a kill!");
-
             killer.State.Score++;
 
-            if(killer.State.Score >= PlayerManager.Instance.Prey.Count) {
+            Debug.Log($"Player {killer.Id} has scored a kill! {PlayerManager.Instance.Prey.Count} remain");
+
+            if(PlayerManager.Instance.Prey.Count < 1) {
                 Debug.Log($"Player {killer.Id} has killed all the messengers!");
                 killer.State.GameOver(PlayerState.GameOverType.Win);
                 GameManager.Instance.State.SetState(GameState.States.GameOver);

@@ -20,6 +20,11 @@ namespace ggj2018.ggj2018
         [SerializeField]
         private Vector3 _pigeonSpawnPosition;
 
+        [SerializeField]
+        private bool _spawnMaxLocalPlayers;
+
+        public bool SpawnMaxLocalPlayers => _spawnMaxLocalPlayers;
+
         private GameObject _debugContainer;
 
 #region Unity Lifecycle

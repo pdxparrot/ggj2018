@@ -333,8 +333,7 @@ namespace ggj2018.ggj2018.Players
                 prey.ShowBlood(true);
             }
 
-            _owner.Viewer.PlayerUI.SwitchToDead();
-            _owner.Died();
+            PlayerManager.Instance.KillPlayer(_owner);
         }
 #endregion
 
