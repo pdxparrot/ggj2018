@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enableGVR: 0
   _enableNetwork: 0
-  _worldScale: 6
+  _worldScale: 1
   _useArcadeFlightControls: 0
   _godRayAlphaProperty: _Usealphatexture
