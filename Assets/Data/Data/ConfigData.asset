@@ -14,5 +14,5 @@ MonoBehaviour:
   _enableGVR: 0
   _enableNetwork: 0
   _worldScale: 6
-  _useArcadeFlightControls: 1
+  _useArcadeFlightControls: 0
   _godRayAlphaProperty: _Usealphatexture

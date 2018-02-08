@@ -113,29 +113,29 @@ namespace ggj2018.ggj2018.Data
             [Header("Physical Stat Modifiers")]
 
             [SerializeField]
-            private float _horizontalForceModifier;
+            private float _horizontalAccelerationModifier;
 
-            public float HorizontalForceModifier => _horizontalForceModifier;
-
-            [SerializeField]
-            private float _verticalForceModifier;
-
-            public float VerticalForceModifier => _verticalForceModifier;
+            public float HorizontalAccelerationModifier => _horizontalAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
 
             [SerializeField]
-            private float _angularForceModifier;
+            private float _verticalAccelerationModifier;
 
-            public float AngularForceModifier => _angularForceModifier;
-
-            [SerializeField]
-            private float _brakeForceModifier;
-
-            public float BrakeForceModifier => _brakeForceModifier;
+            public float VerticalAccelerationModifier => _verticalAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
 
             [SerializeField]
-            private float _boostForceModifier;
+            private float _angularAccelerationModifier;
 
-            public float BoostForceModifier => _boostForceModifier;
+            public float AngularAccelerationModifier => _angularAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+
+            [SerializeField]
+            private float _brakeAccelerationModifier;
+
+            public float BrakeAccelerationModifier => _brakeAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
+
+            [SerializeField]
+            private float _boostAccelerationModifier;
+
+            public float BoostAccelerationModifier => _boostAccelerationModifier * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
             [Space(10)]

@@ -246,7 +246,7 @@ namespace ggj2018.ggj2018.Players
             }
 
 #if USE_ANGULAR_ACCEL
-            float turnAcceleration = (PlayerManager.Instance.PlayerData.BaseAngularForce + _owner.Bird.Type.AngularForceModifier) / _rigidbody.mass;
+            float turnAcceleration = PlayerManager.Instance.PlayerData.BaseAngularAcceleration + _owner.Bird.Type.AngularAccelerationModifier;
             _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
             _rigidbody.angularVelocity += _angularAcceleration * dt;
             _angularVelocity = _rigidbody.angularVelocity;
@@ -324,7 +324,7 @@ namespace ggj2018.ggj2018.Players
                     _rigidbody.velocity = velocity;
                 } else {
                     // vertical acceleration
-                    float verticalAcceleration = (PlayerManager.Instance.PlayerData.BaseVerticalForce + _owner.Bird.Type.VerticalForceModifier) / _rigidbody.mass;
+                    float verticalAcceleration = PlayerManager.Instance.PlayerData.BaseVerticalAcceleration + _owner.Bird.Type.VerticalAccelerationModifier;
 
                     // input
                     verticalAcceleration *= axes.y;
@@ -335,16 +335,16 @@ namespace ggj2018.ggj2018.Players
                     }
 
                     // horizontal acceleration
-                    float horizontalAcceleration = (PlayerManager.Instance.PlayerData.BaseHorizontalForce + _owner.Bird.Type.HorizontalForceModifier) / _rigidbody.mass;
+                    float horizontalAcceleration = PlayerManager.Instance.PlayerData.BaseHorizontalAcceleration + _owner.Bird.Type.HorizontalAccelerationModifier;
 
                     // modififers
                     if(_owner.State.IsBraking) {
-                        float brakeAcceleration = (PlayerManager.Instance.PlayerData.BrakeForce + _owner.Bird.Type.BrakeForceModifier) / _rigidbody.mass;
+                        float brakeAcceleration = PlayerManager.Instance.PlayerData.BrakeAcceleration + _owner.Bird.Type.BrakeAccelerationModifier;
                         horizontalAcceleration -= brakeAcceleration;
                     }
 
                     if(_owner.State.IsBoosting) {
-                        float boostAcceleration = (PlayerManager.Instance.PlayerData.BoostForce + _owner.Bird.Type.BoostForceModifier) / _rigidbody.mass;
+                        float boostAcceleration = PlayerManager.Instance.PlayerData.BoostAcceleration + _owner.Bird.Type.BoostAccelerationModifier;
                         horizontalAcceleration += boostAcceleration;
                     }
 
@@ -358,7 +358,7 @@ namespace ggj2018.ggj2018.Players
                     }
 
                     _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
-                    _rigidbody.velocity += _linearAcceleration * dt;
+                    _rigidbody.AddForce(_linearAcceleration * _rigidbody.mass);
                 }
             }
 

@@ -117,6 +117,7 @@ namespace ggj2018.ggj2018.Game
         private void Awake()
         {
             Physics.gravity *= ConfigData.WorldScale;
+            Debug.Log($"World Scale: {ConfigData.WorldScale}, Gravity: {Physics.gravity}");
 
             _birdData.Initialize();
             _gameTypeData.Initialize();

@@ -38,19 +38,19 @@ namespace ggj2018.ggj2018.Data
         [Header("Physical Base Stats")]
 
         [SerializeField]
-        private float _baseHorizontalForce = 25.0f;
+        private float _baseHorizontalAcceleration = 25.0f;
 
-        public float BaseHorizontalForce => _baseHorizontalForce * GameManager.Instance.ConfigData.WorldScale;
-
-        [SerializeField]
-        private float _baseVerticalForce = 5.0f;
-
-        public float BaseVerticalForce => _baseVerticalForce * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseHorizontalAcceleration => _baseHorizontalAcceleration * GameManager.Instance.ConfigData.WorldScale;
 
         [SerializeField]
-        private float _baseAngularForce = 1.0f;
+        private float _baseVerticalAcceleration = 5.0f;
 
-        public float BaseAngularForce => _baseAngularForce * GameManager.Instance.ConfigData.WorldScale;
+        public float BaseVerticalAcceleration => _baseVerticalAcceleration * GameManager.Instance.ConfigData.WorldScale;
+
+        [SerializeField]
+        private float _baseAngularAcceleration = 1.0f;
+
+        public float BaseAngularAcceleration => _baseAngularAcceleration * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
         [Space(10)]
@@ -129,9 +129,9 @@ namespace ggj2018.ggj2018.Data
         [Header("Physical Boost")]
 
         [SerializeField]
-        private float _boostForce = 5.0f;
+        private float _boostAcceleration = 5.0f;
 
-        public float BoostForce => _boostForce * GameManager.Instance.ConfigData.WorldScale;
+        public float BoostAcceleration => _boostAcceleration * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
         [Space(10)]
@@ -148,9 +148,9 @@ namespace ggj2018.ggj2018.Data
         [Header("Physical Braking")]
 
         [SerializeField]
-        private float _brakeForce = 5.0f;
+        private float _brakeAcceleration = 5.0f;
 
-        public float BrakeForce => _brakeForce * GameManager.Instance.ConfigData.WorldScale;
+        public float BrakeAcceleration => _brakeAcceleration * GameManager.Instance.ConfigData.WorldScale;
 #endregion
 
         [Space(10)]
