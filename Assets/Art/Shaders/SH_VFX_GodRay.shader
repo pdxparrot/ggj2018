@@ -24,7 +24,7 @@ Shader "SH_VFX_GodRay"
 		CGPROGRAM
 		#include "UnityShaderVariables.cginc"
 		#pragma target 3.0
-		#pragma surface surf Standard keepalpha noshadow noambient novertexlights nolightmap  nodynlightmap nodirlightmap nofog nometa noforwardadd vertex:vertexDataFunc 
+		#pragma surface surf Unlit keepalpha noshadow noambient novertexlights nolightmap  nodynlightmap nodirlightmap nofog nometa noforwardadd vertex:vertexDataFunc 
 		struct Input
 		{
 			float eyeDepth;
@@ -48,7 +48,12 @@ Shader "SH_VFX_GodRay"
 			o.eyeDepth = -UnityObjectToViewPos( v.vertex.xyz ).z;
 		}
 
-		void surf( Input i , inout SurfaceOutputStandard o )
+		inline fixed4 LightingUnlit( SurfaceOutput s, half3 lightDir, half atten )
+		{
+			return fixed4 ( 0, 0, 0, s.Alpha );
+		}
+
+		void surf( Input i , inout SurfaceOutput o )
 		{
 			float mulTime32 = _Time.y * _PulseSpeed;
 			o.Emission = ( _PlayerColor * ( _BaseBrightness * (1.0 + (sin( mulTime32 ) - -1.0) * (_PulseBrightnessScale - 1.0) / (1.0 - -1.0)) ) ).rgb;
@@ -64,7 +69,7 @@ Shader "SH_VFX_GodRay"
 }
 /*ASEBEGIN
 Version=14301
-1164;91;756;651;2384.644;2.312408;1.724303;True;False
+586;91;578;656;1149.255;450.5902;2.797955;True;False
 Node;AmplifyShaderEditor.CommentaryNode;5;-1922.868,258.8643;Float;False;1047.541;403.52;Scale depth from start to end;8;15;13;12;11;10;9;8;7;;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;4;-1974.547,703.5155;Float;False;297.1897;243;Correction for near plane clipping;1;6;;1,1,1,1;0;0
 Node;AmplifyShaderEditor.ProjectionParams;6;-1901.847,752.8157;Float;False;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -91,7 +96,7 @@ Node;AmplifyShaderEditor.RangedFloatNode;16;-602.9474,303.8684;Float;False;Const
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;28;-569.7886,-43.43039;Float;False;2;2;0;FLOAT;0.0;False;1;FLOAT;0.0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;2;-347.9004,-133.5844;Float;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ToggleSwitchNode;18;-374.8578,297.4695;Float;False;Property;_Usealphatexture;Use alpha texture;5;0;Create;True;0;2;0;FLOAT;0.0;False;1;FLOAT;0.0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;SH_VFX_GodRay;False;False;False;False;True;True;True;True;True;True;True;True;False;False;False;True;False;Back;0;0;False;0;0;False;0;Masked;0.5;True;False;0;False;TransparentCutout;AlphaTest;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;False;0;Zero;Zero;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;False;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Unlit;SH_VFX_GodRay;False;False;False;False;True;True;True;True;True;True;True;True;False;False;False;True;False;Back;0;0;False;0;0;False;0;Masked;0.5;True;False;0;False;TransparentCutout;AlphaTest;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;False;0;Zero;Zero;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;False;0;0;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;8;0;7;0
 WireConnection;8;1;6;2
 WireConnection;32;0;29;0
@@ -119,4 +124,4 @@ WireConnection;18;1;17;0
 WireConnection;0;2;2;0
 WireConnection;0;10;18;0
 ASEEND*/
-//CHKSM=3549CE1DB1E56F2F54116817B6EE7DD08B8CDBB3
+//CHKSM=2D00B61AD73640279A27B6F4C5ECD2F87563F971

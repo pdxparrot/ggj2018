@@ -14,11 +14,11 @@ Shader "SH_Background"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "AlphaTest+1" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" "IsEmissive" = "true"  }
+		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "AlphaTest+0" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" "IsEmissive" = "true"  }
 		Cull Back
 		CGPROGRAM
 		#pragma target 3.0
-		#pragma surface surf Standard keepalpha noshadow noambient novertexlights nolightmap  nodynlightmap nodirlightmap nofog nometa noforwardadd 
+		#pragma surface surf Unlit keepalpha noshadow noambient novertexlights nolightmap  nodynlightmap nodirlightmap nofog nometa noforwardadd 
 		struct Input
 		{
 			float2 uv_texcoord;
@@ -30,7 +30,12 @@ Shader "SH_Background"
 		uniform float4 _Texture0_ST;
 		uniform float _Cutoff = 0.5;
 
-		void surf( Input i , inout SurfaceOutputStandard o )
+		inline fixed4 LightingUnlit( SurfaceOutput s, half3 lightDir, half atten )
+		{
+			return fixed4 ( 0, 0, 0, s.Alpha );
+		}
+
+		void surf( Input i , inout SurfaceOutput o )
 		{
 			float4 temp_cast_0 = (1.0).xxxx;
 			float2 uv_Texture0 = i.uv_texcoord * _Texture0_ST.xy + _Texture0_ST.zw;
@@ -46,7 +51,7 @@ Shader "SH_Background"
 }
 /*ASEBEGIN
 Version=14301
-191;87;884;812;833.3015;389.308;1.463912;True;False
+586;91;578;656;870.6388;494.3549;2.241224;True;False
 Node;AmplifyShaderEditor.TexturePropertyNode;1;-1140.983,142.4467;Float;True;Property;_Texture0;Texture 0;1;0;Create;True;None;None;False;white;Auto;0;1;SAMPLER2D;0
 Node;AmplifyShaderEditor.SamplerNode;2;-903.924,145.6344;Float;True;Property;_TextureSample0;Texture Sample 0;1;0;Create;True;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0.0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1.0;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;8;-762.8927,25.37727;Float;False;Constant;_Float0;Float 0;4;0;Create;True;1;0;0;0;0;1;FLOAT;0
@@ -54,7 +59,7 @@ Node;AmplifyShaderEditor.ToggleSwitchNode;7;-490.6976,126.0208;Float;False;Prope
 Node;AmplifyShaderEditor.ColorNode;4;-449.5214,-68.8511;Float;False;Property;_Color;Color;2;0;Create;True;0,0,0,0;0,0,0,0;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;5;-170.4681,57.4002;Float;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0.0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SaturateNode;6;-5.7785,57.40019;Float;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;187.2631,13.72413;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;SH_Background;False;False;False;False;True;True;True;True;True;True;True;True;False;False;True;True;False;Back;0;0;False;0;0;False;0;Masked;0.5;True;False;1;False;TransparentCutout;AlphaTest;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;False;0;SrcAlpha;OneMinusSrcAlpha;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;False;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;187.2631,13.72413;Float;False;True;2;Float;ASEMaterialInspector;0;0;Unlit;SH_Background;False;False;False;False;True;True;True;True;True;True;True;True;False;False;True;True;False;Back;0;0;False;0;0;False;0;Masked;0.5;True;False;0;False;TransparentCutout;AlphaTest;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;False;0;SrcAlpha;OneMinusSrcAlpha;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;False;0;0;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;2;0;1;0
 WireConnection;7;0;8;0
 WireConnection;7;1;2;0
@@ -64,4 +69,4 @@ WireConnection;6;0;5;0
 WireConnection;0;2;6;0
 WireConnection;0;10;2;4
 ASEEND*/
-//CHKSM=F2A1A1D534E14A063341B73605388108F439239C
+//CHKSM=D9BB10E766A5E39698AD067C45B2180E6B35CBF6

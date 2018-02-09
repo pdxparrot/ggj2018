@@ -21,7 +21,7 @@ Shader "SH_VFX_Fog"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "Transparent"  "Queue" = "Transparent+0" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" "IsEmissive" = "true"  }
+		Tags{ "RenderType" = "Transparent"  "Queue" = "Transparent-1" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" "IsEmissive" = "true"  }
 		Cull Back
 		Stencil
 		{
@@ -34,7 +34,7 @@ Shader "SH_VFX_Fog"
 		#include "UnityShaderVariables.cginc"
 		#include "UnityCG.cginc"
 		#pragma target 5.0
-		#pragma surface surf Standard alpha:fade keepalpha noshadow noambient novertexlights nolightmap  nodynlightmap nodirlightmap nofog nometa noforwardadd 
+		#pragma surface surf Unlit alpha:fade keepalpha noshadow noambient novertexlights nolightmap  nodynlightmap nodirlightmap nofog nometa noforwardadd 
 		struct Input
 		{
 			float2 uv_texcoord;
@@ -87,7 +87,12 @@ Shader "SH_VFX_Fog"
 		}
 
 
-		void surf( Input i , inout SurfaceOutputStandard o )
+		inline fixed4 LightingUnlit( SurfaceOutput s, half3 lightDir, half atten )
+		{
+			return fixed4 ( 0, 0, 0, s.Alpha );
+		}
+
+		void surf( Input i , inout SurfaceOutput o )
 		{
 			float mulTime33 = _Time.y * _FogSpeed2;
 			float2 panner35 = ( float2( 0,0 ) + mulTime33 * _FogDirection2);
@@ -111,7 +116,7 @@ Shader "SH_VFX_Fog"
 }
 /*ASEBEGIN
 Version=14301
-1168;91;752;656;1349.223;619.7467;2.122129;True;False
+586;91;578;656;1443.866;866.2979;3.016742;True;False
 Node;AmplifyShaderEditor.RangedFloatNode;26;-1956.045,-42.77776;Float;False;Property;_FogSpeed;Fog Speed;7;0;Create;True;1;1;0;2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;31;-1983.631,-375.2155;Float;False;Property;_FogSpeed2;Fog Speed 2;6;0;Create;True;1;1;0;2;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleTimeNode;25;-1672.974,-36.51638;Float;False;1;0;FLOAT;1.0;False;1;FLOAT;0
@@ -146,7 +151,7 @@ Node;AmplifyShaderEditor.ClampOpNode;12;-457.0417,194.0842;Float;False;3;0;FLOAT
 Node;AmplifyShaderEditor.SamplerNode;29;-973.8809,-997.9921;Float;True;Property;_TextureSample0;Texture Sample 0;8;0;Create;True;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0.0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1.0;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TexturePropertyNode;30;-1244.814,-1104.075;Float;True;Property;_NoiseTexture;Noise Texture;12;0;Create;True;None;None;False;white;Auto;0;1;SAMPLER2D;0
 Node;AmplifyShaderEditor.ToggleSwitchNode;28;-566.7836,-917.2627;Float;False;Property;_ProceduralFog;Procedural Fog;11;0;Create;True;0;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;7;Float;ASEMaterialInspector;0;0;Standard;SH_VFX_Fog;False;False;False;False;True;True;True;True;True;True;True;True;False;False;True;True;False;Back;0;0;False;0;0;False;0;Transparent;0.5;True;False;0;False;Transparent;Transparent;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;1;255;255;6;2;1;0;0;0;0;0;False;2;15;10;25;False;0.5;False;2;SrcAlpha;OneMinusSrcAlpha;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;-1;-1;-1;-1;0;0;0;False;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;7;Float;ASEMaterialInspector;0;0;Unlit;SH_VFX_Fog;False;False;False;False;True;True;True;True;True;True;True;True;False;False;True;True;False;Back;0;0;False;0;0;False;0;Transparent;0.5;True;False;-1;False;Transparent;Transparent;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;1;255;255;6;2;1;0;0;0;0;0;False;2;15;10;25;False;0.5;False;2;SrcAlpha;OneMinusSrcAlpha;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;-1;-1;-1;-1;0;0;0;False;0;0;15;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;25;0;26;0
 WireConnection;33;0;31;0
 WireConnection;35;2;32;0
@@ -182,4 +187,4 @@ WireConnection;28;0;29;0
 WireConnection;0;2;41;0
 WireConnection;0;9;12;0
 ASEEND*/
-//CHKSM=D120609A2D51E05301E6F3FB210217279BFEB2D1
+//CHKSM=70BF4F74AD6C327B2ECA3DFD24C021E9B56D7E43
