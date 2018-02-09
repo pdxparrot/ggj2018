@@ -30,15 +30,15 @@ MonoBehaviour:
     _mass: 1
     _drag: 0.4
     _angularDrag: 1
-    _terminalVelocity: 10
+    _terminalVelocity: 40
     _canBoost: 1
     _speedModifier: 30
-    _turnSpeedModifier: 10
+    _turnSpeedModifier: 25
     _pitchSpeedModifier: 20
     _horizontalAccelerationModifier: 0
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 0
+    _brakeAccelerationModifier: 10
     _boostAccelerationModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: bdaabeb7e958a244289c3687abb90b3f, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: c80992fbd015fc34ba60d1ecc8ed99eb, type: 3}
@@ -57,12 +57,12 @@ MonoBehaviour:
     _terminalVelocity: 5
     _canBoost: 0
     _speedModifier: 0
-    _turnSpeedModifier: 0
+    _turnSpeedModifier: 40
     _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: 0
+    _horizontalAccelerationModifier: -5
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 0
+    _brakeAccelerationModifier: 20
     _boostAccelerationModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
@@ -83,7 +83,7 @@ MonoBehaviour:
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: 0
+    _horizontalAccelerationModifier: -5
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
     _brakeAccelerationModifier: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: 0
+    _horizontalAccelerationModifier: -5
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
     _brakeAccelerationModifier: 0

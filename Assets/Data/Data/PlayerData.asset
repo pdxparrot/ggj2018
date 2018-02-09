@@ -15,7 +15,7 @@ MonoBehaviour:
   _baseTurnSpeed: 10
   _basePitchUpSpeed: 5
   _basePitchDownSpeed: 10
-  _baseHorizontalAcceleration: 27
+  _baseHorizontalAcceleration: 20
   _baseVerticalAcceleration: 10
   _baseAngularAcceleration: 1
   _minFlightAnimationCooldown: 10
