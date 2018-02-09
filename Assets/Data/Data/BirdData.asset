@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6b05ff616ca21458eb059086f3772b, type: 3}
   m_Name: BirdData
   m_EditorClassIdentifier: 
+  _maxAttackAngle: 45
+  _maxBankAngle: 45
   _predatorFOV: 60
   _preyFOV: 90
   _predatorLayer: Hawk
@@ -30,7 +32,7 @@ MonoBehaviour:
     _mass: 1
     _drag: 0.4
     _angularDrag: 1
-    _terminalVelocity: 40
+    _terminalVelocity: 10
     _canBoost: 1
     _speedModifier: 30
     _turnSpeedModifier: 25
@@ -38,7 +40,7 @@ MonoBehaviour:
     _horizontalAccelerationModifier: 0
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 10
+    _brakeAccelerationModifier: 0
     _boostAccelerationModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: bdaabeb7e958a244289c3687abb90b3f, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: c80992fbd015fc34ba60d1ecc8ed99eb, type: 3}
@@ -52,17 +54,17 @@ MonoBehaviour:
     _isPredator: 0
     _followOrbitRadius: 1.5
     _mass: 0.75
-    _drag: 0.4
-    _angularDrag: 0.05
+    _drag: 1
+    _angularDrag: 1
     _terminalVelocity: 5
     _canBoost: 0
     _speedModifier: 0
     _turnSpeedModifier: 40
     _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: -5
+    _horizontalAccelerationModifier: 0
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 20
+    _brakeAccelerationModifier: 0
     _boostAccelerationModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
@@ -83,7 +85,7 @@ MonoBehaviour:
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: -5
+    _horizontalAccelerationModifier: 0
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
     _brakeAccelerationModifier: 0
@@ -107,7 +109,7 @@ MonoBehaviour:
     _speedModifier: 0
     _turnSpeedModifier: 0
     _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: -5
+    _horizontalAccelerationModifier: 0
     _verticalAccelerationModifier: 0
     _angularAccelerationModifier: 0
     _brakeAccelerationModifier: 0
@@ -116,3 +118,31 @@ MonoBehaviour:
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
     _winAudioClip: {fileID: 0}
     _lossAudioClip: {fileID: 0}
+
+    _drag: 1
+    _angularDrag: 1.5
+    _terminalVelocity: 10
+    _horizontalThrust: 27
+    _verticalThrust: 10
+    _linearThrust: 27
+    _angularThrust: 0
+    _brakeThrust: 8
+    _boostThrust: 9
+    _horizontalThrust: 0
+    _verticalThrust: 0
+    _linearThrust: 27
+    _angularThrust: 0
+    _brakeThrust: 0
+    _boostThrust: 0
+    _horizontalThrust: 0
+    _verticalThrust: 0
+    _linearThrust: 27
+    _angularThrust: 0
+    _brakeThrust: 0
+    _boostThrust: 0
+    _horizontalThrust: 0
+    _verticalThrust: 0
+    _linearThrust: 27
+    _angularThrust: 0
+    _brakeThrust: 0
+    _boostThrust: 0

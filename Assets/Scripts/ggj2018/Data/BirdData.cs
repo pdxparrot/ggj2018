@@ -113,29 +113,24 @@ namespace ggj2018.ggj2018.Data
             [Header("Physical Stat Modifiers")]
 
             [SerializeField]
-            private float _horizontalAccelerationModifier;
+            private float _linearThrust = 10.0f;
 
-            public float HorizontalAccelerationModifier => _horizontalAccelerationModifier;
-
-            [SerializeField]
-            private float _verticalAccelerationModifier;
-
-            public float VerticalAccelerationModifier => _verticalAccelerationModifier;
+            public float LinearThrust => _linearThrust;
 
             [SerializeField]
-            private float _angularAccelerationModifier;
+            private float _angularThrust = 10.0f;
 
-            public float AngularAccelerationModifier => _angularAccelerationModifier;
-
-            [SerializeField]
-            private float _brakeAccelerationModifier;
-
-            public float BrakeAccelerationModifier => _brakeAccelerationModifier;
+            public float AngularThrust => _angularThrust;
 
             [SerializeField]
-            private float _boostAccelerationModifier;
+            private float _brakeThrust = 5.0f;
 
-            public float BoostAccelerationModifier => _boostAccelerationModifier;
+            public float BrakeThrust => _brakeThrust;
+
+            [SerializeField]
+            private float _boostThrust = 5.0f;
+
+            public float BoostThrust => _boostThrust;
 #endregion
 
             [Space(10)]
@@ -188,6 +183,22 @@ namespace ggj2018.ggj2018.Data
                 _birdData = birdData;
             }
         }
+
+#region Flight
+        [Header("Flight")]
+
+        [SerializeField]
+        private float _maxAttackAngle = 45.0f;
+
+        public float MaxAttackAngle => _maxAttackAngle;
+
+        [SerializeField]
+        private float _maxBankAngle = 45.0f;
+
+        public float MaxBankAngle => _maxBankAngle;
+#endregion
+
+        [Space(10)]
 
 #region FOVs
         [SerializeField]

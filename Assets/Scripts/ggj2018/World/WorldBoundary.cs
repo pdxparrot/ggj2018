@@ -19,6 +19,9 @@ namespace ggj2018.ggj2018.World
         [SerializeField]
         private BoundaryType _boundaryType = BoundaryType.Wall;
 
+        [SerializeField]
+        private bool _useSolidGizmos;
+
         public BoundaryType Type => _boundaryType;
 
         public bool IsVertical => BoundaryType.Ground == _boundaryType || BoundaryType.Sky == _boundaryType;
@@ -35,8 +38,11 @@ namespace ggj2018.ggj2018.World
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.black;
-            //Gizmos.DrawCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
-            Gizmos.DrawWireCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
+            if(_useSolidGizmos) {
+                Gizmos.DrawCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
+            } else {
+                Gizmos.DrawWireCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
+            }
         }
 #endregion
 

@@ -273,19 +273,11 @@ namespace ggj2018.ggj2018.Players
                 Vector3 targetEuler = new Vector3();
 
                 if(_horizontalBoundaryCollisions.Count < 1) {
-                    if(axes.x < -Mathf.Epsilon) {
-                        targetEuler.z = PlayerManager.Instance.PlayerData.TurnAnimationAngle;
-                    } else if(axes.x > Mathf.Epsilon) {
-                        targetEuler.z = -PlayerManager.Instance.PlayerData.TurnAnimationAngle;
-                    }
+                    targetEuler.z = axes.x * -GameManager.Instance.BirdData.MaxBankAngle;
                 }
 
                 if(null == _verticalBoundaryCollision) {
-                    if(axes.y < -Mathf.Epsilon) {
-                        targetEuler.x = PlayerManager.Instance.PlayerData.PitchAnimationAngle;
-                    } else if(axes.y > Mathf.Epsilon) {
-                        targetEuler.x = -PlayerManager.Instance.PlayerData.PitchAnimationAngle;
-                    }
+                    targetEuler.x = axes.y * -GameManager.Instance.BirdData.MaxAttackAngle;
                 }
 
                 Quaternion targetRotation = Quaternion.Euler(targetEuler);
@@ -352,6 +344,16 @@ namespace ggj2018.ggj2018.Players
 
                     _rigidbody.velocity = velocity;
                 } else {
+#if true
+                    float attackAngle = axes.y * -GameManager.Instance.BirdData.MaxAttackAngle;
+                    Vector3 attackVector = Quaternion.AngleAxis(attackAngle, Vector3.right) * Vector3.forward;
+                    _rigidbody.AddRelativeForce(attackVector * _owner.Bird.Type.LinearThrust);
+
+                    // lift if we're not falling
+                    if(axes.y >= 0.0f) {
+                        _rigidbody.AddForce(Vector3.up * -Physics.gravity.y);
+                    }
+#else
                     // vertical acceleration
                     float verticalAcceleration = PlayerManager.Instance.PlayerData.BaseVerticalAcceleration + _owner.Bird.Type.VerticalAccelerationModifier;
 
@@ -388,6 +390,7 @@ namespace ggj2018.ggj2018.Players
 
                     _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
                     _rigidbody.AddForce(_linearAcceleration * _rigidbody.mass);
+#endif
                 }
             }
 

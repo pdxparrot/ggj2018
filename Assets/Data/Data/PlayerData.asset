@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _baseSpeed: 10
-  _baseTurnSpeed: 10
+  _baseTurnSpeed: 20
   _basePitchUpSpeed: 5
   _basePitchDownSpeed: 10
   _baseHorizontalAcceleration: 20
