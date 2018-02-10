@@ -26,7 +26,7 @@ namespace ggj2018.ggj2018.VFX
 
         private void Start()
         {
-            if(_bird.Owner.Viewer.GlobalPostProcessProfile?.TryGetSettings(out _vignetteSettings) ?? false) {
+            if(_bird.Owner?.Viewer.GlobalPostProcessProfile?.TryGetSettings(out _vignetteSettings) ?? false) {
                 _defaultIntensity = _vignetteSettings.intensity;
             }
         }

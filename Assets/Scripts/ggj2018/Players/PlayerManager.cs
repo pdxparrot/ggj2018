@@ -86,6 +86,17 @@ namespace ggj2018.ggj2018.Players
 
             base.OnDestroy();
         }
+
+        private void Update()
+        {
+#if UNITY_EDITOR
+            if(Input.GetKeyDown(KeyCode.V)) {
+                foreach(Player player in Players) {
+                    player.Viewer.PlayerUI.EnableDebugVisualizer(true);
+                }
+            }
+#endif
+        }
 #endregion
 
         public void Initialize()

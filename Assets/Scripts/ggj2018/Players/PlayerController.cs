@@ -91,6 +91,8 @@ namespace ggj2018.ggj2018.Players
 
         private void Update()
         {
+            _owner.Viewer?.PlayerUI.UpdateDebugVisualizer(_rigidbody);
+
             if(GameManager.Instance.State.IsPaused) {
                 return;
             }

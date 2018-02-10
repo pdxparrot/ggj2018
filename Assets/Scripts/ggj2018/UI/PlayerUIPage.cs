@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.GameTypes;
@@ -32,10 +31,8 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private GameObject WinLossPanel;
         [SerializeField] private Text WinLossText;
 
-        [SerializeField] private GameObject KillCard;
-        [SerializeField] private GameObject Kill1;
-        [SerializeField] private GameObject Kill2;
-        [SerializeField] private GameObject Kill3;
+        [SerializeField] private GameObject KillCardPrefab;
+        [SerializeField] private LayoutGroup KillCardLayout;
 
         [SerializeField] private GameObject GoalCard;
         [SerializeField] private Text GoalDist;
@@ -55,6 +52,17 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private Text Score;
 
         [SerializeField] private float _introPanelTime = 3.0f;
+
+        [Space(10)]
+
+#region Debug
+        [Header("Debug")]
+
+        [SerializeField] private GameObject DebugVisualizer;
+        [SerializeField] private GameObject DebugVelocityPanel;
+        [SerializeField] private Text DebugVelocityText;
+        [SerializeField] private Text DebugAngularVelocityText;
+#endregion
 
         private Player _ownerPlayer;
 
@@ -168,7 +176,6 @@ namespace ggj2018.ggj2018.UI
             Speed.text = $"{speed}";
             Boost.fillAmount = boost;
 
-            KillCard.SetActive(false);
             GoalCard.SetActive(false);
         }
 
@@ -184,6 +191,22 @@ namespace ggj2018.ggj2018.UI
         {
             Score.text = $"{score} / {maxScore}";
         }
+
+#region Debug
+        public void EnableDebugVisualizer(bool enable)
+        {
+            Debug.Log($"Enabling debug visualizer: {enable}");
+            DebugVisualizer.SetActive(enable);
+        }
+
+        public void UpdateDebugVisualizer(Rigidbody rb)
+        {
+            DebugVelocityText.text = $"Velocity: {rb.velocity} m/s";
+            DebugAngularVelocityText.text = $"Angular Velocity: {rb.angularVelocity} m/s";
+
+            DebugVisualizer.transform.position = _ownerPlayer.transform.position + (5.0f * _ownerPlayer.transform.forward);
+        }
+#endregion
     }
 }
 
