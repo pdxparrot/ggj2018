@@ -27,11 +27,6 @@ namespace ggj2018.ggj2018.Data
         public int MaxLocalPlayers => (EnableGVR || EnableNetwork) ? 1 : InputManager.Instance.MaxControllers;
 
         [SerializeField]
-        private bool _useArcadeFlightControls;
-
-        public bool UseArcadeFlightControls => _useArcadeFlightControls;
-
-        [SerializeField]
         private string _godRayAlphaProperty = "_Usealphatexture";
 
         public string GodRayAlphaProperty => _godRayAlphaProperty;

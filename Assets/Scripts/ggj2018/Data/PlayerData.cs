@@ -10,33 +10,6 @@ namespace ggj2018.ggj2018.Data
     public sealed class PlayerData : ScriptableObject
     {
 // TODO: move to bird data
-#region Base Stats
-        [Header("Arcade Base Stats")]
-
-        [SerializeField]
-        private float _baseSpeed = 10.0f;
-
-        public float BaseSpeed => _baseSpeed;
-
-        [SerializeField]
-        private float _baseTurnSpeed = 10.0f;
-
-        public float BaseTurnSpeed => _baseTurnSpeed;
-
-        [SerializeField]
-        private float _basePitchUpSpeed = 5.0f;
-
-        public float BasePitchUpSpeed => _basePitchUpSpeed;
-
-        [SerializeField]
-        private float _basePitchDownSpeed = 10.0f;
-
-        public float BasePitchDownSpeed => _basePitchDownSpeed;
-#endregion
-
-        [Space(10)]
-
-// TODO: move to bird data
 #region Animations
         [Header("Animations")]
 
@@ -90,14 +63,15 @@ namespace ggj2018.ggj2018.Data
 
         public int BoostSeconds => _boostSeconds;
 
-        [Header("Arcade Boost")]
+        [SerializeField]
+        private float _boostCooldown = 2.0f;
+
+        public float BoostCooldown => _boostCooldown;
 
         [SerializeField]
-        private float _boostFactor = 2.0f;
+        private float _boostRechargeRate = 1.0f;
 
-        public float BoostFactor => _boostFactor;
-
-        [Header("Physical Boost")]
+        public float BoostRechargeRate => _boostRechargeRate;
 
         [SerializeField]
         private float _boostAcceleration = 5.0f;
@@ -109,14 +83,7 @@ namespace ggj2018.ggj2018.Data
 
 // TODO: move to game type data
 #region Braking
-        [Header("Arcade Braking")]
-
-        [SerializeField]
-        private float _brakeFactor = 0.5f;
-
-        public float BrakeFactor => _brakeFactor;
-
-        [Header("Physical Braking")]
+        [Header("Braking")]
 
         [SerializeField]
         private float _brakeAcceleration = 5.0f;

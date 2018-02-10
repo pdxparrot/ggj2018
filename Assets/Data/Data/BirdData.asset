@@ -27,122 +27,24 @@ MonoBehaviour:
     _icon: {fileID: 21300000, guid: 2cc694c1e7bb9cb46ab88f9a91c3b73c, type: 3}
     _modelPrefab: {fileID: 114441340850751900, guid: 9cf5127fdf8bde74c872560bc098d36f,
       type: 2}
+    _physics: {fileID: 11400000, guid: 8210608748e80dd40918d7eb16cca63a, type: 2}
     _isPredator: 1
     _followOrbitRadius: 3
-    _mass: 1
-    _drag: 0.4
-    _angularDrag: 1
-    _terminalVelocity: 10
     _canBoost: 1
-    _speedModifier: 30
-    _turnSpeedModifier: 25
-    _pitchSpeedModifier: 20
-    _horizontalAccelerationModifier: 0
-    _verticalAccelerationModifier: 0
-    _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 0
-    _boostAccelerationModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: bdaabeb7e958a244289c3687abb90b3f, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: c80992fbd015fc34ba60d1ecc8ed99eb, type: 3}
     _winAudioClip: {fileID: 8300000, guid: 38107c7e244251347a57609ca9b329e2, type: 3}
     _lossAudioClip: {fileID: 0}
-  - _id: carrier1
-    _name: Carrier 1
+  - _id: carrier
+    _name: Carrier
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
     _modelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
       type: 2}
+    _physics: {fileID: 11400000, guid: 5a06957928270ff4db915dc4cc9e3a0f, type: 2}
     _isPredator: 0
     _followOrbitRadius: 1.5
-    _mass: 0.75
-    _drag: 1
-    _angularDrag: 1
-    _terminalVelocity: 5
     _canBoost: 0
-    _speedModifier: 0
-    _turnSpeedModifier: 40
-    _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: 0
-    _verticalAccelerationModifier: 0
-    _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 0
-    _boostAccelerationModifier: 0
     _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
     _winAudioClip: {fileID: 0}
     _lossAudioClip: {fileID: 0}
-  - _id: carrier2
-    _name: Carrier 2
-    _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
-    _modelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
-      type: 2}
-    _isPredator: 0
-    _followOrbitRadius: 3
-    _mass: 0.75
-    _drag: 0.4
-    _angularDrag: 0.05
-    _terminalVelocity: 5
-    _canBoost: 0
-    _speedModifier: 0
-    _turnSpeedModifier: 0
-    _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: 0
-    _verticalAccelerationModifier: 0
-    _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 0
-    _boostAccelerationModifier: 0
-    _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
-    _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
-    _winAudioClip: {fileID: 0}
-    _lossAudioClip: {fileID: 0}
-  - _id: carrier3
-    _name: Carrier 3
-    _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
-    _modelPrefab: {fileID: 114769505393240148, guid: 950f9329d5152a54b87fe3e1cae3f5c3,
-      type: 2}
-    _isPredator: 0
-    _followOrbitRadius: 3
-    _mass: 0.75
-    _drag: 0.4
-    _angularDrag: 0.05
-    _terminalVelocity: 5
-    _canBoost: 0
-    _speedModifier: 0
-    _turnSpeedModifier: 0
-    _pitchSpeedModifier: 0
-    _horizontalAccelerationModifier: 0
-    _verticalAccelerationModifier: 0
-    _angularAccelerationModifier: 0
-    _brakeAccelerationModifier: 0
-    _boostAccelerationModifier: 0
-    _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
-    _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
-    _winAudioClip: {fileID: 0}
-    _lossAudioClip: {fileID: 0}
-
-    _drag: 1
-    _angularDrag: 1.5
-    _terminalVelocity: 10
-    _horizontalThrust: 27
-    _verticalThrust: 10
-    _linearThrust: 27
-    _angularThrust: 0
-    _brakeThrust: 8
-    _boostThrust: 9
-    _horizontalThrust: 0
-    _verticalThrust: 0
-    _linearThrust: 27
-    _angularThrust: 0
-    _brakeThrust: 0
-    _boostThrust: 0
-    _horizontalThrust: 0
-    _verticalThrust: 0
-    _linearThrust: 27
-    _angularThrust: 0
-    _brakeThrust: 0
-    _boostThrust: 0
-    _horizontalThrust: 0
-    _verticalThrust: 0
-    _linearThrust: 27
-    _angularThrust: 0
-    _brakeThrust: 0
-    _boostThrust: 0

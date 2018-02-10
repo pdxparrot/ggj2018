@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Game;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -36,6 +35,11 @@ namespace ggj2018.ggj2018.Data
 
             public Bird ModelPrefab => _modelPrefab;
 
+            [SerializeField]
+            private BirdPhysicsData _physics;
+
+            public BirdPhysicsData Physics => _physics;
+
 #region Bird Type
 
             [SerializeField]
@@ -59,78 +63,13 @@ namespace ggj2018.ggj2018.Data
 
             [Space(10)]
 
-#region Physics
-            [Header("Physics")]
-
-            [SerializeField]
-            private float _mass = 1.0f;
-
-            public float Mass => _mass;
-
-            [SerializeField]
-            private float _drag = 1.0f;
-
-            public float Drag => _drag;
-
-            [SerializeField]
-            private float _angularDrag = 1.0f;
-
-            public float AngularDrag => _angularDrag;
-
-            [SerializeField]
-            private float _terminalVelocity = 10.0f;
-
-            public float TerminalVelocity => _terminalVelocity;
-#endregion
-
-            [Space(10)]
-
-#region Stat Modifiers
-            [Header("Stat Modifiers")]
+#region Abilities
+            [Header("Abilities")]
 
             [SerializeField]
             private bool _canBoost;
 
             public bool CanBoost => _canBoost;
-
-            [Header("Arcade Stat Modifiers")]
-
-            [SerializeField]
-            private float _speedModifier;
-
-            public float SpeedModifier => _speedModifier;
-
-            [SerializeField]
-            private float _turnSpeedModifier;
-
-            public float TurnSpeedModifier => _turnSpeedModifier;
-
-            [SerializeField]
-            private float _pitchSpeedModifier;
-
-            public float PitchSpeedModifier => _pitchSpeedModifier;
-
-            [Header("Physical Stat Modifiers")]
-
-            [SerializeField]
-            private float _linearThrust = 10.0f;
-
-            public float LinearThrust => _linearThrust;
-
-            [SerializeField]
-            private float _angularThrust = 10.0f;
-
-            public float AngularThrust => _angularThrust;
-
-            [SerializeField]
-            private float _brakeThrust = 5.0f;
-
-            public float BrakeThrust => _brakeThrust;
-
-            [SerializeField]
-            private float _boostThrust = 5.0f;
-
-            public float BoostThrust => _boostThrust;
 #endregion
 
             [Space(10)]
@@ -201,6 +140,8 @@ namespace ggj2018.ggj2018.Data
         [Space(10)]
 
 #region FOVs
+        [Header("FOV")]
+
         [SerializeField]
         private float _predatorFOV = 60.0f;
 
@@ -212,7 +153,11 @@ namespace ggj2018.ggj2018.Data
         public float PreyFOV => _preyFOV;
 #endregion
 
+        [Space(10)]
+
 #region Layers
+        [Header("Layers")]
+
         [SerializeField]
         private string _predatorLayer;
 
@@ -224,7 +169,11 @@ namespace ggj2018.ggj2018.Data
         public string PreyLayer => _preyLayer;
 #endregion
 
+        [Space(10)]
+
 #region Post Processing
+        [Header("Post Processing")]
+
         [SerializeField]
         private PostProcessProfile _predatorPostProcessProfile;
 
@@ -235,6 +184,10 @@ namespace ggj2018.ggj2018.Data
 
         public PostProcessProfile PreyPostProcessProfile => _preyPostProcessProfile;
 #endregion
+
+        [Space(10)]
+
+        [Header("Birds")]
 
         [SerializeField]
         private BirdDataEntry[] _birds;
