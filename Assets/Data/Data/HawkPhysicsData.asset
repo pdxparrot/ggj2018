@@ -14,9 +14,9 @@ MonoBehaviour:
   _mass: 1
   _drag: 1
   _angularDrag: 1
-  _terminalVelocity: 10
-  _linearThrust: 10
-  _angularThrust: 10
-  _turnSpeed: 10
+  _terminalVelocity: 20
+  _linearThrust: 25
+  _angularThrust: 25
+  _turnSpeed: 25
   _brakeThrust: 5
   _boostThrust: 5

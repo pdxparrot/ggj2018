@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014a4f0214c989b49ad1d1be00d6182f, type: 3}
   m_Name: CarrierPhysicsData
   m_EditorClassIdentifier: 
-  _mass: 1
+  _mass: 0.75
   _drag: 1
   _angularDrag: 1
-  _terminalVelocity: 10
+  _terminalVelocity: 20
   _linearThrust: 10
-  _angularThrust: 10
-  _turnSpeed: 10
+  _angularThrust: 20
+  _turnSpeed: 20
   _brakeThrust: 5
   _boostThrust: 5
