@@ -31,10 +31,10 @@ MonoBehaviour:
     _isPredator: 1
     _followOrbitRadius: 3
     _canBoost: 1
-    _spawnAudioClip: {fileID: 8300000, guid: bdaabeb7e958a244289c3687abb90b3f, type: 3}
+    _spawnAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}
     _flightAudioClip: {fileID: 8300000, guid: c80992fbd015fc34ba60d1ecc8ed99eb, type: 3}
-    _winAudioClip: {fileID: 8300000, guid: 38107c7e244251347a57609ca9b329e2, type: 3}
-    _lossAudioClip: {fileID: 0}
+    _winAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}
+    _lossAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}
   - _id: carrier
     _name: Carrier
     _icon: {fileID: 21300000, guid: 4225e58705f054f47b0e8f3d6a115d59, type: 3}
@@ -44,7 +44,7 @@ MonoBehaviour:
     _isPredator: 0
     _followOrbitRadius: 1.5
     _canBoost: 0
-    _spawnAudioClip: {fileID: 8300000, guid: 03cbf45b073ef17428b2764bfc952eef, type: 3}
-    _flightAudioClip: {fileID: 8300000, guid: 08aae53e3bfcbce45a668bcd51e3d2f2, type: 3}
-    _winAudioClip: {fileID: 0}
-    _lossAudioClip: {fileID: 0}
+    _spawnAudioClip: {fileID: 8300000, guid: 82020695de1bed4428d329b955f1bd07, type: 3}
+    _flightAudioClip: {fileID: 0}
+    _winAudioClip: {fileID: 8300000, guid: 82020695de1bed4428d329b955f1bd07, type: 3}
+    _lossAudioClip: {fileID: 8300000, guid: 82020695de1bed4428d329b955f1bd07, type: 3}
