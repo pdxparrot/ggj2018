@@ -32,11 +32,6 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private GameObject WinLossPanel;
         [SerializeField] private Text WinLossText;
 
-        [SerializeField] private GameObject KillCard;
-        [SerializeField] private GameObject Kill1;
-        [SerializeField] private GameObject Kill2;
-        [SerializeField] private GameObject Kill3;
-
         [SerializeField] private GameObject GoalCard;
         [SerializeField] private Text GoalDist;
 
@@ -168,7 +163,6 @@ namespace ggj2018.ggj2018.UI
             Speed.text = $"{speed}";
             Boost.fillAmount = boost;
 
-            KillCard.SetActive(false);
             GoalCard.SetActive(false);
         }
 

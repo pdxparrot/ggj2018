@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.ggj2018.Game;
-
 using UnityEngine;
 
 namespace ggj2018.ggj2018.Data

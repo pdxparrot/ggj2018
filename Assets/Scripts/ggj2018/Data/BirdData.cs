@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Game;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
