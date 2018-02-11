@@ -31,32 +31,6 @@ namespace ggj2018.ggj2018.UI
         }
 #endregion
 
-        /*
-        public void Countdown(int c)
-        {
-            for(int i = 0; i < PlayerHud.Length; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                viewer?.PlayerUI.SetCountdown(c);
-            }
-        }
-
-        public void HideCountdown()
-        {
-            for(int i = 0; i < PlayerHud.Length; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                viewer?.PlayerUI.HideCountdown();
-            }
-        }
-
-        public void HideMenu()
-        {
-            for(int i = 0; i < PlayerHud.Length; ++i) {
-                Viewer viewer = CameraManager.Instance.GetViewer(i) as Viewer;
-                viewer?.PlayerUI.Hide();
-            }
-        }
-        */
-
         public void SwitchToCharacterSelect()
         {
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {

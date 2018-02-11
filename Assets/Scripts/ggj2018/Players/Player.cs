@@ -104,8 +104,8 @@ namespace ggj2018.ggj2018.Players
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(Bird.Type)); 
-            Viewer?.PlayerUI.SetTimer(GameManager.Instance.State.GameTimer); 
+            Viewer.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(Bird.Type));
+            Viewer.PlayerUI.SetTimer(GameManager.Instance.State.GameTimer);
         }
 #endregion
 
