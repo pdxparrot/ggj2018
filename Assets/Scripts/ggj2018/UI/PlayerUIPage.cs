@@ -174,9 +174,9 @@ namespace ggj2018.ggj2018.UI
             }
         }
 
-        public void SetSpeedAndBoost(int speed, float boost)
+        public void SetSpeedAndBoost(float speed, float boost)
         {
-            Speed.text = $"{speed}";
+            Speed.text = $"{(int)UnitUtils.MetersPerSecondToMilesPerHour(speed)} mph";
             Boost.fillAmount = boost;
 
             GoalCard.SetActive(false);

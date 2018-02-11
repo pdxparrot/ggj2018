@@ -96,7 +96,7 @@ namespace ggj2018.ggj2018.Players
 
         private void Update()
         {
-            _owner.Viewer?.PlayerUI.UpdateDebugVisualizer(_rigidbody);
+            _owner.Viewer.PlayerUI.UpdateDebugVisualizer(_rigidbody);
 
             if(GameManager.Instance.State.IsPaused) {
                 return;
@@ -121,7 +121,7 @@ namespace ggj2018.ggj2018.Players
             RotateModel(_lastMoveAxes, dt);
 
             float boostPct = _owner.State.BoostRemainingSeconds / PlayerManager.Instance.PlayerData.BoostSeconds;
-            _owner.Viewer.PlayerUI.SetSpeedAndBoost((int)Speed, boostPct);
+            _owner.Viewer.PlayerUI.SetSpeedAndBoost(Speed, boostPct);
         }
 
         private void FixedUpdate()
