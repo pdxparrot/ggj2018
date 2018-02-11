@@ -129,6 +129,9 @@ namespace ggj2018.Core.Camera
             for(int row=0; row<gridRows; ++row) {
                 for(int col=0; col<gridCols; ++col) {
                     int viewerIdx = (row * gridCols) + col;
+                    if(viewerIdx >= viewers.Count) {
+                        break;
+                    }
                     viewers.ElementAt(viewerIdx).SetViewport(col, (gridRows - 1) - row, viewportWidth, viewportHeight);
                 }
             }
