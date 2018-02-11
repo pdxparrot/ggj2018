@@ -42,7 +42,6 @@ namespace ggj2018.ggj2018.Camera
 
             PlayerUI.Initialize(owner);
 
-            PlayerUI.SetScore(0, GameManager.Instance.State.GameType.ScoreLimit(owner.Bird.Type));
             PlayerUI.SetTimer(GameManager.Instance.State.GameTimer);
         }
     }

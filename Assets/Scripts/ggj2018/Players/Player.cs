@@ -8,6 +8,7 @@ using ggj2018.ggj2018.Camera;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.VFX;
+using ggj2018.ggj2018.World;
 using ggj2018.Game.Audio;
 
 using JetBrains.Annotations;
@@ -64,7 +65,7 @@ namespace ggj2018.ggj2018.Players
         public bool IsLocalPlayer => !GameManager.Instance.ConfigData.EnableNetwork || isLocalPlayer;
 #endregion
 
-#region Nearest Other Players
+#region Nearest Other Objects
         [CanBeNull]
         public Player NearestPredator { get; private set; }
 
@@ -78,6 +79,13 @@ namespace ggj2018.ggj2018.Players
         private float _nearestPreyDistance;
 
         public float NearestPreyDistance => _nearestPreyDistance;
+
+        [CanBeNull]
+        public Goal NearestGoal { get; private set; }
+
+        private float _nearestGoalDistance;
+
+        public float NearestGoalDistance => _nearestGoalDistance;
 #endregion
 
 #region Unity Lifecycle
@@ -97,6 +105,7 @@ namespace ggj2018.ggj2018.Players
         private void Start()
         {
             StartCoroutine(UpdateNearestPlayers());
+            StartCoroutine(UpdateNearestGoal());
             StartCoroutine(PlayFlightAnimation());
         }
 
@@ -104,8 +113,8 @@ namespace ggj2018.ggj2018.Players
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(Bird.Type));
             Viewer.PlayerUI.SetTimer(GameManager.Instance.State.GameTimer);
+            Viewer.PlayerUI.SetDistanceToGoal(NearestGoalDistance);
         }
 #endregion
 
@@ -165,6 +174,16 @@ namespace ggj2018.ggj2018.Players
 
                 NearestPredator = PlayerManager.Instance.GetNearestPredator(this, out _nearestPredatorDistance);
                 NearestPrey = PlayerManager.Instance.GetNearestPrey(this, out _nearestPreyDistance);
+            }
+        }
+
+        private IEnumerator UpdateNearestGoal()
+        {
+            WaitForSeconds wait = new WaitForSeconds(PlayerManager.Instance.NearestPlayerUpdateMs / 1000.0f);
+            while(true) {
+                yield return wait;
+
+                NearestGoal = GoalManager.Instance.GetNearestGoal(this, out _nearestGoalDistance);
             }
         }
 

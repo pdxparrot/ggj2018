@@ -12,6 +12,8 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override bool BirdTypesShareSpawnpoints => true;
 
+        public override bool PredatorsKillPrey => false;
+
         public CrazyTaxi(GameTypeData.GameTypeDataEntry gameTypeData)
             : base(gameTypeData)
         {
@@ -42,7 +44,7 @@ namespace ggj2018.ggj2018.GameTypes
 
             Debug.Log($"Player {player.Id} has scored a goal!");
 
-            player.State.Score++;
+            player.State.ScoreGoal();
 
             if(player.State.Score >= GameTypeData.ScoreLimit) {
                 Debug.Log($"Player {player.Id} has reached the score limit!"); 

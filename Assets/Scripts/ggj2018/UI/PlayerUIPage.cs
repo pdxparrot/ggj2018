@@ -34,11 +34,12 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private GameObject WinLossPanel;
         [SerializeField] private Text WinLossText;
 
+        [SerializeField] private GameObject KillPanel;
         [SerializeField] private GameObject KillCardPrefab;
         [SerializeField] private LayoutGroup KillCardLayout;
 
-        [SerializeField] private GameObject GoalCard;
-        [SerializeField] private Text GoalDist;
+        [SerializeField] private GameObject GoalDistancePanel;
+        [SerializeField] private Text GoalDistanceText;
 
         [SerializeField] private Text Speed;
         [SerializeField] private Image Boost;
@@ -50,9 +51,6 @@ namespace ggj2018.ggj2018.UI
 
         [SerializeField] private GameObject GameTimerPanel;
         [SerializeField] private Text GameTimer;
-
-        [SerializeField] private GameObject ScorePanel;
-        [SerializeField] private Text Score;
 
         [SerializeField] private float _introPanelTime = 3.0f;
 
@@ -81,7 +79,6 @@ namespace ggj2018.ggj2018.UI
             _ownerSelectState = owner;
         }
 
-
         public void Hide()
         {
             MenuPanel.SetActive(false);
@@ -89,15 +86,16 @@ namespace ggj2018.ggj2018.UI
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(false);
             DeadPanel.SetActive(false);
+            KillPanel.SetActive(false);
+            GoalDistancePanel.SetActive(false);
+            WinLossPanel.SetActive(false);
         }
 
         public void SwitchToCharacterSelect()
         {
+            Hide();
+
             MenuPanel.SetActive(true);
-            HudPanel.SetActive(false);
-            FinishPanel.SetActive(false);
-            IntroPanel.SetActive(false);
-            DeadPanel.SetActive(false);
 
             // TODO: this is a biiiig assumption :\
             Color frameColor = PlayerManager.Instance.PlayerData.GetPlayerColor(_ownerSelectState.ControllerIndex);
@@ -107,16 +105,15 @@ namespace ggj2018.ggj2018.UI
 
         public void SwitchToGame(GameType gameType)
         {
-            MenuPanel.SetActive(false);
+            Hide();
+
             HudPanel.SetActive(true);
-            FinishPanel.SetActive(false);
-            IntroPanel.SetActive(true);
-            DeadPanel.SetActive(false);
+
+            KillPanel.SetActive(gameType.PredatorsKillPrey && _ownerPlayer.Bird.Type.IsPredator);
+            GoalDistancePanel.SetActive(!gameType.PredatorsKillPrey || _ownerPlayer.Bird.Type.IsPrey);
 
             Goal.text = gameType.GameTypeData.GetWinConditionDescription(_ownerPlayer.Bird.Type);
             GameTimerPanel.SetActive(gameType.ShowTimer);
-
-            ScorePanel.SetActive(gameType.ShowScore(_ownerPlayer.Bird.Type));
 
             StartCoroutine(CloseIntroPanel());
         }
@@ -130,17 +127,17 @@ namespace ggj2018.ggj2018.UI
 
         public void SwitchToDead()
         {
+            Hide();
+
             DeadPanel.SetActive(true);
         }
 
         public void SwitchToGameOver(GameType gameType)
         {
-            MenuPanel.SetActive(false);
-            HudPanel.SetActive(false);
-            FinishPanel.SetActive(true);
-            IntroPanel.SetActive(false);
+            Hide();
 
             WinLossPanel.SetActive(true);
+
             switch(_ownerPlayer.State.GameOverState)
             {
             case PlayerState.GameOverType.Win:
@@ -157,6 +154,8 @@ namespace ggj2018.ggj2018.UI
 
         public void SetStatus(CharacterSelectState characterSelectState, bool allready)
         {
+            Hide();
+
             _ownerSelectState = characterSelectState;
             SwitchToCharacterSelect();
 
@@ -176,10 +175,8 @@ namespace ggj2018.ggj2018.UI
 
         public void SetSpeedAndBoost(float speed, float boost)
         {
-            Speed.text = $"{(int)UnitUtils.MetersPerSecondToMilesPerHour(speed)} mph";
+            Speed.text = $"{(int)UnitUtils.MetersPerSecondToKilometersPerHour(speed)} km/h";
             Boost.fillAmount = boost;
-
-            GoalCard.SetActive(false);
         }
 
         public void SetTimer(float timerSeconds)
@@ -190,9 +187,18 @@ namespace ggj2018.ggj2018.UI
             GameTimer.text = $"{minutes:0}:{seconds:00}";
         }
 
-        public void SetScore(int score, int maxScore)
+        public void SetDistanceToGoal(float distance)
         {
-            Score.text = $"{score} / {maxScore}";
+            if(distance > 1000.0f) {
+                GoalDistanceText.text = $"{(distance / 1000.0f):0.00} km";
+            } else {
+                GoalDistanceText.text = $"{(int)distance} m";
+            }
+        }
+
+        public void AddKill()
+        {
+            Instantiate(KillCardPrefab, KillCardLayout.transform);
         }
 
 #region Debug

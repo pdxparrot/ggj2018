@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using ggj2018.Core.Util;
+using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.VFX;
 
 using UnityEngine;
@@ -29,6 +31,47 @@ namespace ggj2018.ggj2018.World
         public void UnregisterGoal(Goal goal)
         {
             _goals.Remove(goal);
+        }
+
+#region Goals by Distance
+        public Goal GetNearestGoal(Player player, out float distance)
+        {
+            return GetNearestGoal(player, _goals, out distance);
+        }
+
+        private Goal GetNearestGoal(Player player, List<Goal> goals, out float distance)
+        {
+            return GetGoalByComparison(player, goals, (x, y) => {
+                float xd = (x.transform.position - player.transform.position).sqrMagnitude;
+                float yd = (y.transform.position - player.transform.position).sqrMagnitude;
+
+                if(xd < yd) {
+                    return -1;
+                }
+
+                if(xd > yd) {
+                    return 1;
+                }
+
+                return 0;
+            }, out distance);
+        }
+#endregion
+
+        private Goal GetGoalByComparison(Player player, List<Goal> goals, Comparison<Goal> comparison, out float distance)
+        {
+            distance = float.MaxValue;
+
+            if(goals.Count < 1) {
+                return null;
+            }
+
+            goals.Sort(comparison);
+
+            Goal nearest = goals[0];
+            distance = (nearest.transform.position - player.transform.position).magnitude;
+
+            return nearest;
         }
     }
 }

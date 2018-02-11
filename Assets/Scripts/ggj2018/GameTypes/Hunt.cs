@@ -12,6 +12,8 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override bool BirdTypesShareSpawnpoints => false;
 
+        public override bool PredatorsKillPrey => true;
+
         public Hunt(GameTypeData.GameTypeDataEntry gameTypeData)
             : base(gameTypeData)
         {
@@ -50,7 +52,7 @@ namespace ggj2018.ggj2018.GameTypes
                 return;
             }
 
-            killer.State.Score++;
+            killer.State.ScoreKill();
 
             Debug.Log($"Player {killer.Id} has scored a kill! {PlayerManager.Instance.Prey.Count} remain");
 

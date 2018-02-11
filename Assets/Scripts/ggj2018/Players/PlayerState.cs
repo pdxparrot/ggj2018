@@ -77,11 +77,13 @@ namespace ggj2018.ggj2018.Players
         public bool CanBrake => !IsIncapacitated;
 #endregion
 
+#region Score
         [SerializeField]
         [ReadOnly]
         private int _score;
 
-        public int Score { get { return _score; } set { _score = value; } }
+        public int Score => _score;
+#endregion
 
         [SerializeField]
         [ReadOnly]
@@ -338,6 +340,18 @@ namespace ggj2018.ggj2018.Players
             }
 
             PlayerManager.Instance.KillPlayer(_owner);
+        }
+#endregion
+
+#region Score
+        public void ScoreGoal()
+        {
+            _score++;
+        }
+
+        public void ScoreKill()
+        {
+            _owner.Viewer.PlayerUI.AddKill();
         }
 #endregion
 

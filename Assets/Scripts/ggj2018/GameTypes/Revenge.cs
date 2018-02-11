@@ -8,6 +8,8 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override bool BirdTypesShareSpawnpoints => false;
 
+        public override bool PredatorsKillPrey => false;
+
         public Revenge(GameTypeData.GameTypeDataEntry gameTypeData)
             : base(gameTypeData)
         {

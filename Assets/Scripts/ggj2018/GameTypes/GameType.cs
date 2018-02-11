@@ -42,6 +42,8 @@ namespace ggj2018.ggj2018.GameTypes
 
         public bool CanScore => GameManager.Instance.State.CanScore;
 
+        public abstract bool PredatorsKillPrey { get; }
+
         public virtual void Initialize()
         {
         }
