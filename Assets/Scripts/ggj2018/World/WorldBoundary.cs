@@ -32,6 +32,14 @@ namespace ggj2018.ggj2018.World
             _collider.material = GameManager.Instance.FrictionlessMaterial;
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player player = collision.collider.GetComponentInParent<Player>();
+            if(BoundaryType.Ground == Type && (null != player && player.State.IsDead)) {
+                PlayerManager.Instance.DespawnPlayer(player);
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.black;
@@ -39,13 +47,5 @@ namespace ggj2018.ggj2018.World
             Gizmos.DrawWireCube(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
         }
 #endregion
-
-        public bool Collision(Player player)
-        {
-            if(BoundaryType.Ground == Type && player.State.IsDead) {
-                PlayerManager.Instance.DespawnPlayer(player);
-            }
-            return true;
-        }
     }
 }
