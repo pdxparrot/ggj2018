@@ -7,11 +7,12 @@ namespace ggj2018.ggj2018.World
 {
     public class Building : MonoBehavior
     {
-        public bool Collision(Player player, Collision collision)
+#region Unity Lifecycle
+        private void OnCollisionEnter(Collision collision)
         {
-            player.State.EnvironmentStun(collision);
-
-            return true;
+            Player player = collision.collider.GetComponentInParent<Player>();
+            player?.State.EnvironmentStun(collision);
         }
+#endregion
     }
 }

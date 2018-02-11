@@ -82,6 +82,11 @@ namespace ggj2018.ggj2018.Players
             GameManager.Instance.PauseEvent += PauseEventHandler;
         }
 
+        private void Start()
+        {
+            _rigidbody.ResetCenterOfMass();
+        }
+
         private void OnDestroy()
         {
             if(GameManager.HasInstance) {
@@ -137,14 +142,7 @@ namespace ggj2018.ggj2018.Players
 
         private void OnCollisionEnter(Collision collision)
         {
-            // this fixes the weird rotation that occurs on collision
-            _rigidbody.ResetCenterOfMass();
-
             if(!_owner.IsLocalPlayer) {
-                return;
-            }
-
-            if(CheckBuildingCollision(collision)) {
                 return;
             }
 
@@ -166,7 +164,14 @@ namespace ggj2018.ggj2018.Players
 
         private void OnTriggerEnter(Collider other)
         {
-            if(CheckGoalCollision(other)) {
+            if(!_owner.IsLocalPlayer) {
+                return;
+            }
+
+            // TODO: fix the goal object so that this check
+            // can go in the goal class rather than here
+            Goal goal = other.GetComponentInParent<Goal>();
+            if(null != goal && goal.Collision(_owner)) {
                 return;
             }
 
@@ -383,18 +388,6 @@ namespace ggj2018.ggj2018.Players
 #endregion
 
 #region Collision Handlers
-        private bool CheckGoalCollision(Collider other)
-        {
-            Goal goal = other.GetComponentInParent<Goal>();
-            return goal?.Collision(_owner) ?? false;
-        }
-
-        private bool CheckBuildingCollision(Collision collision)
-        {
-            Building building = collision.collider.GetComponent<Building>();
-            return building?.Collision(_owner, collision) ?? false;
-        }
-
         private bool CheckWorldCollisionEnter(Collision collision)
         {
             WorldBoundary boundary = collision.collider.GetComponent<WorldBoundary>();
@@ -408,7 +401,7 @@ namespace ggj2018.ggj2018.Players
                 _horizontalBoundaryCollisions.Add(boundary);
             }
 
-            return boundary.Collision(_owner);
+            return true;
         }
 
         private bool CheckWorldCollisionExit(Collision collision)
@@ -433,6 +426,9 @@ namespace ggj2018.ggj2018.Players
             if(null == player) {
                 return false;
             }
+
+            // TODO: both players are going to get this so we should
+            // probably do something here so that we don't double-collide them
 
             // TODO: hande this logic off to something else
             // maybe the Player or the PlayerState
