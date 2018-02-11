@@ -333,6 +333,14 @@ namespace ggj2018.ggj2018.Players
                 Vector3 attackVector = Quaternion.AngleAxis(attackAngle, Vector3.right) * Vector3.forward;
                 _rigidbody.AddRelativeForce(attackVector * _owner.Bird.Type.Physics.LinearThrust);
 
+                if(_owner.State.IsBraking) {
+                    _rigidbody.AddRelativeForce(Vector3.forward * -_owner.Bird.Type.Physics.BrakeThrust);
+                }
+
+                if(_owner.State.IsBoosting) {
+                    _rigidbody.AddRelativeForce(Vector3.forward * _owner.Bird.Type.Physics.BoostThrust);
+                }
+
                 // lift if we're not falling
                 if(axes.y >= 0.0f) {
                     _rigidbody.AddForce(Vector3.up * -Physics.gravity.y);

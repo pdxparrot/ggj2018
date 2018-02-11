@@ -18,5 +18,5 @@ MonoBehaviour:
   _linearThrust: 25
   _angularThrust: 25
   _turnSpeed: 25
-  _brakeThrust: 5
-  _boostThrust: 5
+  _brakeThrust: 15
+  _boostThrust: 15
