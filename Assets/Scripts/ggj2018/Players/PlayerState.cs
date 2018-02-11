@@ -99,6 +99,9 @@ namespace ggj2018.ggj2018.Players
         public void Initialize()
         {
             _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
+
+            // make it easier to start the game
+            _immuneTimer = GameManager.Instance.GameTypeData.GameStartImmuneTime;
         }
 
         public void Update(float dt)
@@ -119,6 +122,7 @@ namespace ggj2018.ggj2018.Players
                 _immuneTimer -= dt;
 
                 if(IsDead || !IsImmune) {
+                    _immuneTimer = 0.0f;
                     _owner.Bird.ShowImmunity(false);
                 }
             }

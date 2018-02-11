@@ -99,6 +99,11 @@ namespace ggj2018.ggj2018.Data
         }
 
         [SerializeField]
+        private float _gameStartImmuneTime = 2.0f;
+
+        public float GameStartImmuneTime => _gameStartImmuneTime;
+
+        [SerializeField]
         private float _immuneTime = 1.0f;
 
         public float ImmuneTime => _immuneTime;
