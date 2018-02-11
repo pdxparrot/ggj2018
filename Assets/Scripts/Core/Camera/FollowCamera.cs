@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using ggj2018.Core.Math;
+﻿using ggj2018.Core.Math;
 using ggj2018.Core.Util;
 
 using JetBrains.Annotations;
@@ -12,25 +9,6 @@ namespace ggj2018.Core.Camera
 {
     public sealed class FollowCamera : MonoBehavior
     {
-#region Breadcrumbs
-        [Serializable]
-        private sealed class Breadcrumb
-        {
-            public Vector3 position;
-            public Quaternion rotation;
-        }
-
-        [SerializeField]
-        private bool _enableBreadcrumbs;
-
-        [SerializeField]
-        private int _breadcrumbCount = 5;
-
-        [SerializeField]
-        [ReadOnly]
-        private readonly List<Breadcrumb> _breadcrumbs = new List<Breadcrumb>();
-#endregion
-
 #region Orbit Config
         [SerializeField]
         private bool _enableOrbit = true;

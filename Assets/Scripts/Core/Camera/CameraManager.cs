@@ -6,7 +6,6 @@ using ggj2018.Core.Util;
 using JetBrains.Annotations;
 
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace ggj2018.Core.Camera
 {

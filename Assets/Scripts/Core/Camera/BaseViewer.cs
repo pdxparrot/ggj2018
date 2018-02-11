@@ -15,6 +15,11 @@ namespace ggj2018.Core.Camera
 
         public int Id => _id;
 
+        [Space(10)]
+
+#region Cameras
+        [Header("Cameras")]
+
         [SerializeField]
         private UnityEngine.Camera _camera;
 
@@ -24,11 +29,18 @@ namespace ggj2018.Core.Camera
         private UnityEngine.Camera _uiCamera;
 
         protected UnityEngine.Camera UICamera => _uiCamera;
+#endregion
+
+        [Space(10)]
+
+#region Post Processing
+        [Header("Post Processing")]
 
         [SerializeField]
         private PostProcessVolume _globalPostProcessVolume;
 
         public PostProcessProfile GlobalPostProcessProfile { get; private set; }
+#endregion
 
         private FollowCamera _followCamera;
 
