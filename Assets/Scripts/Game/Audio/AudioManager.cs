@@ -42,7 +42,10 @@ namespace ggj2018.Game.Audio
 
         [SerializeField]
         [Range(0.0f, 1.0f)]
-        private float _musicCrossFade = 0.0f;
+        private float _musicCrossFade;
+
+        // 0 == music1, 1 = music2
+        public float MusicCrossFade { get { return _musicCrossFade; } set { _musicCrossFade = Mathf.Clamp01(value); } }
 
         [SerializeField]
         private float _updateCrossfadeUpdateMs = 100.0f;

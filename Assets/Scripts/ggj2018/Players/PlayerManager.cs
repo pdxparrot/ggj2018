@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using ggj2018.Core.Camera;
@@ -10,6 +11,7 @@ using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.GameTypes;
 using ggj2018.ggj2018.VFX;
 using ggj2018.ggj2018.World;
+using ggj2018.Game.Audio;
 
 using JetBrains.Annotations;
 
@@ -71,12 +73,19 @@ namespace ggj2018.ggj2018.Players
         public int PlayerCount => _predators.Count + _prey.Count;
 
         private readonly List<Player> _deadPlayers = new List<Player>();
+
+        public bool HasAlivePlayer => Predators.Count > 0 || Prey.Count > 0;
 #endregion
 
 #region Unity Lifecycle
         private void Awake()
         {
             _playerContainer = new GameObject("Players");
+        }
+
+        private void Start()
+        {
+            StartCoroutine(UpdateMusicCrossfade());
         }
 
         protected override void OnDestroy()
@@ -203,22 +212,22 @@ namespace ggj2018.ggj2018.Players
         }
 
 #region Players by Distance
-        public Player GetNearestPlayer(Player player)
+        public Player GetNearestPlayer(Player player, out float distance)
         {
-            return GetNearestPlayer(player, _players);
+            return GetNearestPlayer(player, _players, out distance);
         }
 
-        public Player GetNearestPredator(Player player)
+        public Player GetNearestPredator(Player player, out float distance)
         {
-            return GetNearestPlayer(player, _predators);
+            return GetNearestPlayer(player, _predators, out distance);
         }
 
-        public Player GetNearestPrey(Player player)
+        public Player GetNearestPrey(Player player, out float distance)
         {
-            return GetNearestPlayer(player, _prey);
+            return GetNearestPlayer(player, _prey, out distance);
         }
 
-        private Player GetNearestPlayer(Player player, List<Player> players)
+        private Player GetNearestPlayer(Player player, List<Player> players, out float distance)
         {
             return GetPlayerByComparison(player, players, (x, y) => {
                 float xd = (x.transform.position - player.transform.position).sqrMagnitude;
@@ -233,18 +242,42 @@ namespace ggj2018.ggj2018.Players
                 }
 
                 return 0;
-            });
+            }, out distance);
         }
 #endregion
 
-        private Player GetPlayerByComparison(Player player, List<Player> players, Comparison<Player> comparison)
+        private Player GetPlayerByComparison(Player player, List<Player> players, Comparison<Player> comparison, out float distance)
         {
+            distance = float.MaxValue;
+
             if(players.Count < 1) {
                 return null;
             }
 
             players.Sort(comparison);
-            return players[0];
+
+            Player nearest = players[0];
+            distance = (nearest.transform.position - player.transform.position).magnitude;
+
+            return nearest;
+        }
+
+        private IEnumerator UpdateMusicCrossfade()
+        {
+            WaitForSeconds wait = new WaitForSeconds(NearestPlayerUpdateMs / 1000.0f);
+
+            while(true) {
+                Player closest = null;
+                foreach(Player player in Predators) {
+                    if(null == closest || player.NearestPreyDistance < closest.NearestPreyDistance) {
+                        closest = player;
+                    }
+                }
+
+                AudioManager.Instance.MusicCrossFade = 1.0f - ((closest?.NearestPreyDistance ?? float.MaxValue) / GameManager.Instance.GameTypeData.HawkAlertDistance);
+
+                yield return wait;
+            }
         }
 
 #if UNITY_EDITOR
