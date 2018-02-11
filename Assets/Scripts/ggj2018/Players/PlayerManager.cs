@@ -285,6 +285,7 @@ namespace ggj2018.ggj2018.Players
                     }
                 }
 
+                // TODO: this should be logarithmic rather than linear
                 AudioManager.Instance.MusicCrossFade = 1.0f - ((closest?.NearestPreyDistance ?? float.MaxValue) / GameManager.Instance.GameTypeData.HawkAlertDistance);
 
                 yield return wait;
