@@ -14,7 +14,7 @@ Shader "SH_VFX_PigeonTracker"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "TreeTransparentCutout"  "Queue" = "AlphaTest+0" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" "IsEmissive" = "true"  }
+		Tags{ "RenderType" = "TreeTransparentCutout"  "Queue" = "AlphaTest+1" "IgnoreProjector" = "True" "ForceNoShadowCasting" = "True" "IsEmissive" = "true"  }
 		Cull Off
 		Stencil
 		{

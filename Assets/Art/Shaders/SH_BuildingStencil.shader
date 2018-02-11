@@ -15,7 +15,7 @@ Shader "SH_BuildingStencil"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "Opaque"  "Queue" = "AlphaTest+1" }
+		Tags{ "RenderType" = "Opaque"  "Queue" = "AlphaTest+2" }
 		Cull Back
 		Stencil
 		{
