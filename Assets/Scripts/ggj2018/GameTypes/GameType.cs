@@ -48,12 +48,9 @@ namespace ggj2018.ggj2018.GameTypes
 
         public void Update()
         {
-            foreach(Player player in PlayerManager.Instance.Players) {
-                if(player.State.IsAlive) {
-                    return;
-                }
+            if(!PlayerManager.Instance.HasAlivePlayer) {
+                GameManager.Instance.State.SetState(GameState.States.GameOver);
             }
-            GameManager.Instance.State.SetState(GameState.States.GameOver);
         }
 
         public abstract int ScoreLimit(BirdData.BirdDataEntry birdType);
@@ -70,6 +67,7 @@ namespace ggj2018.ggj2018.GameTypes
 
         public virtual void TimerFinish()
         {
+            // TODO: move this into the PlayerManager
             foreach(Player player in PlayerManager.Instance.Players) {
                 player.State.GameOver(PlayerState.GameOverType.TimerUp);
             }

@@ -11,6 +11,8 @@ namespace ggj2018.ggj2018.Birds
     public abstract class Bird : MonoBehavior
     {
 #region VFX
+        [Header("VFX")]
+
         [SerializeField]
         private ParticleSystem _stunParticles;
 
@@ -22,7 +24,12 @@ namespace ggj2018.ggj2018.Birds
 
         [SerializeField]
         private TrailRenderer _boostTrail;
+
+        [SerializeField]
+        private Renderer[] _coloredRenderers;
 #endregion
+
+        [Space(10)]
 
         [SerializeField]
         private SphereCollider _playerCollider;
@@ -30,9 +37,6 @@ namespace ggj2018.ggj2018.Birds
         public Player Owner { get; private set; }
 
         public BirdData.BirdDataEntry Type { get; private set; }
-
-        [SerializeField]
-        private Renderer[] _coloredRenderers;
 
         private Collider _collider;
 

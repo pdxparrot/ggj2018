@@ -2,6 +2,7 @@
 using System.Linq;
 
 using ggj2018.Core.Camera;
+using ggj2018.Core.Util;
 using ggj2018.ggj2018.Camera;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.Game;
@@ -22,7 +23,10 @@ namespace ggj2018.ggj2018
         }
 
 #region Join/Ready State
+        [Header("Join State")]
+
         [SerializeField]
+        [ReadOnly]
         private JoinState _joinState = JoinState.None;
 
         public JoinState PlayerJoinState { get { return _joinState; } set { _joinState = value; } }
@@ -34,8 +38,13 @@ namespace ggj2018.ggj2018
         public bool IsReady => PlayerJoinState == JoinState.Ready;
 #endregion
 
+        [Space(10)]
+
 #region Selected Bird State
+        [Header("Bird Selection")]
+
         [SerializeField]
+        [ReadOnly]
         private int _selectedBird;
 
         public int SelectedBird { get { return _selectedBird; } set { _selectedBird = value; } }
@@ -44,16 +53,19 @@ namespace ggj2018.ggj2018
 #endregion
 
         [SerializeField]
+        [ReadOnly]
         private Viewer _viewer;
 
         public Viewer Viewer => _viewer;
 
         [SerializeField]
+        [ReadOnly]
         private int _controllerIndex;
 
         public int ControllerIndex => _controllerIndex;
 
         [SerializeField]
+        [ReadOnly]
         private Player _player;
 
         public Player Player { get { return _player; } set { _player = value; } }

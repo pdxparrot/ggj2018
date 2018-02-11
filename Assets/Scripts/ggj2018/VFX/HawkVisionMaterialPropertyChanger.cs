@@ -20,14 +20,17 @@ public class HawkVisionMaterialPropertyChanger : MonoBehavior
 	public string brightnessProperty1;
 	public string brightnessProperty2;
 
-    void Awake() {
+#region Unity Lifecycle
+    private void Awake()
+    {
         _defaultColor1 = material.GetColor(colorProperty1);
         _defaultColor2 = material.GetColor(colorProperty2);
         _defaultFloat1 = material.GetFloat(brightnessProperty1);
         _defaultFloat2 = material.GetFloat(brightnessProperty2);
     }
 
-	void OnPreRender() {
+	private void OnPreRender()
+    {
         if(!Enabled) {
             return;
         }
@@ -38,7 +41,8 @@ public class HawkVisionMaterialPropertyChanger : MonoBehavior
 		material.SetFloat(brightnessProperty2, brightness2);
 	}
 
-	void OnPostRender() {
+	private void OnPostRender()
+    {
 	    if(!Enabled) {
 	        return;
 	    }
@@ -48,6 +52,7 @@ public class HawkVisionMaterialPropertyChanger : MonoBehavior
 		material.SetFloat(brightnessProperty1, _defaultFloat1);
 		material.SetFloat(brightnessProperty2, _defaultFloat2);
 	}
+#endregion
 
     [SerializeField]
     [ReadOnly]

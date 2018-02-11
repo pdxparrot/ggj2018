@@ -64,11 +64,21 @@ namespace ggj2018.ggj2018.Players
         public bool IsLocalPlayer => !GameManager.Instance.ConfigData.EnableNetwork || isLocalPlayer;
 #endregion
 
+#region Nearest Other Players
         [CanBeNull]
         public Player NearestPredator { get; private set; }
 
+        private float _nearestPredatorDistance;
+
+        public float NearestPredatorDistance => _nearestPredatorDistance;
+
         [CanBeNull]
         public Player NearestPrey { get; private set; }
+
+        private float _nearestPreyDistance;
+
+        public float NearestPreyDistance => _nearestPreyDistance;
+#endregion
 
 #region Unity Lifecycle
         private void Awake()
@@ -94,8 +104,8 @@ namespace ggj2018.ggj2018.Players
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer?.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(Bird.Type)); 
-            Viewer?.PlayerUI.SetTimer(GameManager.Instance.State.GameTimer); 
+            Viewer.PlayerUI.SetScore(State.Score, GameManager.Instance.State.GameType.ScoreLimit(Bird.Type));
+            Viewer.PlayerUI.SetTimer(GameManager.Instance.State.GameTimer);
         }
 #endregion
 
@@ -153,8 +163,8 @@ namespace ggj2018.ggj2018.Players
             while(true) {
                 yield return wait;
 
-                NearestPredator = PlayerManager.Instance.GetNearestPredator(this);
-                NearestPrey = PlayerManager.Instance.GetNearestPrey(this);
+                NearestPredator = PlayerManager.Instance.GetNearestPredator(this, out _nearestPredatorDistance);
+                NearestPrey = PlayerManager.Instance.GetNearestPrey(this, out _nearestPreyDistance);
             }
         }
 

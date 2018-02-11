@@ -179,7 +179,7 @@ namespace ggj2018.ggj2018.Game
 
         private void RunCharacterSelect()
         {
-            // Check for all players ready
+            // TODO: do this in a way that we don't have to loop every frame
             int ready = 0, joined = 0;
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
@@ -199,7 +199,7 @@ namespace ggj2018.ggj2018.Game
                 }
             }
 
-            // Check for player joins
+            // TODO: move the guts of this loop into CharacterSelectState
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
@@ -237,9 +237,9 @@ namespace ggj2018.ggj2018.Game
 #region Game State
         private void DetermineGameType()
         {
-// TODO: player manager already has these counts
+// TODO: player manager already has these counts, right?
 // if we can just determine the game type later in the process,
-// after we spawn the players
+// after we spawn the players then this can go away
             int playerCount = 0;
             int predatorCount = 0;
             int preyCount = 0;
@@ -264,6 +264,7 @@ namespace ggj2018.ggj2018.Game
             DetermineGameType();
             Debug.Log($"Beginning game type {GameType.Type}");
 
+            // TODO: move the guts of this loop into CharacterSelectState
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
                     selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);

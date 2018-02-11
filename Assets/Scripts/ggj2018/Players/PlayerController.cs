@@ -218,6 +218,7 @@ namespace ggj2018.ggj2018.Players
             _rigidbody.position = position;
         }
 
+#region Input Handling
 #if UNITY_EDITOR
         private void CheckForDebug()
         {
@@ -261,6 +262,7 @@ namespace ggj2018.ggj2018.Players
             }
             return false;
         }
+#endregion
 
         private void RotateModel(Vector3 axes, float dt)
         {
@@ -289,6 +291,7 @@ namespace ggj2018.ggj2018.Players
             _owner.Bird.transform.localRotation = rotation;
         }
 
+#region Movement
         private void Turn(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
@@ -377,6 +380,7 @@ namespace ggj2018.ggj2018.Players
             }
             _linearVelocity = _rigidbody.velocity;
         }
+#endregion
 
 #region Collision Handlers
         private bool CheckGoalCollision(Collider other)

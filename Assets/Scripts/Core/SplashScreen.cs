@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
-namespace Assets.Scripts.Core
+namespace ggj2018.Core
 {
     public class SplashScreen : MonoBehavior
     {
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Core
         private string _mainSceneName = "main";
 
         [SerializeField]
-        private Camera _camera;
+        private UnityEngine.Camera _camera;
 
         [SerializeField]
         [ReadOnly]

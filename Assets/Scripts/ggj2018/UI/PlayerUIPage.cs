@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 namespace ggj2018.ggj2018.UI
 {
+// TODO: this needs a serious cleanup pass
+// and it needs to be split into multiple cards/prefabs
+
     [RequireComponent(typeof(Canvas))]
     public sealed class PlayerUIPage : MonoBehavior
     {
