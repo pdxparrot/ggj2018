@@ -269,7 +269,7 @@ namespace ggj2018.ggj2018.Game
                 if(selectState.IsReady) {
                     selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
                 } else if(DebugManager.Instance.SpawnMaxLocalPlayers) {
-                    selectState.SelectedBird = selectState.ControllerIndex;
+                    selectState.SelectedBird = selectState.ControllerIndex % GameManager.Instance.BirdData.Birds.Count;
                     selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
                 } else {
                     selectState.Player = null;
