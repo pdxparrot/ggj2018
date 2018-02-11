@@ -1034,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1517432718850540
 GameObject:
   m_ObjectHideFlags: 1
@@ -2048,10 +2048,6 @@ MonoBehaviour:
   DeadPanel: {fileID: 1663540681732416}
   WinLossPanel: {fileID: 1273508448049674}
   WinLossText: {fileID: 114607577983569672}
-  KillCard: {fileID: 1601392018671108}
-  Kill1: {fileID: 1041892079146660}
-  Kill2: {fileID: 1195264906233026}
-  Kill3: {fileID: 1003531422083504}
   GoalCard: {fileID: 1079128922185670}
   GoalDist: {fileID: 114734028607317796}
   Speed: {fileID: 114455032624167226}
