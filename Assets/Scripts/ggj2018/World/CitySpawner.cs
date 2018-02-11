@@ -114,18 +114,22 @@ public class CitySpawner : MonoBehavior
                     continue;
                 }
 
-                Spawn(RandomBlock(), pos);
+                Spawn(RandomBlock(), pos, fromEditorGenerate);
 			}
 		}
 
-        Spawn(pigeonSpawnPrefab, pigeonStart);
-        Spawn(hawkSpawnPrefab, hawkStart);
-        Spawn(goalPrefab, goalPos);
+        Spawn(pigeonSpawnPrefab, pigeonStart, fromEditorGenerate);
+        Spawn(hawkSpawnPrefab, hawkStart, fromEditorGenerate);
+        Spawn(goalPrefab, goalPos, fromEditorGenerate);
 	} 
 
-    private GameObject Spawn(GameObject p, Vector3 pos)
+    private GameObject Spawn(GameObject p, Vector3 pos, bool fromEditorGenerate)
     {
+#if UNITY_EDITOR
+        var block = fromEditorGenerate ? UnityEditor.PrefabUtility.InstantiatePrefab(p) as GameObject : Instantiate(p);
+#else
         var block = Instantiate(p);
+#endif
         block.transform.parent = _root.transform;
         block.transform.position = pos;
         return block;
