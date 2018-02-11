@@ -23,9 +23,11 @@ namespace ggj2018.Core.UI
             set { _percent = Mathf.Clamp01(value); }
         }
 
+#region Unity Lifecycle
         private void Update()
         {
             _foreground.fillAmount = Percent;
         }
+#endregion
     }
 }
