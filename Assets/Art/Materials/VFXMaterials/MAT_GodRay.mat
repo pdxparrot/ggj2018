@@ -103,4 +103,4 @@ Material:
     - _AlphaTiling: {r: 1, g: 23.42, b: 0, a: 0}
     - _Color: {r: 0, g: 0.67058825, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _PlayerColor: {r: 0, g: 1, b: 0, a: 0}
+    - _PlayerColor: {r: 1, g: 0.92941177, b: 0, a: 1}

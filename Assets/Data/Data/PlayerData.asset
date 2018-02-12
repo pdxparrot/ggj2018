@@ -17,14 +17,10 @@ MonoBehaviour:
   _stunTimeSeconds: 2
   _stunBounceSpeed: 7
   _stunBounceRotation: 0
-  _boostSeconds: 5
-  _boostCooldown: 2
-  _boostRecharges: 1
-  _boostRechargeRate: 1
   _defaultPlayerColor: {r: 1, g: 0, b: 1, a: 1}
   _playerColors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 0, g: 1, b: 0.006896496, a: 0}
   - {r: 0, g: 0.04827571, b: 1, a: 0}
-  - {r: 0.9448278, g: 1, b: 0, a: 0}
+  - {r: 0.510649, g: 0, b: 0.7794118, a: 0}
   _playerColorProperty: _PlayerColor
