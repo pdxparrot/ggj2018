@@ -36,12 +36,12 @@ namespace ggj2018.Game.Loading
         private string _defaultSceneName;
 
 #region Unity Lifecycle
-        private void Awake()
+        protected virtual void Awake()
         {
             ManagersContainer = new GameObject("Managers");
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             StartCoroutine(Load());
         }

@@ -20,6 +20,11 @@ namespace ggj2018.ggj2018.Data
 #endregion
 
         [SerializeField]
+        private int _targetFrameRate = 60;
+
+        public int TargetFrameRate => _targetFrameRate;
+
+        [SerializeField]
         private bool _enableNetwork;
 
         public bool EnableNetwork => _enableNetwork;

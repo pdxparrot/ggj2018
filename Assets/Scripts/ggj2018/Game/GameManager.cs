@@ -116,6 +116,10 @@ namespace ggj2018.ggj2018.Game
 #region Unity Lifecycle
         private void Awake()
         {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = ConfigData.TargetFrameRate;
+            Debug.Log($"Target frame rate: {Application.targetFrameRate}");
+
             Debug.Log($"Gravity: {Physics.gravity}");
 
             _birdData.Initialize();
