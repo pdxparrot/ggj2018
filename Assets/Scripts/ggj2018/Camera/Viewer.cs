@@ -10,6 +10,8 @@ namespace ggj2018.ggj2018.Camera
 {
     public class Viewer : BaseViewer
     {
+        [Header("UI")]
+
         [SerializeField]
         private PlayerUIPage _playerUIPrefab;
 
