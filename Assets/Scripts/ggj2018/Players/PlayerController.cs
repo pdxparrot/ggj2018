@@ -293,9 +293,16 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
+#if true
             float turnSpeed = _owner.Bird.Type.Physics.TurnSpeed * axes.x;
             Quaternion rotation = Quaternion.AngleAxis(turnSpeed * dt, Vector3.up);
             _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
+#else
+            // TODO: this only works if Y rotatoin is unconstrained
+            // it also breaks because the model rotates :(
+            const float AngularThrust = 0.5f;
+            _rigidbody.AddRelativeTorque(Vector3.up * AngularThrust * axes.x);
+#endif
 
             // adding a force opposite our current x velocity should help stop us drifting
             Vector3 relativeVelocity = transform.InverseTransformDirection(_rigidbody.velocity);
