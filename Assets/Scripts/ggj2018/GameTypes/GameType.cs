@@ -55,9 +55,9 @@ namespace ggj2018.ggj2018.GameTypes
             }
         }
 
-        public abstract int ScoreLimit(BirdData.BirdDataEntry birdType);
+        public abstract int ScoreLimit(BirdTypeData birdType);
 
-        public abstract bool ShowScore(BirdData.BirdDataEntry birdType);
+        public abstract bool ShowScore(BirdTypeData birdType);
 
         public virtual void GoalCollision(Player player)
         {

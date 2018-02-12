@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa1afa8b7725604aa0d921d2c6fb878, type: 3}
+  m_Name: HawkData
+  m_EditorClassIdentifier: 
+  _id: hawk
+  _name: Hawk
+  _icon: {fileID: 21300000, guid: 2cc694c1e7bb9cb46ab88f9a91c3b73c, type: 3}
+  _modelPrefab: {fileID: 114441340850751900, guid: 9cf5127fdf8bde74c872560bc098d36f,
+    type: 2}
+  _physics: {fileID: 11400000, guid: 8210608748e80dd40918d7eb16cca63a, type: 2}
+  _isPredator: 1
+  _followOrbitRadius: 3
+  _canBoost: 1
+  _spawnAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}
+  _flightAudioClip: {fileID: 0}
+  _winAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}
+  _lossAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}

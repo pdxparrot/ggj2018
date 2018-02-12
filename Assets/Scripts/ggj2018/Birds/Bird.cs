@@ -36,7 +36,7 @@ namespace ggj2018.ggj2018.Birds
 
         public Player Owner { get; private set; }
 
-        public BirdData.BirdDataEntry Type { get; private set; }
+        public BirdTypeData Type { get; private set; }
 
         private Collider _collider;
 
@@ -64,7 +64,7 @@ namespace ggj2018.ggj2018.Birds
         }
 #endregion
 
-        public void Initialize(Player owner, BirdData.BirdDataEntry birdType)
+        public void Initialize(Player owner, BirdTypeData birdType)
         {
             Owner = owner;
             Type = birdType;

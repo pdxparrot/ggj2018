@@ -118,7 +118,7 @@ namespace ggj2018.ggj2018.Players
         }
 #endregion
 
-        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird bird, BirdData.BirdDataEntry birdType)
+        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird bird, BirdTypeData birdType)
         {
             Debug.Log($"Initializing local player {id}");
             Initialize(id, bird, birdType);
@@ -134,13 +134,13 @@ namespace ggj2018.ggj2018.Players
             Viewer.RemoveRenderLayer(Bird.Type.OtherLayer);
         }
 
-        public void InitializeNetwork(int id, Bird bird, BirdData.BirdDataEntry birdType)
+        public void InitializeNetwork(int id, Bird bird, BirdTypeData birdType)
         {
             Debug.Log($"Initializing network player {id}");
             Initialize(id, bird, birdType);
         }
 
-        private void Initialize(int id, Bird bird, BirdData.BirdDataEntry birdType)
+        private void Initialize(int id, Bird bird, BirdTypeData birdType)
         {
             _id = id;
             name = $"Player {Id}";

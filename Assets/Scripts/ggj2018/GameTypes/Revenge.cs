@@ -15,12 +15,12 @@ namespace ggj2018.ggj2018.GameTypes
         {
         }
 
-        public override int ScoreLimit(BirdData.BirdDataEntry birdType)
+        public override int ScoreLimit(BirdTypeData birdType)
         {
             return 0;
         }
 
-        public override bool ShowScore(BirdData.BirdDataEntry birdType)
+        public override bool ShowScore(BirdTypeData birdType)
         {
             return false;
         }

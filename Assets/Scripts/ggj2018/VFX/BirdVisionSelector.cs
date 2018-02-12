@@ -9,7 +9,7 @@ namespace ggj2018.ggj2018.VFX
         [SerializeField]
         private HawkVisionMaterialPropertyChanger _predatorVision;
 
-        public void SetVision(BirdData.BirdDataEntry birdType)
+        public void SetVision(BirdTypeData birdType)
         {
             _predatorVision.Enabled = birdType.IsPredator;
         }

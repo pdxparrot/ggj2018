@@ -49,7 +49,7 @@ namespace ggj2018.ggj2018
 
         public int SelectedBird { get { return _selectedBird; } set { _selectedBird = value; } }
 
-        public BirdData.BirdDataEntry PlayerBirdData => GameManager.Instance.BirdData.Birds.ElementAt(SelectedBird);
+        public BirdTypeData PlayerBirdData => GameManager.Instance.BirdData.Birds.ElementAt(SelectedBird);
 #endregion
 
         [SerializeField]

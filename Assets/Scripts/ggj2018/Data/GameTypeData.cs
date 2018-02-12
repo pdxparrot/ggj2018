@@ -82,17 +82,17 @@ namespace ggj2018.ggj2018.Data
             public string TimesUpText => _timesUpText;
 #endregion
 
-            public string GetWinConditionDescription(BirdData.BirdDataEntry birdType)
+            public string GetWinConditionDescription(BirdTypeData birdType)
             {
                 return birdType.IsPredator ? PredatorWinConditionDescription : PreyWinConditionDescription;
             }
 
-            public string GetWinText(BirdData.BirdDataEntry birdType)
+            public string GetWinText(BirdTypeData birdType)
             {
                 return birdType.IsPredator ? PredatorWinText : PreyWinText;
             }
 
-            public string GetLossText(BirdData.BirdDataEntry birdType)
+            public string GetLossText(BirdTypeData birdType)
             {
                 return birdType.IsPredator ? PredatorLossText : PreyLossText;
             }

@@ -24,12 +24,12 @@ namespace ggj2018.ggj2018.GameTypes
             // TODO: spawn a random message goal
         }
 
-        public override int ScoreLimit(BirdData.BirdDataEntry birdType)
+        public override int ScoreLimit(BirdTypeData birdType)
         {
             return GameTypeData.ScoreLimit;
         }
 
-        public override bool ShowScore(BirdData.BirdDataEntry birdType)
+        public override bool ShowScore(BirdTypeData birdType)
         {
             return true;
         }
