@@ -14,7 +14,7 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override bool PredatorsKillPrey => false;
 
-        public CrazyTaxi(GameTypeData.GameTypeDataEntry gameTypeData)
+        public CrazyTaxi(GameData.GameTypeDataEntry gameTypeData)
             : base(gameTypeData)
         {
         }

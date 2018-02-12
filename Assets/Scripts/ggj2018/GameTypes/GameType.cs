@@ -34,7 +34,7 @@ namespace ggj2018.ggj2018.GameTypes
 
         public abstract GameTypes Type { get; }
 
-        public GameTypeData.GameTypeDataEntry GameTypeData { get; }
+        public GameData.GameTypeDataEntry GameTypeData { get; }
 
         public abstract bool BirdTypesShareSpawnpoints { get; }
 
@@ -75,7 +75,7 @@ namespace ggj2018.ggj2018.GameTypes
             }
         }
 
-        protected GameType(GameTypeData.GameTypeDataEntry gameTypeData)
+        protected GameType(GameData.GameTypeDataEntry gameTypeData)
         {
             GameTypeData = gameTypeData;
         }

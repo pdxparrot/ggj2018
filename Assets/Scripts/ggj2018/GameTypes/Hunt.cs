@@ -14,7 +14,7 @@ namespace ggj2018.ggj2018.GameTypes
 
         public override bool PredatorsKillPrey => true;
 
-        public Hunt(GameTypeData.GameTypeDataEntry gameTypeData)
+        public Hunt(GameData.GameTypeDataEntry gameTypeData)
             : base(gameTypeData)
         {
         }

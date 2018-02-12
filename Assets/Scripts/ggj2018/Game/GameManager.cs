@@ -58,9 +58,9 @@ namespace ggj2018.ggj2018.Game
         public BirdData BirdData => _birdData;
 
         [SerializeField]
-        private GameTypeData _gameTypeData;
+        private GameData _gameTypeData;
 
-        public GameTypeData GameTypeData => _gameTypeData;
+        public GameData GameTypeData => _gameTypeData;
 #endregion
 
         [Space(10)]

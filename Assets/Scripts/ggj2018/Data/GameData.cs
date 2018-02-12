@@ -8,9 +8,9 @@ using UnityEngine.Serialization;
 
 namespace ggj2018.ggj2018.Data
 {
-    [CreateAssetMenu(fileName="GameTypeData", menuName="ggj2018/Data/Game Type Data")]
+    [CreateAssetMenu(fileName="GameData", menuName="ggj2018/Data/Game Data")]
     [Serializable]
-    public sealed class GameTypeData : ScriptableObject
+    public sealed class GameData : ScriptableObject
     {
         [Serializable]
         public sealed class GameTypeDataEntry
