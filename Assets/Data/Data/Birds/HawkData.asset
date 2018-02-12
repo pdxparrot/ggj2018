@@ -20,10 +20,10 @@ MonoBehaviour:
   _isPredator: 1
   _followOrbitRadius: 3
   _canBoost: 1
-  _boostSeconds: 5
+  _boostSeconds: 6
   _boostRecharges: 1
   _boostRechargeCooldown: 2
-  _boostRechargeRate: 1
+  _boostRechargeRate: 1.5
   _spawnAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}
   _flightAudioClip: {fileID: 0}
   _winAudioClip: {fileID: 8300000, guid: 2281509451ea1424aad38fae62e23018, type: 3}

@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 224376155972739114}
   - component: {fileID: 222007994675077594}
   - component: {fileID: 114611539919400064}
+  - component: {fileID: 114250078900593076}
   m_Layer: 5
   m_Name: Killcard
   m_TagString: Untagged
@@ -119,6 +120,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &114250078900593076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443753870380810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 50
+  m_MinHeight: 50
+  m_PreferredWidth: 100
+  m_PreferredHeight: 100
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &114399545932209006
 MonoBehaviour:
   m_ObjectHideFlags: 1
