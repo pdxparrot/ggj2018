@@ -88,7 +88,6 @@ namespace ggj2018.ggj2018.UI
             DeadPanel.SetActive(false);
             KillPanel.SetActive(false);
             GoalDistancePanel.SetActive(false);
-            WinLossPanel.SetActive(false);
         }
 
         public void SwitchToCharacterSelect()
@@ -136,8 +135,9 @@ namespace ggj2018.ggj2018.UI
         {
             Hide();
 
+            HudPanel.SetActive(true);
             KillPanel.SetActive(gameType.PredatorsKillPrey && _ownerPlayer.Bird.Type.IsPredator);
-            WinLossPanel.SetActive(true);
+            FinishPanel.SetActive(true);
 
             switch(_ownerPlayer.State.GameOverState)
             {
