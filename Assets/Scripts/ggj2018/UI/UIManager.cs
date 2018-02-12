@@ -49,8 +49,7 @@ namespace ggj2018.ggj2018.UI
         public void SwitchToCharacterSelect()
         {
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
-                selectState.Viewer.PlayerUI.Initialize(selectState);
-                selectState.Viewer.PlayerUI.SwitchToCharacterSelect();
+                selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
             }
         }
 
@@ -61,14 +60,14 @@ namespace ggj2018.ggj2018.UI
             }
 
             foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToGame(gameType);
+                player.Viewer.PlayerUI.SwitchToGame(player, gameType);
             }
         }
 
         public void SwitchToGameOver(GameType gameType)
         {
             foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToGameOver(gameType);
+                player.Viewer.PlayerUI.SwitchToGameOver(player, gameType);
             }
         }
 

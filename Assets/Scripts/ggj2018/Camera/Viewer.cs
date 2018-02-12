@@ -1,6 +1,5 @@
 ﻿using ggj2018.Core.Camera;
 using ggj2018.Core.VFX;
-using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.UI;
 
@@ -41,10 +40,6 @@ namespace ggj2018.ggj2018.Camera
             SetOrbitRadius(owner.Bird.Type.FollowOrbitRadius);
 
             SetGlobalPostProcessProfile(owner.Bird.Type.PostProcessProfile.Clone());
-
-            PlayerUI.Initialize(owner);
-
-            PlayerUI.SetTimer(GameManager.Instance.State.GameTimer);
         }
     }
 }

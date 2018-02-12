@@ -43,6 +43,8 @@ namespace ggj2018.ggj2018.Players
         [ReadOnly]
         private Vector3 _bankForce;
 
+        public Vector3 BankForce => _bankForce;
+
         public float Speed => _rigidbody.velocity.magnitude;
 
         private Rigidbody _rigidbody;
@@ -117,10 +119,8 @@ namespace ggj2018.ggj2018.Players
             Turn(_lastMoveAxes, dt);
             Move(_lastMoveAxes, dt);
 
-            _owner.Viewer.PlayerUI.UpdateDebugVisualizer(_rigidbody, _bankForce);
-
-            float boostPct = _owner.State.BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
-            _owner.Viewer.PlayerUI.SetSpeedAndBoost(Speed, boostPct);
+            // have to do this here so that it doesn't jump around
+            _owner.Viewer.PlayerUI.PlayerHUD.DebugVisualizer.SetState(_owner);
         }
 
         private void OnCollisionEnter(Collision collision)

@@ -224,7 +224,9 @@ namespace ggj2018.ggj2018.Game
                     }
                 }
 
-                selectState.Viewer.PlayerUI.SetStatus(selectState, ready == joined);
+// TODO: why is this necessary???
+selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
+                selectState.Viewer.PlayerUI.CharacterSelect.SetState(selectState, ready == joined);
             }
         }
 

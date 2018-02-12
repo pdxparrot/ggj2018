@@ -48,7 +48,7 @@ namespace ggj2018.ggj2018.UI
             _readyCharacterFrame.color = color;
         }
 
-        public void Update(CharacterSelectState selectState, bool allReady)
+        public void SetState(CharacterSelectState selectState, bool allReady)
         {
             _joinPanel.SetActive(!selectState.IsJoinedOrReady);
             _characterSelectPanel.SetActive(selectState.IsJoined);

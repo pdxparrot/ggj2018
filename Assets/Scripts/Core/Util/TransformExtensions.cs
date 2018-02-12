@@ -15,5 +15,12 @@ namespace ggj2018.Core.Util
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+
+        public static void Clear(this Transform transform)
+        {
+            foreach(Transform child in transform) {
+                Object.Destroy(child.gameObject);
+            }
+        }
     }
 }

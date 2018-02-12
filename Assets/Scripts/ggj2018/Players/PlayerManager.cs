@@ -101,7 +101,7 @@ namespace ggj2018.ggj2018.Players
 #if UNITY_EDITOR
             if(Input.GetKeyDown(KeyCode.V)) {
                 foreach(Player player in Players) {
-                    player.Viewer.PlayerUI.EnableDebugVisualizer(true);
+                    player.Viewer.PlayerUI.PlayerHUD.EnableDebugVisualizer(true);
                 }
             }
 #endif

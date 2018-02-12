@@ -39,6 +39,8 @@ namespace ggj2018.ggj2018.Players
 
         private PlayerController _controller;
 
+        public PlayerController Controller => _controller;
+
         public Bird Bird { get; private set; }
 
         public Color PlayerColor => PlayerManager.Instance.PlayerData.GetPlayerColor(Id);
@@ -113,8 +115,7 @@ namespace ggj2018.ggj2018.Players
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer.PlayerUI.SetTimer(GameManager.Instance.State.GameTimer);
-            Viewer.PlayerUI.SetDistanceToGoal(NearestGoalDistance);
+            Viewer.PlayerUI.PlayerHUD.SetState(this);
         }
 #endregion
 

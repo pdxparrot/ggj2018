@@ -62,7 +62,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1034515222384648
 GameObject:
   m_ObjectHideFlags: 1
@@ -795,7 +795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1538318603699550
 GameObject:
   m_ObjectHideFlags: 1
@@ -991,6 +991,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224954348160329108}
+  - component: {fileID: 114466213847884346}
   m_Layer: 5
   m_Name: DebugVisualizer
   m_TagString: Untagged
@@ -1250,7 +1251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1913460825576446
 GameObject:
   m_ObjectHideFlags: 1
@@ -1278,6 +1279,7 @@ GameObject:
   - component: {fileID: 224899267231608520}
   - component: {fileID: 222028873580518998}
   - component: {fileID: 114113157518454338}
+  - component: {fileID: 114239914607776548}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -1545,26 +1547,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterSelectCard: {fileID: 114418926970518530}
   _gameOverCard: {fileID: 114796059570932726}
-  HudPanel: {fileID: 1922395873692448}
-  IntroPanel: {fileID: 1906540235182920}
-  DeadPanel: {fileID: 1663540681732416}
-  KillPanel: {fileID: 1487879452820886}
-  KillCardPrefab: {fileID: 1443753870380810, guid: e6ae0fe60dfec334ba8df084f08c9d9f,
-    type: 2}
-  KillCardLayout: {fileID: 114118942555864976}
-  GoalDistancePanel: {fileID: 1079128922185670}
-  GoalDistanceText: {fileID: 114734028607317796}
-  Speed: {fileID: 114455032624167226}
-  Boost: {fileID: 114136037269586684}
-  Goal: {fileID: 114640119304889210}
-  GameTimerPanel: {fileID: 1017384461583436}
-  GameTimer: {fileID: 114938905897660792}
-  _introPanelTime: 3
-  DebugVisualizer: {fileID: 1706481920320928}
-  DebugVelocityPanel: {fileID: 1115380570345358}
-  DebugVelocityText: {fileID: 114854873493217910}
-  DebugAngularVelocityText: {fileID: 114187078555997828}
-  DebugBankForceText: {fileID: 114488325618804272}
+  _playerHUDCard: {fileID: 114239914607776548}
+  _deadPanel: {fileID: 1663540681732416}
 --- !u!114 &114062789680953442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1993,6 +1977,32 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114239914607776548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1922395873692448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8765324e513b64194794497eb10ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _introPanel: {fileID: 1906540235182920}
+  _goalText: {fileID: 114640119304889210}
+  _introPanelTime: 3
+  _timer: {fileID: 1017384461583436}
+  _timerText: {fileID: 114938905897660792}
+  _speed: {fileID: 1203978950566076}
+  _speedText: {fileID: 114455032624167226}
+  _boostMeter: {fileID: 114136037269586684}
+  _goalDistance: {fileID: 1079128922185670}
+  _goalDistanceText: {fileID: 114734028607317796}
+  _killPanel: {fileID: 1487879452820886}
+  _killCardPrefab: {fileID: 1443753870380810, guid: e6ae0fe60dfec334ba8df084f08c9d9f,
+    type: 2}
+  _killCardLayout: {fileID: 114118942555864976}
+  _debugVisualizer: {fileID: 114466213847884346}
 --- !u!114 &114253254034648982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2420,6 +2430,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 400 km/h
+--- !u!114 &114466213847884346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706481920320928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf3a19f4f2f51444a331af1a1e36e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugVelocityText: {fileID: 114854873493217910}
+  _debugAngularVelocityText: {fileID: 114187078555997828}
+  _debugBankForceText: {fileID: 114488325618804272}
+  _offset: 2.5
 --- !u!114 &114476278561832382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4191,7 +4216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130.00006, y: -47.49997}
+  m_AnchoredPosition: {x: 130.00006, y: -77.5}
   m_SizeDelta: {x: 250, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224076852081850200
@@ -4916,7 +4941,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 260, y: 65}
+  m_SizeDelta: {x: 260, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224504399333068042
 RectTransform:
@@ -5004,10 +5029,10 @@ RectTransform:
   m_Father: {fileID: 224753787911100322}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 57.76555, y: -31.714098}
+  m_SizeDelta: {x: 105.5311, y: 53.428196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224554795403791488
 RectTransform:
@@ -5136,6 +5161,7 @@ RectTransform:
   m_Children:
   - {fileID: 224180764141342730}
   - {fileID: 224260653447184442}
+  - {fileID: 224786827390650184}
   - {fileID: 224899267231608520}
   m_Father: {fileID: 224697102589421136}
   m_RootOrder: 0
@@ -5336,15 +5362,15 @@ RectTransform:
   m_GameObject: {fileID: 1663540681732416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000012, y: 1.0000012, z: 1.0000012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224040188188320068}
-  m_Father: {fileID: 224899267231608520}
-  m_RootOrder: 6
+  m_Father: {fileID: 224653279066332490}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224794427010216936
@@ -5493,10 +5519,9 @@ RectTransform:
   - {fileID: 224383508227300828}
   - {fileID: 224434599225886480}
   - {fileID: 224246260389477824}
-  - {fileID: 224786827390650184}
   - {fileID: 224954348160329108}
   m_Father: {fileID: 224653279066332490}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5594,7 +5619,7 @@ RectTransform:
   m_Children:
   - {fileID: 224485019120126134}
   m_Father: {fileID: 224899267231608520}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

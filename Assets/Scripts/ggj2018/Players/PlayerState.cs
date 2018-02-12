@@ -58,6 +58,8 @@ namespace ggj2018.ggj2018.Players
 
         public float BoostRemainingSeconds => _boostRemainingSeconds;
 
+        public float BoostRemainingPercent => BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
+
         [SerializeField]
         [ReadOnly]
         private float _boostRechargeCooldown;
@@ -364,7 +366,7 @@ namespace ggj2018.ggj2018.Players
 
         public void ScoreKill()
         {
-            _owner.Viewer.PlayerUI.AddKill();
+            _owner.Viewer.PlayerUI.PlayerHUD.AddKill();
         }
 #endregion
 
