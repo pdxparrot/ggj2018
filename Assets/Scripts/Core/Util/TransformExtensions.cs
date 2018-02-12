@@ -11,7 +11,7 @@ namespace ggj2018.Core.Util
                 return;
             }
 
-            Vector3 dir = target.position - transform.position;
+            Vector3 dir = (target.position - transform.position).normalized;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }

@@ -40,16 +40,10 @@ namespace ggj2018.ggj2018.Data
 
         public int StunTimeSeconds => _stunTimeSeconds;
 
-        // TODO: make this a force
         [SerializeField]
-        private float _stunBounceSpeed = 1.0f;
+        private float _stunBounceSpeed = 10.0f;
 
         public float StunBounceSpeed => _stunBounceSpeed;
-
-        [SerializeField]
-        private bool _stunBounceRotation = false;
-
-        public bool StunBounceRotation => _stunBounceRotation;
 #endregion
 
         [Space(10)]

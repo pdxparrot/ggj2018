@@ -153,7 +153,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4016912521315426}
-  - component: {fileID: 65537488926544166}
+  - component: {fileID: 136465782997876830}
   - component: {fileID: 114769505393240148}
   - component: {fileID: 114239280266392112}
   m_Layer: 0
@@ -482,18 +482,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1217403179689560}
   m_Mesh: {fileID: 4300000, guid: c0b3fc7f826ae7a499ebf36bdb5fba1e, type: 3}
---- !u!65 &65537488926544166
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1625982474714072}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.73, y: 0.1, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0.025}
 --- !u!96 &96180626044700432
 TrailRenderer:
   serializedVersion: 2
@@ -800,7 +788,6 @@ MonoBehaviour:
   _featherParticles: {fileID: 198153905006407462}
   _immunityParticles: {fileID: 198227251749963822}
   _boostTrail: {fileID: 96180626044700432}
-  _playerCollider: {fileID: 135774987376151378}
   _coloredRenderers:
   - {fileID: 23468091575625432}
   - {fileID: 96180626044700432}
@@ -808,6 +795,7 @@ MonoBehaviour:
   - {fileID: 199714308728206104}
   - {fileID: 96689126982870200}
   - {fileID: 96339390746679466}
+  _playerCollider: {fileID: 135774987376151378}
   _bloodObject: {fileID: 198696375775940988}
 --- !u!135 &135774987376151378
 SphereCollider:
@@ -820,6 +808,19 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136465782997876830
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625982474714072}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.75
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198061110961281240
 ParticleSystem:

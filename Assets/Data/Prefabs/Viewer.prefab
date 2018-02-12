@@ -359,7 +359,7 @@ MonoBehaviour:
   _orbitRadius: 15
   _lookRotation: {x: 0, y: 0}
   _smooth: 1
-  _smoothTime: 0.05
+  _smoothTime: 0.03
   _velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114854027975124778
 MonoBehaviour:

@@ -117,7 +117,7 @@ namespace ggj2018.ggj2018.Players
             Turn(_lastMoveAxes, dt);
             Move(_lastMoveAxes, dt);
 
-            _owner.Viewer.PlayerUI.UpdateDebugVisualizer(_rigidbody);
+            _owner.Viewer.PlayerUI.UpdateDebugVisualizer(_rigidbody, _bankForce);
 
             float boostPct = _owner.State.BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
             _owner.Viewer.PlayerUI.SetSpeedAndBoost(Speed, boostPct);
@@ -166,13 +166,13 @@ namespace ggj2018.ggj2018.Players
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, transform.position + _rigidbody.angularVelocity * 2.0f);
+            Gizmos.DrawLine(transform.position, transform.position + _rigidbody.angularVelocity);
 
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, transform.position + _rigidbody.velocity * 2.0f);
+            Gizmos.DrawLine(transform.position, transform.position + _rigidbody.velocity);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + _bankForce * 2.0f);
+            Gizmos.DrawLine(transform.position, transform.position + _bankForce);
         }
 #endregion
 
@@ -204,11 +204,27 @@ namespace ggj2018.ggj2018.Players
             _rigidbody.position = position;
         }
 
+        public void Redirect(Vector3 velocity)
+        {
+            Debug.Log($"Redirecting player {_owner.Id}: {velocity}");
+
+            // unwind all of the rotations
+            _owner.Bird.transform.localEulerAngles = new Vector3(0.0f, _owner.Bird.transform.localEulerAngles.y, 0.0f);
+            _rigidbody.transform.localEulerAngles = new Vector3(0.0f, _rigidbody.transform.localEulerAngles.y, 0.0f);
+
+            // stop moving
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+
+            // move in an orderly fashion!
+            _rigidbody.velocity = velocity;
+        }
+
 #region Input Handling
 #if UNITY_EDITOR
         private void CheckForDebug()
         {
-            if(Input.GetKeyDown(KeyCode.B)) {
+            if(Input.GetKey(KeyCode.B)) {
                 _rigidbody.angularVelocity = Vector3.zero;
                 _rigidbody.velocity = Vector3.zero;
             }
@@ -253,7 +269,7 @@ namespace ggj2018.ggj2018.Players
         private void RotateModel(Vector3 axes, float dt)
         {
             Quaternion rotation = _owner.Bird.transform.localRotation;
-            Vector3 eulerAngles = _owner.Bird.transform.localRotation.eulerAngles;
+            Vector3 eulerAngles = _owner.Bird.transform.localEulerAngles;
 
             if(_owner.State.IsDead) {
                 rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
@@ -284,9 +300,9 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            float turnAcceleration = _owner.Bird.Type.Physics.AngularThrust / _owner.Bird.Type.Physics.Mass;
-            Vector3 angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
-            _rigidbody.angularVelocity += angularAcceleration * dt;
+            float turnSpeed = _owner.Bird.Type.Physics.TurnSpeed * axes.x;
+            Quaternion rotation = Quaternion.AngleAxis(turnSpeed * dt, Vector3.up);
+            _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
 
             // adding a force opposite our current x velocity should help stop us drifting
             Vector3 relativeVelocity = transform.InverseTransformDirection(_rigidbody.velocity);
@@ -299,8 +315,8 @@ namespace ggj2018.ggj2018.Players
             if(_owner.State.IsDead) {
                 // just let gravity drop us (this feels slow tho)
             } else if(_owner.State.IsStunned) {
-// TODO: use a force for this
-                _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
+                // just don't fall
+                _rigidbody.AddForce(-Physics.gravity, ForceMode.Acceleration);
             } else {
                 float attackAngle = axes.y * -GameManager.Instance.BirdData.MaxAttackAngle;
                 Vector3 attackVector = Quaternion.AngleAxis(attackAngle, Vector3.right) * Vector3.forward;
@@ -316,7 +332,7 @@ namespace ggj2018.ggj2018.Players
 
                 // lift if we're not falling
                 if(axes.y >= 0.0f) {
-                    _rigidbody.AddForce(Vector3.up * -Physics.gravity.y);
+                    _rigidbody.AddForce(-Physics.gravity, ForceMode.Acceleration);
                 }
             }
 
@@ -330,7 +346,7 @@ namespace ggj2018.ggj2018.Players
 #region Collision Handlers
         private bool CheckWorldCollisionEnter(Collision collision)
         {
-            WorldBoundary boundary = collision.collider.GetComponent<WorldBoundary>();
+            WorldBoundary boundary = collision.gameObject.GetComponent<WorldBoundary>();
             if(null == boundary) {
                 return false;
             }
@@ -346,7 +362,7 @@ namespace ggj2018.ggj2018.Players
 
         private bool CheckWorldCollisionExit(Collision collision)
         {
-            WorldBoundary boundary = collision.collider.GetComponent<WorldBoundary>();
+            WorldBoundary boundary = collision.gameObject.GetComponent<WorldBoundary>();
             if(null == boundary) {
                 return false;
             }

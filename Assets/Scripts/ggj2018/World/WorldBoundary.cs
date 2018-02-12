@@ -37,9 +37,18 @@ namespace ggj2018.ggj2018.World
 
         private void OnCollisionEnter(Collision collision)
         {
-            Player player = collision.collider.GetComponentInParent<Player>();
-            if(BoundaryType.Ground == Type && (null != player && player.State.IsDead)) {
+            Player player = collision.gameObject.GetComponentInParent<Player>();
+            if(null == player) {
+                return;
+            }
+
+            if(BoundaryType.Ground == Type && player.State.IsDead) {
                 PlayerManager.Instance.DespawnPlayer(player);
+                return;
+            }
+
+            if(BoundaryType.Wall == Type) {
+                player.State.EnvironmentStun(_collider);
             }
         }
 

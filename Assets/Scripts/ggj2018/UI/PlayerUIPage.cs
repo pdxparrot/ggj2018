@@ -64,6 +64,7 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private GameObject DebugVelocityPanel;
         [SerializeField] private Text DebugVelocityText;
         [SerializeField] private Text DebugAngularVelocityText;
+        [SerializeField] private Text DebugBankForceText;
 #endregion
 
         private Player _ownerPlayer;
@@ -212,10 +213,11 @@ namespace ggj2018.ggj2018.UI
             DebugVisualizer.SetActive(enable);
         }
 
-        public void UpdateDebugVisualizer(Rigidbody rb)
+        public void UpdateDebugVisualizer(Rigidbody rb, Vector3 bankForce)
         {
             DebugVelocityText.text = $"Velocity: {rb.velocity} m/s";
             DebugAngularVelocityText.text = $"Angular Velocity: {rb.angularVelocity} m/s";
+            DebugBankForceText.text = $"Bank Force: {bankForce}N";
 
             DebugVisualizer.transform.position = _ownerPlayer.transform.position + (5.0f * _ownerPlayer.transform.forward);
         }

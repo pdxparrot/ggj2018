@@ -35,12 +35,6 @@ namespace ggj2018.ggj2018.Players
         private float _stunTimer;
 
         public bool IsStunned => _stunTimer > 0.0f;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _stunBounceDirection;
-
-        public Vector3 StunBounceDirection { get { return _stunBounceDirection; } set { _stunBounceDirection = value; } }
 #endregion
 
         public bool IsIncapacitated => IsStunned || IsDead;
@@ -219,7 +213,7 @@ namespace ggj2018.ggj2018.Players
 #endregion
 
 #region Stun
-        public void EnvironmentStun(Collision collision)
+        public void EnvironmentStun(Collider other)
         {
             if(IsDead) {
                 PlayerManager.Instance.DespawnPlayer(_owner);
@@ -227,12 +221,13 @@ namespace ggj2018.ggj2018.Players
             } 
 
             if(IsImmune || IsStunned) {
+                StunPush(other);
                 return;
             }
 
             Debug.Log($"Player {_owner.Id} stunned by the environment!");
 
-            Stun(collision.collider);
+            Stun(other, true);
         }
 
         public void PlayerStun(Player stunner, Collider other)
@@ -245,7 +240,7 @@ namespace ggj2018.ggj2018.Players
 
             Debug.Log($"Player {_owner.Id} stunned by player {stunner.State._owner.Id}!");
 
-            Stun(other);
+            Stun(other, false);
         }
 
 #if UNITY_EDITOR
@@ -261,20 +256,21 @@ namespace ggj2018.ggj2018.Players
         }
 #endif
 
-        private void Stun(Collider other)
+        private void Stun(Collider other, bool push)
         {
             Stun();
 
-            Vector3 playerPosition = _owner.transform.position;
-            Vector3 collisionPosition = other.transform.position;
-            collisionPosition.y = playerPosition.y;
-
-            _stunBounceDirection = (playerPosition - collisionPosition).normalized;
-
-            if(PlayerManager.Instance.PlayerData.StunBounceRotation) {
-                _owner.transform.forward = _stunBounceDirection;
-                _stunBounceDirection = _owner.transform.rotation * _stunBounceDirection;
+            if(push) {
+                StunPush(other);
             }
+        }
+
+        private void StunPush(Collider other)
+        {
+            Vector3 closestPoint = other.ClosestPoint(_owner.transform.position);
+
+            Vector3 direction = (_owner.transform.position - closestPoint).normalized;
+            _owner.Redirect(direction * PlayerManager.Instance.PlayerData.StunBounceSpeed);
         }
 
         private void Stun()

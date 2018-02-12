@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4016912521315426}
-  - component: {fileID: 65537488926544166}
+  - component: {fileID: 136587029973608076}
   - component: {fileID: 114441340850751900}
   m_Layer: 0
   m_Name: PredatorModel
@@ -357,18 +357,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052466004714864}
   m_Mesh: {fileID: 4300000, guid: a308bdc98a9c79449b50bbfbd35caabf, type: 3}
---- !u!65 &65537488926544166
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1625982474714072}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.05, z: 0.2}
-  m_Center: {x: 0, y: 0.015, z: 0}
 --- !u!96 &96088007620055606
 TrailRenderer:
   serializedVersion: 2
@@ -663,13 +651,13 @@ MonoBehaviour:
   _featherParticles: {fileID: 198124788941645864}
   _immunityParticles: {fileID: 198683484168425828}
   _boostTrail: {fileID: 96088007620055606}
-  _playerCollider: {fileID: 135703914139266378}
   _coloredRenderers:
   - {fileID: 23887741241112306}
   - {fileID: 96088007620055606}
   - {fileID: 199624292632161988}
   - {fileID: 96689126982870200}
   - {fileID: 96339390746679466}
+  _playerCollider: {fileID: 135703914139266378}
 --- !u!135 &135703914139266378
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -681,6 +669,19 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136587029973608076
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625982474714072}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198124788941645864
 ParticleSystem:

@@ -121,6 +121,7 @@ namespace ggj2018.ggj2018.Game
             Debug.Log($"Target frame rate: {Application.targetFrameRate}");
 
             Debug.Log($"Gravity: {Physics.gravity}");
+            Physics.bounceThreshold = Mathf.Infinity;
 
             _birdData.Initialize();
             _gameTypeData.Initialize();

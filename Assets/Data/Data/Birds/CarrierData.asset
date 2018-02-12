@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 2}
   _physics: {fileID: 11400000, guid: 5a06957928270ff4db915dc4cc9e3a0f, type: 2}
   _isPredator: 0
-  _followOrbitRadius: 1.5
+  _followOrbitRadius: 0.5
   _canBoost: 1
   _boostSeconds: 3
   _boostRecharges: 1

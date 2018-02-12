@@ -166,6 +166,11 @@ namespace ggj2018.ggj2018.Players
             StopAllCoroutines();
         }
 
+        public void Redirect(Vector3 velocity)
+        {
+            _controller.Redirect(velocity);
+        }
+
         private IEnumerator UpdateNearestPlayers()
         {
             WaitForSeconds wait = new WaitForSeconds(PlayerManager.Instance.NearestPlayerUpdateMs / 1000.0f);
