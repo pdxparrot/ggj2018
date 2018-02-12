@@ -59,13 +59,33 @@ namespace ggj2018.ggj2018.Data
 
         [Space(10)]
 
-#region Abilities
-        [Header("Abilities")]
+#region Boost
+        [Header("Boost")]
 
         [SerializeField]
         private bool _canBoost;
 
         public bool CanBoost => _canBoost;
+
+        [SerializeField]
+        private int _boostSeconds = 5;
+
+        public int BoostSeconds => _boostSeconds;
+
+        [SerializeField]
+        private bool _boostRecharges;
+
+        public bool BooseRecharges => _boostRecharges;
+
+        [SerializeField]
+        private float _boostRechargeCooldown = 5.0f;
+
+        public float BoostRechargeCooldown => _boostRechargeCooldown;
+
+        [SerializeField]
+        private float _boostRechargeRate = 1.0f;
+
+        public float BoostRechargeRate => _boostRechargeRate;
 #endregion
 
         [Space(10)]

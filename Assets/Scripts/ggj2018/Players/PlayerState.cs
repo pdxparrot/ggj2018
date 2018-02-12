@@ -106,7 +106,7 @@ namespace ggj2018.ggj2018.Players
 
         public void Initialize()
         {
-            _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
+            _boostRemainingSeconds = _owner.Bird.Type.BoostSeconds;
 
             // make it easier to start the game
             _immuneTimer = GameManager.Instance.GameTypeData.GameStartImmuneTime;
@@ -164,7 +164,7 @@ namespace ggj2018.ggj2018.Players
             Debug.Log($"Player {_owner.Id} slows down!");
             EnableBoost(false);
 
-            _boostRechargeCooldown = PlayerManager.Instance.PlayerData.BoostRechargeCooldown;
+            _boostRechargeCooldown = _owner.Bird.Type.BoostRechargeCooldown;
         }
 
         private void EnableBoost(bool enable)
@@ -191,10 +191,10 @@ namespace ggj2018.ggj2018.Players
                     _boostRechargeCooldown = 0.0f;
                 }
             } else {
-                if(_boostRemainingSeconds < PlayerManager.Instance.PlayerData.BoostSeconds) {
-                    _boostRemainingSeconds += PlayerManager.Instance.PlayerData.BoostRechargeRate * dt;
+                if(_boostRemainingSeconds < _owner.Bird.Type.BoostSeconds) {
+                    _boostRemainingSeconds += _owner.Bird.Type.BoostRechargeRate * dt;
                 } else {
-                    _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
+                    _boostRemainingSeconds = _owner.Bird.Type.BoostSeconds;
                 }
             }
         }

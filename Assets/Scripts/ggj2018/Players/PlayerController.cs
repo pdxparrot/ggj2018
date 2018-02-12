@@ -120,7 +120,7 @@ namespace ggj2018.ggj2018.Players
 
             RotateModel(_lastMoveAxes, dt);
 
-            float boostPct = _owner.State.BoostRemainingSeconds / PlayerManager.Instance.PlayerData.BoostSeconds;
+            float boostPct = _owner.State.BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
             _owner.Viewer.PlayerUI.SetSpeedAndBoost(Speed, boostPct);
         }
 
