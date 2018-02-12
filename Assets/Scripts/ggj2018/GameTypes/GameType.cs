@@ -20,13 +20,13 @@ namespace ggj2018.ggj2018.GameTypes
         {
 // TODO: this is an awful hack :\
             if(DebugManager.Instance.SpawnMaxLocalPlayers) {
-                return new Hunt(GameManager.Instance.GameTypeData.Entries.GetOrDefault(GameTypes.Hunt));
+                return new Hunt(GameManager.Instance.GameTypeData.GameTypeMap.GetOrDefault(GameTypes.Hunt));
             }
             if(1 == playerCount || 0 == predatorCount || 0 == preyCount) {
-                return new CrazyTaxi(GameManager.Instance.GameTypeData.Entries.GetOrDefault(GameTypes.CrazyTaxi));
+                return new CrazyTaxi(GameManager.Instance.GameTypeData.GameTypeMap.GetOrDefault(GameTypes.CrazyTaxi));
             }
             if(playerCount > 1 && predatorCount > 0 && preyCount > 0) {
-                return new Hunt(GameManager.Instance.GameTypeData.Entries.GetOrDefault(GameTypes.Hunt));
+                return new Hunt(GameManager.Instance.GameTypeData.GameTypeMap.GetOrDefault(GameTypes.Hunt));
             }
             Debug.LogError($"No suitable gametype found! playerCount: {playerCount}, predatorCount: {predatorCount}, preyCount: {preyCount}");
             return null;
@@ -34,7 +34,7 @@ namespace ggj2018.ggj2018.GameTypes
 
         public abstract GameTypes Type { get; }
 
-        public GameData.GameTypeDataEntry GameTypeData { get; }
+        public GameTypeData GameTypeData { get; }
 
         public abstract bool BirdTypesShareSpawnpoints { get; }
 
@@ -75,7 +75,7 @@ namespace ggj2018.ggj2018.GameTypes
             }
         }
 
-        protected GameType(GameData.GameTypeDataEntry gameTypeData)
+        protected GameType(GameTypeData gameTypeData)
         {
             GameTypeData = gameTypeData;
         }

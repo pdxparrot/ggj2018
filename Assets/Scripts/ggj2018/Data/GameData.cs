@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using ggj2018.ggj2018.GameTypes;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ggj2018.ggj2018.Data
 {
@@ -12,92 +11,6 @@ namespace ggj2018.ggj2018.Data
     [Serializable]
     public sealed class GameData : ScriptableObject
     {
-        [Serializable]
-        public sealed class GameTypeDataEntry
-        {
-            [SerializeField]
-            private GameType.GameTypes _gameType;
-
-            public GameType.GameTypes GameType => _gameType;
-
-            [SerializeField]
-            private string _name;
-
-            public string Name => _name;
-
-            [Space(10)]
-
-#region Win/Loss Texts
-            [Header("Win/Loss Text")]
-
-            [SerializeField]
-            private string _predatorWinConditionDescription;
-
-            public string PredatorWinConditionDescription => _predatorWinConditionDescription;
-
-            [SerializeField]
-            private string _predatorWinText;
-
-            public string PredatorWinText => _predatorWinText;
-
-            [SerializeField]
-            private string _predatorLossText;
-
-            public string PredatorLossText => _predatorLossText;
-
-            [SerializeField]
-            private string _preyWinConditionDescription;
-
-            public string PreyWinConditionDescription => _preyWinConditionDescription;
-
-            [SerializeField]
-            private string _preyWinText;
-
-            public string PreyWinText => _preyWinText;
-
-            [SerializeField]
-            private string _preyLossText;
-
-            public string PreyLossText => _preyLossText;
-#endregion
-
-            [Space(10)]
-
-#region End Game
-            [Header("End Game")]
-
-            [SerializeField]
-            private int _scoreLimit = -1;
-
-            public int ScoreLimit => _scoreLimit;
-
-            [SerializeField]
-            private int _timeLimit = -1;
-
-            public int TimeLimit => _timeLimit;
-
-            [SerializeField]
-            private string _timesUpText;
-
-            public string TimesUpText => _timesUpText;
-#endregion
-
-            public string GetWinConditionDescription(BirdTypeData birdType)
-            {
-                return birdType.IsPredator ? PredatorWinConditionDescription : PreyWinConditionDescription;
-            }
-
-            public string GetWinText(BirdTypeData birdType)
-            {
-                return birdType.IsPredator ? PredatorWinText : PreyWinText;
-            }
-
-            public string GetLossText(BirdTypeData birdType)
-            {
-                return birdType.IsPredator ? PredatorLossText : PreyLossText;
-            }
-        }
-
         [SerializeField]
         private float _gameStartImmuneTime = 2.0f;
 
@@ -131,18 +44,18 @@ namespace ggj2018.ggj2018.Data
         public float HawkAlertDistance => _hawkAlertDistance;
 
         [SerializeField]
-        private GameTypeDataEntry[] _gameTypes;
+        private GameTypeData[] _gameTypes;
 
-        public IReadOnlyCollection<GameTypeDataEntry> GameTypes => _gameTypes;
+        public IReadOnlyCollection<GameTypeData> GameTypes => _gameTypes;
 
-        private readonly Dictionary<GameType.GameTypes, GameTypeDataEntry> _entries = new Dictionary<GameType.GameTypes, GameTypeDataEntry>();
+        private readonly Dictionary<GameType.GameTypes, GameTypeData> _gameTypeMap = new Dictionary<GameType.GameTypes, GameTypeData>();
 
-        public IReadOnlyDictionary<GameType.GameTypes, GameTypeDataEntry> Entries => _entries;
+        public IReadOnlyDictionary<GameType.GameTypes, GameTypeData> GameTypeMap => _gameTypeMap;
 
         public void Initialize()
         {
-            foreach(GameTypeDataEntry entry in GameTypes) {
-                _entries.Add(entry.GameType, entry);
+            foreach(GameTypeData gameType in GameTypes) {
+                _gameTypeMap.Add(gameType.GameType, gameType);
             }
         }
     }

@@ -9,43 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d04a0a652dfaebd4ca3197b61928e1f4, type: 3}
-  m_Name: GameTypeData
+  m_Name: GameData
   m_EditorClassIdentifier: 
+  _gameStartImmuneTime: 2
   _immuneTime: 1
   _restartOnGameOver: 1
   _gameOverWaitTime: 5
-  _hawkAlertDistance: 250
+  _hawkAlertDistance: 150
   _gameTypes:
-  - _gameType: 0
-    _name: Delivery
-    _predatorWinConditionDescription: Deliver messages to the goals!
-    _predatorWinText: You Win!
-    _predatorLossText: You Lose!
-    _preyWinConditionDescription: Deliver messages to the goals!
-    _preyWinText: You Win!
-    _preyLossText: You Lose!
-    _scoreLimit: 1
-    _timeLimit: 5
-    _timesUpText: Time's Up!
-  - _gameType: 1
-    _name: Hunt and Deliver
-    _predatorWinConditionDescription: Kill the messengers!
-    _predatorWinText: Winner winner, pigeon dinner!
-    _predatorLossText: Better luck next time!
-    _preyWinConditionDescription: Deliver the message to the goal!
-    _preyWinText: You Win!
-    _preyLossText: You Lose!
-    _scoreLimit: -1
-    _timeLimit: -1
-    _timesUpText: 
-  - _gameType: 2
-    _name: Revenge
-    _predatorWinConditionDescription: Survive!
-    _predatorWinText: You Win!
-    _predatorLossText: You Lose!
-    _preyWinConditionDescription: Kill the hunters!
-    _preyWinText: You Win!
-    _preyLossText: You Lose!
-    _scoreLimit: -1
-    _timeLimit: 5
-    _timesUpText: Time's Up!
+  - {fileID: 11400000, guid: 35777394b19b4de44818636b37976ac5, type: 2}
+  - {fileID: 11400000, guid: 7c60e71c4c8e38e4d88815be1da541a8, type: 2}
+  - {fileID: 11400000, guid: 0abdaf9f15506f241b347ef3f083e45f, type: 2}

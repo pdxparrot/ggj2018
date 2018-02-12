@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14f4f760efc87c4f8c28a869cff4e51, type: 3}
+  m_Name: Revenge
+  m_EditorClassIdentifier: 
+  _gameType: 2
+  _name: Revenge
+  _predatorWinConditionDescription: Survive!
+  _predatorWinText: You win!
+  _predatorLossText: You lose!
+  _preyWinConditionDescription: Kill the hunters!
+  _preyWinText: You win!
+  _preyLossText: You lose!
+  _scoreLimit: -1
+  _timeLimit: 5
+  _timesUpText: Time's up!
