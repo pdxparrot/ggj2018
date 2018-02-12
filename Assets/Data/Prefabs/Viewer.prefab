@@ -336,8 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ac0c4780abee845be5d3936ae249af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableBreadcrumbs: 0
-  _breadcrumbCount: 5
   _enableOrbit: 1
   _orbitSpeedX: 100
   _orbitSpeedY: 100
@@ -360,6 +358,9 @@ MonoBehaviour:
   _orbitRotation: {x: 0, y: 0}
   _orbitRadius: 15
   _lookRotation: {x: 0, y: 0}
+  _smooth: 1
+  _smoothTime: 0.05
+  _velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114854027975124778
 MonoBehaviour:
   m_ObjectHideFlags: 1

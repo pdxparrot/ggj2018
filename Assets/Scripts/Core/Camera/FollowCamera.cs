@@ -100,7 +100,7 @@ namespace ggj2018.Core.Camera
         private bool _smooth;
 
         [SerializeField]
-        private float _smoothTime = 0.3f;
+        private float _smoothTime = 0.05f;
 
         [SerializeField]
         [ReadOnly]
@@ -120,7 +120,18 @@ namespace ggj2018.Core.Camera
 
         private void LateUpdate()
         {
-            if(null == Target) {
+            if(null == Target || _smooth) {
+                return;
+            }
+
+            float dt = Time.deltaTime;
+
+            FollowTarget(dt);
+        }
+
+        private void FixedUpdate()
+        {
+            if(null == Target || !_smooth) {
                 return;
             }
 
@@ -210,7 +221,10 @@ namespace ggj2018.Core.Camera
             // because we're essentially moving the target position, not the camera position
             Vector3 targetPosition = null == Target ? (transform.position + (transform.forward * _orbitRadius)) : Target.transform.position;
             targetPosition += finalOrbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
-            transform.position = _smooth ? Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _smoothTime) : targetPosition;
+
+            transform.position = _smooth
+                ? Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _smoothTime)
+                : targetPosition;
         }
     }
 }

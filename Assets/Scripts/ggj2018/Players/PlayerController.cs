@@ -43,23 +43,7 @@ namespace ggj2018.ggj2018.Players
 #region Physics
         [SerializeField]
         [ReadOnly]
-        private Vector3 _angularAcceleration;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _angularVelocity;
-
-        [SerializeField]
-        [ReadOnly]
         private Vector3 _bankForce;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _linearAcceleration;
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _linearVelocity;
 
         public float Speed => _rigidbody.velocity.magnitude;
 
@@ -205,7 +189,9 @@ namespace ggj2018.ggj2018.Players
 #endif
             _rigidbody.detectCollisions = true;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+
+            // we run the follow cam in FixedUpdate() and interpolation interferes with that
+            _rigidbody.interpolation = RigidbodyInterpolation.None;
         }
 
         public void Initialize(Player owner)
@@ -305,9 +291,8 @@ namespace ggj2018.ggj2018.Players
 
 #if USE_ANGULAR_ACCEL
             float turnAcceleration = _owner.Bird.Type.Physics.AngularThrust;
-            _angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
-            _rigidbody.angularVelocity += _angularAcceleration * dt;
-            _angularVelocity = _rigidbody.angularVelocity;
+            Vector3 angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
+            _rigidbody.angularVelocity += angularAcceleration * dt;
 #else
             float turnSpeed = _owner.Bird.Type.Physics.TurnSpeed;
             Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
@@ -391,7 +376,6 @@ namespace ggj2018.ggj2018.Players
             if(_rigidbody.velocity.y < -_owner.Bird.Type.Physics.TerminalVelocity) {
                 _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, -_owner.Bird.Type.Physics.TerminalVelocity, _rigidbody.velocity.z);
             }
-            _linearVelocity = _rigidbody.velocity;
         }
 #endregion
 
