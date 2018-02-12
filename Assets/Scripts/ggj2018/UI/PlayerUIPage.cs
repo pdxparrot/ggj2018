@@ -128,6 +128,7 @@ namespace ggj2018.ggj2018.UI
         {
             Hide();
 
+            HudPanel.SetActive(true);
             DeadPanel.SetActive(true);
         }
 
