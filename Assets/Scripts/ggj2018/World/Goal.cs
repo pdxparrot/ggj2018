@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018.World
 {
+    [RequireComponent(typeof(Collider))]
     public class Goal : MonoBehavior
     {
-        [SerializeField]
         private Collider _collider;
 
         private GodRay _godRay;
@@ -19,10 +19,12 @@ namespace ggj2018.ggj2018.World
         {
             GoalManager.Instance.RegisterGoal(this);
 
-            _collider.gameObject.layer = GoalManager.Instance.GoalLayer;
+            gameObject.layer = GoalManager.Instance.GoalLayer;
+
+            _collider = GetComponent<Collider>();
             _collider.isTrigger = true;
 
-            _godRay = Instantiate(GoalManager.Instance.GoalGodRayPrefab, transform);
+            _godRay = Instantiate(GoalManager.Instance.GoalGodRayPrefab, transform.parent);
             _godRay.SetupGoal();
         }
 
@@ -35,13 +37,14 @@ namespace ggj2018.ggj2018.World
                 GoalManager.Instance.UnregisterGoal(this);
             }
         }
-#endregion
 
-        public bool Collision(Player player)
+        private void OnTriggerEnter(Collider other)
         {
-            GameManager.Instance.State.GameType.GoalCollision(player);
-
-            return true;
+            Player player = other.GetComponentInParent<Player>();
+            if(null != player) {
+                GameManager.Instance.State.GameType.GoalCollision(player);
+            }
         }
+#endregion
     }
 }

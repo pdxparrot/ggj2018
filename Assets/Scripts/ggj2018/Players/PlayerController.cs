@@ -151,13 +151,6 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            // TODO: fix the goal object so that this check
-            // can go in the goal class rather than here
-            Goal goal = other.GetComponentInParent<Goal>();
-            if(null != goal && goal.Collision(_owner)) {
-                return;
-            }
-
             if(CheckPlayerCollision(other)) {
                 return;
             }
@@ -181,7 +174,7 @@ namespace ggj2018.ggj2018.Players
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            _rigidbody.freezeRotation = true;
             _rigidbody.detectCollisions = true;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 

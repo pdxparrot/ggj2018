@@ -46,10 +46,6 @@ namespace ggj2018.ggj2018.World
                 PlayerManager.Instance.DespawnPlayer(player);
                 return;
             }
-
-            if(BoundaryType.Wall == Type) {
-                player.State.EnvironmentStun(_collider);
-            }
         }
 
         private void OnDrawGizmos()
