@@ -136,6 +136,7 @@ namespace ggj2018.ggj2018.UI
         {
             Hide();
 
+            KillPanel.SetActive(gameType.PredatorsKillPrey && _ownerPlayer.Bird.Type.IsPredator);
             WinLossPanel.SetActive(true);
 
             switch(_ownerPlayer.State.GameOverState)
