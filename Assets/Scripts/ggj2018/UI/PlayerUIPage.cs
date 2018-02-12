@@ -180,7 +180,8 @@ namespace ggj2018.ggj2018.UI
 
         public void SetSpeedAndBoost(float speed, float boost)
         {
-            Speed.text = $"{(int)UnitUtils.MetersPerSecondToKilometersPerHour(speed)} km/h";
+            //Speed.text = $"{(int)UnitUtils.MetersPerSecondToKilometersPerHour(speed)} km/h";
+            Speed.text = $"{(int)speed} m/s";
             Boost.fillAmount = boost;
         }
 
