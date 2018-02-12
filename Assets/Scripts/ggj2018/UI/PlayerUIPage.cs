@@ -15,13 +15,12 @@ namespace ggj2018.ggj2018.UI
     [RequireComponent(typeof(Canvas))]
     public sealed class PlayerUIPage : MonoBehavior
     {
-        [SerializeField] private GameObject MenuPanel;
+        [SerializeField]
+        private CharacterSelectCard _characterSelectCard;
+
         [SerializeField] private GameObject HudPanel;
         [SerializeField] private GameObject FinishPanel;
         [SerializeField] private GameObject IntroPanel;
-
-        [SerializeField] private Image CharacterFrame;
-        [SerializeField] private Image ReadyCharacterFrame;
 
         [SerializeField] private GameObject JoinPanel;
         [SerializeField] private GameObject CharSelPanel;
@@ -83,7 +82,8 @@ namespace ggj2018.ggj2018.UI
 
         public void Hide()
         {
-            MenuPanel.SetActive(false);
+            _characterSelectCard.gameObject.SetActive(false);
+
             HudPanel.SetActive(false);
             FinishPanel.SetActive(false);
             IntroPanel.SetActive(false);
@@ -96,13 +96,11 @@ namespace ggj2018.ggj2018.UI
         {
             Hide();
 
-            MenuPanel.SetActive(true);
+            _characterSelectCard.gameObject.SetActive(true);
+            _characterSelectCard.ShowJoin();
 
-            // TODO: this is a biiiig assumption :\
-            Color frameColor = PlayerManager.Instance.PlayerData.GetPlayerColor(_ownerSelectState.ControllerIndex);
-            frameColor.a = 1.0f;
-            CharacterFrame.color = frameColor;
-            ReadyCharacterFrame.color = frameColor;
+            // TODO: tying this to the controller index is a biiiig assumption :\
+            _characterSelectCard.SetPlayerColor(PlayerManager.Instance.PlayerData.GetPlayerColor(_ownerSelectState.ControllerIndex));
         }
 
         public void SwitchToGame(GameType gameType)
