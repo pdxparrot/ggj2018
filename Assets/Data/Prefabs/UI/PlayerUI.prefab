@@ -760,7 +760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1538318603699550
 GameObject:
   m_ObjectHideFlags: 1
@@ -819,7 +819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224688931154690246}
   - component: {fileID: 222830730145358904}
-  - component: {fileID: 114355726121988156}
+  - component: {fileID: 114118942555864976}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   KillPanel: {fileID: 1487879452820886}
   KillCardPrefab: {fileID: 1443753870380810, guid: e6ae0fe60dfec334ba8df084f08c9d9f,
     type: 2}
-  KillCardLayout: {fileID: 114355726121988156}
+  KillCardLayout: {fileID: 114118942555864976}
   GoalDistancePanel: {fileID: 1079128922185670}
   GoalDistanceText: {fileID: 114734028607317796}
   Speed: {fileID: 114455032624167226}
@@ -1691,6 +1691,28 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114118942555864976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1601392018671108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &114134652010968816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2043,29 +2065,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: To Goal
---- !u!114 &114355726121988156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1601392018671108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
 --- !u!114 &114365334089523618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2311,7 +2310,7 @@ MonoBehaviour:
     m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 25
+    m_MinSize: 10
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
