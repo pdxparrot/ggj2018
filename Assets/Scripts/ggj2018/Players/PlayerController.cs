@@ -284,7 +284,6 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            // TODO: can this be done with a torque?
             float turnAcceleration = _owner.Bird.Type.Physics.AngularThrust / _owner.Bird.Type.Physics.Mass;
             Vector3 angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
             _rigidbody.angularVelocity += angularAcceleration * dt;
