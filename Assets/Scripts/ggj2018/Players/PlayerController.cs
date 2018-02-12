@@ -181,7 +181,7 @@ namespace ggj2018.ggj2018.Players
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            _rigidbody.freezeRotation = true;
             _rigidbody.detectCollisions = true;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
