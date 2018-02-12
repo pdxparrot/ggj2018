@@ -96,6 +96,16 @@ namespace ggj2018.Core.Camera
         [ReadOnly]
         private Vector2 _lookRotation;
 
+        [SerializeField]
+        private bool _smooth;
+
+        [SerializeField]
+        private float _smoothTime = 0.3f;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _velocity;
+
 #region Unity Lifecycle
         private void Update()
         {
@@ -199,7 +209,8 @@ namespace ggj2018.Core.Camera
             // TODO: this doens't work if we free-look and zoom
             // because we're essentially moving the target position, not the camera position
             Vector3 targetPosition = null == Target ? (transform.position + (transform.forward * _orbitRadius)) : Target.transform.position;
-            transform.position = targetPosition + finalOrbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
+            targetPosition += finalOrbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
+            transform.position = _smooth ? Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _smoothTime) : targetPosition;
         }
     }
 }
