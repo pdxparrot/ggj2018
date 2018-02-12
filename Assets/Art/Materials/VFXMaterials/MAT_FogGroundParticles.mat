@@ -97,7 +97,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.47199395, g: 0.54397595, b: 0.66176474, a: 1}
+    - _Color: {r: 0.5730969, g: 0.63461995, b: 0.7352941, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _NoiseDirection: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseScale: {r: 0.1, g: 0.1, b: 0, a: 0}

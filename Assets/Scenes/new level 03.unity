@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4100,7 +4100,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4611832364744424, guid: a79bda8c68cfb214b9a665f572dd13ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -156
       objectReference: {fileID: 0}
     - target: {fileID: 4611832364744424, guid: a79bda8c68cfb214b9a665f572dd13ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4125,6 +4125,10 @@ Prefab:
     - target: {fileID: 4611832364744424, guid: a79bda8c68cfb214b9a665f572dd13ac, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612666745386974, guid: a79bda8c68cfb214b9a665f572dd13ac, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a79bda8c68cfb214b9a665f572dd13ac, type: 2}
@@ -6523,6 +6527,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 33caeb1488ba5a54bae56f8877105abb, type: 2}
+    - target: {fileID: 100000, guid: 92728aa3cc4dfea4cb36e82e56f0f845, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92728aa3cc4dfea4cb36e82e56f0f845, type: 3}
   m_IsPrefabParent: 0
@@ -13046,6 +13054,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1838271621509110, guid: ae7f942b5289d354bbf63890dc0a68ec, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae7f942b5289d354bbf63890dc0a68ec, type: 2}
   m_IsPrefabParent: 0
@@ -15043,7 +15055,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
