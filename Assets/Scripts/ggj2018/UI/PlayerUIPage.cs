@@ -189,11 +189,11 @@ namespace ggj2018.ggj2018.UI
 
         public void SetDistanceToGoal(float distance)
         {
-            if(distance > 1000.0f) {
+            /*if(distance > 1000.0f) {
                 GoalDistanceText.text = $"{(distance / 1000.0f):0.00} km";
-            } else {
+            } else {*/
                 GoalDistanceText.text = $"{(int)distance} m";
-            }
+            //}
         }
 
         public void AddKill()
