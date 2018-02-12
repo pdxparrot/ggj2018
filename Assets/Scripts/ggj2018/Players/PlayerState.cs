@@ -64,6 +64,12 @@ namespace ggj2018.ggj2018.Players
 
         public float BoostRemainingSeconds => _boostRemainingSeconds;
 
+        [SerializeField]
+        [ReadOnly]
+        private float _boostRechargeCooldown;
+
+        public bool IsBoostRechargeCooldown => _boostRechargeCooldown > 0.0f;
+
         public bool CanBoost => _owner.Bird.Type.CanBoost && !IsIncapacitated && BoostRemainingSeconds > 0.0f;
 #endregion
 
@@ -157,6 +163,8 @@ namespace ggj2018.ggj2018.Players
         {
             Debug.Log($"Player {_owner.Id} slows down!");
             EnableBoost(false);
+
+            _boostRechargeCooldown = PlayerManager.Instance.PlayerData.BoostRechargeCooldown;
         }
 
         private void EnableBoost(bool enable)
@@ -167,18 +175,27 @@ namespace ggj2018.ggj2018.Players
 
         private void UpdateBoost(float dt)
         {
-            if(!IsBoosting) {
-                return;
-            }
+            if(IsBoosting) {
+                _boostRemainingSeconds -= dt;
+                if(_boostRemainingSeconds < 0.0f) {
+                    _boostRemainingSeconds = 0.0f;
+                }
 
-            _boostRemainingSeconds -= dt;
-            if(_boostRemainingSeconds < 0.0f) {
-                _boostRemainingSeconds = 0.0f;
-            }
-
-            if(!CanBoost) {
-                StopBoost();
-                // should we maybe exhaust here?
+                if(!CanBoost) {
+                    StopBoost();
+                    // should we maybe exhaust here?
+                }
+            } else if(IsBoostRechargeCooldown) {
+                _boostRechargeCooldown -= dt;
+                if(_boostRechargeCooldown < 0.0f) {
+                    _boostRechargeCooldown = 0.0f;
+                }
+            } else {
+                if(_boostRemainingSeconds < PlayerManager.Instance.PlayerData.BoostSeconds) {
+                    _boostRemainingSeconds += PlayerManager.Instance.PlayerData.BoostRechargeRate * dt;
+                } else {
+                    _boostRemainingSeconds = PlayerManager.Instance.PlayerData.BoostSeconds;
+                }
             }
         }
 #endregion

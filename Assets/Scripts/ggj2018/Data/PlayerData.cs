@@ -64,9 +64,14 @@ namespace ggj2018.ggj2018.Data
         public int BoostSeconds => _boostSeconds;
 
         [SerializeField]
-        private float _boostCooldown = 2.0f;
+        private bool _boostRecharges;
 
-        public float BoostCooldown => _boostCooldown;
+        public bool BooseRecharges => _boostRecharges;
+
+        [SerializeField]
+        private float _boostRechargeCooldown = 5.0f;
+
+        public float BoostRechargeCooldown => _boostRechargeCooldown;
 
         [SerializeField]
         private float _boostRechargeRate = 1.0f;
