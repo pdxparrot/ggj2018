@@ -17,37 +17,51 @@ namespace ggj2018.ggj2018.UI
         private GameObject _readyPanel;
 
         [SerializeField]
+        private GameObject _waiting;
+
+        [SerializeField]
+        private GameObject _allReady;
+
+        [SerializeField]
+        private Text _birdLabel;
+
+        [SerializeField]
+        private Image _birdImage1;
+
+        [SerializeField]
+        private Image _birdImage2;
+
+        [SerializeField]
         private Image _characterFrame;
 
         [SerializeField]
         private Image _readyCharacterFrame;
 
-        public void SetPlayerColor(Color color)
+        public void Initialize(Color color)
         {
+            _joinPanel.SetActive(true);
+            _characterSelectPanel.SetActive(false);
+            _readyPanel.SetActive(false);
+
             color.a = 1.0f;
             _characterFrame.color = color;
             _readyCharacterFrame.color = color;
         }
 
-        public void ShowJoin()
+        public void Update(CharacterSelectState selectState, bool allReady)
         {
-            _joinPanel.SetActive(true);
-            _characterSelectPanel.SetActive(false);
-            _readyPanel.SetActive(false);
-        }
+            _joinPanel.SetActive(!selectState.IsJoinedOrReady);
+            _characterSelectPanel.SetActive(selectState.IsJoined);
+            _readyPanel.SetActive(selectState.IsReady);
 
-        public void ShowCharacterSelect()
-        {
-            _joinPanel.SetActive(false);
-            _characterSelectPanel.SetActive(true);
-            _readyPanel.SetActive(false);
-        }
+            if(selectState.IsReady) {
+                _allReady.SetActive(allReady);
+                _waiting.SetActive(!allReady);
+            }
 
-        public void ShowReady()
-        {
-            _joinPanel.SetActive(false);
-            _characterSelectPanel.SetActive(false);
-            _readyPanel.SetActive(true);
+            _birdLabel.text = selectState.PlayerBirdData.Name;
+            _birdImage1.sprite = selectState.PlayerBirdData.Icon;
+            _birdImage2.sprite = selectState.PlayerBirdData.Icon;
         }
     }
 }

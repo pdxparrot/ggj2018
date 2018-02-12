@@ -18,21 +18,13 @@ namespace ggj2018.ggj2018.UI
         [SerializeField]
         private CharacterSelectCard _characterSelectCard;
 
+        [SerializeField]
+        private GameOverCard _gameOverCard;
+
         [SerializeField] private GameObject HudPanel;
-        [SerializeField] private GameObject FinishPanel;
         [SerializeField] private GameObject IntroPanel;
 
-        [SerializeField] private GameObject JoinPanel;
-        [SerializeField] private GameObject CharSelPanel;
-        [SerializeField] private GameObject ReadyPanel;
-
-        [SerializeField] private GameObject AllReady;
-        [SerializeField] private GameObject Waiting;
-
         [SerializeField] private GameObject DeadPanel;
-
-        [SerializeField] private GameObject WinLossPanel;
-        [SerializeField] private Text WinLossText;
 
         [SerializeField] private GameObject KillPanel;
         [SerializeField] private GameObject KillCardPrefab;
@@ -44,10 +36,6 @@ namespace ggj2018.ggj2018.UI
         [SerializeField] private Text Speed;
         [SerializeField] private Image Boost;
         [SerializeField] private Text Goal;
-
-        [SerializeField] private Text BirdLabel;
-        [SerializeField] private Image BirdImage1;
-        [SerializeField] private Image BirdImage2;
 
         [SerializeField] private GameObject GameTimerPanel;
         [SerializeField] private Text GameTimer;
@@ -83,9 +71,9 @@ namespace ggj2018.ggj2018.UI
         public void Hide()
         {
             _characterSelectCard.gameObject.SetActive(false);
+            _gameOverCard.gameObject.SetActive(false);
 
             HudPanel.SetActive(false);
-            FinishPanel.SetActive(false);
             IntroPanel.SetActive(false);
             DeadPanel.SetActive(false);
             KillPanel.SetActive(false);
@@ -97,10 +85,9 @@ namespace ggj2018.ggj2018.UI
             Hide();
 
             _characterSelectCard.gameObject.SetActive(true);
-            _characterSelectCard.ShowJoin();
 
             // TODO: tying this to the controller index is a biiiig assumption :\
-            _characterSelectCard.SetPlayerColor(PlayerManager.Instance.PlayerData.GetPlayerColor(_ownerSelectState.ControllerIndex));
+            _characterSelectCard.Initialize(PlayerManager.Instance.PlayerData.GetPlayerColor(_ownerSelectState.ControllerIndex));
         }
 
         public void SwitchToGame(GameType gameType)
@@ -139,41 +126,31 @@ namespace ggj2018.ggj2018.UI
 
             HudPanel.SetActive(true);
             KillPanel.SetActive(gameType.PredatorsKillPrey && _ownerPlayer.Bird.Type.IsPredator);
-            FinishPanel.SetActive(true);
+
+            _gameOverCard.gameObject.SetActive(true);
 
             switch(_ownerPlayer.State.GameOverState)
             {
             case PlayerState.GameOverType.Win:
-                WinLossText.text = gameType.GameTypeData.GetWinText(_ownerPlayer.Bird.Type);
+                _gameOverCard.SetText(gameType.GameTypeData.GetWinText(_ownerPlayer.Bird.Type));
                 break;
             case PlayerState.GameOverType.Loss:
-                WinLossText.text = gameType.GameTypeData.GetLossText(_ownerPlayer.Bird.Type);
+                _gameOverCard.SetText(gameType.GameTypeData.GetLossText(_ownerPlayer.Bird.Type));
                 break;
             case PlayerState.GameOverType.TimerUp:
-                WinLossText.text = gameType.GameTypeData.TimesUpText;
+                _gameOverCard.SetText(gameType.GameTypeData.TimesUpText);
                 break;
             }
         }
 
-        public void SetStatus(CharacterSelectState characterSelectState, bool allready)
+        public void SetStatus(CharacterSelectState characterSelectState, bool allReady)
         {
             Hide();
 
             _ownerSelectState = characterSelectState;
             SwitchToCharacterSelect();
 
-            JoinPanel.SetActive(!characterSelectState.IsJoinedOrReady);
-            CharSelPanel.SetActive(characterSelectState.IsJoined);
-            ReadyPanel.SetActive(characterSelectState.IsReady);
-
-            BirdLabel.text = characterSelectState.PlayerBirdData.Name;
-            BirdImage1.sprite = characterSelectState.PlayerBirdData.Icon;
-            BirdImage2.sprite = characterSelectState.PlayerBirdData.Icon;
-
-            if(characterSelectState.IsReady) {
-                AllReady.SetActive(allready);
-                Waiting.SetActive(!allready);
-            }
+            _characterSelectCard.Update(characterSelectState, allReady);
         }
 
         public void SetSpeedAndBoost(float speed, float boost)

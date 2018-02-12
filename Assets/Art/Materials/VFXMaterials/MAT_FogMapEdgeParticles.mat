@@ -87,9 +87,9 @@ Material:
     - _NoiseSpeed: 0.25
     - _NoiseTiling: 1.92
     - _OcclusionStrength: 1
-    - _Opacity: 0.5
+    - _Opacity: 0.55
     - _Parallax: 0.02
-    - _ShadowBrightness: 0.71
+    - _ShadowBrightness: 0.33
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -99,6 +99,6 @@ Material:
     m_Colors:
     - _Color: {r: 0.70653117, g: 0.7742807, b: 0.8897059, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _NoiseDirection: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _NoiseDirection: {r: 1, g: 1, b: 0, a: 0}
     - _NoiseScale: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _ShadowColor: {r: 0.40692773, g: 0.47135797, b: 0.57308996, a: 0}
