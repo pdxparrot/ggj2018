@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4729077796114640}
   - component: {fileID: 65091120922117880}
+  - component: {fileID: 114370550253598150}
   m_Layer: 0
   m_Name: GoalCollider
   m_TagString: Untagged
@@ -281,7 +282,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4337524043702062}
-  - component: {fileID: 114553222361063712}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -544,7 +544,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1241759817472240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4, y: 149.8, z: 1.6}
+  m_LocalPosition: {x: 6.4, y: 225, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4337524043702062}
@@ -1200,7 +1200,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 50, z: 15}
+  m_Size: {x: 15, y: 200, z: 15}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65189484851239868
 BoxCollider:
@@ -1425,6 +1425,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74f953c885944640a263773ae880818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114370550253598150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241759817472240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9620bf7392471a144921639ee9c55db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114382433245192574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1436,18 +1447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74f953c885944640a263773ae880818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114553222361063712
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1851993682283492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9620bf7392471a144921639ee9c55db2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collider: {fileID: 65091120922117880}
 --- !u!114 &114559440248298510
 MonoBehaviour:
   m_ObjectHideFlags: 1
