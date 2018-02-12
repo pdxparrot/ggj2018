@@ -10,6 +10,8 @@ namespace ggj2018.Core.Camera
     public sealed class FollowCamera : MonoBehavior
     {
 #region Orbit Config
+        [Header("Orbit")]
+
         [SerializeField]
         private bool _enableOrbit = true;
 
@@ -25,8 +27,24 @@ namespace ggj2018.Core.Camera
         [SerializeField]
         private Vector2 _defaultOrbitRotation;
 
+        /*[SerializeField]
+        private float _defaultOrbitReturnSpeed = 2.0f;*/
+
         [SerializeField]
-        private float _defaultOrbitReturnSpeed = 10.0f;
+        private float _defaultOrbitReturnTime = 0.5f;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector2 _orbitReturnVelocity;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector2 _orbitRotation;
+
+        [SerializeField]
+        private float _orbitRadius = 25.0f;
+
+        public float OrbitRadius { get { return _orbitRadius; } set { _orbitRadius = value; } }
 #endregion
 
 #region Orbit Constraints
@@ -43,7 +61,11 @@ namespace ggj2018.Core.Camera
         private float _orbitYMax = 360.0f;
 #endregion
 
+        [Space(10)]
+
 #region Zoom Config
+        [Header("Zoom")]
+
         [SerializeField]
         private bool _enableZoom = false;
 
@@ -57,7 +79,11 @@ namespace ggj2018.Core.Camera
         private float _zoomSpeed = 500.0f;
 #endregion
 
+        [Space(10)]
+
 #region Look Config
+        [Header("Look")]
+
         [SerializeField]
         private bool _enableLook = false;
 
@@ -66,9 +92,17 @@ namespace ggj2018.Core.Camera
 
         [SerializeField]
         private float _lookSpeedY = 100.0f;
+
+        [SerializeField]
+        [ReadOnly]
+        private Vector2 _lookRotation;
 #endregion
 
+        [Space(10)]
+
 #region Target
+        [Header("Target")]
+
         [SerializeField]
         [CanBeNull]
         private GameObject _target;
@@ -83,18 +117,7 @@ namespace ggj2018.Core.Camera
         private IFollowTarget _followTarget;
 #endregion
 
-        [SerializeField]
-        [ReadOnly]
-        private Vector2 _orbitRotation;
-
-        [SerializeField]
-        private float _orbitRadius = 25.0f;
-
-        public float OrbitRadius { get { return _orbitRadius; } set { _orbitRadius = value; } }
-
-        [SerializeField]
-        [ReadOnly]
-        private Vector2 _lookRotation;
+        [Space(10)]
 
         [SerializeField]
         private bool _smooth;
@@ -166,7 +189,8 @@ namespace ggj2018.Core.Camera
             // TODO: this is fighting too hard at max rotation
             // (or maybe the max rotation clamping is killing it)
             if(_returnToDefault) {
-                _orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt);
+                _orbitRotation = Vector2.SmoothDamp(_orbitRotation, _defaultOrbitRotation, ref _orbitReturnVelocity, _defaultOrbitReturnTime, Mathf.Infinity, dt);
+                //_orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt); 
             }
 
             _orbitRotation.x = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt), _orbitXMin, _orbitXMax);
@@ -208,6 +232,10 @@ namespace ggj2018.Core.Camera
 
         private void FollowTarget(float dt)
         {
+            if(_followTarget?.IsPaused ?? false) {
+                return;
+            }
+
             Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
             Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
 

@@ -202,8 +202,8 @@ namespace ggj2018.ggj2018.Players
             Debug.Log($"Redirecting player {_owner.Id}: {velocity}");
 
             // unwind all of the rotations
-            _owner.Bird.transform.localEulerAngles = new Vector3(0.0f, _owner.Bird.transform.localEulerAngles.y, 0.0f);
-            _rigidbody.transform.localEulerAngles = new Vector3(0.0f, _rigidbody.transform.localEulerAngles.y, 0.0f);
+            _owner.Bird.transform.localRotation = Quaternion.Euler(0.0f, _owner.Bird.transform.localEulerAngles.y, 0.0f);
+            _rigidbody.transform.rotation = Quaternion.Euler(0.0f, _rigidbody.transform.eulerAngles.y, 0.0f);
 
             // stop moving
             _rigidbody.velocity = Vector3.zero;

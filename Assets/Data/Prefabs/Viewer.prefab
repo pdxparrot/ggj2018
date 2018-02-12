@@ -341,7 +341,10 @@ MonoBehaviour:
   _orbitSpeedY: 100
   _returnToDefault: 1
   _defaultOrbitRotation: {x: 0, y: 30}
-  _defaultOrbitReturnSpeed: 2
+  _defaultOrbitReturnTime: 0.5
+  _orbitReturnVelocity: {x: 0, y: 0}
+  _orbitRotation: {x: 0, y: 0}
+  _orbitRadius: 15
   _orbitXMin: -90
   _orbitXMax: 90
   _orbitYMin: -90
@@ -353,11 +356,9 @@ MonoBehaviour:
   _enableLook: 0
   _lookSpeedX: 100
   _lookSpeedY: 100
+  _lookRotation: {x: 0, y: 0}
   _target: {fileID: 0}
   _targetCollider: {fileID: 0}
-  _orbitRotation: {x: 0, y: 0}
-  _orbitRadius: 15
-  _lookRotation: {x: 0, y: 0}
   _smooth: 1
   _smoothTime: 0.03
   _velocity: {x: 0, y: 0, z: 0}
