@@ -72,23 +72,6 @@ namespace ggj2018.ggj2018.Data
         private float _boostRechargeRate = 1.0f;
 
         public float BoostRechargeRate => _boostRechargeRate;
-
-        [SerializeField]
-        private float _boostAcceleration = 5.0f;
-
-        public float BoostAcceleration => _boostAcceleration;
-#endregion
-
-        [Space(10)]
-
-// TODO: move to game type data
-#region Braking
-        [Header("Braking")]
-
-        [SerializeField]
-        private float _brakeAcceleration = 5.0f;
-
-        public float BrakeAcceleration => _brakeAcceleration;
 #endregion
 
         [Space(10)]
