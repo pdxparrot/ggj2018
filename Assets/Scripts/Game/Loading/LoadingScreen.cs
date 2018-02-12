@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace ggj2018.Game.Loading
 {
+    [RequireComponent(typeof(Canvas))]
     public sealed class LoadingScreen : MonoBehavior
     {
         [SerializeField]
@@ -22,5 +23,12 @@ namespace ggj2018.Game.Loading
 
             set { _progressText.text = value; }
         }
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            GetComponent<Canvas>().sortingOrder = 9999;
+        }
+#endregion
     }
 }

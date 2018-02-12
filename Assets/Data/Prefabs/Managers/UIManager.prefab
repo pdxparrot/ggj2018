@@ -51,5 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158418b4143664551842d884b7edbba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugUIPrefab: {fileID: 114942021880746194, guid: 5b224c7bf7314dc42a63063dd16e108f,
+    type: 2}
   _pauseMenuPrefab: {fileID: 114955612034069112, guid: beaa3cf1c971ee34fa58dd918ba25a43,
     type: 2}

@@ -9,6 +9,11 @@ namespace ggj2018.ggj2018.UI
     public sealed class UIManager : SingletonBehavior<UIManager>
     {
         [SerializeField]
+        private DebugUI _debugUIPrefab;
+
+        private DebugUI _debugUI;
+
+        [SerializeField]
         private PauseMenu _pauseMenuPrefab;
 
         private PauseMenu _pauseMenu;
@@ -22,12 +27,22 @@ namespace ggj2018.ggj2018.UI
 
             _pauseMenu = Instantiate(_pauseMenuPrefab, _uiContainer.transform);
             _pauseMenu.gameObject.SetActive(false);
+
+            _debugUI = Instantiate(_debugUIPrefab, _uiContainer.transform);
+            _debugUI.gameObject.SetActive(false);
         }
 
         protected override void OnDestroy()
         {
             Destroy(_uiContainer);
             _uiContainer = null;
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.F)) {
+                _debugUI.gameObject.SetActive(!_debugUI.gameObject.activeInHierarchy);
+            }
         }
 #endregion
 
