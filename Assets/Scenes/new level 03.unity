@@ -6509,7 +6509,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 92728aa3cc4dfea4cb36e82e56f0f845, type: 3}
       propertyPath: m_LocalScale.x
-      value: 25
+      value: 18.6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 92728aa3cc4dfea4cb36e82e56f0f845, type: 3}
       propertyPath: m_LocalScale.y
@@ -6517,7 +6517,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 92728aa3cc4dfea4cb36e82e56f0f845, type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 47.6
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 92728aa3cc4dfea4cb36e82e56f0f845, type: 3}
       propertyPath: m_Materials.Array.data[0]

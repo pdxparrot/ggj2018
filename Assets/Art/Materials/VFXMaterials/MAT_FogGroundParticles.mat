@@ -87,7 +87,7 @@ Material:
     - _NoiseSpeed: 0
     - _NoiseTiling: 1
     - _OcclusionStrength: 1
-    - _Opacity: 0.5
+    - _Opacity: 0.859
     - _Parallax: 0.02
     - _ShadowBrightness: 0
     - _SmoothnessTextureChannel: 0
