@@ -18,11 +18,11 @@ MonoBehaviour:
     type: 2}
   _physics: {fileID: 11400000, guid: 5a06957928270ff4db915dc4cc9e3a0f, type: 2}
   _isPredator: 0
-  _followOrbitRadius: 0.5
+  _followOrbitRadius: 0.4
   _canBoost: 1
   _boostSeconds: 3
   _boostRecharges: 1
-  _boostRechargeCooldown: 5
+  _boostRechargeCooldown: 4
   _boostRechargeRate: 0.5
   _spawnAudioClip: {fileID: 8300000, guid: 82020695de1bed4428d329b955f1bd07, type: 3}
   _flightAudioClip: {fileID: 0}
