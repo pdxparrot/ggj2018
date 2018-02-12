@@ -68,6 +68,7 @@ namespace ggj2018.ggj2018.Players
 
         private void Start()
         {
+            // likely necessary because of our colliders and shit
             _rigidbody.ResetCenterOfMass();
         }
 
@@ -80,8 +81,6 @@ namespace ggj2018.ggj2018.Players
 
         private void Update()
         {
-            _owner.Viewer.PlayerUI.UpdateDebugVisualizer(_rigidbody);
-
             if(GameManager.Instance.State.IsPaused) {
                 return;
             }
@@ -103,9 +102,6 @@ namespace ggj2018.ggj2018.Players
             float dt = Time.deltaTime;
 
             RotateModel(_lastMoveAxes, dt);
-
-            float boostPct = _owner.State.BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
-            _owner.Viewer.PlayerUI.SetSpeedAndBoost(Speed, boostPct);
         }
 
         private void FixedUpdate()
@@ -118,10 +114,15 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            float dt = Time.deltaTime;
+            float dt = Time.fixedDeltaTime;
 
             Turn(_lastMoveAxes, dt);
             Move(_lastMoveAxes, dt);
+
+            _owner.Viewer.PlayerUI.UpdateDebugVisualizer(_rigidbody);
+
+            float boostPct = _owner.State.BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
+            _owner.Viewer.PlayerUI.SetSpeedAndBoost(Speed, boostPct);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -308,12 +309,11 @@ namespace ggj2018.ggj2018.Players
         private void Move(Vector3 axes, float dt)
         {
             if(_owner.State.IsDead) {
-                // just let gravity drop us
+                // just let gravity drop us (this feels slow tho)
             } else if(_owner.State.IsStunned) {
 // TODO: use a force for this
                 _rigidbody.velocity = _owner.State.StunBounceDirection * PlayerManager.Instance.PlayerData.StunBounceSpeed;
             } else {
-#if true
                 float attackAngle = axes.y * -GameManager.Instance.BirdData.MaxAttackAngle;
                 Vector3 attackVector = Quaternion.AngleAxis(attackAngle, Vector3.right) * Vector3.forward;
                 _rigidbody.AddRelativeForce(attackVector * _owner.Bird.Type.Physics.LinearThrust);
@@ -330,46 +330,6 @@ namespace ggj2018.ggj2018.Players
                 if(axes.y >= 0.0f) {
                     _rigidbody.AddForce(Vector3.up * -Physics.gravity.y);
                 }
-
-// TODO: boost/brake
-#else
-                // vertical acceleration
-                float verticalAcceleration = _owner.Bird.Type.Physics.LinearThrust / _owner.Bird.Type.Physics.Mass / 2.0f;
-
-                // input
-                verticalAcceleration *= axes.y;
-
-                // only fight gravity if we're not falling
-                if(axes.y >= 0.0f) {
-                    verticalAcceleration -= Physics.gravity.y;
-                }
-
-                // horizontal acceleration
-                float horizontalAcceleration = _owner.Bird.Type.Physics.LinearThrust / _owner.Bird.Type.Physics.Mass;
-
-                // modififers
-                if(_owner.State.IsBraking) {
-                    float brakeAcceleration = _owner.Bird.Type.Physics.BrakeThrust / _owner.Bird.Type.Physics.Mass;
-                    horizontalAcceleration -= brakeAcceleration;
-                }
-
-                if(_owner.State.IsBoosting) {
-                    float boostAcceleration = _owner.Bird.Type.Physics.BoostThrust / _owner.Bird.Type.Physics.Mass;
-                    horizontalAcceleration += boostAcceleration;
-                }
-
-                // take away some horizontal if we're not falling
-                if(verticalAcceleration > 0.0f) {
-                    horizontalAcceleration -= verticalAcceleration;
-                }
-
-                if(horizontalAcceleration < 0.0f) {
-                    horizontalAcceleration = 0.0f;
-                }
-
-                _linearAcceleration = (horizontalAcceleration * transform.forward) + (verticalAcceleration * Vector3.up);
-                _rigidbody.AddForce(_linearAcceleration * _rigidbody.mass);
-#endif
             }
 
             // cap our fall speed
