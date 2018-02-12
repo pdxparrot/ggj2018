@@ -39,11 +39,6 @@ namespace ggj2018.ggj2018.Data
         public float AngularThrust => _angularThrust;
 
         [SerializeField]
-        private float _turnSpeed = 10.0f;
-
-        public float TurnSpeed => _turnSpeed;
-
-        [SerializeField]
         private float _brakeThrust = 5.0f;
 
         public float BrakeThrust => _brakeThrust;

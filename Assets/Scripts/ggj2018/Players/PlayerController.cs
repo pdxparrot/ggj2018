@@ -1,6 +1,4 @@
-﻿//#define USE_ANGULAR_ACCEL
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using ggj2018.Core.Input;
@@ -183,11 +181,7 @@ namespace ggj2018.ggj2018.Players
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
-#if USE_ANGULAR_ACCEL
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-#else
-            _rigidbody.freezeRotation = true;
-#endif
             _rigidbody.detectCollisions = true;
             _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
@@ -290,15 +284,10 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-#if USE_ANGULAR_ACCEL
-            float turnAcceleration = _owner.Bird.Type.Physics.AngularThrust;
+            // TODO: can this be done with a torque?
+            float turnAcceleration = _owner.Bird.Type.Physics.AngularThrust / _owner.Bird.Type.Physics.Mass;
             Vector3 angularAcceleration = Vector3.up * (turnAcceleration * axes.x);
             _rigidbody.angularVelocity += angularAcceleration * dt;
-#else
-            float turnSpeed = _owner.Bird.Type.Physics.TurnSpeed;
-            Quaternion rotation = Quaternion.AngleAxis(axes.x * turnSpeed * dt, Vector3.up);
-            _rigidbody.MoveRotation(_rigidbody.rotation * rotation);
-#endif
 
             // adding a force opposite our current x velocity should help stop us drifting
             Vector3 relativeVelocity = transform.InverseTransformDirection(_rigidbody.velocity);
