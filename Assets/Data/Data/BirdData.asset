@@ -43,7 +43,7 @@ MonoBehaviour:
     _physics: {fileID: 11400000, guid: 5a06957928270ff4db915dc4cc9e3a0f, type: 2}
     _isPredator: 0
     _followOrbitRadius: 1.5
-    _canBoost: 0
+    _canBoost: 1
     _spawnAudioClip: {fileID: 8300000, guid: 82020695de1bed4428d329b955f1bd07, type: 3}
     _flightAudioClip: {fileID: 0}
     _winAudioClip: {fileID: 8300000, guid: 82020695de1bed4428d329b955f1bd07, type: 3}
