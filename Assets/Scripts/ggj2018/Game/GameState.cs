@@ -135,6 +135,8 @@ namespace ggj2018.ggj2018.Game
 #region Init State
         private void BeginInit()
         {
+            InputManager.Instance.Reset();
+
             PlayerManager.Instance.DespawnAllPlayers();
 
             SpawnManager.Instance.ReleaseSpawnPoints();

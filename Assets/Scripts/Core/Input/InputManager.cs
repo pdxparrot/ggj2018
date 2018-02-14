@@ -71,6 +71,17 @@ namespace ggj2018.Core.Input
                 }
             }
 
+            public void Reset()
+            {
+                InvertMoveX = false;
+                InvertMoveY = false;
+
+                InvertLookX = false;
+                InvertLookY = false;
+
+                InvertZoom = false;
+            }
+
             public void UpdateDpadState(Vector3 axes)
             {
                 UpdateDpadState(DPadDir.Left, axes.x < -Mathf.Epsilon);
@@ -162,6 +173,13 @@ namespace ggj2018.Core.Input
             UpdateDpadAxes();
         }
 #endregion
+
+        public void Reset()
+        {
+            foreach(ControllerState controllerState in ControllerStates) {
+                controllerState.Reset();
+            }
+        }
 
         public int AcquireController()
         {
