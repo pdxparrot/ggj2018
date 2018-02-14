@@ -9,14 +9,19 @@ namespace ggj2018.ggj2018.UI
     public sealed class UIManager : SingletonBehavior<UIManager>
     {
         [SerializeField]
-        private DebugUI _debugUIPrefab;
+        private StartupLogo _startupLogoPrefab;
 
-        private DebugUI _debugUI;
+        private StartupLogo _startupLogo;
 
         [SerializeField]
         private PauseMenu _pauseMenuPrefab;
 
         private PauseMenu _pauseMenu;
+
+        [SerializeField]
+        private DebugUI _debugUIPrefab;
+
+        private DebugUI _debugUI;
 
         private GameObject _uiContainer;
 
@@ -24,6 +29,9 @@ namespace ggj2018.ggj2018.UI
         private void Awake()
         {
             _uiContainer = new GameObject("UI");
+
+            _startupLogo = Instantiate(_startupLogoPrefab, _uiContainer.transform);
+            _startupLogo.gameObject.SetActive(false);
 
             _pauseMenu = Instantiate(_pauseMenuPrefab, _uiContainer.transform);
             _pauseMenu.gameObject.SetActive(false);
@@ -48,6 +56,7 @@ namespace ggj2018.ggj2018.UI
 
         public void SwitchToCharacterSelect()
         {
+// TODO: move into the player manager
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
             }
@@ -55,6 +64,7 @@ namespace ggj2018.ggj2018.UI
 
         public void SwitchToGame(GameType gameType)
         {
+// TODO: move into the player manager
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 selectState.Viewer.PlayerUI.Hide();
             }
@@ -66,9 +76,15 @@ namespace ggj2018.ggj2018.UI
 
         public void SwitchToGameOver(GameType gameType)
         {
+// TODO: move into the player manager
             foreach(Player player in PlayerManager.Instance.Players) {
                 player.Viewer.PlayerUI.SwitchToGameOver(player, gameType);
             }
+        }
+
+        public void EnableStartupLogo(bool enable)
+        {
+            _startupLogo.gameObject.SetActive(enable);
         }
 
         public void EnablePauseUI(bool enable)

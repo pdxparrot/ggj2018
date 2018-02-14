@@ -289,9 +289,29 @@ namespace ggj2018.Core.Input
             return UnityEngine.Input.GetButtonDown($"P{controllerIndex} Select");
         }
 
+        public bool PositivePressed()
+        {
+            for(int i=0; i<MaxControllers; ++i) {
+                if(PositivePressed(i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool PositivePressed(int controllerIndex)
         {
             return Pressed(controllerIndex, Button.A) || StartPressed(controllerIndex);
+        }
+
+        public bool NegativePressed()
+        {
+            for(int i=0; i<MaxControllers; ++i) {
+                if(NegativePressed(i)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool NegativePressed(int controllerIndex)

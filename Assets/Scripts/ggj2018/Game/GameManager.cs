@@ -69,6 +69,11 @@ namespace ggj2018.ggj2018.Game
         [Header("Audio")]
 
         [SerializeField]
+        private AudioClip _startupLogoMusicClip;
+
+        public AudioClip StartupLogoMusicClip => _startupLogoMusicClip;
+
+        [SerializeField]
         private AudioClip _characterSelectMusicClip;
 
         public AudioClip CharacterSelectMusicClip => _characterSelectMusicClip;
@@ -166,6 +171,8 @@ namespace ggj2018.ggj2018.Game
             NetworkManager.Initialize(ConfigData.EnableNetwork);
 
             CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
+
+            State.SetState(GameState.States.Init);
         }
 
         private void CheckPause()

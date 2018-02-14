@@ -18,6 +18,7 @@ namespace ggj2018.ggj2018.Game
     {
         public enum States
         {
+            None,
             Init,
             Menu,
             CharacterSelect,
@@ -37,7 +38,7 @@ namespace ggj2018.ggj2018.Game
 
         [SerializeField]
         [ReadOnly]
-        private States _state = States.Init;
+        private States _state = States.None;
 
         public States State { get { return _state; } private set { _state = value; } }
 
@@ -133,7 +134,7 @@ namespace ggj2018.ggj2018.Game
         }
 
 #region Init State
-        private void BeginInit()
+        private void Reset()
         {
             InputManager.Instance.Reset();
 
@@ -146,13 +147,27 @@ namespace ggj2018.ggj2018.Game
             PlayerManager.Instance.ResetCharacterSelect();
         }
 
+        private void BeginInit()
+        {
+            Reset();
+
+            UIManager.Instance.EnableStartupLogo(true);
+
+            AudioManager.Instance.PlayMusic(GameManager.Instance.StartupLogoMusicClip);
+        }
+
         private void RunInit()
         {
-            SetState(States.Menu);
+            if(InputManager.Instance.StartPressed()) {
+                SetState(States.Menu);
+            }
         }
 
         private void FinishInit()
         {
+            AudioManager.Instance.StopMusic();
+
+            UIManager.Instance.EnableStartupLogo(false);
         }
 #endregion
 
