@@ -51,7 +51,7 @@ namespace ggj2018.ggj2018.GameTypes
         public void Update()
         {
             if(!PlayerManager.Instance.HasAlivePlayer) {
-                GameManager.Instance.State.SetState(GameState.States.GameOver);
+                GameManager.Instance.State.SetState(Game.GameState.States.GameOver);
             }
         }
 

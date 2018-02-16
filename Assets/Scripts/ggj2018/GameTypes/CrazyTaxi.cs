@@ -49,7 +49,7 @@ namespace ggj2018.ggj2018.GameTypes
             if(player.State.Score >= GameTypeData.ScoreLimit) {
                 Debug.Log($"Player {player.Id} has reached the score limit!"); 
                 player.State.GameOver(PlayerState.GameOverType.Win);
-                GameManager.Instance.State.SetState(GameState.States.GameOver);
+                GameManager.Instance.State.SetState(Game.GameState.States.GameOver);
             }
 
             // TODO: spawn the next appropriate goal type

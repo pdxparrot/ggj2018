@@ -6,6 +6,7 @@ using ggj2018.Game.Audio;
 using ggj2018.Game.Scenes;
 using ggj2018.Core.Util;
 using ggj2018.Core.Util.ObjectPool;
+using ggj2018.Game.State;
 
 using UnityEngine;
 
@@ -28,6 +29,9 @@ namespace ggj2018.Game.Loading
 
         [SerializeField]
         private GameSceneManager _gameSceneManagerPrefab;
+
+        [SerializeField]
+        private GameStateManager _gameStateManagerPrefab;
 #endregion
 
         protected GameObject ManagersContainer { get; private set; }
@@ -81,6 +85,7 @@ namespace ggj2018.Game.Loading
             CameraManager.CreateFromPrefab(_cameraManagerPrefab, ManagersContainer);
             InputManager.CreateFromPrefab(_inputManagerPrefab, ManagersContainer);
             GameSceneManager.CreateFromPrefab(_gameSceneManagerPrefab, ManagersContainer);
+            GameStateManager.CreateFromPrefab(_gameStateManagerPrefab, ManagersContainer);
         }
 
         protected virtual void InitializeManagers()
