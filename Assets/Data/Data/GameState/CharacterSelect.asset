@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a815758553828ce458a48802f6401c69, type: 3}
-  m_Name: GameStateStart
+  m_Name: CharacterSelect
   m_EditorClassIdentifier: 
   _sceneName: 
-  _gameStatePrefab: {fileID: 114893305866107254, guid: 581118ef3261fec4f9c4f217bb3be149,
+  _gameStatePrefab: {fileID: 114045675555817802, guid: 2795f280bf4e6454ea85db468ad7f857,
     type: 2}
