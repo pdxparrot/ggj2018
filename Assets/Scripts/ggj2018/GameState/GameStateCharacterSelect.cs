@@ -15,12 +15,12 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _gameGameStateData;
 
-        public override bool CanPause => false;
-
 // TODO: move the character select states to this object
 
         public override void OnEnter()
         {
+            base.OnEnter();
+
             UIManager.Instance.SwitchToCharacterSelect();
 
 // TODO: move the audio clip to this object
@@ -29,6 +29,8 @@ namespace ggj2018.ggj2018.GameState
 
         public override void OnUpdate(float dt)
         {
+            base.OnUpdate(dt);
+
             // TODO: do this in a way that we don't have to loop every frame
             int ready = 0, joined = 0;
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
@@ -85,6 +87,8 @@ selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
             if(AudioManager.HasInstance) {
                 AudioManager.Instance.StopMusic();
             }
+
+            base.OnExit();
         }
     }
 }

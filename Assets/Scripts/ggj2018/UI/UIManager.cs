@@ -44,6 +44,8 @@ namespace ggj2018.ggj2018.UI
         {
             Destroy(_uiContainer);
             _uiContainer = null;
+
+            base.OnDestroy();
         }
 
         private void Update()

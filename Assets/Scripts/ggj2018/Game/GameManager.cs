@@ -1,13 +1,9 @@
-﻿using System;
-
-using ggj2018.Core.Util;
+﻿using ggj2018.Core.Util;
 using ggj2018.Core.Input;
 using ggj2018.Core.Camera;
 using ggj2018.Core.Network;
 using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.UI;
 using ggj2018.Game.Scenes;
-using ggj2018.Game.State;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,10 +12,6 @@ namespace ggj2018.ggj2018.Game
 {
     public sealed class GameManager : SingletonBehavior<GameManager>
     {
-#region Events
-        public event EventHandler<EventArgs> PauseEvent;
-#endregion
-
 #region Systems
         [Header("Systems")]
 
@@ -154,11 +146,12 @@ namespace ggj2018.ggj2018.Game
 
             Destroy(_gvr);
             _gvr = null;
+
+            base.OnDestroy();
         }
 
         private void Update()
         {
-            CheckPause();
             CheckReload();
         }
 #endregion
@@ -168,21 +161,6 @@ namespace ggj2018.ggj2018.Game
             NetworkManager.Initialize(ConfigData.EnableNetwork);
 
             CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
-        }
-
-        private void CheckPause()
-        {
-            if(!GameStateManager.Instance.CurrentState.CanPause) {
-                return;
-            }
-
-            if(InputManager.Instance.StartPressed()) {
-                _gameState.IsPaused = !_gameState.IsPaused;
-
-                UIManager.Instance.EnablePauseUI(_gameState.IsPaused);
-
-                PauseEvent?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         private void CheckReload()

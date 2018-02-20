@@ -32,6 +32,8 @@ namespace ggj2018.ggj2018
         {
             Destroy(_debugContainer);
             _debugContainer = null;
+
+            base.OnDestroy();
         }
 
         private void Update()

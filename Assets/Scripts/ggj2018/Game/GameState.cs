@@ -2,19 +2,25 @@
 
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.GameTypes;
+using ggj2018.ggj2018.UI;
 
 using UnityEngine;
 
 namespace ggj2018.ggj2018.Game
 {
+// TODO: this class is now basically pointless, just merge it into the manager
     [Serializable]
     public sealed class GameState
     {
+#region Events
+        public event EventHandler<EventArgs> PauseEvent;
+#endregion
+
         [SerializeField]
         [ReadOnly]
         private bool _isPaused;
 
-        public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
+        public bool IsPaused => _isPaused;
 
         [SerializeField]
         [ReadOnly]
@@ -34,6 +40,15 @@ namespace ggj2018.ggj2018.Game
             } else {
                 Debug.LogError($"No suitable gametype found! playerCount: {playerCount}, predatorCount: {predatorCount}, preyCount: {preyCount}");
             }
+        }
+
+        public void TogglePause()
+        {
+            _isPaused = !_isPaused;
+
+            UIManager.Instance.EnablePauseUI(IsPaused);
+
+            PauseEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

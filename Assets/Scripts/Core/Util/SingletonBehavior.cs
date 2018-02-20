@@ -15,7 +15,7 @@ namespace ggj2018.Core.Util
     {
         private static T _instance;
 
-        public static bool HasInstance => null != _instance;
+        public static bool HasInstance => null != _instance && !applicationIsQuitting;
 
         private static bool applicationIsQuitting;
 

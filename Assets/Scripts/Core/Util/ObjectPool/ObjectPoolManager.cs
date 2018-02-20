@@ -90,6 +90,8 @@ namespace ggj2018.Core.Util.ObjectPool
                 kvp.Value.Destroy();
             }
             _objectPools.Clear();
+
+            base.OnDestroy();
         }
 #endregion
 

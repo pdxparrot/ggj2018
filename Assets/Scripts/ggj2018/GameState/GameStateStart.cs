@@ -17,10 +17,10 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _characterSelectGameStateData;
 
-        public override bool CanPause => false;
-
         public override void OnEnter()
         {
+            base.OnEnter();
+
 #region Reset Managers
             PlayerManager.Instance.DespawnAllPlayers();
 
@@ -41,6 +41,8 @@ namespace ggj2018.ggj2018.GameState
 
         public override void OnUpdate(float dt)
         {
+            base.OnUpdate(dt);
+
             if(InputManager.Instance.StartPressed()) {
                 GameStateManager.Instance.TransitionState(_characterSelectGameStateData);
             }
@@ -55,6 +57,8 @@ namespace ggj2018.ggj2018.GameState
             if(UIManager.HasInstance) {
                 UIManager.Instance.EnableStartupLogo(false);
             }
+
+            base.OnExit();
         }
     }
 }

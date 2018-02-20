@@ -25,6 +25,8 @@ namespace ggj2018.Game.State
         protected override void OnDestroy()
         {
             ExitCurrentState();
+
+            base.OnDestroy();
         }
 
         private void Update()

@@ -39,6 +39,8 @@ namespace ggj2018.Core.Camera
         {
             Destroy(_viewerContainer);
             _viewerContainer = null;
+
+            base.OnDestroy();
         }
 #endregion
 

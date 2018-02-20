@@ -63,7 +63,7 @@ namespace ggj2018.ggj2018.Players
         {
             InitRigidbody();
 
-            GameManager.Instance.PauseEvent += PauseEventHandler;
+            GameManager.Instance.State.PauseEvent += PauseEventHandler;
         }
 
         private void Start()
@@ -75,7 +75,7 @@ namespace ggj2018.ggj2018.Players
         private void OnDestroy()
         {
             if(GameManager.HasInstance) {
-                GameManager.Instance.PauseEvent -= PauseEventHandler;
+                GameManager.Instance.State.PauseEvent -= PauseEventHandler;
             }
         }
 
