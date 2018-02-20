@@ -7,6 +7,7 @@ using ggj2018.Core.Network;
 using ggj2018.ggj2018.Data;
 using ggj2018.ggj2018.UI;
 using ggj2018.Game.Scenes;
+using ggj2018.Game.State;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -145,10 +146,10 @@ namespace ggj2018.ggj2018.Game
 
         protected override void OnDestroy()
         {
-            Destroy(_networkManager);
+            Destroy(_networkManager?.gameObject);
             _networkManager = null;
 
-            Destroy(_eventSystem);
+            Destroy(_eventSystem?.gameObject);
             _eventSystem = null;
 
             Destroy(_gvr);
@@ -157,12 +158,8 @@ namespace ggj2018.ggj2018.Game
 
         private void Update()
         {
-            float dt = Time.deltaTime;
-
             CheckPause();
             CheckReload();
-
-            _gameState.Update(dt);
         }
 #endregion
 
@@ -171,13 +168,11 @@ namespace ggj2018.ggj2018.Game
             NetworkManager.Initialize(ConfigData.EnableNetwork);
 
             CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
-
-            State.SetState(GameState.States.Init);
         }
 
         private void CheckPause()
         {
-            if(!State.CanPause) {
+            if(!GameStateManager.Instance.CurrentState.CanPause) {
                 return;
             }
 

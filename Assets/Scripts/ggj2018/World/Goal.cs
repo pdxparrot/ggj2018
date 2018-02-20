@@ -30,7 +30,7 @@ namespace ggj2018.ggj2018.World
 
         private void OnDestroy()
         {
-            Destroy(_godRay);
+            Destroy(_godRay.gameObject);
             _godRay = null;
 
             if(GoalManager.HasInstance) {

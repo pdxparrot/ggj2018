@@ -1,7 +1,6 @@
 ﻿using ggj2018.Core.Camera;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.GameTypes;
 using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.UI;
 using ggj2018.Game.Audio;
@@ -19,34 +18,24 @@ namespace ggj2018.ggj2018.GameState
 
         [SerializeField]
         [ReadOnly]
-        private GameType _gameType;
-
-        public GameType GameType => _gameType;
-
-        [SerializeField]
-        [ReadOnly]
         private float _gameTimer;
 
         public float GameTimer => _gameTimer;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _isPaused;
-
-        public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
+        public override bool CanPause => true;
 
         public override void OnEnter()
         {
             DetermineGameType();
-            Debug.Log($"Beginning game type {GameType.Type}");
+            Debug.Log($"Beginning game type {GameManager.Instance.State.GameType.Type}");
 
             // TODO: move the guts of this loop into CharacterSelectState
             foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
                 if(selectState.IsReady) {
-                    selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
+                    selectState.Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.State.GameType.Type, selectState);
                 } else if(DebugManager.Instance.SpawnMaxLocalPlayers) {
                     selectState.SelectedBird = selectState.ControllerIndex % GameManager.Instance.BirdData.Birds.Count;
-                    selectState.Player = PlayerManager.Instance.SpawnPlayer(GameType.Type, selectState);
+                    selectState.Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.State.GameType.Type, selectState);
                 } else {
                     selectState.Player = null;
                     CameraManager.Instance.ReleaseViewer(selectState.Viewer);
@@ -56,40 +45,42 @@ namespace ggj2018.ggj2018.GameState
 
             CameraManager.Instance.ResizeViewports();
 
-            UIManager.Instance.SwitchToGame(_gameType);
+            UIManager.Instance.SwitchToGame(GameManager.Instance.State.GameType);
 
 // TODO: move the audio clips to this object
             AudioManager.Instance.PlayMusic(GameManager.Instance.GameMusic1AudioClip, GameManager.Instance.GameMusic2AudioClip);
 
-            _gameTimer = GameType.GameTypeData.TimeLimit * 60.0f;
+            _gameTimer = GameManager.Instance.State.GameType.GameTypeData.TimeLimit * 60.0f;
         }
 
         public override void OnUpdate(float dt)
         {
-            if(IsPaused) {
+            if(GameManager.Instance.State.IsPaused) {
                 return;
             }
 
-            if(GameType.GameTypeData.TimeLimit > 0) {
+            if(GameManager.Instance.State.GameType.GameTypeData.TimeLimit > 0) {
                 _gameTimer -= dt;
                 if(_gameTimer <= 0.0f) {
                     _gameTimer = 0.0f;
 
-                    GameType.TimerFinish();
+                    GameManager.Instance.State.GameType.TimerFinish();
 
-                    GameStateManager.Instance.TransitionState(_gameOverGameStateData, gameState =>
-                    {
-                        (gameState as GameStateGameOver)?.Initialize(_gameType);
-                    });
+                    GameStateManager.Instance.TransitionState(_gameOverGameStateData);
                 }
             }
 
-            GameType.Update();
+            GameManager.Instance.State.GameType.Update();
+            if(GameManager.Instance.State.GameType.IsGameOver) {
+                GameStateManager.Instance.TransitionState(_gameOverGameStateData);
+            }
         }
 
         public override void OnExit()
         {
-            AudioManager.Instance.StopMusic();
+            if(AudioManager.HasInstance) {
+                AudioManager.Instance.StopMusic();
+            }
         }
 
         private void DetermineGameType()
@@ -113,7 +104,7 @@ namespace ggj2018.ggj2018.GameState
                 }
             }
 
-            _gameType = GameType.GetGameType(playerCount, predatorCount, preyCount);
+            GameManager.Instance.State.SetGameType(playerCount, predatorCount, preyCount);
         }
     }
 }

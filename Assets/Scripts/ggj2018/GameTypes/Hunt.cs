@@ -43,7 +43,8 @@ namespace ggj2018.ggj2018.GameTypes
             foreach(Player p in PlayerManager.Instance.Prey) {
                 p.State.GameOver(PlayerState.GameOverType.Win);
             }
-            GameManager.Instance.State.SetState(Game.GameState.States.GameOver);
+
+            IsGameOver = true;
         }
 
         public override void PlayerKill(Player killer)
@@ -59,7 +60,7 @@ namespace ggj2018.ggj2018.GameTypes
             if(PlayerManager.Instance.Prey.Count < 1) {
                 Debug.Log($"Player {killer.Id} has killed all the messengers!");
                 killer.State.GameOver(PlayerState.GameOverType.Win);
-                GameManager.Instance.State.SetState(Game.GameState.States.GameOver);
+                IsGameOver = true;
             }
         }
     }

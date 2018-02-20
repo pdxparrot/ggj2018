@@ -1,35 +1,18 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.Game;
+﻿using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.GameState;
 using ggj2018.ggj2018.Players;
-
-using UnityEngine;
+using ggj2018.Game.State;
 
 namespace ggj2018.ggj2018.GameTypes
 {
     public abstract class GameType
     {
+// TODO: is it possible to kill this enum?
         public enum GameTypes
         {
             CrazyTaxi,
             Hunt,
             Revenge
-        }
-
-        public static GameType GetGameType(int playerCount, int predatorCount, int preyCount)
-        {
-// TODO: this is an awful hack :\
-            if(DebugManager.Instance.SpawnMaxLocalPlayers) {
-                return new Hunt(GameManager.Instance.GameTypeData.GameTypeMap.GetOrDefault(GameTypes.Hunt));
-            }
-            if(1 == playerCount || 0 == predatorCount || 0 == preyCount) {
-                return new CrazyTaxi(GameManager.Instance.GameTypeData.GameTypeMap.GetOrDefault(GameTypes.CrazyTaxi));
-            }
-            if(playerCount > 1 && predatorCount > 0 && preyCount > 0) {
-                return new Hunt(GameManager.Instance.GameTypeData.GameTypeMap.GetOrDefault(GameTypes.Hunt));
-            }
-            Debug.LogError($"No suitable gametype found! playerCount: {playerCount}, predatorCount: {predatorCount}, preyCount: {preyCount}");
-            return null;
         }
 
         public abstract GameTypes Type { get; }
@@ -40,7 +23,9 @@ namespace ggj2018.ggj2018.GameTypes
 
         public bool ShowTimer => GameTypeData.TimeLimit > 0;
 
-        public bool CanScore => GameManager.Instance.State.CanScore;
+        public bool CanScore => GameStateManager.Instance.CurrentState is GameStateGame;
+
+        public bool IsGameOver { get; protected set; }
 
         public abstract bool PredatorsKillPrey { get; }
 
@@ -51,7 +36,7 @@ namespace ggj2018.ggj2018.GameTypes
         public void Update()
         {
             if(!PlayerManager.Instance.HasAlivePlayer) {
-                GameManager.Instance.State.SetState(Game.GameState.States.GameOver);
+                IsGameOver = true;
             }
         }
 

@@ -17,6 +17,8 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _characterSelectGameStateData;
 
+        public override bool CanPause => false;
+
         public override void OnEnter()
         {
 #region Reset Managers
@@ -46,9 +48,13 @@ namespace ggj2018.ggj2018.GameState
 
         public override void OnExit()
         {
-            AudioManager.Instance.StopMusic();
+            if(AudioManager.HasInstance) {
+                AudioManager.Instance.StopMusic();
+            }
 
-            UIManager.Instance.EnableStartupLogo(false);
+            if(UIManager.HasInstance) {
+                UIManager.Instance.EnableStartupLogo(false);
+            }
         }
     }
 }

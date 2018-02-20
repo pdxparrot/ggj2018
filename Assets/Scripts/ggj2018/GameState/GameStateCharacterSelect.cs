@@ -15,6 +15,8 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _gameGameStateData;
 
+        public override bool CanPause => false;
+
 // TODO: move the character select states to this object
 
         public override void OnEnter()
@@ -80,7 +82,9 @@ selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
 
         public override void OnExit()
         {
-            AudioManager.Instance.StopMusic();
+            if(AudioManager.HasInstance) {
+                AudioManager.Instance.StopMusic();
+            }
         }
     }
 }

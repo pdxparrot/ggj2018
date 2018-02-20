@@ -102,7 +102,7 @@ namespace ggj2018.ggj2018.Players
 
         private void OnDestroy()
         {
-            Destroy(_godRay);
+            Destroy(_godRay.gameObject);
             _godRay = null;
         }
 

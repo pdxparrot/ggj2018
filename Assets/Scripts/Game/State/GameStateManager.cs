@@ -1,5 +1,4 @@
-﻿using System;
-using ggj2018.Core.Util;
+﻿using ggj2018.Core.Util;
 using ggj2018.Game.Data;
 
 using UnityEngine;
@@ -15,10 +14,12 @@ namespace ggj2018.Game.State
         [ReadOnly]
         private GameState _currentGameState;
 
+        public GameState CurrentState => _currentGameState;
+
 #region Unity Lifecycle
         private void Start()
         {
-            //TransitionState(_initialGameStateData);
+            TransitionState(_initialGameStateData);
         }
 
         protected override void OnDestroy()
@@ -32,21 +33,21 @@ namespace ggj2018.Game.State
         }
 #endregion
 
-        public void TransitionState(GameStateData gameStateData, Action<GameState> initializeNewState=null)
+        public void TransitionState(GameStateData gameStateData)
         {
             ExitCurrentState();
 
             _currentGameState = gameStateData.InstantiateGameState(transform);
-            initializeNewState?.Invoke(_currentGameState);
-
             _currentGameState?.OnEnter();
+
+            Debug.Log($"State: {gameStateData.Name}");
         }
 
         private void ExitCurrentState()
         {
             _currentGameState?.OnExit();
 
-            Destroy(_currentGameState);
+            Destroy(_currentGameState?.gameObject);
             _currentGameState = null;
         }
     }

@@ -10,6 +10,8 @@ namespace ggj2018.Game.Data
     [Serializable]
     public sealed class GameStateData : ScriptableObject
     {
+        public string Name => name;
+
         [SerializeField]
         private string _sceneName;
 

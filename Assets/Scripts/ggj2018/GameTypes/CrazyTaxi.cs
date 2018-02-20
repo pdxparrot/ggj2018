@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ggj2018.ggj2018.GameTypes
 {
-    public class CrazyTaxi : GameType
+    public sealed class CrazyTaxi : GameType
     {
         public override GameTypes Type => GameTypes.CrazyTaxi;
 
@@ -49,7 +49,7 @@ namespace ggj2018.ggj2018.GameTypes
             if(player.State.Score >= GameTypeData.ScoreLimit) {
                 Debug.Log($"Player {player.Id} has reached the score limit!"); 
                 player.State.GameOver(PlayerState.GameOverType.Win);
-                GameManager.Instance.State.SetState(Game.GameState.States.GameOver);
+                IsGameOver = true;
             }
 
             // TODO: spawn the next appropriate goal type

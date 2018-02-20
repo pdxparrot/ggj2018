@@ -1,6 +1,5 @@
 ﻿using ggj2018.Core.Util;
 using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.GameTypes;
 using ggj2018.ggj2018.UI;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
@@ -15,26 +14,15 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _startGameStateData;
 
-        [SerializeField]
-        [ReadOnly]
-        private bool _isPaused;
-
-        public bool IsPaused { get { return _isPaused; } set { _isPaused = value; } }
+        public override bool CanPause => true;
 
         [SerializeField]
         [ReadOnly]
         private float _gameOverTimer;
 
-        private GameType _gameType;
-
-        public void Initialize(GameType gameType)
-        {
-            _gameType = gameType;
-        }
-
         public override void OnEnter()
         {
-            UIManager.Instance.SwitchToGameOver(_gameType);
+            UIManager.Instance.SwitchToGameOver(GameManager.Instance.State.GameType);
 
 // TODO: move the audio clip to this object
             AudioManager.Instance.PlayMusic(GameManager.Instance.GameOverMusicAudioClip);
@@ -44,7 +32,7 @@ namespace ggj2018.ggj2018.GameState
 
         public override void OnUpdate(float dt)
         {
-            if(IsPaused) {
+            if(GameManager.Instance.State.IsPaused) {
                 return;
             }
 
@@ -60,7 +48,9 @@ namespace ggj2018.ggj2018.GameState
 
         public override void OnExit()
         {
-            AudioManager.Instance.StopMusic();
+            if(AudioManager.HasInstance) {
+                AudioManager.Instance.StopMusic();
+            }
         }
     }
 }

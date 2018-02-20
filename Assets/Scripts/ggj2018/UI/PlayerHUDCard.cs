@@ -2,8 +2,10 @@
 
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Game;
+using ggj2018.ggj2018.GameState;
 using ggj2018.ggj2018.GameTypes;
 using ggj2018.ggj2018.Players;
+using ggj2018.Game.State;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -95,7 +97,7 @@ namespace ggj2018.ggj2018.UI
 
         public void SetState(Player player)
         {
-            SetTimer(GameManager.Instance.State.GameTimer);
+            SetTimer((GameStateManager.Instance.CurrentState as GameStateGame)?.GameTimer ?? 0.0f);
 
             //_speedText.text = $"{(int)UnitUtils.MetersPerSecondToKilometersPerHour(player.Controller.Speed)} km/h";
             _speedText.text = $"{(int)player.Controller.Speed} m/s";

@@ -27,7 +27,7 @@ namespace ggj2018.ggj2018.Camera
 
         protected override void OnDestroy()
         {
-            Destroy(PlayerUI);
+            Destroy(PlayerUI.gameObject);
             PlayerUI = null;
 
             base.OnDestroy();
