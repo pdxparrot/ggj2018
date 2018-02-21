@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Game.State
 {
+    // TODO: need to handle game state scene setup/transitioning
+    // TODO: need to be able to have a loading screen where necessary
     public sealed class GameStateManager : SingletonBehavior<GameStateManager>
     {
         [SerializeField]
