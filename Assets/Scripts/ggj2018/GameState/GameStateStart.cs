@@ -1,6 +1,5 @@
 ﻿using ggj2018.Core.Camera;
 using ggj2018.Core.Input;
-using ggj2018.ggj2018.Game;
 using ggj2018.ggj2018.Players;
 using ggj2018.ggj2018.UI;
 using ggj2018.ggj2018.World;
@@ -17,6 +16,9 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _characterSelectGameStateData;
 
+        [SerializeField]
+        private AudioClip _startupLogoMusicClip;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -28,15 +30,12 @@ namespace ggj2018.ggj2018.GameState
 
             CameraManager.Instance.ResetViewers();
 
-            PlayerManager.Instance.ResetCharacterSelect();
-
             InputManager.Instance.Reset();
 #endregion
 
             UIManager.Instance.EnableStartupLogo(true);
 
-// TODO: move the audio clip to this object
-            AudioManager.Instance.PlayMusic(GameManager.Instance.StartupLogoMusicClip);
+            AudioManager.Instance.PlayMusic(_startupLogoMusicClip);
         }
 
         public override void OnUpdate(float dt)

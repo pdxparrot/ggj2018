@@ -42,7 +42,6 @@ namespace ggj2018.ggj2018.Loading
             base.InitializeManagers();
 
             GameManager.Instance.Initialize();
-            PlayerManager.Instance.Initialize();
         }
     }
 }

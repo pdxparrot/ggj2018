@@ -110,7 +110,7 @@ namespace ggj2018.ggj2018.Players
 
         public void Update(float dt)
         {
-            if(GameManager.Instance.State.IsPaused) {
+            if(GameManager.Instance.IsPaused) {
                 return;
             }
 
@@ -329,7 +329,7 @@ namespace ggj2018.ggj2018.Players
 
             killer.State.MakeImmune();
 
-            GameManager.Instance.State.GameType.PlayerKill(killer);
+            GameManager.Instance.GameType.PlayerKill(killer);
         }
 
 #if UNITY_EDITOR

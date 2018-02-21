@@ -55,7 +55,7 @@ namespace ggj2018.ggj2018.Players
         public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
 #endregion
 
-        public bool IsPaused => GameManager.Instance.State.IsPaused;
+        public bool IsPaused => GameManager.Instance.IsPaused;
 
 #region Camera
         [SerializeField]

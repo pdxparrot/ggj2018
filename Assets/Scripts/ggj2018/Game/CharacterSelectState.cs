@@ -2,6 +2,7 @@
 using System.Linq;
 
 using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Camera;
 using ggj2018.ggj2018.Data;
@@ -15,7 +16,7 @@ namespace ggj2018.ggj2018
     [Serializable]
     public sealed class CharacterSelectState
     {
-        public enum JoinState
+        private enum JoinState
         {
             None,
             Joined,
@@ -29,13 +30,11 @@ namespace ggj2018.ggj2018
         [ReadOnly]
         private JoinState _joinState = JoinState.None;
 
-        public JoinState PlayerJoinState { get { return _joinState; } set { _joinState = value; } }
+        public bool IsJoined => _joinState == JoinState.Joined;
 
-        public bool IsJoined => PlayerJoinState == JoinState.Joined;
+        public bool IsReady => _joinState == JoinState.Ready;
 
-        public bool IsJoinedOrReady => PlayerJoinState == JoinState.Joined || PlayerJoinState == JoinState.Ready;
-
-        public bool IsReady => PlayerJoinState == JoinState.Ready;
+        public bool IsJoinedOrReady => _joinState == JoinState.Joined || _joinState == JoinState.Ready;
 #endregion
 
         [Space(10)]
@@ -73,34 +72,53 @@ namespace ggj2018.ggj2018
         public CharacterSelectState(int controllerIndex)
         {
             _controllerIndex = controllerIndex;
-        }
-
-        public void Reset()
-        {
-            _joinState = JoinState.None;
-            _selectedBird = 0;
             _viewer = CameraManager.Instance.AcquireViewer() as Viewer;
-            _player = null;
         }
 
-        public void NextBird()
+        public void Update(bool allReady)
         {
-            SelectedBird++;
-            WrapBird();
+            if(IsReady) {
+                if(InputManager.Instance.Pressed(ControllerIndex, InputManager.Button.B)) {
+                    _joinState = JoinState.Joined;
+                }
+            } else if(IsJoined) {
+                if(InputManager.Instance.Pressed(ControllerIndex, InputManager.Button.A)) {
+                    _joinState = JoinState.Ready;
+                } else if(InputManager.Instance.Pressed(ControllerIndex, InputManager.Button.B)) {
+                    _joinState = JoinState.None;
+                } else {
+                    if(InputManager.Instance.DpadPressed(ControllerIndex, InputManager.DPadDir.Right)) {
+                        SelectedBird = MathUtil.WrapMod(SelectedBird + 1, GameManager.Instance.BirdData.Birds.Count);
+                    } else if(InputManager.Instance.DpadPressed(ControllerIndex, InputManager.DPadDir.Left)) {
+                        SelectedBird = MathUtil.WrapMod(SelectedBird - 1, GameManager.Instance.BirdData.Birds.Count);
+                    }
+                }
+            } else {
+                if(InputManager.Instance.PositivePressed(ControllerIndex)) {
+                    _joinState = JoinState.Joined;
+                    SelectedBird = 0;
+                }
+            }
+
+// TODO: why is this necessary???
+Viewer.PlayerUI.SwitchToCharacterSelect(this);
+            Viewer.PlayerUI.CharacterSelect.SetState(this, allReady);
         }
 
-        public void PrevBird()
+        public void Finish()
         {
-            SelectedBird--;
-            WrapBird();
-        }
+            if(IsReady) {
+                Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.Type, this);
+                Player?.Viewer.PlayerUI.SwitchToGame(Player, GameManager.Instance.GameType);
+            } else if(DebugManager.Instance.SpawnMaxLocalPlayers) {
+                SelectedBird = ControllerIndex % GameManager.Instance.BirdData.Birds.Count;
+                Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.Type, this);
+                Player?.Viewer.PlayerUI.SwitchToGame(Player, GameManager.Instance.GameType);
+            } else {
+                Player = null;
+                Viewer.PlayerUI.Hide();
 
-        private void WrapBird()
-        {
-            if(SelectedBird < 0) {
-                SelectedBird = GameManager.Instance.BirdData.Birds.Count - 1;
-            } else if(SelectedBird >= GameManager.Instance.BirdData.Birds.Count) {
-                SelectedBird = 0;
+                CameraManager.Instance.ReleaseViewer(Viewer);
             }
         }
     }

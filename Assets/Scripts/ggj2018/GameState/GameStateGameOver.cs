@@ -1,7 +1,7 @@
 ﻿using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.UI;
+using ggj2018.ggj2018.Players;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
 using ggj2018.Game.State;
@@ -16,6 +16,9 @@ namespace ggj2018.ggj2018.GameState
         private GameStateData _startGameStateData;
 
         [SerializeField]
+        private AudioClip _gameOverMusicAudioClip;
+
+        [SerializeField]
         [ReadOnly]
         private float _gameOverTimer;
 
@@ -23,10 +26,11 @@ namespace ggj2018.ggj2018.GameState
         {
             base.OnEnter();
 
-            UIManager.Instance.SwitchToGameOver(GameManager.Instance.State.GameType);
+            foreach(Player player in PlayerManager.Instance.Players) {
+                player.Viewer.PlayerUI.SwitchToGameOver(player, GameManager.Instance.GameType);
+            }
 
-// TODO: move the audio clip to this object
-            AudioManager.Instance.PlayMusic(GameManager.Instance.GameOverMusicAudioClip);
+            AudioManager.Instance.PlayMusic(_gameOverMusicAudioClip);
 
             _gameOverTimer = GameManager.Instance.GameTypeData.GameOverWaitTime;
         }
@@ -36,10 +40,10 @@ namespace ggj2018.ggj2018.GameState
             base.OnUpdate(dt);
 
             if(InputManager.Instance.StartPressed()) {
-                GameManager.Instance.State.TogglePause();
+                GameManager.Instance.TogglePause();
             }
 
-            if(GameManager.Instance.State.IsPaused) {
+            if(GameManager.Instance.IsPaused) {
                 return;
             }
 

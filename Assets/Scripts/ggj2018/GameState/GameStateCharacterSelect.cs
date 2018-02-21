@@ -1,7 +1,8 @@
-﻿using ggj2018.Core.Input;
+﻿using System.Collections.Generic;
+
+using ggj2018.Core.Camera;
+using ggj2018.Core.Input;
 using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.Players;
-using ggj2018.ggj2018.UI;
 using ggj2018.Game.Audio;
 using ggj2018.Game.Data;
 using ggj2018.Game.State;
@@ -15,16 +16,28 @@ namespace ggj2018.ggj2018.GameState
         [SerializeField]
         private GameStateData _gameGameStateData;
 
-// TODO: move the character select states to this object
+        [SerializeField]
+        private AudioClip _characterSelectMusicClip;
+
+        private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
 
         public override void OnEnter()
         {
             base.OnEnter();
 
-            UIManager.Instance.SwitchToCharacterSelect();
+            AudioManager.Instance.PlayMusic(_characterSelectMusicClip);
 
-// TODO: move the audio clip to this object
-            AudioManager.Instance.PlayMusic(GameManager.Instance.CharacterSelectMusicClip);
+            for(int i=0; i<GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
+                int controllerIndex = InputManager.Instance.AcquireController();
+                Debug.Log($"Acquired controller {controllerIndex}");
+
+                CharacterSelectState selectState = new CharacterSelectState(controllerIndex);
+                _characterSelectStates.Add(selectState);
+
+                selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
+            }
+
+            CameraManager.Instance.ResizeViewports();
         }
 
         public override void OnUpdate(float dt)
@@ -33,7 +46,7 @@ namespace ggj2018.ggj2018.GameState
 
             // TODO: do this in a way that we don't have to loop every frame
             int ready = 0, joined = 0;
-            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
+            foreach(CharacterSelectState selectState in _characterSelectStates) {
                 if(selectState.IsReady) {
                     ++ready;
                     ++joined;
@@ -51,34 +64,8 @@ namespace ggj2018.ggj2018.GameState
                 }
             }
 
-            // TODO: move the guts of this loop into CharacterSelectState
-            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
-                if(selectState.IsReady) {
-                    if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
-                        selectState.PlayerJoinState = CharacterSelectState.JoinState.Joined;
-                    }
-                } else if(selectState.IsJoined) {
-                    if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.A)) {
-                        selectState.PlayerJoinState = CharacterSelectState.JoinState.Ready;
-                    } else if(InputManager.Instance.Pressed(selectState.ControllerIndex, InputManager.Button.B)) {
-                        selectState.PlayerJoinState = CharacterSelectState.JoinState.None;
-                    } else {
-                        if(InputManager.Instance.DpadPressed(selectState.ControllerIndex, InputManager.DPadDir.Right)) {
-                            selectState.NextBird();
-                        } else if(InputManager.Instance.DpadPressed(selectState.ControllerIndex, InputManager.DPadDir.Left)) {
-                            selectState.PrevBird();
-                        }
-                    }
-                } else {
-                    if(InputManager.Instance.PositivePressed(selectState.ControllerIndex)) {
-                        selectState.PlayerJoinState = CharacterSelectState.JoinState.Joined;
-                        selectState.SelectedBird = 0;
-                    }
-                }
-
-// TODO: why is this necessary???
-selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
-                selectState.Viewer.PlayerUI.CharacterSelect.SetState(selectState, ready == joined);
+            foreach(CharacterSelectState selectState in _characterSelectStates) {
+                selectState.Update(ready == joined);
             }
         }
 
@@ -88,7 +75,39 @@ selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
                 AudioManager.Instance.StopMusic();
             }
 
+            // TODO: this sucks
+            DetermineGameType();
+            Debug.Log($"Determined game type {GameManager.Instance.GameType.Type}");
+
+            foreach(CharacterSelectState selectState in _characterSelectStates) {
+                selectState.Finish();
+            }
+
             base.OnExit();
+        }
+
+        private void DetermineGameType()
+        {
+// TODO: player manager already has these counts, right?
+// if we can just determine the game type later in the process,
+// after we spawn the players then this can go away
+            int playerCount = 0;
+            int predatorCount = 0;
+            int preyCount = 0;
+
+            foreach(CharacterSelectState selectState in _characterSelectStates) {
+                if(selectState.IsReady) {
+                    playerCount++;
+                }
+
+                if(selectState.PlayerBirdData.IsPredator) {
+                    predatorCount++;
+                } else {
+                    preyCount++;
+                }
+            }
+
+            GameManager.Instance.SetGameType(playerCount, predatorCount, preyCount);
         }
     }
 }

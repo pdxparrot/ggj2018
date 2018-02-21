@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using ggj2018.Core.Camera;
-using ggj2018.Core.Input;
 using ggj2018.Core.Util;
 using ggj2018.ggj2018.Birds;
 using ggj2018.ggj2018.Data;
@@ -48,12 +46,6 @@ namespace ggj2018.ggj2018.Players
         private float _nearestPlayerUpdateMs = 100.0f;
 
         public float NearestPlayerUpdateMs => _nearestPlayerUpdateMs;
-
-#region Character Selection
-        private readonly List<CharacterSelectState> _characterSelectStates = new List<CharacterSelectState>();
-
-        public IReadOnlyCollection<CharacterSelectState> CharacterSelectStates => _characterSelectStates;
-#endregion
 
 #region Players
         // TODO: if we wrap this it would be easier to track alive and dead player counts
@@ -107,25 +99,6 @@ namespace ggj2018.ggj2018.Players
 #endif
         }
 #endregion
-
-        public void Initialize()
-        {
-            for(int i=0; i<GameManager.Instance.ConfigData.MaxLocalPlayers; ++i) {
-                int controllerIndex = InputManager.Instance.AcquireController();
-                Debug.Log($"Acquired controller {controllerIndex}");
-
-                _characterSelectStates.Add(new CharacterSelectState(controllerIndex));
-            }
-            ResetCharacterSelect();
-        }
-
-        public void ResetCharacterSelect()
-        {
-            foreach(CharacterSelectState selectState in CharacterSelectStates) {
-                selectState.Reset();
-            }
-            CameraManager.Instance.ResizeViewports();
-        }
 
         [CanBeNull]
         public Player SpawnPlayer(GameType.GameTypes gameType, CharacterSelectState selectState)

@@ -52,3 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameGameStateData: {fileID: 11400000, guid: 8e741581f0e8c224c9e9bcae544b8ac9, type: 2}
+  _characterSelectMusicClip: {fileID: 8300000, guid: 0c039829b9fdc31438cab360656ac49e,
+    type: 3}

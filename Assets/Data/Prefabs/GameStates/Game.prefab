@@ -53,5 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOverGameStateData: {fileID: 11400000, guid: 9ec58f67dc05ce546bc7f0e14bbc83b2,
     type: 2}
+  _gameMusic1AudioClip: {fileID: 8300000, guid: 0c039829b9fdc31438cab360656ac49e,
+    type: 3}
+  _gameMusic2AudioClip: {fileID: 8300000, guid: 5132c927a058da1459b82eec3602b5c9,
+    type: 3}
   _gameTimer: 0
-  _isPaused: 0

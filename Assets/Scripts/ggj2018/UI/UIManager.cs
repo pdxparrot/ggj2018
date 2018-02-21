@@ -1,6 +1,4 @@
 ﻿using ggj2018.Core.Util;
-using ggj2018.ggj2018.GameTypes;
-using ggj2018.ggj2018.Players;
 
 using UnityEngine;
 
@@ -8,6 +6,7 @@ namespace ggj2018.ggj2018.UI
 {
     public sealed class UIManager : SingletonBehavior<UIManager>
     {
+#region UI Prefabs
         [SerializeField]
         private StartupLogo _startupLogoPrefab;
 
@@ -22,6 +21,7 @@ namespace ggj2018.ggj2018.UI
         private DebugUI _debugUIPrefab;
 
         private DebugUI _debugUI;
+#endregion
 
         private GameObject _uiContainer;
 
@@ -55,34 +55,6 @@ namespace ggj2018.ggj2018.UI
             }
         }
 #endregion
-
-        public void SwitchToCharacterSelect()
-        {
-// TODO: move into the player manager
-            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
-                selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
-            }
-        }
-
-        public void SwitchToGame(GameType gameType)
-        {
-// TODO: move into the player manager
-            foreach(CharacterSelectState selectState in PlayerManager.Instance.CharacterSelectStates) {
-                selectState.Viewer.PlayerUI.Hide();
-            }
-
-            foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToGame(player, gameType);
-            }
-        }
-
-        public void SwitchToGameOver(GameType gameType)
-        {
-// TODO: move into the player manager
-            foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToGameOver(player, gameType);
-            }
-        }
 
         public void EnableStartupLogo(bool enable)
         {

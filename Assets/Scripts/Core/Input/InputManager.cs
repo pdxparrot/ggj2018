@@ -34,6 +34,7 @@ namespace ggj2018.Core.Input
         [Serializable]
         public sealed class ControllerState
         {
+#region Config
             [SerializeField]
             private bool _invertMoveX;
 
@@ -58,11 +59,18 @@ namespace ggj2018.Core.Input
             private bool _invertZoom;
 
             public bool InvertZoom { get { return _invertZoom; } set { _invertZoom = value; } }
+#endregion
 
             [SerializeField]
             private /*readonly*/ DPadState[] _dpadState = new DPadState[(int)DPadDir.NumAxes];
 
             public IReadOnlyCollection<DPadState> DPadStates => _dpadState;
+
+            [SerializeField]
+            [ReadOnly]
+            private bool _acquired;
+
+            public bool Acquired { get { return _acquired; } set { _acquired = value; } }
 
             public ControllerState()
             {
@@ -80,6 +88,8 @@ namespace ggj2018.Core.Input
                 InvertLookY = false;
 
                 InvertZoom = false;
+
+                Acquired = false;
             }
 
             public void UpdateDpadState(Vector3 axes)
@@ -127,10 +137,6 @@ namespace ggj2018.Core.Input
 
         //[SerializeField]
         [ReadOnly]
-        private bool[] _controllerAcquired;
-
-        //[SerializeField]
-        [ReadOnly]
         private ControllerState[] _controllerStates;
 
         public IReadOnlyCollection<ControllerState> ControllerStates => _controllerStates;
@@ -140,8 +146,6 @@ namespace ggj2018.Core.Input
 #region Unity Lifecycle
         private void Awake()
         {
-            _controllerAcquired = new bool[MaxControllers];
-
             _controllerStates = new ControllerState[MaxControllers];
             for(int i=0; i<MaxControllers; ++i) {
                 _controllerStates[i] = new ControllerState();
@@ -183,9 +187,10 @@ namespace ggj2018.Core.Input
 
         public int AcquireController()
         {
-            for(int i=0; i<_controllerAcquired.Length; ++i) {
-                if(!_controllerAcquired[i]) {
-                    _controllerAcquired[i] = true;
+            for(int i=0; i<ControllerStates.Count; ++i) {
+                ControllerState controllerState = ControllerStates.ElementAt(i);
+                if(!controllerState.Acquired) {
+                    controllerState.Acquired = true;
                     return i;
                 }
             }

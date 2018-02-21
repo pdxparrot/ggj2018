@@ -42,7 +42,7 @@ namespace ggj2018.ggj2018.World
         {
             Player player = other.GetComponentInParent<Player>();
             if(null != player) {
-                GameManager.Instance.State.GameType.GoalCollision(player);
+                GameManager.Instance.GameType.GoalCollision(player);
             }
         }
 #endregion

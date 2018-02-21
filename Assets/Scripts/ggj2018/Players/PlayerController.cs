@@ -63,7 +63,7 @@ namespace ggj2018.ggj2018.Players
         {
             InitRigidbody();
 
-            GameManager.Instance.State.PauseEvent += PauseEventHandler;
+            GameManager.Instance.PauseEvent += PauseEventHandler;
         }
 
         private void Start()
@@ -75,13 +75,13 @@ namespace ggj2018.ggj2018.Players
         private void OnDestroy()
         {
             if(GameManager.HasInstance) {
-                GameManager.Instance.State.PauseEvent -= PauseEventHandler;
+                GameManager.Instance.PauseEvent -= PauseEventHandler;
             }
         }
 
         private void Update()
         {
-            if(GameManager.Instance.State.IsPaused) {
+            if(GameManager.Instance.IsPaused) {
                 return;
             }
 
@@ -110,7 +110,7 @@ namespace ggj2018.ggj2018.Players
                 return;
             }
 
-            if(GameManager.Instance.State.IsPaused) {
+            if(GameManager.Instance.IsPaused) {
                 return;
             }
 
@@ -404,12 +404,12 @@ namespace ggj2018.ggj2018.Players
 #region Event Handlers
         private void PauseEventHandler(object sender, EventArgs args)
         {
-            if(GameManager.Instance.State.IsPaused) {
+            if(GameManager.Instance.IsPaused) {
                 _pauseState.Save(_rigidbody);
             } else {
                 _pauseState.Restore(_rigidbody);
             }
-            _rigidbody.isKinematic = GameManager.Instance.State.IsPaused;
+            _rigidbody.isKinematic = GameManager.Instance.IsPaused;
         }
 #endregion
     }

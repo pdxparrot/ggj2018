@@ -1,8 +1,12 @@
-﻿using ggj2018.Core.Util;
+﻿using System;
+
+using ggj2018.Core.Util;
 using ggj2018.Core.Input;
 using ggj2018.Core.Camera;
 using ggj2018.Core.Network;
 using ggj2018.ggj2018.Data;
+using ggj2018.ggj2018.GameTypes;
+using ggj2018.ggj2018.UI;
 using ggj2018.Game.Scenes;
 
 using UnityEngine;
@@ -12,6 +16,10 @@ namespace ggj2018.ggj2018.Game
 {
     public sealed class GameManager : SingletonBehavior<GameManager>
     {
+#region Events
+        public event EventHandler<EventArgs> PauseEvent;
+#endregion
+
 #region Systems
         [Header("Systems")]
 
@@ -58,37 +66,6 @@ namespace ggj2018.ggj2018.Game
 
         [Space(10)]
 
-#region Audio
-        [Header("Audio")]
-
-        [SerializeField]
-        private AudioClip _startupLogoMusicClip;
-
-        public AudioClip StartupLogoMusicClip => _startupLogoMusicClip;
-
-        [SerializeField]
-        private AudioClip _characterSelectMusicClip;
-
-        public AudioClip CharacterSelectMusicClip => _characterSelectMusicClip;
-
-        [SerializeField]
-        private AudioClip _gameMusic1AudioClip;
-
-        public AudioClip GameMusic1AudioClip => _gameMusic1AudioClip;
-
-        [SerializeField]
-        private AudioClip _gameMusic2AudioClip;
-
-        public AudioClip GameMusic2AudioClip => _gameMusic2AudioClip;
-
-        [SerializeField]
-        private AudioClip _gameOverMusicAudioClip;
-
-        public AudioClip GameOverMusicAudioClip => _gameOverMusicAudioClip;
-#endregion
-
-        [Space(10)]
-
 #region Physics
         [Header("Physics")]
 
@@ -100,16 +77,26 @@ namespace ggj2018.ggj2018.Game
 
         [Space(10)]
 
+#region Game State
+        [Header("Game State")]
+
+        [SerializeField]
+        [ReadOnly]
+        private bool _isPaused;
+
+        public bool IsPaused => _isPaused;
+
+        [SerializeField]
+        [ReadOnly]
+        private GameType _gameType;
+
+        public GameType GameType => _gameType;
+
         [SerializeField]
         private bool _enableImmunity;
 
         public bool EnableImmunity => _enableImmunity;
-
-        [SerializeField]
-        [ReadOnly]
-        private /*readonly*/ GameState _gameState = new GameState();
-
-        public GameState State => _gameState;
+#endregion
 
 #region Unity Lifecycle
         private void Awake()
@@ -163,9 +150,32 @@ namespace ggj2018.ggj2018.Game
             CameraManager.Instance.SpawnViewers(ConfigData.MaxLocalPlayers);
         }
 
+        public void SetGameType(int playerCount, int predatorCount, int preyCount)
+        {
+// TODO: this is an awful hack :\
+            if(DebugManager.Instance.SpawnMaxLocalPlayers) {
+                _gameType = new Hunt(GameTypeData.GameTypeMap.GetOrDefault(GameType.GameTypes.Hunt));
+            } else if(1 == playerCount || 0 == predatorCount || 0 == preyCount) {
+                _gameType = new CrazyTaxi(GameTypeData.GameTypeMap.GetOrDefault(GameType.GameTypes.CrazyTaxi));
+            } else if(playerCount > 1 && predatorCount > 0 && preyCount > 0) {
+                _gameType = new Hunt(GameTypeData.GameTypeMap.GetOrDefault(GameType.GameTypes.Hunt));
+            } else {
+                Debug.LogError($"No suitable gametype found! playerCount: {playerCount}, predatorCount: {predatorCount}, preyCount: {preyCount}");
+            }
+        }
+
+        public void TogglePause()
+        {
+            _isPaused = !_isPaused;
+
+            UIManager.Instance.EnablePauseUI(IsPaused);
+
+            PauseEvent?.Invoke(this, EventArgs.Empty);
+        }
+
         private void CheckReload()
         {
-            if(!_gameState.IsPaused) {
+            if(!IsPaused) {
                 return;
             }
 
