@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.ggj2018.Camera
 {
-    public class Viewer : BaseViewer
+    public class Viewer : FollowViewer
     {
         [Header("UI")]
 

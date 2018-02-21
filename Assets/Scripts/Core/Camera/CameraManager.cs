@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.Camera
 {
+    // TODO: rename this viewer manager :\
     public sealed class CameraManager : SingletonBehavior<CameraManager>
     {
         [SerializeField]
@@ -18,13 +19,13 @@ namespace pdxpartyparrot.Core.Camera
 
 #region Viewers
         [SerializeField]
-        private BaseViewer _viewerPrefab;
+        private Viewer _viewerPrefab;
 
-        private readonly List<BaseViewer> _viewers = new List<BaseViewer>();
+        private readonly List<Viewer> _viewers = new List<Viewer>();
 
-        private readonly List<BaseViewer> _assignedViewers = new List<BaseViewer>();
+        private readonly List<Viewer> _assignedViewers = new List<Viewer>();
 
-        private readonly Queue<BaseViewer> _unassignedViewers = new Queue<BaseViewer>();
+        private readonly Queue<Viewer> _unassignedViewers = new Queue<Viewer>();
 #endregion
 
         private GameObject _viewerContainer;
@@ -49,7 +50,7 @@ namespace pdxpartyparrot.Core.Camera
             Debug.Log($"Spawning {count} viewers...");
 
             for(int i=0; i<count; ++i) {
-                BaseViewer viewer = Instantiate(_viewerPrefab, _viewerContainer.transform);
+                Viewer viewer = Instantiate(_viewerPrefab, _viewerContainer.transform);
                 viewer.Initialize(i);
                 viewer.gameObject.SetActive(false);
 
@@ -61,13 +62,13 @@ namespace pdxpartyparrot.Core.Camera
         }
 
         [CanBeNull]
-        public BaseViewer AcquireViewer()
+        public Viewer AcquireViewer()
         {
             if(_unassignedViewers.Count < 1) {
                 return null;
             }
 
-            BaseViewer viewer = _unassignedViewers.Dequeue();
+            Viewer viewer = _unassignedViewers.Dequeue();
             viewer.gameObject.SetActive(true);
             _assignedViewers.Add(viewer);
 
@@ -75,7 +76,7 @@ namespace pdxpartyparrot.Core.Camera
             return viewer;
         }
 
-        public void ReleaseViewer(BaseViewer viewer)
+        public void ReleaseViewer(Viewer viewer)
         {
             if(!_assignedViewers.Contains(viewer)) {
                 return;
@@ -96,7 +97,7 @@ namespace pdxpartyparrot.Core.Camera
 
             // we loop through all of the viewers
             // because we can't loop over the assigned viewers
-            foreach(BaseViewer viewer in _viewers) {
+            foreach(Viewer viewer in _viewers) {
                 ReleaseViewer(viewer);
 
                 viewer.transform.position = Vector3.zero;
@@ -114,7 +115,7 @@ namespace pdxpartyparrot.Core.Camera
             }
         }
 
-        private void ResizeViewports(IReadOnlyCollection<BaseViewer> viewers)
+        private void ResizeViewports(IReadOnlyCollection<Viewer> viewers)
         {
             int gridCols = Mathf.CeilToInt(Mathf.Sqrt(viewers.Count));
             int gridRows = gridCols;

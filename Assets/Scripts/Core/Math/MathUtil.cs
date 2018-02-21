@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace pdxpartyparrot.Core.Util
+namespace pdxpartyparrot.Core.Math
 {
     public static class MathUtil
     {
@@ -12,6 +12,11 @@ namespace pdxpartyparrot.Core.Util
         public static float WrapMod(float n, float m)
         {
             return n - m * Mathf.Floor(n / m);
+        }
+
+        public static float WrapAngle(float angle)
+        {
+            return angle % 360.0f;
         }
     }
 }

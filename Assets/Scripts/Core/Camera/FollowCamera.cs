@@ -105,16 +105,10 @@ namespace pdxpartyparrot.Core.Camera
 
         [SerializeField]
         [CanBeNull]
-        private GameObject _target;
+        private IFollowTarget _target;
 
         [CanBeNull]
-        public GameObject Target => _target;
-
-        [SerializeField]
-        [CanBeNull]
-        private Collider _targetCollider;
-
-        private IFollowTarget _followTarget;
+        public IFollowTarget Target => _target;
 #endregion
 
         [Space(10)]
@@ -132,10 +126,6 @@ namespace pdxpartyparrot.Core.Camera
 #region Unity Lifecycle
         private void Update()
         {
-            if(null == Target) {
-                return;
-            }
-
             float dt = Time.deltaTime;
 
             HandleInput(dt);
@@ -143,7 +133,7 @@ namespace pdxpartyparrot.Core.Camera
 
         private void LateUpdate()
         {
-            if(null == Target || _smooth) {
+            if(_smooth) {
                 return;
             }
 
@@ -154,7 +144,7 @@ namespace pdxpartyparrot.Core.Camera
 
         private void FixedUpdate()
         {
-            if(null == Target || !_smooth) {
+            if(!_smooth) {
                 return;
             }
 
@@ -164,20 +154,23 @@ namespace pdxpartyparrot.Core.Camera
         }
 #endregion
 
-        public void SetTarget(GameObject target)
+        public void SetTarget(IFollowTarget target)
         {
             _target = target;
-            _targetCollider = Target?.GetComponentInChildren<Collider>();   // :(
             _orbitRotation = _defaultOrbitRotation;
-
-            _followTarget = Target?.GetComponent<IFollowTarget>();
         }
 
         private void HandleInput(float dt)
         {
-            Orbit(_followTarget.LookAxis, dt);
-            Zoom(_followTarget.LookAxis, dt);
-            Look(_followTarget.LookAxis, dt);
+            if(null == Target) {
+                return;
+            }
+
+            Vector3 axes = Target.LookAxis;
+
+            Orbit(axes, dt);
+            Zoom(axes, dt);
+            Look(axes, dt);
         }
 
         private void Orbit(Vector3 axes, float dt)
@@ -193,8 +186,8 @@ namespace pdxpartyparrot.Core.Camera
                 //_orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt); 
             }
 
-            _orbitRotation.x = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt), _orbitXMin, _orbitXMax);
-            _orbitRotation.y = Mathf.Clamp(MathHelper.WrapAngle(_orbitRotation.y - axes.y * _orbitSpeedY * dt), _orbitYMin, _orbitYMax);
+            _orbitRotation.x = Mathf.Clamp(MathUtil.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt), _orbitXMin, _orbitXMax);
+            _orbitRotation.y = Mathf.Clamp(MathUtil.WrapAngle(_orbitRotation.y - axes.y * _orbitSpeedY * dt), _orbitYMin, _orbitYMax);
         }
 
         private void Zoom(Vector3 axes, float dt)
@@ -208,8 +201,8 @@ namespace pdxpartyparrot.Core.Camera
             float minDistance = _minZoomDistance, maxDistance = _maxZoomDistance;
             if(null != Target) {
                 // avoid zooming into the target
-                Vector3 closestBoundsPoint = _targetCollider?.ClosestPointOnBounds(transform.position) ?? Target.transform.position;
-                float distanceToPoint = (closestBoundsPoint - Target.transform.position).magnitude;
+                Vector3 closestBoundsPoint = Target.Collider.ClosestPointOnBounds(transform.position);
+                float distanceToPoint = (closestBoundsPoint - Target.GameObject.transform.position).magnitude;
 
                 minDistance += distanceToPoint;
                 maxDistance += distanceToPoint;
@@ -226,27 +219,31 @@ namespace pdxpartyparrot.Core.Camera
                 return;
             }
 
-            _lookRotation.x = MathHelper.WrapAngle(_lookRotation.x + axes.x * _lookSpeedX * dt);
-            _lookRotation.y = MathHelper.WrapAngle(_lookRotation.y - axes.y * _lookSpeedY * dt);
+            _lookRotation.x = MathUtil.WrapAngle(_lookRotation.x + axes.x * _lookSpeedX * dt);
+            _lookRotation.y = MathUtil.WrapAngle(_lookRotation.y - axes.y * _lookSpeedY * dt);
         }
 
         private void FollowTarget(float dt)
         {
-            if(_followTarget?.IsPaused ?? false) {
+            if(null == Target) {
+                return;
+            }
+
+            if(Target.IsPaused) {
                 return;
             }
 
             Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
             Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
 
-            Quaternion targetRotation = null == Target ? Quaternion.identity : Quaternion.Euler(0.0f, Target.transform.eulerAngles.y, 0.0f);
+            Quaternion targetRotation = Quaternion.Euler(0.0f, Target.GameObject.transform.eulerAngles.y, 0.0f);
 
             Quaternion finalOrbitRotation = targetRotation * orbitRotation;
             transform.rotation = finalOrbitRotation * lookRotation;
 
             // TODO: this doens't work if we free-look and zoom
             // because we're essentially moving the target position, not the camera position
-            Vector3 targetPosition = null == Target ? (transform.position + (transform.forward * _orbitRadius)) : Target.transform.position;
+            Vector3 targetPosition = Target.GameObject.transform.position;
             targetPosition = _smooth
                 ? Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _smoothTime)
                 : targetPosition;

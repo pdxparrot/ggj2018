@@ -3,8 +3,8 @@ using System.Linq;
 
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Math;
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ggj2018.Camera;
 using pdxpartyparrot.ggj2018.Data;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
@@ -53,9 +53,9 @@ namespace pdxpartyparrot.ggj2018
 
         [SerializeField]
         [ReadOnly]
-        private Viewer _viewer;
+        private Camera.Viewer _viewer;
 
-        public Viewer Viewer => _viewer;
+        public Camera.Viewer Viewer => _viewer;
 
         [SerializeField]
         [ReadOnly]
@@ -72,7 +72,7 @@ namespace pdxpartyparrot.ggj2018
         public CharacterSelectState(int controllerIndex)
         {
             _controllerIndex = controllerIndex;
-            _viewer = CameraManager.Instance.AcquireViewer() as Viewer;
+            _viewer = CameraManager.Instance.AcquireViewer() as Camera.Viewer;
         }
 
         public void Update(bool allReady)

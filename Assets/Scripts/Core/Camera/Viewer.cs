@@ -6,14 +6,13 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace pdxpartyparrot.Core.Camera
 {
-    [RequireComponent(typeof(FollowCamera))]
-    public abstract class BaseViewer : MonoBehavior
+    public abstract class Viewer : MonoBehavior
     {
         [SerializeField]
         [ReadOnly]
-        private int _id;
+        private int _playerId;
 
-        public int Id => _id;
+        public int PlayerId => _playerId;
 
         [Space(10)]
 
@@ -42,17 +41,11 @@ namespace pdxpartyparrot.Core.Camera
         public PostProcessProfile GlobalPostProcessProfile { get; private set; }
 #endregion
 
-        private FollowCamera _followCamera;
-
-        public FollowCamera FollowCamera => _followCamera;
-
 #region Unity Lifecycle
         protected virtual void Awake()
         {
             _globalPostProcessVolume.isGlobal = true;
             _globalPostProcessVolume.priority = 1;
-
-            _followCamera = GetComponent<FollowCamera>();
         }
 
         protected virtual void OnDestroy()
@@ -61,16 +54,16 @@ namespace pdxpartyparrot.Core.Camera
         }
 #endregion
 
-        public void Initialize(int id)
+        public virtual void Initialize(int id)
         {
-            _id = id;
+            _playerId = id;
 
-            name = $"Viewer P{Id}";
-            Camera.name = $"Camera P{Id}";
-            UICamera.name = $"UI Camera P{Id}";
+            name = $"Viewer P{PlayerId}";
+            Camera.name = $"Camera P{PlayerId}";
+            UICamera.name = $"UI Camera P{PlayerId}";
 
             // setup the camera to only render it's own post processing volume
-            LayerMask postProcessLayer =  LayerMask.NameToLayer($"P{Id}_PostProcess");
+            LayerMask postProcessLayer =  LayerMask.NameToLayer($"P{PlayerId}_PostProcess");
 
             _globalPostProcessVolume.gameObject.layer = postProcessLayer;
 
@@ -109,11 +102,6 @@ namespace pdxpartyparrot.Core.Camera
             if(null != aspectRatio) {
                 aspectRatio.UpdateAspectRatio();
             }
-        }
-
-        public void SetOrbitRadius(float orbitRadius)
-        {
-            _followCamera.OrbitRadius = orbitRadius;
         }
 
         public void SetFov(float fov)

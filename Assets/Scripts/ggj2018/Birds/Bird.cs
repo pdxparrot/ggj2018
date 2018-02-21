@@ -49,6 +49,8 @@ namespace pdxpartyparrot.ggj2018.Birds
 
         private Collider _collider;
 
+        public Collider Collider => _collider;
+
 #region Unity Lifecycle      
         protected virtual void Awake()
         {

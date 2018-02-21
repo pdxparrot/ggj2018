@@ -4,7 +4,6 @@ using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Birds;
-using pdxpartyparrot.ggj2018.Camera;
 using pdxpartyparrot.ggj2018.Data;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.VFX;
@@ -28,6 +27,8 @@ namespace pdxpartyparrot.ggj2018.Players
         private int _id = -1;
 
         public int Id => _id;
+
+        public GameObject GameObject => gameObject;
 
         [SerializeField]
         [ReadOnly]
@@ -60,9 +61,9 @@ namespace pdxpartyparrot.ggj2018.Players
 #region Camera
         [SerializeField]
         [ReadOnly]
-        private Viewer _viewer;
+        private Camera.Viewer _viewer;
 
-        public Viewer Viewer => _viewer;
+        public Camera.Viewer Viewer => _viewer;
 #endregion
 
 #region Network
@@ -92,6 +93,8 @@ namespace pdxpartyparrot.ggj2018.Players
         public float NearestGoalDistance => _nearestGoalDistance;
 #endregion
 
+        public Collider Collider => Bird.Collider;
+
 #region Unity Lifecycle
         private void Awake()
         {
@@ -102,6 +105,8 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void OnDestroy()
         {
+            Viewer.FollowCamera.SetTarget(null);
+
             Destroy(_godRay.gameObject);
             _godRay = null;
         }
@@ -121,7 +126,7 @@ namespace pdxpartyparrot.ggj2018.Players
         }
 #endregion
 
-        public void InitializeLocal(int id, int controllerIndex, Viewer viewer, Bird bird, BirdTypeData birdType)
+        public void InitializeLocal(int id, int controllerIndex, Camera.Viewer viewer, Bird bird, BirdTypeData birdType)
         {
             Debug.Log($"Initializing local player {id}");
             Initialize(id, bird, birdType);
@@ -131,7 +136,7 @@ namespace pdxpartyparrot.ggj2018.Players
             _viewer = viewer;
             Viewer.Initialize(this);
 
-            Viewer.FollowCamera.SetTarget(gameObject);
+            Viewer.FollowCamera.SetTarget(this);
 
             Viewer.AddRenderLayer(Bird.Type.Layer);
             Viewer.RemoveRenderLayer(Bird.Type.OtherLayer);
