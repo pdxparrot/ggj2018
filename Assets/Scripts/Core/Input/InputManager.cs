@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ggj2018.Core.Util;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace ggj2018.Core.Input
+namespace pdxpartyparrot.Core.Input
 {
     public sealed class InputManager : SingletonBehavior<InputManager>
     {

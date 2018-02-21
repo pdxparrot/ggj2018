@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Linq;
 
-using ggj2018.Core.Camera;
-using ggj2018.Core.Input;
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Camera;
-using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.Players;
+using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Camera;
+using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace pdxpartyparrot.ggj2018
 {
     [Serializable]
     public sealed class CharacterSelectState

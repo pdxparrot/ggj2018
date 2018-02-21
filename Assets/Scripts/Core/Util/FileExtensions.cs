@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     public static class FileExtensions
     {

@@ -1,10 +1,10 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.ggj2018.Players;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ggj2018.ggj2018.UI
+namespace pdxpartyparrot.ggj2018.UI
 {
     public class DebugVisualizer : MonoBehavior
     {

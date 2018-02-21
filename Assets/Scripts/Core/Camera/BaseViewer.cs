@@ -1,10 +1,10 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.Core.VFX;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.VFX;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace ggj2018.Core.Camera
+namespace pdxpartyparrot.Core.Camera
 {
     [RequireComponent(typeof(FollowCamera))]
     public abstract class BaseViewer : MonoBehavior

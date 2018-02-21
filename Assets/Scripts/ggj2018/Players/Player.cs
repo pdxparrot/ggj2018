@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 
-using ggj2018.Core.Camera;
-using ggj2018.Core.Input;
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Camera;
-using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.VFX;
-using ggj2018.ggj2018.World;
-using ggj2018.Game.Audio;
+using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Birds;
+using pdxpartyparrot.ggj2018.Camera;
+using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.VFX;
+using pdxpartyparrot.ggj2018.World;
+using pdxpartyparrot.Game.Audio;
 
 using JetBrains.Annotations;
 
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ggj2018.ggj2018.Players
+namespace pdxpartyparrot.ggj2018.Players
 {
     [RequireComponent(typeof(PlayerController))]
     [RequireComponent(typeof(NetworkIdentity))]

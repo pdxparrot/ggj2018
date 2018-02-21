@@ -1,16 +1,16 @@
-﻿using ggj2018.Core.Input;
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.Players;
-using ggj2018.Game.Audio;
-using ggj2018.Game.Data;
-using ggj2018.Game.State;
+﻿using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.Game.Audio;
+using pdxpartyparrot.Game.Data;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.GameState
+namespace pdxpartyparrot.ggj2018.GameState
 {
-    public sealed class GameStateGameOver : global::ggj2018.Game.State.GameState
+    public sealed class GameStateGameOver : pdxpartyparrot.Game.State.GameState
     {
         [SerializeField]
         private GameStateData _startGameStateData;

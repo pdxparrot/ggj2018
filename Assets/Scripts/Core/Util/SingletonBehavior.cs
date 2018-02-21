@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
  
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     // http://wiki.unity3d.com/index.php/Singleton
 

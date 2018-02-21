@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace ggj2018.Editor
+namespace pdxpartyparrot.Editor
 {
     public static class Executor
     {

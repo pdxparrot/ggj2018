@@ -1,9 +1,9 @@
-﻿using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ggj2018.Core.UI
+namespace pdxpartyparrot.Core.UI
 {
     public sealed class ProgressBar : MonoBehavior
     {

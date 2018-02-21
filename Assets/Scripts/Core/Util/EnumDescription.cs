@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     /// <summary>
     /// Enumeration description utilities

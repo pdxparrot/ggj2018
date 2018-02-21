@@ -1,6 +1,6 @@
-﻿using ggj2018.ggj2018.Data;
+﻿using pdxpartyparrot.ggj2018.Data;
 
-namespace ggj2018.ggj2018.GameTypes
+namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public class Revenge : GameType
     {

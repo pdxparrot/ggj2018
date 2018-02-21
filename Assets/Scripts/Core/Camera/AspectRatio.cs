@@ -1,8 +1,8 @@
-﻿using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace ggj2018.Core.Camera
+namespace pdxpartyparrot.Core.Camera
 {
     // http://2sa-studio.blogspot.com/2015/01/handling-aspect-ratio-in-unity2d.html
     [RequireComponent(typeof(UnityEngine.Camera))]

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.ggj2018.GameTypes;
+using pdxpartyparrot.ggj2018.GameTypes;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Data
+namespace pdxpartyparrot.ggj2018.Data
 {
     [CreateAssetMenu(fileName="GameData", menuName="ggj2018/Data/Game Data")]
     [Serializable]

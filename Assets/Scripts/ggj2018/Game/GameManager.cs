@@ -1,18 +1,18 @@
 ﻿using System;
 
-using ggj2018.Core.Util;
-using ggj2018.Core.Input;
-using ggj2018.Core.Camera;
-using ggj2018.Core.Network;
-using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.GameTypes;
-using ggj2018.ggj2018.UI;
-using ggj2018.Game.Scenes;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.Network;
+using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.GameTypes;
+using pdxpartyparrot.ggj2018.UI;
+using pdxpartyparrot.Game.Scenes;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace ggj2018.ggj2018.Game
+namespace pdxpartyparrot.ggj2018.Game
 {
     public sealed class GameManager : SingletonBehavior<GameManager>
     {

@@ -1,9 +1,9 @@
-﻿using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.GameState;
-using ggj2018.ggj2018.Players;
-using ggj2018.Game.State;
+﻿using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.GameState;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.Game.State;
 
-namespace ggj2018.ggj2018.GameTypes
+namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public abstract class GameType
     {

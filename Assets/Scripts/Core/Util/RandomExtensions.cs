@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     public static class RandomExtensions
     {

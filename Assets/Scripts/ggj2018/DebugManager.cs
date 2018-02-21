@@ -1,10 +1,10 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Players;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Birds;
+using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018
+namespace pdxpartyparrot.ggj2018
 {
     public class DebugManager : SingletonBehavior<DebugManager>
     {

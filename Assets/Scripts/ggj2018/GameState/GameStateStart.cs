@@ -1,17 +1,17 @@
-﻿using ggj2018.Core.Camera;
-using ggj2018.Core.Input;
-using ggj2018.ggj2018.Players;
-using ggj2018.ggj2018.UI;
-using ggj2018.ggj2018.World;
-using ggj2018.Game.Audio;
-using ggj2018.Game.Data;
-using ggj2018.Game.State;
+﻿using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.ggj2018.UI;
+using pdxpartyparrot.ggj2018.World;
+using pdxpartyparrot.Game.Audio;
+using pdxpartyparrot.Game.Data;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.GameState
+namespace pdxpartyparrot.ggj2018.GameState
 {
-    public sealed class GameStateStart : global::ggj2018.Game.State.GameState
+    public sealed class GameStateStart : pdxpartyparrot.Game.State.GameState
     {
         [SerializeField]
         private GameStateData _characterSelectGameStateData;

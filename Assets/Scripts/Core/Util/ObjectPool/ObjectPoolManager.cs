@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace ggj2018.Core.Util.ObjectPool
+namespace pdxpartyparrot.Core.Util.ObjectPool
 {
     public sealed class ObjectPoolManager : SingletonBehavior<ObjectPoolManager>
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ggj2018.Core.Network
+namespace pdxpartyparrot.Core.Network
 {
     [RequireComponent(typeof(NetworkManagerHUD))]
     public sealed class NetworkManager : UnityEngine.Networking.NetworkManager

@@ -1,10 +1,10 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.ggj2018.Game;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Game;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace ggj2018.ggj2018.UI
+namespace pdxpartyparrot.ggj2018.UI
 {
 // TODO: this is core... but we need the game manager... ugh
     public class PhysicsRaycastSelector : MonoBehavior

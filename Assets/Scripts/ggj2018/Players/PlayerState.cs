@@ -1,13 +1,13 @@
 ﻿using System;
 
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Game;
-using ggj2018.Game.Audio;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Birds;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.Game.Audio;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Players
+namespace pdxpartyparrot.ggj2018.Players
 {
     [Serializable]
     public sealed class PlayerState

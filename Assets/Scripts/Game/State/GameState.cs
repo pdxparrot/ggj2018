@@ -1,6 +1,6 @@
-﻿using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Util;
 
-namespace ggj2018.Game.State
+namespace pdxpartyparrot.Game.State
 {
     public abstract class GameState : MonoBehavior
     {

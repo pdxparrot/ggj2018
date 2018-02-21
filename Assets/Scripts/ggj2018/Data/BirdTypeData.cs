@@ -1,11 +1,11 @@
 ﻿using System;
 
-using ggj2018.ggj2018.Birds;
+using pdxpartyparrot.ggj2018.Birds;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace ggj2018.ggj2018.Data
+namespace pdxpartyparrot.ggj2018.Data
 {
     [CreateAssetMenu(fileName="BirdTypeData", menuName="ggj2018/Data/Bird Type Data")]
     [Serializable]

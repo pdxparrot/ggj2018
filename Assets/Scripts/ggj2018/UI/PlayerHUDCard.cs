@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.GameState;
-using ggj2018.ggj2018.GameTypes;
-using ggj2018.ggj2018.Players;
-using ggj2018.Game.State;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.GameState;
+using pdxpartyparrot.ggj2018.GameTypes;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ggj2018.ggj2018.UI
+namespace pdxpartyparrot.ggj2018.UI
 {
     public class PlayerHUDCard : MonoBehavior
     {

@@ -1,11 +1,11 @@
-﻿using ggj2018.Core.Math;
-using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Math;
+using pdxpartyparrot.Core.Util;
 
 using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace ggj2018.Core.Camera
+namespace pdxpartyparrot.Core.Camera
 {
     public sealed class FollowCamera : MonoBehavior
     {

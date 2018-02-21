@@ -1,9 +1,9 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.Game.Data;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Game.Data;
 
 using UnityEngine;
 
-namespace ggj2018.Game.State
+namespace pdxpartyparrot.Game.State
 {
     public sealed class GameStateManager : SingletonBehavior<GameStateManager>
     {

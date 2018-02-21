@@ -1,12 +1,12 @@
-﻿using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.Players;
-using ggj2018.ggj2018.UI;
-using ggj2018.ggj2018.World;
-using ggj2018.Game.Loading;
+﻿using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.ggj2018.UI;
+using pdxpartyparrot.ggj2018.World;
+using pdxpartyparrot.Game.Loading;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Loading
+namespace pdxpartyparrot.ggj2018.Loading
 {
     public sealed class GameLoadingManager : LoadingManager<GameLoadingManager>
     {

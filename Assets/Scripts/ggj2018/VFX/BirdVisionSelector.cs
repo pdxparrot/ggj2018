@@ -1,8 +1,8 @@
-﻿using ggj2018.ggj2018.Data;
+﻿using pdxpartyparrot.ggj2018.Data;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.VFX
+namespace pdxpartyparrot.ggj2018.VFX
 {
     public class BirdVisionSelector : MonoBehaviour
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 
-using ggj2018.Core.Util;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace ggj2018.Game.Audio
+namespace pdxpartyparrot.Game.Audio
 {
     public sealed class AudioManager : SingletonBehavior<AudioManager>
     {

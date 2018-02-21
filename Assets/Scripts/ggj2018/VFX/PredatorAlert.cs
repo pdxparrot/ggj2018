@@ -1,11 +1,11 @@
-﻿using ggj2018.Core.Util;
-using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Game;
+﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Birds;
+using pdxpartyparrot.ggj2018.Game;
 
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace ggj2018.ggj2018.VFX
+namespace pdxpartyparrot.ggj2018.VFX
 {
     [RequireComponent(typeof(Prey))]
     public class PredatorAlert : MonoBehavior

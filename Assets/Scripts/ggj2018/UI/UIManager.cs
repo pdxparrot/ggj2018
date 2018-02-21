@@ -1,8 +1,8 @@
-﻿using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.UI
+namespace pdxpartyparrot.ggj2018.UI
 {
     public sealed class UIManager : SingletonBehavior<UIManager>
     {

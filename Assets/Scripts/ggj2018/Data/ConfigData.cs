@@ -1,10 +1,10 @@
 ﻿using System;
 
-using ggj2018.Core.Input;
+using pdxpartyparrot.Core.Input;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Data
+namespace pdxpartyparrot.ggj2018.Data
 {
     [CreateAssetMenu(fileName="ConfigData", menuName="ggj2018/Data/Config Data")]
     [Serializable]

@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using ggj2018.Core.Util;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace ggj2018.Game.Scenes
+namespace pdxpartyparrot.Game.Scenes
 {
     public sealed class GameSceneManager : SingletonBehavior<GameSceneManager>
     {

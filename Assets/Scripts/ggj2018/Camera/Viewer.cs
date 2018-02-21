@@ -1,11 +1,11 @@
-﻿using ggj2018.Core.Camera;
-using ggj2018.Core.VFX;
-using ggj2018.ggj2018.Players;
-using ggj2018.ggj2018.UI;
+﻿using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.VFX;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.ggj2018.UI;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Camera
+namespace pdxpartyparrot.ggj2018.Camera
 {
     public class Viewer : BaseViewer
     {

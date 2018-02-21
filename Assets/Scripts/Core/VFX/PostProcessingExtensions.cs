@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace ggj2018.Core.VFX
+namespace pdxpartyparrot.Core.VFX
 {
     public static class PostProcessingExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ggj2018.Core.Util.ObjectPool
+namespace pdxpartyparrot.Core.Util.ObjectPool
 {
     public sealed class PooledObject : MonoBehavior
     {

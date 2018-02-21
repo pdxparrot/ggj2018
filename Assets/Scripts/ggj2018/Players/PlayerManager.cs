@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Birds;
-using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.GameTypes;
-using ggj2018.ggj2018.VFX;
-using ggj2018.ggj2018.World;
-using ggj2018.Game.Audio;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Birds;
+using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.GameTypes;
+using pdxpartyparrot.ggj2018.VFX;
+using pdxpartyparrot.ggj2018.World;
+using pdxpartyparrot.Game.Audio;
 
 using JetBrains.Annotations;
 
@@ -17,7 +17,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
-namespace ggj2018.ggj2018.Players
+namespace pdxpartyparrot.ggj2018.Players
 {
     public sealed class PlayerManager : SingletonBehavior<PlayerManager>
     {

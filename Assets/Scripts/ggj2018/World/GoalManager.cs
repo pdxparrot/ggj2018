@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Players;
-using ggj2018.ggj2018.VFX;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.ggj2018.VFX;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.World
+namespace pdxpartyparrot.ggj2018.World
 {
     public sealed class GoalManager : SingletonBehavior<GoalManager>
     {

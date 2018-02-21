@@ -1,6 +1,6 @@
 ﻿ using UnityEngine;
 
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     // http://answers.unity3d.com/questions/489942/how-to-make-a-readonly-property-in-inspector.html
 

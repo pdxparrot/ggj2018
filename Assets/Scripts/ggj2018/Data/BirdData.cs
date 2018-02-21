@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace ggj2018.ggj2018.Data
+namespace pdxpartyparrot.ggj2018.Data
 {
     [CreateAssetMenu(fileName="BirdData", menuName="ggj2018/Data/Bird Data")]
     [Serializable]

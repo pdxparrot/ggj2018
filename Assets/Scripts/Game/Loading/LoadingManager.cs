@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 
-using ggj2018.Core.Camera;
-using ggj2018.Core.Input;
-using ggj2018.Game.Audio;
-using ggj2018.Game.Scenes;
-using ggj2018.Core.Util;
-using ggj2018.Core.Util.ObjectPool;
-using ggj2018.Game.State;
+using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Game.Audio;
+using pdxpartyparrot.Game.Scenes;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.Core.Util.ObjectPool;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
-namespace ggj2018.Game.Loading
+namespace pdxpartyparrot.Game.Loading
 {
     public abstract class LoadingManager<T> : SingletonBehavior<T> where T: LoadingManager<T>
     {

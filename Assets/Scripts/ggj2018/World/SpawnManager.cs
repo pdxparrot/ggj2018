@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.GameTypes;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.GameTypes;
 
 using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.World
+namespace pdxpartyparrot.ggj2018.World
 {
     public sealed class SpawnManager : SingletonBehavior<SpawnManager>
     {

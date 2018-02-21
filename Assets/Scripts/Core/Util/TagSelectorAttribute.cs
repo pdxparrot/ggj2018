@@ -2,7 +2,7 @@
 
 // http://www.brechtos.com/tagselectorattribute/
  
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     public class TagSelectorAttribute : PropertyAttribute
     {

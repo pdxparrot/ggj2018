@@ -1,9 +1,9 @@
-﻿using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ggj2018.ggj2018.UI
+namespace pdxpartyparrot.ggj2018.UI
 {
     public class CharacterSelectCard : MonoBehavior
     {

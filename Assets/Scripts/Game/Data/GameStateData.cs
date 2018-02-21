@@ -1,10 +1,10 @@
 ﻿using System;
 
-using ggj2018.Game.State;
+using pdxpartyparrot.Game.State;
 
 using UnityEngine;
 
-namespace ggj2018.Game.Data
+namespace pdxpartyparrot.Game.Data
 {
     [CreateAssetMenu(fileName="GameState", menuName="ggj2018/Data/Game State Data")]
     [Serializable]

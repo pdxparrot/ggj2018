@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.GameTypes;
-using ggj2018.ggj2018.Players;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.GameTypes;
+using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.World
+namespace pdxpartyparrot.ggj2018.World
 {
     public class SpawnPoint : MonoBehavior
     {

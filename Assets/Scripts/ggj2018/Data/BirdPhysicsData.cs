@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Data
+namespace pdxpartyparrot.ggj2018.Data
 {
     [CreateAssetMenu(fileName="BirdPhysicsData", menuName="ggj2018/Data/Bird Physics Data")]
     [Serializable]

@@ -1,10 +1,10 @@
-﻿using ggj2018.Core.UI;
-using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.UI;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ggj2018.Game.Loading
+namespace pdxpartyparrot.Game.Loading
 {
     [RequireComponent(typeof(Canvas))]
     public sealed class LoadingScreen : MonoBehavior

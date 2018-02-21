@@ -1,4 +1,4 @@
-﻿namespace ggj2018.Core.Math
+﻿namespace pdxpartyparrot.Core.Math
 {
     public static class MathHelper
     {

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     // https://www.youtube.com/watch?v=ciDD6Wl-Evk
 

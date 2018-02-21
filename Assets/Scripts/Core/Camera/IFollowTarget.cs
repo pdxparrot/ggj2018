@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ggj2018.Core.Camera
+namespace pdxpartyparrot.Core.Camera
 {
     public interface IFollowTarget
     {

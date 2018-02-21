@@ -1,10 +1,10 @@
-﻿using ggj2018.Core.Util;
+﻿using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
-namespace ggj2018.Core
+namespace pdxpartyparrot.Core
 {
     public class SplashScreen : MonoBehavior
     {

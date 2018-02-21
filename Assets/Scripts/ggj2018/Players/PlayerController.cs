@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ggj2018.Core.Input;
-using ggj2018.Core.Util;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.World;
+using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.World;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.Players
+namespace pdxpartyparrot.ggj2018.Players
 {
     [RequireComponent(typeof(Rigidbody))]
     public sealed class PlayerController : MonoBehaviour

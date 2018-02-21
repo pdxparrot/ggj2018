@@ -8,7 +8,7 @@ using UnityEditor;
 //Original by DYLAN ENGELMAN http://jupiterlighthousestudio.com/custom-inspectors-unity/
 //Altered by Brecht Lecluyse http://www.brechtos.com
 
-namespace ggj2018.Core.Util.Editor
+namespace pdxpartyparrot.Core.Util.Editor
 {
     [CustomPropertyDrawer(typeof(TagSelectorAttribute))]
     public class TagSelectorPropertyDrawer : PropertyDrawer

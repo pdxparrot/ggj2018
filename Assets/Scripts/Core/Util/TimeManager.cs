@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ggj2018.Core.Util
+namespace pdxpartyparrot.Core.Util
 {
     public sealed class TimeManager : SingletonBehavior<TimeManager>
     {

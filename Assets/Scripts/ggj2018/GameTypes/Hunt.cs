@@ -1,10 +1,10 @@
-﻿using ggj2018.ggj2018.Data;
-using ggj2018.ggj2018.Game;
-using ggj2018.ggj2018.Players;
+﻿using pdxpartyparrot.ggj2018.Data;
+using pdxpartyparrot.ggj2018.Game;
+using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
 
-namespace ggj2018.ggj2018.GameTypes
+namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public class Hunt : GameType
     {
