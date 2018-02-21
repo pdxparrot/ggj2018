@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4588757154551336}
   - component: {fileID: 33504696529274568}
   - component: {fileID: 23468091575625432}
+  - component: {fileID: 95214440706123802}
   m_Layer: 0
   m_Name: pigeon
   m_TagString: Untagged
@@ -482,6 +483,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1217403179689560}
   m_Mesh: {fileID: 4300000, guid: c0b3fc7f826ae7a499ebf36bdb5fba1e, type: 3}
+--- !u!95 &95214440706123802
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1217403179689560}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 00301f5ada34e8d4996638f01960f58c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!96 &96180626044700432
 TrailRenderer:
   serializedVersion: 2
@@ -784,6 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dfb85d2b89af3c4c9682b4d3408efc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 95214440706123802}
   _stunParticles: {fileID: 198061110961281240}
   _featherParticles: {fileID: 198153905006407462}
   _immunityParticles: {fileID: 198227251749963822}

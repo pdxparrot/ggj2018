@@ -10,6 +10,15 @@ namespace ggj2018.ggj2018.Birds
     [RequireComponent(typeof(Collider))]
     public abstract class Bird : MonoBehavior
     {
+#region Animations
+        [Header("Animations")]
+
+        [SerializeField]
+        private Animator _animator;
+#endregion
+
+        [Space(10)]
+
 #region VFX
         [Header("VFX")]
 
