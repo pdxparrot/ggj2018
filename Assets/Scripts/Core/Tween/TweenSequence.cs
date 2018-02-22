@@ -47,6 +47,7 @@ namespace pdxpartyparrot.Core.Tween
         {
             foreach(TweenRunner runner in _tweens) {
                 // cleanup the runner start states so they don't act outside our control
+                // TODO: this doesn't work :( bleh...
                 runner.PlayOnAwake = false;
                 runner.ResetOnEnable = false;
                 runner.FirstRun = false;
