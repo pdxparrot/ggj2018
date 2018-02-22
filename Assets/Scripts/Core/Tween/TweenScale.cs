@@ -19,11 +19,15 @@ namespace pdxpartyparrot.Core.Tween
         protected override void Awake()
         {
             _from = transform.localScale;
+
+            base.Awake();
         }
 #endregion
 
         public override void Reset()
         {
+            base.Reset();
+
             transform.localScale = _from;
         }
 

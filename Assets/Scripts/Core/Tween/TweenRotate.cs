@@ -25,11 +25,15 @@ namespace pdxpartyparrot.Core.Tween
         protected override void Awake()
         {
             _from = _useLocalRotation ? transform.localEulerAngles : transform.eulerAngles;
+
+            base.Awake();
         }
 #endregion
 
         public override void Reset()
         {
+            base.Reset();
+
             if(_useLocalRotation) {
                 transform.localEulerAngles = _from;
             } else {

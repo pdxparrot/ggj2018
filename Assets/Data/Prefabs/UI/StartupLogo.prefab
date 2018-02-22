@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76875c8f08a87ae4abc3d32b07d84e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runOnAwake: 1
+  _playOnAwake: 0
   _resetOnEnable: 1
   _duration: 1
   _loops: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0d73a64edbb4f458f19002ac069918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runOnAwake: 0
+  _playOnAwake: 0
   _resetOnEnable: 1
   _duration: 3
   _loops: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d784535e47f24a4faf0cff51545d840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runOnAwake: 1
+  _playOnAwake: 0
   _resetOnEnable: 1
   _duration: 1
   _loops: 0

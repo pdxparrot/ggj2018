@@ -25,11 +25,15 @@ namespace pdxpartyparrot.Core.Tween
         protected override void Awake()
         {
             _from = _useLocalPosition ? transform.localPosition : transform.position;
+
+            base.Awake();
         }
 #endregion
 
         public override void Reset()
         {
+            base.Reset();
+
             if(_useLocalPosition) {
                 transform.localPosition = _from;
             } else {

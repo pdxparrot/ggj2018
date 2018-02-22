@@ -5,37 +5,20 @@ using JetBrains.Annotations;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace pdxpartyparrot.Core.Tween
 {
-    public abstract class TweenRunner : MonoBehavior
+    public class TweenSequence : MonoBehavior
     {
         [SerializeField]
-        [FormerlySerializedAs("_runOnAwake")]
         private bool _playOnAwake = true;
-
-        public bool PlayOnAwake { get { return _playOnAwake; } set { _playOnAwake = value; } }
 
         [SerializeField]
         private bool _resetOnEnable = true;
 
-        public bool ResetOnEnable { get { return _resetOnEnable; } set { _resetOnEnable = value; } }
-
-#region Duration
-        [SerializeField]
-        private float _duration = 1.0f;
-
-        protected float Duration => _duration;
-#endregion
-
 #region Looping
         [SerializeField]
-        private int _loops;
-
-        public int Loops { get { return _loops; } set { _loops = value; } }
-
-        public bool IsInfiniteLoop => Loops < 0;
+        private int _loops = 0;
 
         [SerializeField]
         LoopType _loopType = LoopType.Restart;
@@ -53,15 +36,27 @@ namespace pdxpartyparrot.Core.Tween
         [ReadOnly]
         private bool _firstRun = true;
 
-        public bool FirstRun { get { return _firstRun; } set { _firstRun = value; } }
+        [SerializeField]
+        private TweenRunner[] _tweens;
 
         [CanBeNull]
-        private Tweener _tweener;
+        private Sequence _sequence;
 
 #region Unity Lifecycle
-        protected virtual void Awake()
+        private void Awake()
         {
-            if(PlayOnAwake) {
+            foreach(TweenRunner runner in _tweens) {
+                // cleanup the runner start states so they don't act outside our control
+                runner.PlayOnAwake = false;
+                runner.ResetOnEnable = false;
+                runner.FirstRun = false;
+
+                if(runner.IsInfiniteLoop) {
+                    runner.Loops = 0;
+                }
+            }
+
+            if(_playOnAwake) {
                 Play();
             }
         }
@@ -75,32 +70,38 @@ namespace pdxpartyparrot.Core.Tween
         }
 #endregion
 
-        public virtual void Reset()
+        private void Reset()
         {
             Kill();
+
+            foreach(TweenRunner runner in _tweens) {
+                runner.Reset();
+            }
         }
 
-        public Tweener Play()
+        public void Play()
         {
-            _tweener = CreateTweener()
+            _sequence = DOTween.Sequence()
                 .SetDelay(_firstRun ? (_firstRunDelay + _delay) : _delay)
                 .SetLoops(_loops, _loopType);
 
-            _firstRun = false;
+            foreach(TweenRunner runner in _tweens) {
+                _sequence.Append(runner.Play());
+            }
 
-            return _tweener;
+            _sequence.Play();
+
+            _firstRun = false;
         }
 
         public void Pause()
         {
-            _tweener?.Pause();
+            _sequence?.Pause();
         }
 
         public void Kill()
         {
-            _tweener?.Kill();
+            _sequence?.Kill();
         }
-
-        protected abstract Tweener CreateTweener();
     }
 }

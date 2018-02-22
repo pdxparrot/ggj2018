@@ -23,11 +23,15 @@ namespace pdxpartyparrot.Core.Tween
         protected override void Awake()
         {
             _from = _image.color.a;
+
+            base.Awake();
         }
 #endregion
 
         public override void Reset()
         {
+            base.Reset();
+
             Color color = _image.color;
             color.a = _from;
             _image.color = color;
