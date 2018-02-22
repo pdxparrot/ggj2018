@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
 
+using pdxpartyparrot.Core.Util;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,16 +13,18 @@ namespace pdxpartyparrot.Core.Tween
         private Image _image;
 
         [SerializeField]
-        private float _from = 0.0f;
+        [ReadOnly]
+        private float _from;
 
         [SerializeField]
         private float _to = 1.0f;
 
-        [SerializeField]
-        private float _duration = 1.0f;
-
-        [SerializeField]
-        private float _firstRunDelay = 5.0f;
+#region Unity Lifecycle
+        protected override void Awake()
+        {
+            _from = _image.color.a;
+        }
+#endregion
 
         public override void Reset()
         {
@@ -29,12 +33,9 @@ namespace pdxpartyparrot.Core.Tween
             _image.color = color;
         }
 
-        public override void Run()
+        protected override Tweener CreateTweener()
         {
-            Tweener tween = _image.DOFade(_to, _duration);
-            if(FirstRun) {
-                tween.SetDelay(_firstRunDelay);
-            }
+            return _image.DOFade(_to, Duration);
         }
     }
 }

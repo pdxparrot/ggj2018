@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Util;
+﻿using DG.Tweening;
+
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -10,13 +12,34 @@ namespace pdxpartyparrot.Core.Tween
         private bool _runOnAwake = true;
 
         [SerializeField]
-        private bool _resetOnEnable;
+        private bool _resetOnEnable = true;
+
+#region Duration
+        [SerializeField]
+        private float _duration = 1.0f;
+
+        protected float Duration => _duration;
+#endregion
+
+#region Looping
+        [SerializeField]
+        private int _loops = 0;
+
+        [SerializeField]
+        LoopType _loopType = LoopType.Restart;
+#endregion
+
+#region Delay
+        [SerializeField]
+        private float _firstRunDelay = 0.0f;
+
+        [SerializeField]
+        private float _delay = 0.0f;
+#endregion
 
         [SerializeField]
         [ReadOnly]
         private bool _firstRun = true;
-
-        protected bool FirstRun => _firstRun;
 
 #region Unity Lifecycle
         protected virtual void Awake()
@@ -25,8 +48,6 @@ namespace pdxpartyparrot.Core.Tween
 
             if(_runOnAwake) {
                 Run();
-
-                _firstRun = false;
             }
         }
 
@@ -35,14 +56,21 @@ namespace pdxpartyparrot.Core.Tween
             if(_resetOnEnable) {
                 Reset();
                 Run();
-
-                _firstRun = false;
             }
         }
 #endregion
 
         public abstract void Reset();
 
-        public abstract void Run();
+        public void Run()
+        {
+            CreateTweener()
+                .SetDelay(_firstRun ? (_firstRunDelay + _delay) : _delay)
+                .SetLoops(_loops, _loopType);
+
+            _firstRun = false;
+        }
+
+        protected abstract Tweener CreateTweener();
     }
 }

@@ -205,10 +205,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _runOnAwake: 0
   _resetOnEnable: 1
+  _duration: 3
+  _loops: 0
+  _loopType: 0
+  _firstRunDelay: 3
+  _delay: 1
+  _firstRun: 1
   _image: {fileID: 114663389382226950}
   _from: 0
   _to: 1
-  _duration: 3
 --- !u!114 &114596034863195612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
