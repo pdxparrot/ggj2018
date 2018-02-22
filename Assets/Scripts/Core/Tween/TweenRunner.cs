@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
 
+using JetBrains.Annotations;
+
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -37,6 +39,12 @@ namespace pdxpartyparrot.Core.Tween
         private float _delay = 0.0f;
 #endregion
 
+#region Chaining
+        [SerializeField]
+        [CanBeNull]
+        private TweenRunner _nextTween;
+#endregion
+
         [SerializeField]
         [ReadOnly]
         private bool _firstRun = true;
@@ -44,6 +52,10 @@ namespace pdxpartyparrot.Core.Tween
 #region Unity Lifecycle
         protected virtual void Awake()
         {
+            if(null != _nextTween) {
+                _nextTween._runOnAwake = false;
+            }
+
             Reset();
 
             if(_runOnAwake) {
@@ -64,9 +76,15 @@ namespace pdxpartyparrot.Core.Tween
 
         public void Run()
         {
-            CreateTweener()
+            Tweener tweener = CreateTweener()
                 .SetDelay(_firstRun ? (_firstRunDelay + _delay) : _delay)
                 .SetLoops(_loops, _loopType);
+
+            if(null != _nextTween) {
+                tweener.OnComplete(() => {
+                    _nextTween.Run();
+                });
+            }
 
             _firstRun = false;
         }
