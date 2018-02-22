@@ -41,6 +41,11 @@ namespace pdxpartyparrot.Core.Tween
         LoopType _loopType = LoopType.Restart;
 #endregion
 
+#region Easing
+        [SerializeField]
+        private Ease _ease = Ease.Linear;
+#endregion
+
 #region Delay
         [SerializeField]
         private float _firstRunDelay = 0.0f;
@@ -83,8 +88,10 @@ namespace pdxpartyparrot.Core.Tween
         public Tweener Play()
         {
             _tweener = CreateTweener()
+                .SetEase(_ease)
                 .SetDelay(_firstRun ? (_firstRunDelay + _delay) : _delay)
-                .SetLoops(_loops, _loopType);
+                .SetLoops(_loops, _loopType)
+                .SetRecyclable(true);
 
             _firstRun = false;
 

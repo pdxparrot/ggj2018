@@ -170,7 +170,8 @@ namespace pdxpartyparrot.ggj2018.Players
                 _boostTween.Play();
             }
 
-            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BoostFOV, 1.0f);
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BoostFOV, 1.0f)
+                .SetRecyclable(true);
 
             _owner.Bird.StartBoostAudio();
         }
@@ -182,7 +183,8 @@ namespace pdxpartyparrot.ggj2018.Players
 
             _owner.Bird.StopBoostAudio();
 
-            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f);
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f)
+                .SetRecyclable(true);
 
             if(PlayerManager.Instance.PlayerData.EnableBoostCameraShake) {
                 _boostTween.Pause();
@@ -236,7 +238,8 @@ namespace pdxpartyparrot.ggj2018.Players
             Debug.Log($"Player {_owner.Id} is braking!");
             _isBraking = true;
 
-            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BrakeFOV, 1.0f);
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BrakeFOV, 1.0f)
+                .SetRecyclable(true);
         }
 
         public void StopBrake()
@@ -244,7 +247,8 @@ namespace pdxpartyparrot.ggj2018.Players
             Debug.Log($"Player {_owner.Id} is stops braking!");
             _isBraking = false;
 
-            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f);
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f)
+                .SetRecyclable(true);
         }
 #endregion
 
