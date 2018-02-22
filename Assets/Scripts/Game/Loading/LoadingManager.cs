@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 
+using DG.Tweening;
+
 using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Game.Audio;
@@ -79,6 +81,8 @@ namespace pdxpartyparrot.Game.Loading
 
         protected virtual void CreateManagers()
         {
+            DOTween.Init();
+
             TimeManager.Create(ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);

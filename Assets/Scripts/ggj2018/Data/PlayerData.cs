@@ -31,6 +31,32 @@ namespace pdxpartyparrot.ggj2018.Data
 
         [Space(10)]
 
+#region Boost
+        [Header("Boost")]
+
+        [SerializeField]
+        private bool _enableBoostCameraShake = true;
+
+        public bool EnableBoostCameraShake => _enableBoostCameraShake;
+
+        [SerializeField]
+        private Vector3 _boostCameraShakeStrength = new Vector3(3.0f, 3.0f, 3.0f);
+
+        public Vector3 BoostCameraShakeStrength => _boostCameraShakeStrength;
+
+        [SerializeField]
+        private int _boostCameraShakeVibrato = 10;
+
+        public int BoostCameraShakeVibrato => _boostCameraShakeVibrato;
+
+        [SerializeField]
+        private float _boostCameraShakeRandomness = 90.0f;
+
+        public float BoostCameraShakeRandomness => _boostCameraShakeRandomness;
+#endregion
+
+        [Space(10)]
+
 // TODO: move to game type data
 #region Stun
         [Header("Stun")]

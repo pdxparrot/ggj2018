@@ -14,7 +14,11 @@ MonoBehaviour:
   _maxAttackAngle: 45
   _maxBankAngle: 45
   _predatorFOV: 60
+  _predatorBoostFOV: 60
+  _predatorBrakeFOV: 75
   _preyFOV: 90
+  _preyBoostFOV: 90
+  _preyBrakeFOV: 105
   _predatorLayer: Hawk
   _preyLayer: Pigeon
   _predatorPostProcessProfile: {fileID: 11400000, guid: 6b4d067a04eef734fa139166144a45a3,

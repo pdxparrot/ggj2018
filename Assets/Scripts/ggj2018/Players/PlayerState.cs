@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DG.Tweening;
+
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Birds;
 using pdxpartyparrot.ggj2018.Game;
@@ -56,9 +58,7 @@ namespace pdxpartyparrot.ggj2018.Players
         [ReadOnly]
         private float _boostRemainingSeconds;
 
-        public float BoostRemainingSeconds => _boostRemainingSeconds;
-
-        public float BoostRemainingPercent => BoostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
+        public float BoostRemainingPercent => _boostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
 
         [SerializeField]
         [ReadOnly]
@@ -66,7 +66,9 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public bool IsBoostRechargeCooldown => _boostRechargeCooldown > 0.0f;
 
-        public bool CanBoost => _owner.Bird.Type.CanBoost && !IsIncapacitated && BoostRemainingSeconds > 0.0f;
+        public bool CanBoost => _owner.Bird.Type.CanBoost && !IsIncapacitated && (DebugManager.Instance.UseInfiniteBoost || _boostRemainingSeconds > 0.0f);
+
+        private Sequence _boostTween;
 #endregion
 
 #region Brake
@@ -103,6 +105,19 @@ namespace pdxpartyparrot.ggj2018.Players
         public void Initialize()
         {
             _boostRemainingSeconds = _owner.Bird.Type.BoostSeconds;
+
+            _boostTween = DOTween.Sequence()
+                .Append(
+                    _owner.Viewer.Camera.DOShakePosition(
+                        _owner.Bird.Type.BoostSeconds,
+                        PlayerManager.Instance.PlayerData.BoostCameraShakeStrength,
+                        PlayerManager.Instance.PlayerData.BoostCameraShakeVibrato,
+                        PlayerManager.Instance.PlayerData.BoostCameraShakeRandomness,
+                        false
+                    )
+                )
+                .SetLoops(-1)
+                .Pause();
 
             // make it easier to start the game
             _immuneTimer = GameManager.Instance.GameTypeData.GameStartImmuneTime;
@@ -147,18 +162,31 @@ namespace pdxpartyparrot.ggj2018.Players
         public void StartBoost()
         {
             if(!CanBoost) {
-                Debug.Log($"TODO: Player a shitty sound because YOU CAN'T BOOST FOOL");
+                Debug.Log("TODO: Player a shitty sound because YOU CAN'T BOOST FOOL");
                 return;
             }
 
             Debug.Log($"Player {_owner.Id} is boosting!");
             EnableBoost(true);
+
+            if(PlayerManager.Instance.PlayerData.EnableBoostCameraShake) {
+                _boostTween.Play();
+            }
+
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BoostFOV, 1.0f);
         }
 
         public void StopBoost()
         {
             Debug.Log($"Player {_owner.Id} slows down!");
             EnableBoost(false);
+
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f);
+
+            if(PlayerManager.Instance.PlayerData.EnableBoostCameraShake) {
+                _boostTween.Restart();
+                _boostTween.Pause();
+            }
 
             _boostRechargeCooldown = _owner.Bird.Type.BoostRechargeCooldown;
         }
@@ -172,9 +200,11 @@ namespace pdxpartyparrot.ggj2018.Players
         private void UpdateBoost(float dt)
         {
             if(IsBoosting) {
-                _boostRemainingSeconds -= dt;
-                if(_boostRemainingSeconds < 0.0f) {
-                    _boostRemainingSeconds = 0.0f;
+                if(!DebugManager.Instance.UseInfiniteBoost) {
+                    _boostRemainingSeconds -= dt;
+                    if(_boostRemainingSeconds < 0.0f) {
+                        _boostRemainingSeconds = 0.0f;
+                    }
                 }
 
                 if(!CanBoost) {
@@ -205,12 +235,16 @@ namespace pdxpartyparrot.ggj2018.Players
 
             Debug.Log($"Player {_owner.Id} is braking!");
             _isBraking = true;
+
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BrakeFOV, 1.0f);
         }
 
         public void StopBrake()
         {
             Debug.Log($"Player {_owner.Id} is stops braking!");
             _isBraking = false;
+
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f);
         }
 #endregion
 

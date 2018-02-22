@@ -22,12 +22,12 @@ namespace pdxpartyparrot.Core.Camera
         [SerializeField]
         private UnityEngine.Camera _camera;
 
-        protected UnityEngine.Camera Camera => _camera;
+        public UnityEngine.Camera Camera => _camera;
 
         [SerializeField]
         private UnityEngine.Camera _uiCamera;
 
-        protected UnityEngine.Camera UICamera => _uiCamera;
+        public UnityEngine.Camera UICamera => _uiCamera;
 #endregion
 
         [Space(10)]

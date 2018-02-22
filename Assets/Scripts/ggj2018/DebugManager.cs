@@ -8,6 +8,7 @@ namespace pdxpartyparrot.ggj2018
 {
     public class DebugManager : SingletonBehavior<DebugManager>
     {
+#region Debug Models
         [SerializeField]
         private Predator _hawkModelPrefab;
 
@@ -19,11 +20,17 @@ namespace pdxpartyparrot.ggj2018
 
         [SerializeField]
         private Vector3 _pigeonSpawnPosition;
+#endregion
 
         [SerializeField]
         private bool _spawnMaxLocalPlayers;
 
         public bool SpawnMaxLocalPlayers => _spawnMaxLocalPlayers;
+
+        [SerializeField]
+        private bool _useInfiniteBoost;
+
+        public bool UseInfiniteBoost => _useInfiniteBoost;
 
         private GameObject _debugContainer;
 

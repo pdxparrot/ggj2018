@@ -128,12 +128,12 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void InitializeLocal(int id, int controllerIndex, Camera.Viewer viewer, Bird bird, BirdTypeData birdType)
         {
+            _controllerIndex = controllerIndex;
+            _viewer = viewer;
+
             Debug.Log($"Initializing local player {id}");
             Initialize(id, bird, birdType);
 
-            _controllerIndex = controllerIndex;
-
-            _viewer = viewer;
             Viewer.Initialize(this);
 
             Viewer.FollowCamera.SetTarget(this);

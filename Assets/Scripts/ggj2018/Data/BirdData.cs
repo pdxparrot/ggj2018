@@ -27,7 +27,7 @@ namespace pdxpartyparrot.ggj2018.Data
         [Space(10)]
 
 #region FOVs
-        [Header("FOV")]
+        [Header("Predator FOV")]
 
         [SerializeField]
         private float _predatorFOV = 60.0f;
@@ -35,9 +35,31 @@ namespace pdxpartyparrot.ggj2018.Data
         public float PredatorFOV => _predatorFOV;
 
         [SerializeField]
+        private float _predatorBoostFOV = 45.0f;
+
+        public float PredatorBoostFOV => _predatorBoostFOV;
+
+        [SerializeField]
+        private float _predatorBrakeFOV = 75.0f;
+
+        public float PredatorBrakeFOV => _predatorBrakeFOV;
+
+        [Header("Prey FOV")]
+
+        [SerializeField]
         private float _preyFOV = 90.0f;
 
         public float PreyFOV => _preyFOV;
+
+        [SerializeField]
+        private float _preyBoostFOV = 75.0f;
+
+        public float PreyBoostFOV => _preyBoostFOV;
+
+        [SerializeField]
+        private float _preyBrakeFOV = 105.0f;
+
+        public float PreyBrakeFOV => _preyBrakeFOV;
 #endregion
 
         [Space(10)]
