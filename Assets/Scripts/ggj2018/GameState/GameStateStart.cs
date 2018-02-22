@@ -1,5 +1,6 @@
 ﻿using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Input;
+using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
 using pdxpartyparrot.ggj2018.UI;
 using pdxpartyparrot.ggj2018.World;
@@ -19,6 +20,14 @@ namespace pdxpartyparrot.ggj2018.GameState
         [SerializeField]
         private AudioClip _startupLogoMusicClip;
 
+        private bool _showStartup = true;
+
+        // NOTE: this is *not* called the first time we enter this state
+        public void Initialize(bool showStartup)
+        {
+            _showStartup = showStartup;
+        }
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -32,6 +41,11 @@ namespace pdxpartyparrot.ggj2018.GameState
 
             InputManager.Instance.Reset();
 #endregion
+
+            if(!_showStartup) {
+                GameStateManager.Instance.TransitionState(_characterSelectGameStateData);
+                return;
+            }
 
             UIManager.Instance.EnableStartupLogo(true);
 

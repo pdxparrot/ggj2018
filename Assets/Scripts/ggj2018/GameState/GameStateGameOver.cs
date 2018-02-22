@@ -52,7 +52,9 @@ namespace pdxpartyparrot.ggj2018.GameState
                 _gameOverTimer = 0.0f;
 
                 if(GameManager.Instance.GameTypeData.RestartOnGameOver) {
-                    GameStateManager.Instance.TransitionState(_startGameStateData);
+                    GameStateManager.Instance.TransitionState(_startGameStateData, state => {
+                        (state as GameStateStart)?.Initialize(GameManager.Instance.EnableDemoMode);
+                    });
                 }
             }
         }

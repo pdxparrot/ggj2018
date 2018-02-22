@@ -1,4 +1,6 @@
-﻿using pdxpartyparrot.Core.Util;
+﻿using System;
+
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.Game.Data;
 
 using UnityEngine;
@@ -32,16 +34,18 @@ namespace pdxpartyparrot.Game.State
         }
 #endregion
 
-        public void TransitionToInitialState()
+        public void TransitionToInitialState(Action<GameState> initializeState=null)
         {
-            TransitionState(_initialGameStateData);
+            TransitionState(_initialGameStateData, initializeState);
         }
 
-        public void TransitionState(GameStateData gameStateData)
+        public void TransitionState(GameStateData gameStateData, Action<GameState> initializeState=null)
         {
             ExitCurrentState();
 
             _currentGameState = gameStateData.InstantiateGameState(transform);
+            initializeState?.Invoke(_currentGameState);
+
             _currentGameState?.OnEnter();
 
             Debug.Log($"State: {gameStateData.Name}");

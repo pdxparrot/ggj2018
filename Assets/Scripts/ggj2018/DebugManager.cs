@@ -25,12 +25,22 @@ namespace pdxpartyparrot.ggj2018
         [SerializeField]
         private bool _spawnMaxLocalPlayers;
 
-        public bool SpawnMaxLocalPlayers => _spawnMaxLocalPlayers;
+        public bool SpawnMaxLocalPlayers =>
+#if UNITY_EDITOR
+            _spawnMaxLocalPlayers;
+#else
+            false;
+#endif
 
         [SerializeField]
         private bool _useInfiniteBoost;
 
-        public bool UseInfiniteBoost => _useInfiniteBoost;
+        public bool UseInfiniteBoost =>
+#if UNITY_EDITOR
+            _useInfiniteBoost;
+#else
+            false;
+#endif
 
         private GameObject _debugContainer;
 

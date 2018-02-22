@@ -98,6 +98,13 @@ namespace pdxpartyparrot.ggj2018.Game
         public bool EnableImmunity => _enableImmunity;
 #endregion
 
+        [Space(10)]
+
+        [SerializeField]
+        private bool _enableDemoMode;
+
+        public bool EnableDemoMode => _enableDemoMode;
+
 #region Unity Lifecycle
         private void Awake()
         {
