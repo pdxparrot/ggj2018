@@ -16,17 +16,19 @@ namespace pdxpartyparrot.ggj2018.Players
         [Serializable]
         private struct PauseState
         {
-            Vector3 velocity;
+            private Vector3 _velocity;
+
+            public Vector3 Velocity => _velocity;
 
             public void Save(Rigidbody rigidbody)
             {
-                velocity = rigidbody.velocity;
+                _velocity = rigidbody.velocity;
                 rigidbody.velocity = Vector3.zero;
             }
 
             public void Restore(Rigidbody rigidbody)
             {
-                rigidbody.velocity = velocity;
+                rigidbody.velocity = _velocity;
             }
         }
 
@@ -45,7 +47,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public Vector3 BankForce => _bankForce;
 
-        public float Speed => _rigidbody.velocity.magnitude;
+        public float Speed => GameManager.Instance.IsPaused ? _pauseState.Velocity.magnitude : _rigidbody.velocity.magnitude;
 
         private Rigidbody _rigidbody;
 
@@ -81,10 +83,6 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void Update()
         {
-            if(GameManager.Instance.IsPaused) {
-                return;
-            }
-
             if(!_owner.IsLocalPlayer) {
                 return;
             }
@@ -95,6 +93,10 @@ namespace pdxpartyparrot.ggj2018.Players
 
             if(!CheckForBrake()) {
                 CheckForBoost();
+            }
+
+            if(GameManager.Instance.IsPaused) {
+                return;
             }
 
             _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.ControllerIndex);

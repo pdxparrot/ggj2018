@@ -31,13 +31,13 @@ namespace pdxpartyparrot.ggj2018.UI
             _uiContainer = new GameObject("UI");
 
             _startupLogo = Instantiate(_startupLogoPrefab, _uiContainer.transform);
-            _startupLogo.gameObject.SetActive(false);
+            EnableStartupLogo(false);
 
             _pauseMenu = Instantiate(_pauseMenuPrefab, _uiContainer.transform);
-            _pauseMenu.gameObject.SetActive(false);
+            EnablePauseUI(false);
 
             _debugUI = Instantiate(_debugUIPrefab, _uiContainer.transform);
-            _debugUI.gameObject.SetActive(false);
+            EnableDebugUI(false);
         }
 
         protected override void OnDestroy()
@@ -51,7 +51,7 @@ namespace pdxpartyparrot.ggj2018.UI
         private void Update()
         {
             if(Input.GetKeyDown(KeyCode.F)) {
-                _debugUI.gameObject.SetActive(!_debugUI.gameObject.activeInHierarchy);
+                EnableDebugUI(!_debugUI.gameObject.activeInHierarchy);
             }
         }
 #endregion
@@ -64,6 +64,11 @@ namespace pdxpartyparrot.ggj2018.UI
         public void EnablePauseUI(bool enable)
         {
             _pauseMenu.gameObject.SetActive(enable);
+        }
+
+        private void EnableDebugUI(bool enable)
+        {
+            _debugUI.gameObject.SetActive(enable);
         }
     }
 }

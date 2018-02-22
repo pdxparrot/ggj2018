@@ -69,11 +69,14 @@ namespace pdxpartyparrot.Game.Loading
             InitializeManagers();
             yield return null;
 
+            // TODO: default scene should come from the game state
             _loadingScreen.Progress.Percent = 0.75f;
             _loadingScreen.ProgressText = "Loading default scene...";
             GameSceneManager.Instance.LoadDefaultScene(() => {
                 _loadingScreen.Progress.Percent = 1.0f;
                 _loadingScreen.ProgressText = "Loading complete!";
+
+                GameStateManager.Instance.TransitionToInitialState();
 
                 Destroy();
             });
@@ -81,6 +84,7 @@ namespace pdxpartyparrot.Game.Loading
 
         protected virtual void CreateManagers()
         {
+            // TODO: this should be initialized by a Core something
             DOTween.Init();
 
             TimeManager.Create(ManagersContainer);

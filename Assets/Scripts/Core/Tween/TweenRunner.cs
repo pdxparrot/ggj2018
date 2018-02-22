@@ -12,6 +12,12 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private bool _resetOnEnable;
 
+        [SerializeField]
+        [ReadOnly]
+        private bool _firstRun = true;
+
+        protected bool FirstRun => _firstRun;
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
@@ -19,6 +25,8 @@ namespace pdxpartyparrot.Core.Tween
 
             if(_runOnAwake) {
                 Run();
+
+                _firstRun = false;
             }
         }
 
@@ -27,12 +35,14 @@ namespace pdxpartyparrot.Core.Tween
             if(_resetOnEnable) {
                 Reset();
                 Run();
+
+                _firstRun = false;
             }
         }
 #endregion
 
-        public abstract void Run();
-
         public abstract void Reset();
+
+        public abstract void Run();
     }
 }

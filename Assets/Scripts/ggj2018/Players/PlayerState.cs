@@ -66,7 +66,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public bool IsBoostRechargeCooldown => _boostRechargeCooldown > 0.0f;
 
-        public bool CanBoost => _owner.Bird.Type.CanBoost && !IsIncapacitated && (DebugManager.Instance.UseInfiniteBoost || _boostRemainingSeconds > 0.0f);
+        public bool CanBoost => !GameManager.Instance.IsPaused && _owner.Bird.Type.CanBoost && !IsIncapacitated && (DebugManager.Instance.UseInfiniteBoost || _boostRemainingSeconds > 0.0f);
 
         private Sequence _boostTween;
 #endregion
@@ -78,7 +78,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public bool IsBraking => _isBraking;
 
-        public bool CanBrake => !IsIncapacitated;
+        public bool CanBrake => !GameManager.Instance.IsPaused && !IsIncapacitated;
 #endregion
 
 #region Score

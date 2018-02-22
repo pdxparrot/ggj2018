@@ -19,16 +19,22 @@ namespace pdxpartyparrot.Core.Tween
         [SerializeField]
         private float _duration = 1.0f;
 
-        public override void Run()
-        {
-            _image.DOFade(_to, _duration);
-        }
+        [SerializeField]
+        private float _firstRunDelay = 5.0f;
 
         public override void Reset()
         {
             Color color = _image.color;
             color.a = _from;
             _image.color = color;
+        }
+
+        public override void Run()
+        {
+            Tweener tween = _image.DOFade(_to, _duration);
+            if(FirstRun) {
+                tween.SetDelay(_firstRunDelay);
+            }
         }
     }
 }

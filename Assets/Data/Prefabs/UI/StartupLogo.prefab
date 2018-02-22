@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0d73a64edbb4f458f19002ac069918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runOnAwake: 1
+  _runOnAwake: 0
   _resetOnEnable: 1
   _image: {fileID: 114663389382226950}
   _from: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

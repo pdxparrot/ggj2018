@@ -19,11 +19,6 @@ namespace pdxpartyparrot.Game.State
         public GameState CurrentState => _currentGameState;
 
 #region Unity Lifecycle
-        private void Start()
-        {
-            TransitionState(_initialGameStateData);
-        }
-
         protected override void OnDestroy()
         {
             ExitCurrentState();
@@ -36,6 +31,11 @@ namespace pdxpartyparrot.Game.State
             _currentGameState?.OnUpdate(Time.deltaTime);
         }
 #endregion
+
+        public void TransitionToInitialState()
+        {
+            TransitionState(_initialGameStateData);
+        }
 
         public void TransitionState(GameStateData gameStateData)
         {
