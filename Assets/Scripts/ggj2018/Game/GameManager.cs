@@ -58,6 +58,7 @@ namespace pdxpartyparrot.ggj2018.Game
 
         public BirdData BirdData => _birdData;
 
+// TODO: rename this gameData
         [SerializeField]
         private GameData _gameTypeData;
 
@@ -115,6 +116,10 @@ namespace pdxpartyparrot.ggj2018.Game
             Debug.Log($"Gravity: {Physics.gravity}");
             Physics.bounceThreshold = Mathf.Infinity;
 
+            if(EnableDemoMode) {
+                Debug.Log("Demo Mode");
+            }
+
             _birdData.Initialize();
             _gameTypeData.Initialize();
 
@@ -161,11 +166,11 @@ namespace pdxpartyparrot.ggj2018.Game
         {
 // TODO: this is an awful hack :\
             if(DebugManager.Instance.SpawnMaxLocalPlayers) {
-                _gameType = new Hunt(GameTypeData.GameTypeMap.GetOrDefault(GameType.GameTypes.Hunt));
+                _gameType = new Hunt(GameTypeData.GameTypeMap.GetOrDefault("Hunt and Deliver"));
             } else if(1 == playerCount || 0 == predatorCount || 0 == preyCount) {
-                _gameType = new CrazyTaxi(GameTypeData.GameTypeMap.GetOrDefault(GameType.GameTypes.CrazyTaxi));
+                _gameType = new CrazyTaxi(GameTypeData.GameTypeMap.GetOrDefault("Delivery"));
             } else if(playerCount > 1 && predatorCount > 0 && preyCount > 0) {
-                _gameType = new Hunt(GameTypeData.GameTypeMap.GetOrDefault(GameType.GameTypes.Hunt));
+                _gameType = new Hunt(GameTypeData.GameTypeMap.GetOrDefault("Hunt and Deliver"));
             } else {
                 Debug.LogError($"No suitable gametype found! playerCount: {playerCount}, predatorCount: {predatorCount}, preyCount: {preyCount}");
             }

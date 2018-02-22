@@ -108,11 +108,11 @@ Viewer.PlayerUI.SwitchToCharacterSelect(this);
         public void Finish()
         {
             if(IsReady) {
-                Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.Type, this);
+                Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.GameTypeData, this);
                 Player?.Viewer.PlayerUI.SwitchToGame(Player, GameManager.Instance.GameType);
             } else if(DebugManager.Instance.SpawnMaxLocalPlayers) {
                 SelectedBird = ControllerIndex % GameManager.Instance.BirdData.Birds.Count;
-                Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.Type, this);
+                Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.GameTypeData, this);
                 Player?.Viewer.PlayerUI.SwitchToGame(Player, GameManager.Instance.GameType);
             } else {
                 Player = null;

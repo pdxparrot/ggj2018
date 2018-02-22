@@ -70,7 +70,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void Start()
         {
-            // likely necessary because of our colliders and shit
+            // likely necessary because of our colliders and shit, I dunno
             _rigidbody.ResetCenterOfMass();
         }
 
@@ -99,6 +99,7 @@ namespace pdxpartyparrot.ggj2018.Players
                 return;
             }
 
+// TODO: driver should do this
             _lastMoveAxes = InputManager.Instance.GetMoveAxes(_owner.ControllerIndex);
 
             float dt = Time.deltaTime;

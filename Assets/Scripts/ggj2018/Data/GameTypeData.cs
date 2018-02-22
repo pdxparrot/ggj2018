@@ -1,7 +1,5 @@
 ﻿using System;
 
-using pdxpartyparrot.ggj2018.GameTypes;
-
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2018.Data
@@ -11,11 +9,6 @@ namespace pdxpartyparrot.ggj2018.Data
     public sealed class GameTypeData : ScriptableObject
     {
         [SerializeField]
-        private GameType.GameTypes _gameType;
-
-        public GameType.GameTypes GameType => _gameType;
-
-        [SerializeField]
         private string _name;
 
         public string Name => _name;
@@ -23,7 +16,7 @@ namespace pdxpartyparrot.ggj2018.Data
         [Space(10)]
 
 #region Win/Loss Texts
-        [Header("Win/Loss Text")]
+        [Header("Predator Goal/Win/Loss Text")]
 
         [SerializeField]
         private string _predatorWinConditionDescription;
@@ -39,6 +32,8 @@ namespace pdxpartyparrot.ggj2018.Data
         private string _predatorLossText;
 
         public string PredatorLossText => _predatorLossText;
+
+        [Header("Predator Goal/Win/Loss Text")]
 
         [SerializeField]
         private string _preyWinConditionDescription;

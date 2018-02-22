@@ -8,7 +8,6 @@ using pdxpartyparrot.ggj2018.Data;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.VFX;
 using pdxpartyparrot.ggj2018.World;
-using pdxpartyparrot.Game.Audio;
 
 using JetBrains.Annotations;
 
@@ -46,6 +45,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public Color PlayerColor => PlayerManager.Instance.PlayerData.GetPlayerColor(Id);
 
+// TODO: driver class should handle input
 #region Input
         [SerializeField]
         [ReadOnly]
@@ -58,7 +58,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public bool IsPaused => GameManager.Instance.IsPaused;
 
-#region Camera
+#region Viewer
         [SerializeField]
         [ReadOnly]
         private Camera.Viewer _viewer;
@@ -115,7 +115,6 @@ namespace pdxpartyparrot.ggj2018.Players
         {
             StartCoroutine(UpdateNearestPlayers());
             StartCoroutine(UpdateNearestGoal());
-            StartCoroutine(PlayFlightAnimation());
         }
 
         private void Update()
@@ -123,6 +122,10 @@ namespace pdxpartyparrot.ggj2018.Players
             _playerState.Update(Time.deltaTime);
 
             Viewer.PlayerUI.PlayerHUD.SetState(this);
+
+            if(InputManager.Instance.Pressed(Id, InputManager.Button.A)) {
+                Bird.PlayHornAudio();
+            }
         }
 #endregion
 
@@ -166,12 +169,14 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void Spawned()
         {
-            AudioManager.Instance.PlayAudioOneShot(Bird.Type.SpawnAudioClip);
+            Bird.PlaySpawnAudio();
         }
 
         public void Died()
         {
             StopAllCoroutines();
+
+            Bird.StopAllCoroutines();
         }
 
         public void Redirect(Vector3 velocity)
@@ -197,19 +202,6 @@ namespace pdxpartyparrot.ggj2018.Players
                 yield return wait;
 
                 NearestGoal = GoalManager.Instance.GetNearestGoal(this, out _nearestGoalDistance);
-            }
-        }
-
-        private IEnumerator PlayFlightAnimation()
-        {
-            System.Random random = new System.Random();
-            while(true) {
-                // TODO: animate
-
-                AudioManager.Instance.PlayAudioOneShot(Bird.Type.FlightAudioClip);
-
-                float wait = random.NextSingle(PlayerManager.Instance.PlayerData.MinFlightAnimationCooldown, PlayerManager.Instance.PlayerData.MaxFlightAnimationCooldown);
-                yield return new WaitForSeconds(wait);
             }
         }
 

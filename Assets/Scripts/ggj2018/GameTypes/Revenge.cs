@@ -4,8 +4,6 @@ namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public class Revenge : GameType
     {
-        public override GameTypes Type => GameTypes.Revenge;
-
         public override bool BirdTypesShareSpawnpoints => false;
 
         public override bool PredatorsKillPrey => false;

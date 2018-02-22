@@ -1,5 +1,4 @@
 ﻿using pdxpartyparrot.ggj2018.Data;
-using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
@@ -8,8 +7,6 @@ namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public sealed class CrazyTaxi : GameType
     {
-        public override GameTypes Type => GameTypes.CrazyTaxi;
-
         public override bool BirdTypesShareSpawnpoints => true;
 
         public override bool PredatorsKillPrey => false;

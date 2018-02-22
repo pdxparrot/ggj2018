@@ -1,5 +1,4 @@
 ﻿using pdxpartyparrot.ggj2018.Data;
-using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
@@ -8,8 +7,6 @@ namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public class Hunt : GameType
     {
-        public override GameTypes Type => GameTypes.Hunt;
-
         public override bool BirdTypesShareSpawnpoints => false;
 
         public override bool PredatorsKillPrey => true;

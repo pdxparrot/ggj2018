@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using pdxpartyparrot.ggj2018.GameTypes;
-
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2018.Data
@@ -11,6 +9,7 @@ namespace pdxpartyparrot.ggj2018.Data
     [Serializable]
     public sealed class GameData : ScriptableObject
     {
+#region Immunity
         [SerializeField]
         private float _gameStartImmuneTime = 2.0f;
 
@@ -20,6 +19,7 @@ namespace pdxpartyparrot.ggj2018.Data
         private float _immuneTime = 1.0f;
 
         public float ImmuneTime => _immuneTime;
+#endregion
 
         [Space(10)]
 
@@ -48,14 +48,15 @@ namespace pdxpartyparrot.ggj2018.Data
 
         public IReadOnlyCollection<GameTypeData> GameTypes => _gameTypes;
 
-        private readonly Dictionary<GameType.GameTypes, GameTypeData> _gameTypeMap = new Dictionary<GameType.GameTypes, GameTypeData>();
+        private readonly Dictionary<string, GameTypeData> _gameTypeMap = new Dictionary<string, GameTypeData>();
 
-        public IReadOnlyDictionary<GameType.GameTypes, GameTypeData> GameTypeMap => _gameTypeMap;
+        public IReadOnlyDictionary<string, GameTypeData> GameTypeMap => _gameTypeMap;
 
         public void Initialize()
         {
             foreach(GameTypeData gameType in GameTypes) {
-                _gameTypeMap.Add(gameType.GameType, gameType);
+                Debug.Log($"Registering game type {gameType.Name}");
+                _gameTypeMap.Add(gameType.Name, gameType);
             }
         }
     }

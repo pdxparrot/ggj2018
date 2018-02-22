@@ -77,7 +77,7 @@ namespace pdxpartyparrot.ggj2018.GameState
 
             // TODO: this sucks
             DetermineGameType();
-            Debug.Log($"Determined game type {GameManager.Instance.GameType.Type}");
+            Debug.Log($"Determined game type {GameManager.Instance.GameType.GameTypeData.Name}");
 
             foreach(CharacterSelectState selectState in _characterSelectStates) {
                 selectState.Finish();

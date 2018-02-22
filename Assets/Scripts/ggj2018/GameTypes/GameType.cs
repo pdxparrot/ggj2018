@@ -7,16 +7,6 @@ namespace pdxpartyparrot.ggj2018.GameTypes
 {
     public abstract class GameType
     {
-// TODO: is it possible to kill this enum?
-        public enum GameTypes
-        {
-            CrazyTaxi,
-            Hunt,
-            Revenge
-        }
-
-        public abstract GameTypes Type { get; }
-
         public GameTypeData GameTypeData { get; }
 
         public abstract bool BirdTypesShareSpawnpoints { get; }

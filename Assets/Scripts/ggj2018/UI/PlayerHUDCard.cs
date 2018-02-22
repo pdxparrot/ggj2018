@@ -14,6 +14,7 @@ namespace pdxpartyparrot.ggj2018.UI
 {
     public class PlayerHUDCard : MonoBehavior
     {
+// TODO: split these up into separate widgets
 #region Intro
         [SerializeField]
         private GameObject _introPanel;

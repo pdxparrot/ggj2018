@@ -6,7 +6,6 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Birds;
 using pdxpartyparrot.ggj2018.Data;
 using pdxpartyparrot.ggj2018.Game;
-using pdxpartyparrot.ggj2018.GameTypes;
 using pdxpartyparrot.ggj2018.VFX;
 using pdxpartyparrot.ggj2018.World;
 using pdxpartyparrot.Game.Audio;
@@ -101,11 +100,11 @@ namespace pdxpartyparrot.ggj2018.Players
 #endregion
 
         [CanBeNull]
-        public Player SpawnPlayer(GameType.GameTypes gameType, CharacterSelectState selectState)
+        public Player SpawnPlayer(GameTypeData gameTypeData, CharacterSelectState selectState)
         {
-            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameType, selectState.PlayerBirdData);
+            SpawnPoint spawnPoint = SpawnManager.Instance.GetSpawnPoint(gameTypeData, selectState.PlayerBirdData);
             if(null == spawnPoint) {
-                Debug.LogError($"No spawn points left for bird type {selectState.PlayerBirdData.Id} in game type {gameType}");
+                Debug.LogError($"No spawn points left for bird type {selectState.PlayerBirdData.Id} in game type {gameTypeData.Name}");
                 return null;
             }
 

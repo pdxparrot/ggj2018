@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Data;
@@ -18,7 +17,7 @@ namespace pdxpartyparrot.ggj2018.World
 
         private class SpawnPoints
         {
-            private readonly GameType.GameTypes _gameType;
+            private readonly GameTypeData _gameTypeData;
 
 // TODO: dictionary would work better
             private readonly List<SpawnPoint> _predatorSpawnPoints = new List<SpawnPoint>();
@@ -29,9 +28,9 @@ namespace pdxpartyparrot.ggj2018.World
 
             private readonly List<SpawnPoint> _usedPreySpawnPoints = new List<SpawnPoint>();
 
-            public SpawnPoints(GameType.GameTypes gameType)
+            public SpawnPoints(GameTypeData gameTypeData)
             {
-                _gameType = gameType;
+                _gameTypeData = gameTypeData;
             }
 
             public void Add(SpawnPoint spawnPoint)
@@ -110,7 +109,7 @@ namespace pdxpartyparrot.ggj2018.World
 
             public void Reset()
             {
-                Debug.Log($"Resetting used spawnpoints for game type {_gameType}");
+                Debug.Log($"Resetting used spawnpoints for game type {_gameTypeData.Name}");
 
                 _predatorSpawnPoints.AddRange(_usedPredatorSpawnPoints);
                 _usedPredatorSpawnPoints.Clear();
@@ -121,16 +120,18 @@ namespace pdxpartyparrot.ggj2018.World
         }
 
         // game type => spawnpoints
-        private readonly Dictionary<GameType.GameTypes, SpawnPoints> _spawnPoints = new Dictionary<GameType.GameTypes, SpawnPoints>();
+        private readonly Dictionary<GameTypeData, SpawnPoints> _spawnPoints = new Dictionary<GameTypeData, SpawnPoints>();
 
 #region Registration
         public void RegisterSpawnPoint(SpawnPoint spawnPoint)
         {
-            foreach(GameType.GameTypes gameType in spawnPoint.GameTypes) {
-                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
+            foreach(GameTypeData gameTypeData in spawnPoint.GameTypes) {
+                //Debug.Log($"Registering spawnpoint {spawnPoint.name} for game type {gameTypeData.Name}");
+
+                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeData);
                 if(null == spawnPoints) {
-                    spawnPoints = new SpawnPoints(gameType);
-                    _spawnPoints.Add(gameType, spawnPoints);
+                    spawnPoints = new SpawnPoints(gameTypeData);
+                    _spawnPoints.Add(gameTypeData, spawnPoints);
                 }
                 spawnPoints.Add(spawnPoint);
             }
@@ -138,17 +139,19 @@ namespace pdxpartyparrot.ggj2018.World
 
         public void UnregisterSpawnPoint(SpawnPoint spawnPoint)
         {
-            foreach(GameType.GameTypes gameType in spawnPoint.GameTypes) {
-                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
+            foreach(GameTypeData gameTypeData in spawnPoint.GameTypes) {
+                //Debug.Log($"Unregistering spawnpoint {spawnPoint.name} for game type {gameTypeData.Name}");
+
+                SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeData);
                 spawnPoints?.Remove(spawnPoint);
             }
         }
 #endregion
 
         [CanBeNull]
-        public SpawnPoint GetSpawnPoint(GameType.GameTypes gameType, BirdTypeData birdType)
+        public SpawnPoint GetSpawnPoint(GameTypeData gameTypeData, BirdTypeData birdType)
         {
-            SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameType);
+            SpawnPoints spawnPoints = _spawnPoints.GetOrDefault(gameTypeData);
             return spawnPoints?.GetSpawnPoint(birdType);
         }
 

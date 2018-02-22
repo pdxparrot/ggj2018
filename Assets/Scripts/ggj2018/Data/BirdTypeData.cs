@@ -112,6 +112,11 @@ namespace pdxpartyparrot.ggj2018.Data
         private AudioClip _lossAudioClip;
 
         public AudioClip LossAudioClip => _lossAudioClip;
+
+        [SerializeField]
+        private AudioClip _hornAudioClip;
+
+        public AudioClip HornAudioClip => _hornAudioClip;
 #endregion
 
         private BirdData _birdData;

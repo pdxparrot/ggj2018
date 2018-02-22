@@ -27,9 +27,6 @@ namespace pdxpartyparrot.Core.Camera
         [SerializeField]
         private Vector2 _defaultOrbitRotation;
 
-        /*[SerializeField]
-        private float _defaultOrbitReturnSpeed = 2.0f;*/
-
         [SerializeField]
         private float _defaultOrbitReturnTime = 0.5f;
 
@@ -183,7 +180,6 @@ namespace pdxpartyparrot.Core.Camera
             // (or maybe the max rotation clamping is killing it)
             if(_returnToDefault) {
                 _orbitRotation = Vector2.SmoothDamp(_orbitRotation, _defaultOrbitRotation, ref _orbitReturnVelocity, _defaultOrbitReturnTime, Mathf.Infinity, dt);
-                //_orbitRotation = Vector2.Lerp(_orbitRotation, _defaultOrbitRotation, _defaultOrbitReturnSpeed * dt); 
             }
 
             _orbitRotation.x = Mathf.Clamp(MathUtil.WrapAngle(_orbitRotation.x + axes.x * _orbitSpeedX * dt), _orbitXMin, _orbitXMax);

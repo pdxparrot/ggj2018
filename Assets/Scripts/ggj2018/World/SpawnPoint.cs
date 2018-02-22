@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ggj2018.GameTypes;
+using pdxpartyparrot.ggj2018.Data;
 using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
@@ -18,9 +18,9 @@ namespace pdxpartyparrot.ggj2018.World
         }
 
         [SerializeField]
-        private GameType.GameTypes[] _gameTypes;
+        private GameTypeData[] _gameTypes;
 
-        public IReadOnlyCollection<GameType.GameTypes> GameTypes => _gameTypes;
+        public IReadOnlyCollection<GameTypeData> GameTypes => _gameTypes;
 
         [SerializeField]
         private SpawnPointType _type;

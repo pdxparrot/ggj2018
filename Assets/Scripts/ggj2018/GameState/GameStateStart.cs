@@ -1,6 +1,5 @@
 ﻿using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Input;
-using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
 using pdxpartyparrot.ggj2018.UI;
 using pdxpartyparrot.ggj2018.World;

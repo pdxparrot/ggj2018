@@ -1,7 +1,10 @@
-﻿using pdxpartyparrot.Core.Util;
+﻿using System.Collections;
+
+using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Data;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
+using pdxpartyparrot.Game.Audio;
 
 using UnityEngine;
 
@@ -66,6 +69,8 @@ namespace pdxpartyparrot.ggj2018.Birds
             ShowImmunity(false);
             ShowStun(false);
             ShowBoostTrail(false);
+
+            StartCoroutine(PlayFlightAnimation());
         }
 
         protected virtual void OnDrawGizmos()
@@ -104,6 +109,30 @@ namespace pdxpartyparrot.ggj2018.Birds
 
             }
             _boostTrail.gameObject.SetActive(show);
+        }
+
+        public void PlaySpawnAudio()
+        {
+            AudioManager.Instance.PlayAudioOneShot(Type.SpawnAudioClip);
+        }
+
+        public void PlayHornAudio()
+        {
+// TODO: cooldown this
+            AudioManager.Instance.PlayAudioOneShot(Type.HornAudioClip);
+        }
+
+        private IEnumerator PlayFlightAnimation()
+        {
+            System.Random random = new System.Random();
+            while(true) {
+                // TODO: animate
+
+                AudioManager.Instance.PlayAudioOneShot(Type.FlightAudioClip);
+
+                float wait = random.NextSingle(PlayerManager.Instance.PlayerData.MinFlightAnimationCooldown, PlayerManager.Instance.PlayerData.MaxFlightAnimationCooldown);
+                yield return new WaitForSeconds(wait);
+            }
         }
     }
 }
