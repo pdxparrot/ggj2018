@@ -159,7 +159,7 @@ namespace pdxpartyparrot.ggj2018.Players
         public void StartBoost()
         {
             if(!CanBoost) {
-                Debug.Log("TODO: Player a shitty sound because YOU CAN'T BOOST FOOL");
+                _owner.Bird.PlayBoostFailAudio();
                 return;
             }
 
@@ -171,12 +171,16 @@ namespace pdxpartyparrot.ggj2018.Players
             }
 
             _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BoostFOV, 1.0f);
+
+            _owner.Bird.StartBoostAudio();
         }
 
         public void StopBoost()
         {
             Debug.Log($"Player {_owner.Id} slows down!");
             EnableBoost(false);
+
+            _owner.Bird.StopBoostAudio();
 
             _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f);
 
@@ -407,13 +411,13 @@ namespace pdxpartyparrot.ggj2018.Players
             switch(state)
             {
             case GameOverType.Win:
-                AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.WinAudioClip);
+                _owner.Bird.PlayWinAudio();
                 break;
             case GameOverType.Loss:
-                AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.LossAudioClip);
+                _owner.Bird.PlayLossAudio();
                 break;
             case GameOverType.TimerUp:
-                AudioManager.Instance.PlayAudioOneShot(_owner.Bird.Type.LossAudioClip);
+                _owner.Bird.PlayLossAudio();
                 break;
             }
             _gameOverState = state;

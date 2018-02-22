@@ -12,6 +12,8 @@ namespace pdxpartyparrot.Game.Audio
         [SerializeField]
         private AudioMixer _mixer;
 
+        public AudioMixer Mixer => _mixer;
+
 #region Mixer Groups
         [Header("Mixer Groups")]
 
@@ -54,7 +56,7 @@ namespace pdxpartyparrot.Game.Audio
 #region Unity Lifecycle
         private void Awake()
         {
-            InitAudioMixerGroup(_oneShotAudioSource, _sfxMixerGroupName);
+            InitSFXAudioMixerGroup(_oneShotAudioSource);
 
             InitAudioMixerGroup(_music1AudioSource, _musicMixerGroupName);
             _music1AudioSource.loop = true;
@@ -69,13 +71,18 @@ namespace pdxpartyparrot.Game.Audio
         }
 #endregion
 
+        public void InitSFXAudioMixerGroup(AudioSource source)
+        {
+            InitAudioMixerGroup(source, _sfxMixerGroupName);
+        }
+
         private void InitAudioMixerGroup(AudioSource source, string mixerGroupName)
         {
             var mixerGroups = _mixer.FindMatchingGroups(mixerGroupName);
             source.outputAudioMixerGroup = mixerGroups.Length > 0 ? mixerGroups[0] : _mixer.outputAudioMixerGroup;
         }
 
-        public void PlayAudioOneShot(AudioClip audioClip)
+        public void PlayOneShot(AudioClip audioClip)
         {
             _oneShotAudioSource.PlayOneShot(audioClip);
         }

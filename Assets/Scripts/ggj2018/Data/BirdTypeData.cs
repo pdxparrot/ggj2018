@@ -104,6 +104,16 @@ namespace pdxpartyparrot.ggj2018.Data
         public AudioClip FlightAudioClip => _flightAudioClip;
 
         [SerializeField]
+        private AudioClip _boostAudioClip;
+
+        public AudioClip BoostAudioClip => _boostAudioClip;
+
+        [SerializeField]
+        private AudioClip _boostFailAudioClip;
+
+        public AudioClip BoostFailAudioClip => _boostFailAudioClip;
+
+        [SerializeField]
         private AudioClip _winAudioClip;
 
         public AudioClip WinAudioClip => _winAudioClip;

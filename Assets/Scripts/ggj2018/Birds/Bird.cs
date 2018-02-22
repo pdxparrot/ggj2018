@@ -11,6 +11,7 @@ using UnityEngine;
 namespace pdxpartyparrot.ggj2018.Birds
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(AudioSource))]
     public abstract class Bird : MonoBehavior
     {
 #region Animations
@@ -54,11 +55,18 @@ namespace pdxpartyparrot.ggj2018.Birds
 
         public Collider Collider => _collider;
 
+        private AudioSource _audioSource;
+
 #region Unity Lifecycle      
         protected virtual void Awake()
         {
             _collider = GetComponent<Collider>();
             _collider.sharedMaterial = GameManager.Instance.FrictionlessMaterial;
+
+            _audioSource = GetComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
+            _audioSource.spatialBlend = 0.0f;
+            AudioManager.Instance.InitSFXAudioMixerGroup(_audioSource);
 
             _playerCollider.gameObject.layer = PlayerManager.Instance.PlayerCollisionLayer;
             _playerCollider.isTrigger = true;
@@ -111,16 +119,45 @@ namespace pdxpartyparrot.ggj2018.Birds
             _boostTrail.gameObject.SetActive(show);
         }
 
+#region Audio
+        public void StartBoostAudio()
+        {
+            _audioSource.clip = Type.BoostAudioClip;
+            _audioSource.loop = true;
+            _audioSource.Play();
+        }
+
+        public void StopBoostAudio()
+        {
+            _audioSource.Stop();
+        }
+
+        public void PlayBoostFailAudio()
+        {
+            _audioSource.PlayOneShot(Type.BoostFailAudioClip);
+        }
+
         public void PlaySpawnAudio()
         {
-            AudioManager.Instance.PlayAudioOneShot(Type.SpawnAudioClip);
+            _audioSource.PlayOneShot(Type.SpawnAudioClip);
         }
 
         public void PlayHornAudio()
         {
 // TODO: cooldown this
-            AudioManager.Instance.PlayAudioOneShot(Type.HornAudioClip);
+            _audioSource.PlayOneShot(Type.HornAudioClip);
         }
+
+        public void PlayWinAudio()
+        {
+            _audioSource.PlayOneShot(Type.WinAudioClip);
+        }
+
+        public void PlayLossAudio()
+        {
+            _audioSource.PlayOneShot(Type.LossAudioClip);
+        }
+#endregion
 
         private IEnumerator PlayFlightAnimation()
         {
@@ -128,7 +165,7 @@ namespace pdxpartyparrot.ggj2018.Birds
             while(true) {
                 // TODO: animate
 
-                AudioManager.Instance.PlayAudioOneShot(Type.FlightAudioClip);
+                _audioSource.PlayOneShot(Type.FlightAudioClip);
 
                 float wait = random.NextSingle(PlayerManager.Instance.PlayerData.MinFlightAnimationCooldown, PlayerManager.Instance.PlayerData.MaxFlightAnimationCooldown);
                 yield return new WaitForSeconds(wait);
