@@ -68,7 +68,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public bool CanBoost => !GameManager.Instance.IsPaused && _owner.Bird.Type.CanBoost && !IsIncapacitated && (DebugManager.Instance.UseInfiniteBoost || _boostRemainingSeconds > 0.0f);
 
-        private Sequence _boostTween;
+        private Tweener _boostTween;
 #endregion
 
 #region Brake
@@ -106,15 +106,12 @@ namespace pdxpartyparrot.ggj2018.Players
         {
             _boostRemainingSeconds = _owner.Bird.Type.BoostSeconds;
 
-            _boostTween = DOTween.Sequence()
-                .Append(
-                    _owner.Viewer.Camera.DOShakePosition(
-                        _owner.Bird.Type.BoostSeconds,
-                        PlayerManager.Instance.PlayerData.BoostCameraShakeStrength,
-                        PlayerManager.Instance.PlayerData.BoostCameraShakeVibrato,
-                        PlayerManager.Instance.PlayerData.BoostCameraShakeRandomness,
-                        false
-                    )
+            _boostTween = _owner.Viewer.Camera.DOShakePosition(
+                    _owner.Bird.Type.BoostSeconds,
+                    PlayerManager.Instance.PlayerData.BoostCameraShakeStrength,
+                    PlayerManager.Instance.PlayerData.BoostCameraShakeVibrato,
+                    PlayerManager.Instance.PlayerData.BoostCameraShakeRandomness,
+                    false
                 )
                 .SetLoops(-1)
                 .Pause();
@@ -184,7 +181,6 @@ namespace pdxpartyparrot.ggj2018.Players
             _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f);
 
             if(PlayerManager.Instance.PlayerData.EnableBoostCameraShake) {
-                _boostTween.Restart();
                 _boostTween.Pause();
             }
 
