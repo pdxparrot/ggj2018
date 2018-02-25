@@ -56,6 +56,12 @@ namespace pdxpartyparrot.ggj2018.Players
 
         [SerializeField]
         [ReadOnly]
+        private float _boostAmount;
+
+        public float BoostAmount => _boostAmount;
+
+        [SerializeField]
+        [ReadOnly]
         private float _boostRemainingSeconds;
 
         public float BoostRemainingPercent => _boostRemainingSeconds / _owner.Bird.Type.BoostSeconds;
@@ -77,6 +83,12 @@ namespace pdxpartyparrot.ggj2018.Players
         private bool _isBraking;
 
         public bool IsBraking => _isBraking;
+
+        [SerializeField]
+        [ReadOnly]
+        private float _brakeAmount;
+
+        public float BrakeAmount => _brakeAmount;
 
         public bool CanBrake => !GameManager.Instance.IsPaused && !IsIncapacitated;
 #endregion
@@ -156,10 +168,16 @@ namespace pdxpartyparrot.ggj2018.Players
 #endregion
 
 #region Boost
-        public void StartBoost()
+        public void StartBoost(float amount)
         {
             if(!CanBoost) {
+                _boostAmount = 0.0f;
                 _owner.Bird.PlayBoostFailAudio();
+                return;
+            }
+
+            _boostAmount = amount;
+            if(IsBoosting) {
                 return;
             }
 
@@ -178,6 +196,8 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void StopBoost()
         {
+            _boostAmount = 0.0f;
+
             Debug.Log($"Player {_owner.Id} slows down!");
             EnableBoost(false);
 
@@ -229,9 +249,15 @@ namespace pdxpartyparrot.ggj2018.Players
 #endregion
 
 #region Brake
-        public void StartBrake()
+        public void StartBrake(float amount)
         {
             if(!CanBrake) {
+                _brakeAmount = 0.0f;
+                return;
+            }
+
+            _brakeAmount = amount;
+            if(IsBraking) {
                 return;
             }
 
@@ -244,6 +270,8 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void StopBrake()
         {
+            _brakeAmount = 0.0f;
+
             Debug.Log($"Player {_owner.Id} is stops braking!");
             _isBraking = false;
 

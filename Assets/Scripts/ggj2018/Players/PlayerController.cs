@@ -244,7 +244,7 @@ namespace pdxpartyparrot.ggj2018.Players
         private bool CheckForBrake()
         {
             if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
-                _owner.State.StartBrake();
+                _owner.State.StartBrake(1.0f);
                 return true;
             }
 
@@ -257,7 +257,7 @@ namespace pdxpartyparrot.ggj2018.Players
         private bool CheckForBoost()
         {
             if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
-                _owner.State.StartBoost();
+                _owner.State.StartBoost(1.0f);
                 return true;
             }
 
@@ -332,11 +332,11 @@ namespace pdxpartyparrot.ggj2018.Players
                 _rigidbody.AddRelativeForce(attackVector * _owner.Bird.Type.Physics.LinearThrust);
 
                 if(_owner.State.IsBraking) {
-                    _rigidbody.AddRelativeForce(Vector3.forward * -_owner.Bird.Type.Physics.BrakeThrust);
+                    _rigidbody.AddRelativeForce(Vector3.forward * -_owner.Bird.Type.Physics.BrakeThrust * _owner.State.BrakeAmount);
                 }
 
                 if(_owner.State.IsBoosting) {
-                    _rigidbody.AddRelativeForce(Vector3.forward * _owner.Bird.Type.Physics.BoostThrust);
+                    _rigidbody.AddRelativeForce(Vector3.forward * _owner.Bird.Type.Physics.BoostThrust * _owner.State.BoostAmount);
                 }
 
                 // lift if we're not falling
