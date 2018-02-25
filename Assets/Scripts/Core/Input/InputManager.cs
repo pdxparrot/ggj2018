@@ -31,6 +31,12 @@ namespace pdxpartyparrot.Core.Input
             LeftStick = 8, RightStick = 9
         }
 
+        public enum TriggerAxis
+        {
+            LeftTrigger,
+            RightTrigger
+        }
+
         [Serializable]
         public sealed class ControllerState
         {
@@ -164,16 +170,6 @@ namespace pdxpartyparrot.Core.Input
 
         private void Update()
         {
-            for(int i=0; i<MaxControllers; ++i) {
-                if(Pressed(i, Button.RightBumper)) {
-                    Debug.Log($"Inverting controller {i} look");
-                    _controllerStates[i].InvertLookY = !_controllerStates[i].InvertLookY;
-                } else if(Pressed(i, Button.LeftBumper)) {
-                    Debug.Log($"Inverting controller {i} move");
-                    _controllerStates[i].InvertMoveY = !_controllerStates[i].InvertMoveY;
-                }
-            }
-
             UpdateDpadAxes();
         }
 #endregion
@@ -198,6 +194,12 @@ namespace pdxpartyparrot.Core.Input
         }
 
 #region Axes
+        public void InvertMoveAxis(int controllerIndex)
+        {
+            Debug.Log($"Inverting controller {controllerIndex} move");
+            _controllerStates[controllerIndex].InvertMoveY = !_controllerStates[controllerIndex].InvertMoveY;
+        }
+
         public Vector3 GetMoveAxes(int controllerIndex)
         {
             ControllerState state = _controllerStates[controllerIndex];
@@ -206,6 +208,12 @@ namespace pdxpartyparrot.Core.Input
                 UnityEngine.Input.GetAxis($"P{controllerIndex} Vertical") * (state.InvertMoveY ? -1.0f : 1.0f),
                 0.0f
             );
+        }
+
+        public void InvertLookAxis(int controllerIndex)
+        {
+            Debug.Log($"Inverting controller {controllerIndex} look");
+            _controllerStates[controllerIndex].InvertLookY = !_controllerStates[controllerIndex].InvertLookY;
         }
 
         public Vector3 GetLookAxes(int controllerIndex)
@@ -226,7 +234,7 @@ namespace pdxpartyparrot.Core.Input
             );
         }
 
-        public Vector3 GetTriggerAxes(int controllerIndex)
+        public Vector3 GetTriggerAxes(int controllerIndex, TriggerAxis axis)
         {
             // TODO
             return Vector3.zero;

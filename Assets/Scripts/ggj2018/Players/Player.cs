@@ -123,7 +123,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
             Viewer.PlayerUI.PlayerHUD.SetState(this);
 
-            if(InputManager.Instance.Pressed(Id, InputManager.Button.A)) {
+            if(InputManager.Instance.Pressed(Id, PlayerManager.Instance.PlayerData.HornButton)) {
                 Bird.PlayHornAudio();
             }
         }

@@ -87,6 +87,12 @@ namespace pdxpartyparrot.ggj2018.Players
                 return;
             }
 
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.InvertLookButton)) {
+                InputManager.Instance.InvertLookAxis(_owner.ControllerIndex);
+            } else if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.InvertMoveButton)) {
+                InputManager.Instance.InvertMoveAxis(_owner.ControllerIndex);
+            }
+
 #if UNITY_EDITOR
             CheckForDebug();
 #endif
@@ -225,11 +231,11 @@ namespace pdxpartyparrot.ggj2018.Players
                 _rigidbody.velocity = Vector3.zero;
             }
 
-            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.LeftStick)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.DebugStunButton)) {
                 _owner.State.DebugStun();
             }
 
-            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.RightStick)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.DebugKillButton)) {
                 _owner.State.DebugKill();
             }
         }
@@ -237,12 +243,12 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private bool CheckForBrake()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.B)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
                 _owner.State.StartBrake();
                 return true;
             }
 
-            if(_owner.State.IsBraking && InputManager.Instance.Released(_owner.ControllerIndex, InputManager.Button.B)) {
+            if(_owner.State.IsBraking && InputManager.Instance.Released(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
                 _owner.State.StopBrake();
             }
             return false;
@@ -250,12 +256,12 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private bool CheckForBoost()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerIndex, InputManager.Button.Y)) {
+            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
                 _owner.State.StartBoost();
                 return true;
             }
 
-            if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerIndex, InputManager.Button.Y)) {
+            if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
                 _owner.State.StopBoost();
             }
             return false;

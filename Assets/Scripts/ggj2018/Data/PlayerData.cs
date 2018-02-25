@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using pdxpartyparrot.Core.Input;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.ggj2018.Data
@@ -91,6 +93,53 @@ namespace pdxpartyparrot.ggj2018.Data
         private string _playerColorProperty = "_PlayerColor";
 
         public string PlayerColorProperty => _playerColorProperty;
+#endregion
+
+        [Space(10)]
+
+#region Controls
+        [Header("Controls")]
+
+        [SerializeField]
+        private InputManager.Button _invertLookButton = InputManager.Button.RightBumper;
+
+        public InputManager.Button InvertLookButton => _invertLookButton;
+
+        [SerializeField]
+        private InputManager.Button _invertMoveButton = InputManager.Button.LeftBumper;
+
+        public InputManager.Button InvertMoveButton => _invertMoveButton;
+
+        [SerializeField]
+        private InputManager.Button _boostButton = InputManager.Button.Y;
+
+        public InputManager.Button BoostButton => _boostButton;
+
+        [SerializeField]
+        private InputManager.Button _brakeButton = InputManager.Button.B;
+
+        public InputManager.Button BrakeButton => _brakeButton;
+
+        [SerializeField]
+        private InputManager.Button _hornButton = InputManager.Button.A;
+
+        public InputManager.Button HornButton => _hornButton;
+#endregion
+
+        [Space(10)]
+
+#region Debug
+        [Header("Debug")]
+
+        [SerializeField]
+        private InputManager.Button _debugStunButton = InputManager.Button.LeftStick;
+
+        public InputManager.Button DebugStunButton => _debugStunButton;
+
+        [SerializeField]
+        private InputManager.Button _debugKillButton = InputManager.Button.RightStick;
+
+        public InputManager.Button DebugKillButton => _debugKillButton;
 #endregion
 
         public Color GetPlayerColor(int playerId)
