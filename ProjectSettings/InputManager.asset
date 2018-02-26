@@ -321,7 +321,7 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 1
     joyNum: 1
@@ -337,7 +337,7 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 4
     joyNum: 1
@@ -353,9 +353,41 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P0 Left Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P0 Right Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
     joyNum: 1
   - serializedVersion: 3
     m_Name: P1 Button0
@@ -577,7 +609,7 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 1
     joyNum: 2
@@ -593,7 +625,7 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 4
     joyNum: 2
@@ -609,9 +641,41 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: P1 Left Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: P1 Right Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
     joyNum: 2
   - serializedVersion: 3
     m_Name: P2 Button0
@@ -833,7 +897,7 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 1
     joyNum: 3
@@ -849,7 +913,7 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 4
     joyNum: 3
@@ -865,9 +929,41 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P2 Left Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P2 Right Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
     joyNum: 3
   - serializedVersion: 3
     m_Name: P3 Button0
@@ -1089,7 +1185,7 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 1
     joyNum: 4
@@ -1105,7 +1201,7 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 4
     joyNum: 4
@@ -1121,7 +1217,39 @@ InputManager:
     dead: 0.2
     sensitivity: 3
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 6
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P3 Left Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P3 Right Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
     joyNum: 4

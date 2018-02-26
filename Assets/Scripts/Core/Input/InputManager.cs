@@ -100,6 +100,7 @@ namespace pdxpartyparrot.Core.Input
 
             public void UpdateDpadState(Vector3 axes)
             {
+                // TODO: Unity's input system might actually take care of the epsilon for us
                 UpdateDpadState(DPadDir.Left, axes.x < -Mathf.Epsilon);
                 UpdateDpadState(DPadDir.Right, axes.x > Mathf.Epsilon);
                 UpdateDpadState(DPadDir.Down, axes.y < -Mathf.Epsilon);
