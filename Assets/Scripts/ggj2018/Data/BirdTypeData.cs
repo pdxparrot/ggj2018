@@ -135,13 +135,13 @@ namespace pdxpartyparrot.ggj2018.Data
             ? _birdData.PredatorFOV
             : _birdData.PreyFOV;
 
-        public float BoostFOV => IsPredator
-            ? _birdData.PredatorBoostFOV
-            : _birdData.PreyBoostFOV;
+        public float BoostFOVChange => IsPredator
+            ? _birdData.PredatorBoostFOVChange
+            : _birdData.PreyBoostFOVChange;
 
-        public float BrakeFOV => IsPredator
-            ? _birdData.PredatorBrakeFOV
-            : _birdData.PreyBrakeFOV;
+        public float BrakeFOVChange => IsPredator
+            ? _birdData.PredatorBrakeFOVChange
+            : _birdData.PreyBrakeFOVChange;
 
         public string Layer => IsPredator
             ? _birdData.PredatorLayer

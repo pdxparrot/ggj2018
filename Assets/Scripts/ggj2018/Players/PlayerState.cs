@@ -73,6 +73,8 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public bool CanBoost => !GameManager.Instance.IsPaused && _owner.Bird.Type.CanBoost && !IsIncapacitated && (DebugManager.Instance.UseInfiniteBoost || _boostRemainingSeconds > 0.0f);
 
+        private bool CanBoostRecharge => !GameManager.Instance.IsPaused && _owner.Bird.Type.CanBoost && !IsIncapacitated;
+
         private Tweener _boostTween;
 #endregion
 
@@ -133,10 +135,6 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void Update(float dt)
         {
-            if(GameManager.Instance.IsPaused) {
-                return;
-            }
-
             UpdateImmune(dt);
             UpdateBoost(dt);
             UpdateStun(dt);
@@ -145,6 +143,10 @@ namespace pdxpartyparrot.ggj2018.Players
 #region Immunity
         private void UpdateImmune(float dt)
         {
+            if(GameManager.Instance.IsPaused) {
+                return;
+            }
+
             if(_immuneTimer > 0.0f) {
                 _immuneTimer -= dt;
 
@@ -183,7 +185,7 @@ namespace pdxpartyparrot.ggj2018.Players
                 _boostTween.Play();
             }
 
-            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BoostFOV, 1.0f)
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV + (_owner.Bird.Type.BoostFOVChange * _boostAmount), 1.0f)
                 .SetRecyclable(true);
 
             _owner.Bird.StartBoostAudio();
@@ -196,6 +198,9 @@ namespace pdxpartyparrot.ggj2018.Players
             }
 
             _boostAmount = amount;
+
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV + (_owner.Bird.Type.BoostFOVChange * _boostAmount), 1.0f)
+                .SetRecyclable(true);
         }
 
         public void StopBoost()
@@ -225,6 +230,10 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void UpdateBoost(float dt)
         {
+            if(!CanBoostRecharge) {
+                return;
+            }
+
             if(IsBoosting) {
                 if(!DebugManager.Instance.UseInfiniteBoost) {
                     _boostRemainingSeconds -= dt;
@@ -264,7 +273,7 @@ namespace pdxpartyparrot.ggj2018.Players
             Debug.Log($"Player {_owner.Id} is braking!");
             EnableBrake(true);
 
-            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BrakeFOV, 1.0f)
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV + (_owner.Bird.Type.BrakeFOVChange * _brakeAmount), 1.0f)
                 .SetRecyclable(true);
         }
 
@@ -275,6 +284,9 @@ namespace pdxpartyparrot.ggj2018.Players
             }
 
             _brakeAmount = amount;
+
+            _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV + (_owner.Bird.Type.BrakeFOVChange * _brakeAmount), 1.0f)
+                .SetRecyclable(true);
         }
 
         public void StopBrake()

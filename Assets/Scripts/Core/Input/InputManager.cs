@@ -33,6 +33,7 @@ namespace pdxpartyparrot.Core.Input
 
         public enum TriggerAxis
         {
+            Trigger,
             LeftTrigger,
             RightTrigger
         }
@@ -100,11 +101,10 @@ namespace pdxpartyparrot.Core.Input
 
             public void UpdateDpadState(Vector3 axes)
             {
-                // TODO: Unity's input system might actually take care of the epsilon for us
-                UpdateDpadState(DPadDir.Left, axes.x < -Mathf.Epsilon);
-                UpdateDpadState(DPadDir.Right, axes.x > Mathf.Epsilon);
-                UpdateDpadState(DPadDir.Down, axes.y < -Mathf.Epsilon);
-                UpdateDpadState(DPadDir.Up, axes.y > Mathf.Epsilon);
+                UpdateDpadState(DPadDir.Left, axes.x < 0.0f);
+                UpdateDpadState(DPadDir.Right, axes.x > 0.0f);
+                UpdateDpadState(DPadDir.Down, axes.y < 0.0f);
+                UpdateDpadState(DPadDir.Up, axes.y > 0.0f);
             }
 
             private void UpdateDpadState(DPadDir dir, bool pressed)
@@ -235,10 +235,12 @@ namespace pdxpartyparrot.Core.Input
             );
         }
 
-        public float GetTriggerAxes(int controllerIndex, TriggerAxis axis)
+        public float GetTriggerAxis(int controllerIndex, TriggerAxis axis)
         {
             switch(axis)
             {
+            case TriggerAxis.Trigger:
+                return UnityEngine.Input.GetAxis($"P{controllerIndex} Trigger");
             case TriggerAxis.LeftTrigger:
                 return UnityEngine.Input.GetAxis($"P{controllerIndex} Left Trigger");
             case TriggerAxis.RightTrigger:

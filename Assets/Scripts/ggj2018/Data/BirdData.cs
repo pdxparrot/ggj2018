@@ -35,14 +35,14 @@ namespace pdxpartyparrot.ggj2018.Data
         public float PredatorFOV => _predatorFOV;
 
         [SerializeField]
-        private float _predatorBoostFOV = 45.0f;
+        private float _predatorBoostFOVChange = -15.0f;
 
-        public float PredatorBoostFOV => _predatorBoostFOV;
+        public float PredatorBoostFOVChange => _predatorBoostFOVChange;
 
         [SerializeField]
-        private float _predatorBrakeFOV = 75.0f;
+        private float _predatorBrakeFOVChange = 15.0f;
 
-        public float PredatorBrakeFOV => _predatorBrakeFOV;
+        public float PredatorBrakeFOVChange => _predatorBrakeFOVChange;
 
         [Header("Prey FOV")]
 
@@ -52,14 +52,14 @@ namespace pdxpartyparrot.ggj2018.Data
         public float PreyFOV => _preyFOV;
 
         [SerializeField]
-        private float _preyBoostFOV = 75.0f;
+        private float _preyBoostFOVChange = -15.0f;
 
-        public float PreyBoostFOV => _preyBoostFOV;
+        public float PreyBoostFOVChange => _preyBoostFOVChange;
 
         [SerializeField]
-        private float _preyBrakeFOV = 105.0f;
+        private float _preyBrakeFOVChange = 15.0f;
 
-        public float PreyBrakeFOV => _preyBrakeFOV;
+        public float PreyBrakeFOVChange => _preyBrakeFOVChange;
 #endregion
 
         [Space(10)]

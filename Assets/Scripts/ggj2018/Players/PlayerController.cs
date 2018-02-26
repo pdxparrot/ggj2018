@@ -47,7 +47,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public Vector3 BankForce => _bankForce;
 
-        public float Speed => GameManager.Instance.IsPaused ? _pauseState.Velocity.magnitude : _rigidbody.velocity.magnitude;
+        public float Speed => _owner.State.IsIncapacitated ? 0.0f : (GameManager.Instance.IsPaused ? _pauseState.Velocity.magnitude : _rigidbody.velocity.magnitude);
 
         private Rigidbody _rigidbody;
 
@@ -97,9 +97,8 @@ namespace pdxpartyparrot.ggj2018.Players
             CheckForDebug();
 #endif
 
-            if(!CheckForBrake()) {
-                CheckForBoost();
-            }
+            CheckForBrake();
+            CheckForBoost();
 
             if(GameManager.Instance.IsPaused) {
                 return;
@@ -241,60 +240,54 @@ namespace pdxpartyparrot.ggj2018.Players
         }
 #endif
 
-        private bool CheckForBrake()
+        private void CheckForBrake()
         {
             float brakeAmount = 0.0f;
 
-            if(PlayerManager.Instance.PlayerData.UseBrakeAxis) {
-                brakeAmount = InputManager.Instance.GetTriggerAxes(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeAxis);
+            if(PlayerManager.Instance.PlayerData.UseBoostBrakeAxes) {
+                brakeAmount = InputManager.Instance.GetTriggerAxis(_owner.ControllerIndex, InputManager.TriggerAxis.Trigger);
+                if(brakeAmount <= 0.0f) {
+                    brakeAmount = 0.0f;
+                }
+                brakeAmount = Mathf.Abs(brakeAmount);
             } else if(InputManager.Instance.Held(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
                 brakeAmount = 1.0f;
             }
 
             if(_owner.State.IsBraking) {
-                if(brakeAmount >= Mathf.Epsilon) {
+                if(brakeAmount > 0.0f) {
                     _owner.State.UpdateBrakeAmount(brakeAmount);
-                    return true;
+                } else {
+                    _owner.State.StopBrake();
                 }
-
-                _owner.State.StopBrake();
-                return false;
-            }
-
-            if(brakeAmount >= Mathf.Epsilon) {
+            } else if(brakeAmount > 0.0f) {
                 _owner.State.StartBrake(brakeAmount);
-                return true;
             }
-
-            return false;
         }
 
-        private bool CheckForBoost()
+        private void CheckForBoost()
         {
             float boostAmount = 0.0f;
 
-            if(PlayerManager.Instance.PlayerData.UseBoostAxis) {
-                boostAmount = InputManager.Instance.GetTriggerAxes(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostAxis);
+            if(PlayerManager.Instance.PlayerData.UseBoostBrakeAxes) {
+                boostAmount = InputManager.Instance.GetTriggerAxis(_owner.ControllerIndex, InputManager.TriggerAxis.Trigger);
+                if(boostAmount >= 0.0f) {
+                    boostAmount = 0.0f;
+                }
+                boostAmount = Mathf.Abs(boostAmount);
             } else if(InputManager.Instance.Held(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
                 boostAmount = 1.0f;
             }
 
             if(_owner.State.IsBoosting) {
-                if(boostAmount >= Mathf.Epsilon) {
+                if(boostAmount > 0.0f) {
                     _owner.State.UpdateBoostAmount(boostAmount);
-                    return true;
+                } else {
+                    _owner.State.StopBoost();
                 }
-
-                _owner.State.StopBoost();
-                return false;
-            }
-
-            if(boostAmount >= Mathf.Epsilon) {
+            } else if(boostAmount > 0.0f) {
                 _owner.State.StartBoost(boostAmount);
-                return true;
             }
-
-            return false;
         }
 #endregion
 

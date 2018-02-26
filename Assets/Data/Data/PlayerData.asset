@@ -29,12 +29,9 @@ MonoBehaviour:
   _playerColorProperty: _PlayerColor
   _invertLookButton: 5
   _invertMoveButton: 4
-  _useBoostAxis: 1
+  _useBoostBrakeAxes: 1
   _boostButton: 3
-  _boostAxis: 1
-  _useBrakeAxis: 1
   _brakeButton: 1
-  _brakeAxis: 0
   _hornButton: 0
   _debugStunButton: 8
   _debugKillButton: 9
