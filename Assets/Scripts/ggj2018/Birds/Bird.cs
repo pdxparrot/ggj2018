@@ -94,7 +94,7 @@ namespace pdxpartyparrot.ggj2018.Birds
             Type = birdType;
 
             foreach(Renderer r in _coloredRenderers) {
-                r.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, owner.PlayerColor);
+                r.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, Owner.PlayerColor);
             }
         }
 

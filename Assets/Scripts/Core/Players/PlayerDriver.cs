@@ -2,7 +2,7 @@
 
 namespace pdxpartyparrot.Core.Players
 {
-    public class PlayerDriver : MonoBehavior
+    public abstract class PlayerDriver : MonoBehavior
     {
     }
 }

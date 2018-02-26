@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114954903060702344}
   - component: {fileID: 114513574776713268}
   - component: {fileID: 114345242064118326}
+  - component: {fileID: 114407085622442262}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -74,16 +75,28 @@ MonoBehaviour:
   _playerState:
     _isAlive: 0
     _stunTimer: 0
-    _stunBounceDirection: {x: 0, y: 0, z: 0}
     _immuneTimer: 0
     _isBoosting: 0
+    _boostAmount: 0
     _boostRemainingSeconds: 0
+    _boostRechargeCooldown: 0
     _isBraking: 0
+    _brakeAmount: 0
     _score: 0
     _gameOverState: 0
-  _godRay: {fileID: 0}
   _controllerIndex: 0
   _viewer: {fileID: 0}
+--- !u!114 &114407085622442262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925666312141752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a7684ce1fa71944ae81e5739c6d872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114409893506739372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,7 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94fbe2dfb77cc8446946d74a928f0fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _driver: {fileID: 114407085622442262}
   _lastMoveAxes: {x: 0, y: 0, z: 0}
+  _bankForce: {x: 0, y: 0, z: 0}
 --- !u!114 &114513574776713268
 MonoBehaviour:
   m_ObjectHideFlags: 1
