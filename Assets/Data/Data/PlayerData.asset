@@ -27,3 +27,14 @@ MonoBehaviour:
   - {r: 0, g: 0.04827571, b: 1, a: 0}
   - {r: 0.510649, g: 0, b: 0.7794118, a: 0}
   _playerColorProperty: _PlayerColor
+  _invertLookButton: 5
+  _invertMoveButton: 4
+  _useBoostAxis: 1
+  _boostButton: 3
+  _boostAxis: 1
+  _useBrakeAxis: 1
+  _brakeButton: 1
+  _brakeAxis: 0
+  _hornButton: 0
+  _debugStunButton: 8
+  _debugKillButton: 9
