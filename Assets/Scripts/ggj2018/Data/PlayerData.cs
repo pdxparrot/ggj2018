@@ -111,14 +111,34 @@ namespace pdxpartyparrot.ggj2018.Data
         public InputManager.Button InvertMoveButton => _invertMoveButton;
 
         [SerializeField]
+        private bool _useBoostAxis;
+
+        public bool UseBoostAxis => _useBoostAxis;
+
+        [SerializeField]
         private InputManager.Button _boostButton = InputManager.Button.Y;
 
         public InputManager.Button BoostButton => _boostButton;
 
         [SerializeField]
+        private InputManager.TriggerAxis _boostAxis = InputManager.TriggerAxis.RightTrigger;
+
+        public InputManager.TriggerAxis BoostAxis => _boostAxis;
+
+        [SerializeField]
+        private bool _useBrakeAxis;
+
+        public bool UseBrakeAxis => _useBrakeAxis;
+
+        [SerializeField]
         private InputManager.Button _brakeButton = InputManager.Button.B;
 
         public InputManager.Button BrakeButton => _brakeButton;
+
+        [SerializeField]
+        private InputManager.TriggerAxis _brakeAxis = InputManager.TriggerAxis.LeftTrigger;
+
+        public InputManager.TriggerAxis BrakeAxis => _brakeAxis;
 
         [SerializeField]
         private InputManager.Button _hornButton = InputManager.Button.A;

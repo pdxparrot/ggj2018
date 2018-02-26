@@ -5,7 +5,6 @@ using DG.Tweening;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Birds;
 using pdxpartyparrot.ggj2018.Game;
-using pdxpartyparrot.Game.Audio;
 
 using UnityEngine;
 
@@ -171,15 +170,11 @@ namespace pdxpartyparrot.ggj2018.Players
         public void StartBoost(float amount)
         {
             if(!CanBoost) {
-                _boostAmount = 0.0f;
                 _owner.Bird.PlayBoostFailAudio();
                 return;
             }
 
             _boostAmount = amount;
-            if(IsBoosting) {
-                return;
-            }
 
             Debug.Log($"Player {_owner.Id} is boosting!");
             EnableBoost(true);
@@ -192,6 +187,15 @@ namespace pdxpartyparrot.ggj2018.Players
                 .SetRecyclable(true);
 
             _owner.Bird.StartBoostAudio();
+        }
+
+        public void UpdateBoostAmount(float amount)
+        {
+            if(!CanBoost) {
+                return;
+            }
+
+            _boostAmount = amount;
         }
 
         public void StopBoost()
@@ -252,31 +256,41 @@ namespace pdxpartyparrot.ggj2018.Players
         public void StartBrake(float amount)
         {
             if(!CanBrake) {
-                _brakeAmount = 0.0f;
                 return;
             }
 
             _brakeAmount = amount;
-            if(IsBraking) {
-                return;
-            }
 
             Debug.Log($"Player {_owner.Id} is braking!");
-            _isBraking = true;
+            EnableBrake(true);
 
             _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.BrakeFOV, 1.0f)
                 .SetRecyclable(true);
+        }
+
+        public void UpdateBrakeAmount(float amount)
+        {
+            if(!CanBrake) {
+                return;
+            }
+
+            _brakeAmount = amount;
         }
 
         public void StopBrake()
         {
             _brakeAmount = 0.0f;
 
-            Debug.Log($"Player {_owner.Id} is stops braking!");
-            _isBraking = false;
+            Debug.Log($"Player {_owner.Id} stops braking!");
+            EnableBrake(false);
 
             _owner.Viewer.Camera.DOFieldOfView(_owner.Bird.Type.ViewFOV, 1.0f)
                 .SetRecyclable(true);
+        }
+
+        private void EnableBrake(bool enable)
+        {
+            _isBraking = enable;
         }
 #endregion
 

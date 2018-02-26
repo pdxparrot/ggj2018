@@ -235,10 +235,10 @@ namespace pdxpartyparrot.Core.Input
             );
         }
 
-        public Vector3 GetTriggerAxes(int controllerIndex, TriggerAxis axis)
+        public float GetTriggerAxes(int controllerIndex, TriggerAxis axis)
         {
             // TODO
-            return Vector3.zero;
+            return 0.0f;
         }
 
         private void UpdateDpadAxes()

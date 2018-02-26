@@ -243,27 +243,57 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private bool CheckForBrake()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
-                _owner.State.StartBrake(1.0f);
+            float brakeAmount = 0.0f;
+
+            if(PlayerManager.Instance.PlayerData.UseBrakeAxis) {
+                brakeAmount = InputManager.Instance.GetTriggerAxes(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeAxis);
+            } else if(InputManager.Instance.Held(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
+                brakeAmount = 1.0f;
+            }
+
+            if(_owner.State.IsBraking) {
+                if(brakeAmount >= Mathf.Epsilon) {
+                    _owner.State.UpdateBrakeAmount(brakeAmount);
+                    return true;
+                }
+
+                _owner.State.StopBrake();
+                return false;
+            }
+
+            if(brakeAmount >= Mathf.Epsilon) {
+                _owner.State.StartBrake(brakeAmount);
                 return true;
             }
 
-            if(_owner.State.IsBraking && InputManager.Instance.Released(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
-                _owner.State.StopBrake();
-            }
             return false;
         }
 
         private bool CheckForBoost()
         {
-            if(InputManager.Instance.Pressed(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
-                _owner.State.StartBoost(1.0f);
+            float boostAmount = 0.0f;
+
+            if(PlayerManager.Instance.PlayerData.UseBoostAxis) {
+                boostAmount = InputManager.Instance.GetTriggerAxes(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostAxis);
+            } else if(InputManager.Instance.Held(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
+                boostAmount = 1.0f;
+            }
+
+            if(_owner.State.IsBoosting) {
+                if(boostAmount >= Mathf.Epsilon) {
+                    _owner.State.UpdateBoostAmount(boostAmount);
+                    return true;
+                }
+
+                _owner.State.StopBoost();
+                return false;
+            }
+
+            if(boostAmount >= Mathf.Epsilon) {
+                _owner.State.StartBoost(boostAmount);
                 return true;
             }
 
-            if(_owner.State.IsBoosting && InputManager.Instance.Released(_owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
-                _owner.State.StopBoost();
-            }
             return false;
         }
 #endregion
