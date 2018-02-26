@@ -41,9 +41,15 @@ namespace pdxpartyparrot.Core.Camera
         public PostProcessProfile GlobalPostProcessProfile { get; private set; }
 #endregion
 
+        [SerializeField]
+        [ReadOnly]
+        private Vector3 _defaultCameraPosition;
+
 #region Unity Lifecycle
         protected virtual void Awake()
         {
+            _defaultCameraPosition = Camera.transform.localPosition;
+
             _globalPostProcessVolume.isGlobal = true;
             _globalPostProcessVolume.priority = 1;
         }
@@ -71,8 +77,15 @@ namespace pdxpartyparrot.Core.Camera
             layer.volumeLayer = 1 << postProcessLayer.value;
         }
 
+        public void ResetCameraPosition()
+        {
+            Camera.transform.localPosition = _defaultCameraPosition;
+        }
+
         public virtual void Reset()
         {
+            ResetCameraPosition();
+
             ResetPostProcessProfile();
         }
 

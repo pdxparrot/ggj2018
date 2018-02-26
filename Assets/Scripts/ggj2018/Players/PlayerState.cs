@@ -133,6 +133,12 @@ namespace pdxpartyparrot.ggj2018.Players
             _immuneTimer = GameManager.Instance.GameTypeData.GameStartImmuneTime;
         }
 
+        public void Destroy()
+        {
+            _boostTween.Kill();
+            _boostTween = null;
+        }
+
         public void Update(float dt)
         {
             UpdateImmune(dt);
@@ -217,6 +223,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
             if(PlayerManager.Instance.PlayerData.EnableBoostCameraShake) {
                 _boostTween.Pause();
+                _owner.Viewer.ResetCameraPosition();
             }
 
             _boostRechargeCooldown = _owner.Bird.Type.BoostRechargeCooldown;

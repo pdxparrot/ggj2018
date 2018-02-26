@@ -105,6 +105,8 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void OnDestroy()
         {
+            State.Destroy();
+
             Viewer.FollowCamera.SetTarget(null);
 
             Destroy(_godRay.gameObject);
