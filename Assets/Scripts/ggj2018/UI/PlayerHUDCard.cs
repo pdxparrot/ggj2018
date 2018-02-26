@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.GameState;
 using pdxpartyparrot.ggj2018.GameTypes;
 using pdxpartyparrot.ggj2018.Players;

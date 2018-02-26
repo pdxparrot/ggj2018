@@ -12,9 +12,9 @@ namespace pdxpartyparrot.ggj2018.Camera
         [Header("UI")]
 
         [SerializeField]
-        private PlayerUIPage _playerUIPrefab;
+        private PlayerUI _playerUIPrefab;
 
-        public PlayerUIPage PlayerUI { get; private set; }
+        public PlayerUI PlayerUI { get; private set; }
 
 #region Unity Lifecycle
         protected override void Awake()
@@ -22,7 +22,7 @@ namespace pdxpartyparrot.ggj2018.Camera
             base.Awake();
 
             PlayerUI = Instantiate(_playerUIPrefab, transform);
-            PlayerUI.GetComponent<Canvas>().worldCamera = UICamera;
+            PlayerUI.Initialize(this);
         }
 
         protected override void OnDestroy()
@@ -36,6 +36,8 @@ namespace pdxpartyparrot.ggj2018.Camera
 
         public void Initialize(Player owner)
         {
+            PlayerUI.Initialize(owner);
+
             SetFov(owner.Bird.Type.ViewFOV);
             SetOrbitRadius(owner.Bird.Type.FollowOrbitRadius);
 

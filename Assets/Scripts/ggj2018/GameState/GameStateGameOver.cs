@@ -26,7 +26,7 @@ namespace pdxpartyparrot.ggj2018.GameState
             base.OnEnter();
 
             foreach(Player player in PlayerManager.Instance.Players) {
-                player.Viewer.PlayerUI.SwitchToGameOver(player, GameManager.Instance.GameType);
+                player.Viewer.PlayerUI.PlayerUIPage.SwitchToGameOver(player, GameManager.Instance.GameType);
             }
 
             AudioManager.Instance.PlayMusic(_gameOverMusicAudioClip);

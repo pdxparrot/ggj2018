@@ -123,7 +123,7 @@ namespace pdxpartyparrot.ggj2018.Players
         {
             _playerState.Update(Time.deltaTime);
 
-            Viewer.PlayerUI.PlayerHUD.SetState(this);
+            Viewer.PlayerUI.PlayerUIPage.PlayerHUD.SetState(this);
 
             if(InputManager.Instance.Pressed(Id, PlayerManager.Instance.PlayerData.HornButton)) {
                 Bird.PlayHornAudio();

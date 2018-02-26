@@ -33,7 +33,7 @@ namespace pdxpartyparrot.ggj2018.GameState
                 CharacterSelectState selectState = new CharacterSelectState(controllerIndex);
                 _characterSelectStates.Add(selectState);
 
-                selectState.Viewer.PlayerUI.SwitchToCharacterSelect(selectState);
+                selectState.Viewer.PlayerUI.PlayerUIPage.SwitchToCharacterSelect(selectState);
             }
 
             CameraManager.Instance.ResizeViewports();

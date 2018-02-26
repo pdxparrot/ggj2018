@@ -127,8 +127,7 @@ namespace pdxpartyparrot.ggj2018.Players
             Turn(_lastMoveAxes, dt);
             Move(_lastMoveAxes, dt);
 
-            // have to do this here so that it doesn't jump around
-            _owner.Viewer.PlayerUI.PlayerHUD.DebugVisualizer.SetState(_owner);
+            _owner.Viewer.PlayerUI.PlayerUIPage.PlayerHUD.DebugVisualizer.SetState(_owner);
         }
 
         private void OnCollisionEnter(Collision collision)

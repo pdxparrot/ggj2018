@@ -55,6 +55,11 @@ namespace pdxpartyparrot.ggj2018.Data
         private float _followOrbitRadius = 5.0f;
 
         public float FollowOrbitRadius => _followOrbitRadius;
+
+        [SerializeField]
+        private bool _showTargetingReticle;
+
+        public bool ShowTargetingReticle => _showTargetingReticle;
 #endregion
 
         [Space(10)]

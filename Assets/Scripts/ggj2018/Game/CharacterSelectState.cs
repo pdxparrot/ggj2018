@@ -73,6 +73,9 @@ namespace pdxpartyparrot.ggj2018
         {
             _controllerIndex = controllerIndex;
             _viewer = CameraManager.Instance.AcquireViewer() as Camera.Viewer;
+
+            Viewer.PlayerUI.Hide();
+            Viewer.PlayerUI.PlayerUIPage.SwitchToCharacterSelect(this);
         }
 
         public void Update(bool allReady)
@@ -100,26 +103,28 @@ namespace pdxpartyparrot.ggj2018
                 }
             }
 
-// TODO: why is this necessary???
-Viewer.PlayerUI.SwitchToCharacterSelect(this);
-            Viewer.PlayerUI.CharacterSelect.SetState(this, allReady);
+            Viewer.PlayerUI.PlayerUIPage.CharacterSelect.SetState(this, allReady);
         }
 
         public void Finish()
         {
+            Player = null;
             if(IsReady) {
                 Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.GameTypeData, this);
-                Player?.Viewer.PlayerUI.SwitchToGame(Player, GameManager.Instance.GameType);
             } else if(DebugManager.Instance.SpawnMaxLocalPlayers) {
                 SelectedBird = ControllerIndex % GameManager.Instance.BirdData.Birds.Count;
                 Player = PlayerManager.Instance.SpawnPlayer(GameManager.Instance.GameType.GameTypeData, this);
-                Player?.Viewer.PlayerUI.SwitchToGame(Player, GameManager.Instance.GameType);
-            } else {
-                Player = null;
+            }
+
+            if(null == Player) {
                 Viewer.PlayerUI.Hide();
 
                 CameraManager.Instance.ReleaseViewer(Viewer);
+                return;
             }
+
+            Player.Viewer.PlayerUI.PlayerUIPage.SwitchToGame(Player, GameManager.Instance.GameType);
+            Player.Viewer.PlayerUI.ShowTargetingReticle(Player.Bird.Type.ShowTargetingReticle);
         }
     }
 }

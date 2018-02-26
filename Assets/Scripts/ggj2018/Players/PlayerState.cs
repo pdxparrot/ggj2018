@@ -465,7 +465,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void ScoreKill()
         {
-            _owner.Viewer.PlayerUI.PlayerHUD.AddKill();
+            _owner.Viewer.PlayerUI.PlayerUIPage.PlayerHUD.AddKill();
         }
 #endregion
 

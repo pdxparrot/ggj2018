@@ -306,11 +306,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bc3e3b7febd844c97837c483315763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 0
+  _playerId: 0
   _camera: {fileID: 20499584597188918}
   _uiCamera: {fileID: 20295695093120854}
   _globalPostProcessVolume: {fileID: 114062350098787884}
-  _playerUIPrefab: {fileID: 114062390217345816, guid: c839dc0f7140c8640a1fe019b091953c,
+  _defaultCameraPosition: {x: 0, y: 0, z: 0}
+  _playerUIPrefab: {fileID: 114720228747668268, guid: fc8bc1720d2688d4caad6f7c329d6cb8,
     type: 2}
 --- !u!114 &114622719731141972
 MonoBehaviour:
@@ -357,8 +358,6 @@ MonoBehaviour:
   _lookSpeedX: 100
   _lookSpeedY: 100
   _lookRotation: {x: 0, y: 0}
-  _target: {fileID: 0}
-  _targetCollider: {fileID: 0}
   _smooth: 1
   _smoothTime: 0.03
   _velocity: {x: 0, y: 0, z: 0}

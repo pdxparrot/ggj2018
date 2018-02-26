@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Camera;
 using pdxpartyparrot.ggj2018.GameTypes;
 using pdxpartyparrot.ggj2018.Players;
 
@@ -24,6 +25,11 @@ namespace pdxpartyparrot.ggj2018.UI
 
         [SerializeField]
         private GameObject _deadPanel;
+
+        public void Initialize(Viewer viewer)
+        {
+            GetComponent<Canvas>().worldCamera = viewer.UICamera;
+        }
 
         public void Hide()
         {

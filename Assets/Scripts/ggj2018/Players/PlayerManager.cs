@@ -92,7 +92,7 @@ namespace pdxpartyparrot.ggj2018.Players
 #if UNITY_EDITOR
             if(Input.GetKeyDown(KeyCode.V)) {
                 foreach(Player player in Players) {
-                    player.Viewer.PlayerUI.PlayerHUD.EnableDebugVisualizer(true);
+                    player.Viewer.PlayerUI.PlayerUIPage.PlayerHUD.EnableDebugVisualizer(true);
                 }
             }
 #endif
@@ -141,7 +141,9 @@ namespace pdxpartyparrot.ggj2018.Players
 
             _deadPlayers.Add(player);
 
-            player.Viewer.PlayerUI.SwitchToDead();
+            player.Viewer.PlayerUI.ShowTargetingReticle(false);
+            player.Viewer.PlayerUI.PlayerUIPage.SwitchToDead();
+
             player.Died();
         }
 
