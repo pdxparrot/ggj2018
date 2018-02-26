@@ -237,7 +237,13 @@ namespace pdxpartyparrot.Core.Input
 
         public float GetTriggerAxes(int controllerIndex, TriggerAxis axis)
         {
-            // TODO
+            switch(axis)
+            {
+            case TriggerAxis.LeftTrigger:
+                return UnityEngine.Input.GetAxis($"P{controllerIndex} Left Trigger");
+            case TriggerAxis.RightTrigger:
+                return UnityEngine.Input.GetAxis($"P{controllerIndex} Right Trigger");
+            }
             return 0.0f;
         }
 
