@@ -4,7 +4,6 @@ using pdxpartyparrot.ggj2018.Players;
 using pdxpartyparrot.ggj2018.UI;
 using pdxpartyparrot.ggj2018.World;
 using pdxpartyparrot.Game.Audio;
-using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace pdxpartyparrot.ggj2018.GameState
     public sealed class GameStateStart : pdxpartyparrot.Game.State.GameState
     {
         [SerializeField]
-        private GameStateData _characterSelectGameStateData;
+        private pdxpartyparrot.Game.State.GameState _characterSelectGameStatePrefab;
 
         [SerializeField]
         private AudioClip _startupLogoMusicClip;
@@ -42,7 +41,7 @@ namespace pdxpartyparrot.ggj2018.GameState
 #endregion
 
             if(!_showStartup) {
-                GameStateManager.Instance.TransitionState(_characterSelectGameStateData);
+                GameStateManager.Instance.TransitionState(_characterSelectGameStatePrefab);
                 return;
             }
 
@@ -56,7 +55,7 @@ namespace pdxpartyparrot.ggj2018.GameState
             base.OnUpdate(dt);
 
             if(InputManager.Instance.StartPressed()) {
-                GameStateManager.Instance.TransitionState(_characterSelectGameStateData);
+                GameStateManager.Instance.TransitionState(_characterSelectGameStatePrefab);
             }
         }
 

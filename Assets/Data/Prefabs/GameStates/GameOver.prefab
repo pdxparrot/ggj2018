@@ -51,5 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e61277eeb61afb499adad30295281f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startGameStateData: {fileID: 11400000, guid: f58f18ed83cdcfc4eab56adff01512d7,
+  _sceneName: 
+  _startGameStatePrefab: {fileID: 114893305866107254, guid: 581118ef3261fec4f9c4f217bb3be149,
     type: 2}
+  _gameOverMusicAudioClip: {fileID: 0}
+  _gameOverTimer: 0

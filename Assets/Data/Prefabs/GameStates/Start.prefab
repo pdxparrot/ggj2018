@@ -51,5 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773029c3657bb7408595f66b5fcbf74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterSelectGameStateData: {fileID: 11400000, guid: b830dd109dcfa6b41b5de69829891d1b,
+  _sceneName: 
+  _characterSelectGameStatePrefab: {fileID: 114045675555817802, guid: 2795f280bf4e6454ea85db468ad7f857,
     type: 2}
+  _startupLogoMusicClip: {fileID: 0}

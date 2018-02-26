@@ -4,7 +4,6 @@ using pdxpartyparrot.Core.Camera;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.Game.Audio;
-using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace pdxpartyparrot.ggj2018.GameState
     public sealed class GameStateCharacterSelect : pdxpartyparrot.Game.State.GameState
     {
         [SerializeField]
-        private GameStateData _gameGameStateData;
+        private pdxpartyparrot.Game.State.GameState _gameGameStatePrefab;
 
         [SerializeField]
         private AudioClip _characterSelectMusicClip;
@@ -59,7 +58,7 @@ namespace pdxpartyparrot.ggj2018.GameState
                 if(!GameManager.Instance.NetworkManager.IsClientConnected()) {
                     Debug.LogError("Need to connect to a server!");
                 } else {
-                    GameStateManager.Instance.TransitionState(_gameGameStateData);
+                    GameStateManager.Instance.TransitionState(_gameGameStatePrefab);
                     return;
                 }
             }

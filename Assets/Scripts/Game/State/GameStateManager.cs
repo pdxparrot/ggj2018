@@ -1,7 +1,6 @@
 ﻿using System;
 
 using pdxpartyparrot.Core.Util;
-using pdxpartyparrot.Game.Data;
 
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace pdxpartyparrot.Game.State
     public sealed class GameStateManager : SingletonBehavior<GameStateManager>
     {
         [SerializeField]
-        private GameStateData _initialGameStateData;
+        private GameState _initialGameStatePrefab;
 
         [SerializeField]
         [ReadOnly]
@@ -36,19 +35,19 @@ namespace pdxpartyparrot.Game.State
 
         public void TransitionToInitialState(Action<GameState> initializeState=null)
         {
-            TransitionState(_initialGameStateData, initializeState);
+            TransitionState(_initialGameStatePrefab, initializeState);
         }
 
-        public void TransitionState(GameStateData gameStateData, Action<GameState> initializeState=null)
+        public void TransitionState(GameState gameStatePrefab, Action<GameState> initializeState=null)
         {
             ExitCurrentState();
 
-            _currentGameState = gameStateData.InstantiateGameState(transform);
+            _currentGameState = Instantiate(gameStatePrefab, transform);
             initializeState?.Invoke(_currentGameState);
 
-            _currentGameState?.OnEnter();
+            _currentGameState.OnEnter();
 
-            Debug.Log($"State: {gameStateData.Name}");
+            Debug.Log($"State: {_currentGameState.Name}");
         }
 
         private void ExitCurrentState()

@@ -3,7 +3,6 @@ using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
 using pdxpartyparrot.Game.Audio;
-using pdxpartyparrot.Game.Data;
 using pdxpartyparrot.Game.State;
 
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace pdxpartyparrot.ggj2018.GameState
     public sealed class GameStateGameOver : pdxpartyparrot.Game.State.GameState
     {
         [SerializeField]
-        private GameStateData _startGameStateData;
+        private pdxpartyparrot.Game.State.GameState _startGameStatePrefab;
 
         [SerializeField]
         private AudioClip _gameOverMusicAudioClip;
@@ -52,7 +51,7 @@ namespace pdxpartyparrot.ggj2018.GameState
                 _gameOverTimer = 0.0f;
 
                 if(GameManager.Instance.GameTypeData.RestartOnGameOver) {
-                    GameStateManager.Instance.TransitionState(_startGameStateData, state => {
+                    GameStateManager.Instance.TransitionState(_startGameStatePrefab, state => {
                         (state as GameStateStart)?.Initialize(GameManager.Instance.EnableDemoMode);
                     });
                 }
