@@ -19,7 +19,7 @@ namespace pdxpartyparrot.ggj2018.Players
     [RequireComponent(typeof(PlayerController))]
     [RequireComponent(typeof(NetworkIdentity))]
     [RequireComponent(typeof(NetworkTransform))]
-    public sealed class Player : NetworkBehavior, IFollowTarget
+    public sealed class Player : Core.Players.Player, IFollowTarget
     {
         [SerializeField]
         [ReadOnly]

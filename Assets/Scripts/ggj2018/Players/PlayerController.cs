@@ -11,7 +11,7 @@ using UnityEngine;
 namespace pdxpartyparrot.ggj2018.Players
 {
     [RequireComponent(typeof(Rigidbody))]
-    public sealed class PlayerController : MonoBehaviour
+    public sealed class PlayerController : Core.Players.PlayerController
     {
         [Serializable]
         private struct PauseState
