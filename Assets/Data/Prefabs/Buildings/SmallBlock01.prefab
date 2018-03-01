@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 65092029340758304}
   - component: {fileID: 23290986850122910}
   - component: {fileID: 114929216126403354}
+  - component: {fileID: 208911894325802140}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Untagged
@@ -60,6 +61,7 @@ GameObject:
   - component: {fileID: 65366566529548074}
   - component: {fileID: 23400666168513088}
   - component: {fileID: 114687141826596108}
+  - component: {fileID: 208627957193134184}
   m_Layer: 0
   m_Name: Cube (9)
   m_TagString: Untagged
@@ -112,6 +114,7 @@ GameObject:
   - component: {fileID: 65823161518460056}
   - component: {fileID: 23040852506914394}
   - component: {fileID: 114355960086631426}
+  - component: {fileID: 208576817907611998}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -131,6 +134,7 @@ GameObject:
   - component: {fileID: 65957767072778718}
   - component: {fileID: 23630199321625372}
   - component: {fileID: 114517594756742944}
+  - component: {fileID: 208807334095290554}
   m_Layer: 0
   m_Name: Cube (8)
   m_TagString: Untagged
@@ -150,6 +154,7 @@ GameObject:
   - component: {fileID: 65834885966913504}
   - component: {fileID: 23765645385142556}
   - component: {fileID: 114200456837720554}
+  - component: {fileID: 208669394096304100}
   m_Layer: 0
   m_Name: Cube (12)
   m_TagString: Untagged
@@ -169,6 +174,7 @@ GameObject:
   - component: {fileID: 65951730204283682}
   - component: {fileID: 23367898358986912}
   - component: {fileID: 114600867843983648}
+  - component: {fileID: 208499981254004772}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -188,6 +194,7 @@ GameObject:
   - component: {fileID: 65161111280303840}
   - component: {fileID: 23835468690206444}
   - component: {fileID: 114390124144342938}
+  - component: {fileID: 208134800833588274}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -207,6 +214,7 @@ GameObject:
   - component: {fileID: 65430072779600056}
   - component: {fileID: 23235763419383906}
   - component: {fileID: 114078342939194490}
+  - component: {fileID: 208142882948808224}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -226,6 +234,7 @@ GameObject:
   - component: {fileID: 65029957861195888}
   - component: {fileID: 23183446514503954}
   - component: {fileID: 114356987462415718}
+  - component: {fileID: 208933095180522964}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -245,6 +254,7 @@ GameObject:
   - component: {fileID: 65929155151297000}
   - component: {fileID: 23658596344443250}
   - component: {fileID: 114403771410436604}
+  - component: {fileID: 208436594610291152}
   m_Layer: 0
   m_Name: Cube (10)
   m_TagString: Untagged
@@ -264,6 +274,7 @@ GameObject:
   - component: {fileID: 65758943607956494}
   - component: {fileID: 23060168839908734}
   - component: {fileID: 114937580000457932}
+  - component: {fileID: 208043616519306318}
   m_Layer: 0
   m_Name: Cube (11)
   m_TagString: Untagged
@@ -283,6 +294,7 @@ GameObject:
   - component: {fileID: 65499579973606292}
   - component: {fileID: 23322512342189172}
   - component: {fileID: 114298804562584248}
+  - component: {fileID: 208065509810818674}
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
@@ -1373,3 +1385,183 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74f953c885944640a263773ae880818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &208043616519306318
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767484450853002}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208065509810818674
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1878916254839130}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208134800833588274
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448915391977716}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208142882948808224
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496416160490306}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208436594610291152
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571435349337652}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208499981254004772
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1440944750627676}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208576817907611998
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224066346882854}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208627957193134184
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126250622953716}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208669394096304100
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397797800754602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208807334095290554
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327068251844726}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208911894325802140
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1118842185127182}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208933095180522964
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1531728296083170}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
