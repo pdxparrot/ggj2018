@@ -131,8 +131,12 @@ namespace pdxpartyparrot.ggj2018.Players
 
             Viewer.FollowCamera.SetTarget(this);
 
-            Viewer.AddRenderLayer(Bird.Type.Layer);
-            Viewer.RemoveRenderLayer(Bird.Type.OtherLayer);
+            // ouch.... why not just render everything except for OtherRenderLayer ?
+            Viewer.AddRenderLayer(Bird.Type.PlayerLayer);
+            Viewer.AddRenderLayer(Bird.Type.OtherPlayerLayer);
+            Viewer.AddRenderLayer(Bird.Type.RenderLayer);
+            Viewer.RemoveRenderLayer(Bird.Type.OtherRenderLayer);
+            Viewer.AddRenderLayer(GameManager.Instance.ObstacleLayer);
         }
 
         public void InitializeNetwork(int id, Bird bird, BirdTypeData birdType)

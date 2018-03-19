@@ -67,6 +67,17 @@ namespace pdxpartyparrot.ggj2018.Game
 
         [Space(10)]
 
+#region Layers
+        [Header("Layers")]
+
+        [SerializeField]
+        private string _obstacleLayer;
+
+        public LayerMask ObstacleLayer => LayerMask.NameToLayer(_obstacleLayer);
+#endregion
+
+        [Space(10)]
+
 #region Physics
         [Header("Physics")]
 

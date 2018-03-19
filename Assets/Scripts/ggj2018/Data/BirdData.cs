@@ -68,14 +68,24 @@ namespace pdxpartyparrot.ggj2018.Data
         [Header("Layers")]
 
         [SerializeField]
-        private string _predatorLayer;
+        private string _predatorPlayerLayer;
 
-        public string PredatorLayer => _predatorLayer;
+        public LayerMask PredatorPlayerLayer => LayerMask.NameToLayer(_predatorPlayerLayer);
 
         [SerializeField]
-        private string _preyLayer;
+        private string _predatorRenderLayer;
 
-        public string PreyLayer => _preyLayer;
+        public LayerMask PredatorRenderLayer => LayerMask.NameToLayer(_predatorRenderLayer);
+
+        [SerializeField]
+        private string _preyPlayerLayer;
+
+        public LayerMask PreyPlayerLayer => LayerMask.NameToLayer(_preyPlayerLayer);
+
+        [SerializeField]
+        private string _preyRenderLayer;
+
+        public LayerMask PreyRenderLayer => LayerMask.NameToLayer(_preyRenderLayer);
 #endregion
 
         [Space(10)]

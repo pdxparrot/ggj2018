@@ -148,14 +148,23 @@ namespace pdxpartyparrot.ggj2018.Data
             ? _birdData.PredatorBrakeFOVChange
             : _birdData.PreyBrakeFOVChange;
 
-        public string Layer => IsPredator
-            ? _birdData.PredatorLayer
-            : _birdData.PreyLayer;
+        public LayerMask PlayerLayer => IsPredator
+            ? _birdData.PredatorPlayerLayer
+            : _birdData.PreyPlayerLayer;
 
         // TODO: rename this
-        public string OtherLayer => IsPrey
-            ? _birdData.PredatorLayer
-            : _birdData.PreyLayer;
+        public LayerMask OtherPlayerLayer => IsPrey
+            ? _birdData.PredatorPlayerLayer
+            : _birdData.PreyPlayerLayer;
+
+        public LayerMask RenderLayer => IsPredator
+            ? _birdData.PredatorRenderLayer
+            : _birdData.PreyRenderLayer;
+
+        // TODO: rename this
+        public LayerMask OtherRenderLayer => IsPrey
+            ? _birdData.PredatorRenderLayer
+            : _birdData.PreyRenderLayer;
 
         public PostProcessProfile PostProcessProfile => IsPredator
             ? _birdData.PredatorPostProcessProfile

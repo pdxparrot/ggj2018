@@ -24,12 +24,6 @@ namespace pdxpartyparrot.ggj2018.World
         public bool IsVertical => BoundaryType.Ground == _boundaryType || BoundaryType.Sky == _boundaryType;
 
         [SerializeField]
-        private bool _isPredatorBound = true;
-
-        [SerializeField]
-        private bool _isPreyBound = true;
-
-        [SerializeField]
         private bool _useSolidGizmos;
 
         private Collider _collider;
@@ -57,11 +51,6 @@ namespace pdxpartyparrot.ggj2018.World
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.black;
-            if(!_isPredatorBound) {
-                Gizmos.color = Color.blue;
-            } else if(!_isPreyBound) {
-                Gizmos.color = Color.red;
-            }
 
             BoxCollider boxCollider = _collider as BoxCollider ?? GetComponent<BoxCollider>();
             if(_useSolidGizmos) {

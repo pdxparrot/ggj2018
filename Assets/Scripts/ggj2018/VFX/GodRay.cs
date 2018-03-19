@@ -21,15 +21,16 @@ namespace pdxpartyparrot.ggj2018.VFX
             // TODO: this should come from the game type
             gameObject.SetActive(player.Bird.Type.IsPrey);
 
-            SetLayer(gameObject, player.Bird.Type.OtherLayer);
+            SetLayer(gameObject, player.Bird.Type.OtherRenderLayer);
 
             _renderer.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, player.PlayerColor);
             _renderer.material.SetFloat(GameManager.Instance.ConfigData.GodRayAlphaProperty, 1.0f);
         }
 
-        private void SetLayer(GameObject obj, string layer)
+        // TODO: make this an extension of MonoBehaviour
+        private void SetLayer(GameObject obj, LayerMask layer)
         {
-            obj.layer = LayerMask.NameToLayer(layer);
+            obj.layer = layer;
             foreach(Transform c in obj.transform) {
                 SetLayer(c.gameObject, layer);
             }

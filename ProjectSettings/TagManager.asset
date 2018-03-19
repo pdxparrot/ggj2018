@@ -13,20 +13,20 @@ TagManager:
   - UI
   - 
   - 
-  - Hawk
-  - Pigeon
+  - Render_Predator
+  - Render_Prey
   - Goal
-  - PlayerCollision
+  - 
   - P0_PostProcess
   - P1_PostProcess
   - P2_PostProcess
   - P3_PostProcess
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player_Predator
+  - Player_Prey
+  - WorldBoundary_Predator
+  - WorldBoundary_Prey
+  - WorldBoundary_All
+  - Obstacle
   - 
   - 
   - 

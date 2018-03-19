@@ -37,11 +37,6 @@ namespace pdxpartyparrot.ggj2018.Players
         public PlayerData PlayerData => _playerData;
 
         [SerializeField]
-        private string _playerCollisionLayerName;
-
-        public LayerMask PlayerCollisionLayer => LayerMask.NameToLayer(_playerCollisionLayerName);
-
-        [SerializeField]
         private float _nearestPlayerUpdateMs = 100.0f;
 
         public float NearestPlayerUpdateMs => _nearestPlayerUpdateMs;

@@ -131,19 +131,9 @@ namespace pdxpartyparrot.Core.Camera
         }
 
 #region Render Layers
-        public void AddRenderLayer(string layer)
-        {
-            AddRenderLayer(LayerMask.NameToLayer(layer));
-        }
-
         public void AddRenderLayer(LayerMask layer)
         {
             Camera.cullingMask |= (1 << layer.value);
-        }
-
-        public void RemoveRenderLayer(string layer)
-        {
-            RemoveRenderLayer(LayerMask.NameToLayer(layer));
         }
 
         public void RemoveRenderLayer(LayerMask layer)

@@ -45,6 +45,7 @@ namespace pdxpartyparrot.ggj2018.Birds
         [Space(10)]
 
         [SerializeField]
+        [Tooltip("Player-to-Player collider")]
         private SphereCollider _playerCollider;
 
         public Player Owner { get; private set; }
@@ -68,7 +69,6 @@ namespace pdxpartyparrot.ggj2018.Birds
             _audioSource.spatialBlend = 0.0f;
             AudioManager.Instance.InitSFXAudioMixerGroup(_audioSource);
 
-            _playerCollider.gameObject.layer = PlayerManager.Instance.PlayerCollisionLayer;
             _playerCollider.isTrigger = true;
         }
 
@@ -92,6 +92,8 @@ namespace pdxpartyparrot.ggj2018.Birds
         {
             Owner = owner;
             Type = birdType;
+
+            gameObject.layer = Type.PlayerLayer;
 
             foreach(Renderer r in _coloredRenderers) {
                 r.material.SetColor(PlayerManager.Instance.PlayerData.PlayerColorProperty, Owner.PlayerColor);

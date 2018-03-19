@@ -19,8 +19,10 @@ MonoBehaviour:
   _preyFOV: 90
   _preyBoostFOVChange: 0
   _preyBrakeFOVChange: 15
-  _predatorLayer: Hawk
-  _preyLayer: Pigeon
+  _predatorPlayerLayer: Player_Predator
+  _predatorRenderLayer: Render_Predator
+  _preyPlayerLayer: Player_Prey
+  _preyRenderLayer: Render_Prey
   _predatorPostProcessProfile: {fileID: 11400000, guid: 6b4d067a04eef734fa139166144a45a3,
     type: 2}
   _preyPostProcessProfile: {fileID: 11400000, guid: 366ba31fc8f0437438bc993b09adbffa,

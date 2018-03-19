@@ -11,15 +11,17 @@ namespace pdxpartyparrot.ggj2018.World
 {
     public sealed class GoalManager : SingletonBehavior<GoalManager>
     {
+// TODO split this into render/collision layers
+
         [SerializeField]
         private string _goalLayerName;
+
+        public LayerMask GoalLayer => LayerMask.NameToLayer(_goalLayerName);
 
         [SerializeField]
         private GodRay _goalGodRayPrefab;
 
         public GodRay GoalGodRayPrefab => _goalGodRayPrefab;
-
-        public LayerMask GoalLayer => LayerMask.NameToLayer(_goalLayerName);
 
         private readonly List<Goal> _goals = new List<Goal>();
 
