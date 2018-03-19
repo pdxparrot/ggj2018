@@ -8,6 +8,9 @@ namespace pdxpartyparrot.Game.State
 {
     // TODO: need to handle game state scene setup/transitioning
     // TODO: need to be able to have a loading screen where necessary
+    // TODO: all game states should be created at startup and enabled/disabled
+    // as necessary (if we even need to enable/disable them, since we control updates and shit)
+    // so that we can avoid instantiating new objects
     public sealed class GameStateManager : SingletonBehavior<GameStateManager>
     {
         [SerializeField]

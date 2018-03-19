@@ -16,16 +16,10 @@ namespace pdxpartyparrot.Core.Players
 
         public int Id => _id;
 
+        [SerializeField]
         private PlayerController _controller;
 
         public PlayerController Controller => _controller;
-
-#region Unity Lifecycle
-        protected virtual void Awake()
-        {
-            _controller = GetComponent<PlayerController>();
-        }
-#endregion
 
         public virtual void Initialize(int id)
         {

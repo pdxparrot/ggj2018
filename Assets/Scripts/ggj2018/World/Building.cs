@@ -1,4 +1,5 @@
 ﻿using pdxpartyparrot.Core.Util;
+using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.Players;
 
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace pdxpartyparrot.ggj2018.World
         private void Awake()
         {
             _collider = GetComponent<Collider>();
+            gameObject.layer = GameManager.Instance.ObstacleLayer;
+// TODO: building prefabs don't need to be set to the obstacle layer by hand
         }
 
         private void OnCollisionEnter(Collision collision)

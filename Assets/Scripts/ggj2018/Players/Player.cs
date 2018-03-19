@@ -33,16 +33,9 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public new PlayerController Controller => (PlayerController)base.Controller;
 
-// TODO: driver class should handle input
-#region Input
-        [SerializeField]
-        [ReadOnly]
-        private int _controllerIndex;
+        public LocalPlayerDriver Driver => (LocalPlayerDriver)Controller.Driver;
 
-        public int ControllerIndex => _controllerIndex;
-
-        public Vector3 LookAxis => InputManager.Instance.GetLookAxes(ControllerIndex);
-#endregion
+        public Vector3 LookAxis => Driver.LookAxis;
 
         public bool IsPaused => GameManager.Instance.IsPaused;
 
@@ -84,10 +77,8 @@ namespace pdxpartyparrot.ggj2018.Players
         public Collider Collider => Bird.Collider;
 
 #region Unity Lifecycle
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             _playerState = new PlayerState(this);
         }
 
@@ -121,7 +112,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         public void InitializeLocal(int id, int controllerIndex, Camera.Viewer viewer, Bird bird, BirdTypeData birdType)
         {
-            _controllerIndex = controllerIndex;
+            Driver.ControllerIndex = controllerIndex;
             _viewer = viewer;
 
             Debug.Log($"Initializing local player {id}");

@@ -11,8 +11,6 @@ namespace pdxpartyparrot.ggj2018.World
 {
     public sealed class GoalManager : SingletonBehavior<GoalManager>
     {
-// TODO split this into render/collision layers
-
         [SerializeField]
         private string _goalLayerName;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Core.Util;
 using pdxpartyparrot.ggj2018.Game;
 using pdxpartyparrot.ggj2018.World;
@@ -35,10 +34,6 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private readonly List<WorldBoundary> _horizontalBoundaryCollisions = new List<WorldBoundary>();
 
-        [SerializeField]
-        [ReadOnly]
-        private Vector3 _lastMoveAxes;
-
 #region Physics
         [SerializeField]
         [ReadOnly]
@@ -53,7 +48,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         [SerializeField]
         [ReadOnly]
-        private PauseState _pauseState = new PauseState();
+        private PauseState _pauseState;
 
         private new Player Owner => (Player)base.Owner;
 
@@ -76,33 +71,7 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void Update()
         {
-            if(!Owner.IsLocalPlayer) {
-                return;
-            }
-
-            if(InputManager.Instance.Pressed(Owner.ControllerIndex, PlayerManager.Instance.PlayerData.InvertLookButton)) {
-                InputManager.Instance.InvertLookAxis(Owner.ControllerIndex);
-            } else if(InputManager.Instance.Pressed(Owner.ControllerIndex, PlayerManager.Instance.PlayerData.InvertMoveButton)) {
-                InputManager.Instance.InvertMoveAxis(Owner.ControllerIndex);
-            }
-
-#if UNITY_EDITOR
             CheckForDebug();
-#endif
-
-            CheckForBrake();
-            CheckForBoost();
-
-            if(GameManager.Instance.IsPaused) {
-                return;
-            }
-
-// TODO: driver should do this
-            _lastMoveAxes = InputManager.Instance.GetMoveAxes(Owner.ControllerIndex);
-
-            float dt = Time.deltaTime;
-
-            RotateModel(_lastMoveAxes, dt);
         }
 
         private void FixedUpdate()
@@ -114,11 +83,6 @@ namespace pdxpartyparrot.ggj2018.Players
             if(GameManager.Instance.IsPaused) {
                 return;
             }
-
-            float dt = Time.fixedDeltaTime;
-
-            Turn(_lastMoveAxes, dt);
-            Move(_lastMoveAxes, dt);
 
             Owner.Viewer.PlayerUI.PlayerUIPage.PlayerHUD.DebugVisualizer.SetState(Owner);
         }
@@ -212,69 +176,11 @@ namespace pdxpartyparrot.ggj2018.Players
                 Rigidbody.angularVelocity = Vector3.zero;
                 Rigidbody.velocity = Vector3.zero;
             }
-
-            if(InputManager.Instance.Pressed(Owner.ControllerIndex, PlayerManager.Instance.PlayerData.DebugStunButton)) {
-                Owner.State.DebugStun();
-            }
-
-            if(InputManager.Instance.Pressed(Owner.ControllerIndex, PlayerManager.Instance.PlayerData.DebugKillButton)) {
-                Owner.State.DebugKill();
-            }
         }
 #endif
-
-        private void CheckForBrake()
-        {
-            float brakeAmount = 0.0f;
-
-            if(PlayerManager.Instance.PlayerData.UseBoostBrakeAxes) {
-                brakeAmount = InputManager.Instance.GetTriggerAxis(Owner.ControllerIndex, InputManager.TriggerAxis.Trigger);
-                if(brakeAmount <= 0.0f) {
-                    brakeAmount = 0.0f;
-                }
-                brakeAmount = Mathf.Abs(brakeAmount);
-            } else if(InputManager.Instance.Held(Owner.ControllerIndex, PlayerManager.Instance.PlayerData.BrakeButton)) {
-                brakeAmount = 1.0f;
-            }
-
-            if(Owner.State.IsBraking) {
-                if(brakeAmount > 0.0f) {
-                    Owner.State.UpdateBrakeAmount(brakeAmount);
-                } else {
-                    Owner.State.StopBrake();
-                }
-            } else if(brakeAmount > 0.0f) {
-                Owner.State.StartBrake(brakeAmount);
-            }
-        }
-
-        private void CheckForBoost()
-        {
-            float boostAmount = 0.0f;
-
-            if(PlayerManager.Instance.PlayerData.UseBoostBrakeAxes) {
-                boostAmount = InputManager.Instance.GetTriggerAxis(Owner.ControllerIndex, InputManager.TriggerAxis.Trigger);
-                if(boostAmount >= 0.0f) {
-                    boostAmount = 0.0f;
-                }
-                boostAmount = Mathf.Abs(boostAmount);
-            } else if(InputManager.Instance.Held(Owner.ControllerIndex, PlayerManager.Instance.PlayerData.BoostButton)) {
-                boostAmount = 1.0f;
-            }
-
-            if(Owner.State.IsBoosting) {
-                if(boostAmount > 0.0f) {
-                    Owner.State.UpdateBoostAmount(boostAmount);
-                } else {
-                    Owner.State.StopBoost();
-                }
-            } else if(boostAmount > 0.0f) {
-                Owner.State.StartBoost(boostAmount);
-            }
-        }
 #endregion
 
-        private void RotateModel(Vector3 axes, float dt)
+        public void RotateModel(Vector3 axes, float dt)
         {
             Quaternion rotation = Owner.Bird.transform.localRotation;
             Vector3 eulerAngles = Owner.Bird.transform.localEulerAngles;
@@ -302,7 +208,7 @@ namespace pdxpartyparrot.ggj2018.Players
         }
 
 #region Movement
-        private void Turn(Vector3 axes, float dt)
+        public void Turn(Vector3 axes, float dt)
         {
             if(Owner.State.IsDead) {
                 return;
@@ -325,7 +231,7 @@ namespace pdxpartyparrot.ggj2018.Players
             Rigidbody.AddForce(_bankForce);
         }
 
-        private void Move(Vector3 axes, float dt)
+        public void Move(Vector3 axes, float dt)
         {
             if(Owner.State.IsDead) {
                 // just let gravity drop us (this feels slow tho)

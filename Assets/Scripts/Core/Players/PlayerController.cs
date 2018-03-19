@@ -7,27 +7,27 @@ namespace pdxpartyparrot.Core.Players
     [RequireComponent(typeof(Rigidbody))]
     public abstract class PlayerController : MonoBehavior
     {
-        private Rigidbody _rigidbody;
-
-        public Rigidbody Rigidbody => _rigidbody;
-
         [SerializeField]
         private PlayerDriver _driver;
 
-        protected PlayerDriver Driver => _driver;
+        public PlayerDriver Driver => _driver;
+
+        public Rigidbody Rigidbody { get; private set; }
 
         protected Player Owner { get; private set; }
 
 #region Unity Lifecycle
         protected virtual void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody>();
+            Rigidbody = GetComponent<Rigidbody>();
         }
 #endregion
 
         public virtual void Initialize(Player owner)
         {
             Owner = owner;
+
+            _driver.Initialize(owner, this);
         }
 
         public void MoveTo(Vector3 position)

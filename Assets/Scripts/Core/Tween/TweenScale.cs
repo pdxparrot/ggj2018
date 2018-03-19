@@ -13,7 +13,7 @@ namespace pdxpartyparrot.Core.Tween
         private Vector3 _from;
 
         [SerializeField]
-        private Vector3 _to = new Vector3();
+        private Vector3 _to;
 
 #region Unity Lifecycle
         protected override void Awake()

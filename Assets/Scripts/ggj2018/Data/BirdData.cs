@@ -65,6 +65,8 @@ namespace pdxpartyparrot.ggj2018.Data
         [Space(10)]
 
 #region Layers
+// TODO: player/render layers can probably be combined here
+
         [Header("Layers")]
 
         [SerializeField]

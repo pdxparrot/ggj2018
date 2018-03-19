@@ -37,7 +37,7 @@ namespace pdxpartyparrot.ggj2018.Data
         public int GameOverWaitTime => _gameOverWaitTime;
 #endregion
 
-// TODO: move to bird data
+// TODO: move to bird data and rename predatorAlertDistance
         [SerializeField]
         private float _hawkAlertDistance = 25.0f;
 
