@@ -41,6 +41,11 @@ namespace pdxpartyparrot.ggj2018.UI
         private Text _speedText;
 #endregion
 
+#region Altitude
+        [SerializeField]
+        private Text _altitudeText;
+#endregion
+
 #region Boost
         [SerializeField]
         private Image _boostMeter;
@@ -101,6 +106,7 @@ namespace pdxpartyparrot.ggj2018.UI
 
             //_speedText.text = $"{(int)UnitUtils.MetersPerSecondToKilometersPerHour(player.Controller.Speed)} km/h";
             _speedText.text = $"{(int)player.Controller.Speed} m/s";
+            _altitudeText.text = $"{(int)player.Controller.Altitude} m";
             _boostMeter.fillAmount = player.State.BoostRemainingPercent;
 
             /*if(distance > 1000.0f) {

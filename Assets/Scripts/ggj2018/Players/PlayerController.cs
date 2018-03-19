@@ -47,6 +47,8 @@ namespace pdxpartyparrot.ggj2018.Players
         public Vector3 BankForce => _bankForce;
 
         public float Speed => Owner.State.IsIncapacitated ? 0.0f : (GameManager.Instance.IsPaused ? _pauseState.Velocity.magnitude : Rigidbody.velocity.magnitude);
+
+        public float Altitude => Owner.transform.position.y;
 #endregion
 
         [SerializeField]
