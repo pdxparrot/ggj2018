@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23311558755318190}
   - component: {fileID: 114159859822745652}
   - component: {fileID: 208403779430250546}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 23298813293742142}
   - component: {fileID: 114890745111498874}
   - component: {fileID: 208080229620912062}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 33420581259627528}
   - component: {fileID: 65692726598284116}
   - component: {fileID: 23408131107869876}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Buidling Bound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 23302285338527236}
   - component: {fileID: 114960755941038672}
   - component: {fileID: 208629066323344564}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 23768522842469604}
   - component: {fileID: 114887688682282686}
   - component: {fileID: 208520167090836824}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 33452657619265372}
   - component: {fileID: 65868611118998794}
   - component: {fileID: 23746706780497110}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 23886085102445066}
   - component: {fileID: 114963589808814602}
   - component: {fileID: 208824680712004042}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 23326713099910432}
   - component: {fileID: 114881008604890116}
   - component: {fileID: 208007725512856256}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4271214902155790}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: BigBlock02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 23219754068362252}
   - component: {fileID: 114859909983240822}
   - component: {fileID: 208671808590709140}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 23120289747822880}
   - component: {fileID: 114924912404865000}
   - component: {fileID: 208151750672153548}
-  m_Layer: 21
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
