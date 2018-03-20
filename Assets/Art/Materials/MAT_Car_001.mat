@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_Fog
-  m_Shader: {fileID: 4800000, guid: 139993d24b06d5d49b45ebcc0def0bc5, type: 3}
-  m_ShaderKeywords: _PROCEDURALFOG_ON
+  m_Name: MAT_Car_001
+  m_Shader: {fileID: 4800000, guid: 88e68b954ee0fb54d8d0fbcea244f582, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -34,6 +34,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Diffuse:
+        m_Texture: {fileID: 2800000, guid: 9bf40254d1cb0d4418d54aae592f1e9a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: 2bc3a16b713f56e4398dde57a7f05b62, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,8 +54,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NoiseTexture:
-        m_Texture: {fileID: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 39c158a8f077a47489300efb5d58dfcd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: d90265c6fc280804bac7d0ca9065afa0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -55,14 +67,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture0:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _TextureSample0:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -75,23 +79,16 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FogFadeDistance: 0.081
-    - _FogIntensity: 0.27
-    - _FogMaxIntensity: 1
-    - _FogOpacity: 0.95
-    - _FogSpeed: 1.2
-    - _FogSpeed2: 0.6
-    - _FogThickness: 0.55
+    - _Emissin: 0
+    - _EmissionMult: 200
+    - _Float0: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseMax: 0.9
-    - _NoiseMin: 0.318
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ProceduralFog: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -101,11 +98,3 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FogColor: {r: 0.71323526, g: 0.81786567, b: 1, a: 0}
-    - _FogDirection: {r: 0.4, g: 0.5, b: 0, a: 0}
-    - _FogDirection2: {r: 0.3, g: 0.8, b: 0, a: 0}
-    - _N: {r: 1, g: 1, b: 0, a: 0}
-    - _Noise: {r: 0, g: 0, b: 0, a: 0}
-    - _NoiseTiling: {r: 20, g: 20, b: 0, a: 0}
-    - _NoiseTiling1: {r: 40, g: 80, b: 0, a: 0}
-    - _NoiseTiling2: {r: 80, g: 160, b: 0, a: 0}
