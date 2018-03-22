@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 0273f2042d911c0478318ce4f43c4716, type: 3}
   m_ShaderKeywords: _ERODEGREENCHANNEL_ON _ERODE_ON _TEXTURE_ON
   m_LightmapFlags: 0
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
