@@ -71,7 +71,9 @@ namespace pdxpartyparrot.ggj2018.Players
 
         private void Update()
         {
+#if DEBUG
             CheckForDebug();
+#endif
         }
 
         private void FixedUpdate()

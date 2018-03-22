@@ -16,7 +16,6 @@ namespace pdxpartyparrot.ggj2018.World
         {
             _collider = GetComponent<Collider>();
             gameObject.layer = GameManager.Instance.ObstacleLayer;
-// TODO: building prefabs don't need to be set to the obstacle layer by hand
         }
 
         private void OnCollisionEnter(Collision collision)
