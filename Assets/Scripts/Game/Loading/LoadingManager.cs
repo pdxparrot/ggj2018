@@ -3,6 +3,7 @@
 using DG.Tweening;
 
 using pdxpartyparrot.Core.Camera;
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Input;
 using pdxpartyparrot.Game.Audio;
 using pdxpartyparrot.Game.Scenes;
@@ -87,6 +88,7 @@ namespace pdxpartyparrot.Game.Loading
             // TODO: this should be initialized by a Core something
             DOTween.Init();
 
+            DebugMenuManager.Create(ManagersContainer);
             TimeManager.Create(ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);
