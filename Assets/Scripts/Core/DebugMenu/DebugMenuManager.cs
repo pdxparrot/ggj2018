@@ -16,20 +16,19 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         [SerializeField]
         [ReadOnly]
-        private int _menuId = 0;
+        private int _windowId = 0;
 
         [SerializeField]
-        private Rect _menuRect = new Rect(10, 10, 800, 600);
+        private Rect _windowRect = new Rect(10, 10, 800, 600);
 
-        private readonly List<DebugMenuItem> _children = new List<DebugMenuItem>();
+        private readonly List<DebugMenuNode> _nodes = new List<DebugMenuNode>();
 
-        private DebugMenuItem _currentChild;
+        private DebugMenuNode _currentNode;
 
 #region Unity Lifecycle
         private void Awake()
         {
-            AddItem("Test");    // TODO: we need to make a distinction between top-level menu items and menu items that do things
-            AddItem("Quit");    // TODO: pass an action or something here to quit the game
+            AddNode("Test");
         }
 
         private void Update()
@@ -45,17 +44,21 @@ namespace pdxpartyparrot.Core.DebugMenu
                 return;
             }
 
-            string title =  null == _currentChild ? "Debug Menu" : _currentChild.Title;
+            string title =  null == _currentNode ? "Debug Menu" : _currentNode.Title;
 
-            _menuRect = GUILayout.Window(_menuId, _menuRect, id => {
-                if(null == _currentChild) {
-                    foreach(DebugMenuItem child in _children) {
-                        child.Render();
+            _windowRect = GUILayout.Window(_windowId, _windowRect, id => {
+                if(null == _currentNode) {
+                    foreach(DebugMenuNode node in _nodes) {
+                        node.Render();
+                    }
+
+                    if(GUILayout.Button("Quit", GUILayout.Width(100), GUILayout.Height(25))) {
+                        Application.Quit();
                     }
                 } else {
-                    _currentChild.RenderChildren();
+                    _currentNode.RenderChildren();
                     if(GUILayout.Button("Back", GUILayout.Width(100), GUILayout.Height(25))) {
-                        SetCurrentChild(_currentChild.Parent);
+                        SetCurrentNode(_currentNode.Parent);
                     }
                 }
 
@@ -64,23 +67,16 @@ namespace pdxpartyparrot.Core.DebugMenu
         }
 #endregion
 
-        public DebugMenuItem AddItem(string title)
+        public DebugMenuNode AddNode(string title)
         {
-            DebugMenuItem item = new DebugMenuItem(title);
-            _children.Add(item);
-            return item;
+            DebugMenuNode node = new DebugMenuNode(title);
+            _nodes.Add(node);
+            return node;
         }
 
-        public DebugMenuItem InsertItem(int index, string title)
+        public void SetCurrentNode(DebugMenuNode node)
         {
-            DebugMenuItem item = new DebugMenuItem(title);
-            _children.Insert(index, item);
-            return item;
-        }
-
-        public void SetCurrentChild(DebugMenuItem child)
-        {
-            _currentChild = child;
+            _currentNode = node;
         }
     }
 }
