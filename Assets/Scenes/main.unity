@@ -639,7 +639,7 @@ MonoBehaviour:
     type: 2}
   _gameStateManagerPrefab: {fileID: 114175453235392852, guid: 156d089d731c95047b50bc70b6717b1c,
     type: 2}
-  _defaultSceneName: new level 03
+  _defaultSceneName: new level 04
   _debugManagerPrefab: {fileID: 114176430621354346, guid: cfbefd30cacff76479eeb6b9b8cb6987,
     type: 2}
   _gameManagerPrefab: {fileID: 114887168970083654, guid: 350cdcbcb36491240ac9cf4bebb906e7,
