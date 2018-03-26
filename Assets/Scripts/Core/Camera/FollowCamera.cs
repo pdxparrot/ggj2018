@@ -4,6 +4,7 @@ using pdxpartyparrot.Core.Util;
 using JetBrains.Annotations;
 
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Core.Camera
 {
@@ -163,11 +164,16 @@ namespace pdxpartyparrot.Core.Camera
                 return;
             }
 
-            Vector3 axes = Target.LookAxis;
+            Profiler.BeginSample("FollowCamera.HandleInput");
+            try {
+                Vector3 axes = Target.LookAxis;
 
-            Orbit(axes, dt);
-            Zoom(axes, dt);
-            Look(axes, dt);
+                Orbit(axes, dt);
+                Zoom(axes, dt);
+                Look(axes, dt);
+            } finally {
+                Profiler.EndSample();
+            }
         }
 
         private void Orbit(Vector3 axes, float dt)
@@ -229,22 +235,27 @@ namespace pdxpartyparrot.Core.Camera
                 return;
             }
 
-            Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
-            Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
+            Profiler.BeginSample("FollowCamera.FollowTarget");
+            try {
+                Quaternion orbitRotation = Quaternion.Euler(_orbitRotation.y, _orbitRotation.x, 0.0f);
+                Quaternion lookRotation = Quaternion.Euler(_lookRotation.y, _lookRotation.x, 0.0f);
 
-            Quaternion targetRotation = Quaternion.Euler(0.0f, Target.GameObject.transform.eulerAngles.y, 0.0f);
+                Quaternion targetRotation = Quaternion.Euler(0.0f, Target.GameObject.transform.eulerAngles.y, 0.0f);
 
-            Quaternion finalOrbitRotation = targetRotation * orbitRotation;
-            transform.rotation = finalOrbitRotation * lookRotation;
+                Quaternion finalOrbitRotation = targetRotation * orbitRotation;
+                transform.rotation = finalOrbitRotation * lookRotation;
 
-            // TODO: this doens't work if we free-look and zoom
-            // because we're essentially moving the target position, not the camera position
-            Vector3 targetPosition = Target.GameObject.transform.position;
-            targetPosition = _smooth
-                ? Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _smoothTime)
-                : targetPosition;
+                // TODO: this doens't work if we free-look and zoom
+                // because we're essentially moving the target position, not the camera position
+                Vector3 targetPosition = Target.GameObject.transform.position;
+                targetPosition = _smooth
+                    ? Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _smoothTime)
+                    : targetPosition;
 
-            transform.position = targetPosition + finalOrbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
+                transform.position = targetPosition + finalOrbitRotation * new Vector3(0.0f, 0.0f, -_orbitRadius);
+            } finally {
+                Profiler.EndSample();
+            }
         }
     }
 }

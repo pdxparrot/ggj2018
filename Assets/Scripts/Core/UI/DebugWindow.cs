@@ -3,6 +3,7 @@
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Core.UI
 {
@@ -52,19 +53,29 @@ namespace pdxpartyparrot.Core.UI
 
         public void Update()
         {
-            Resize();
+            Profiler.BeginSample("DebugWindow.Update");
+            try {
+                Resize();
+            } finally {
+                Profiler.EndSample();
+            }
         }
 
         public void Render()
         {
-            _rect = GUILayout.Window(_id, _rect, id => {
-                _renderContents();
+            Profiler.BeginSample("DebugWindow.Render");
+            try {
+                _rect = GUILayout.Window(_id, _rect, id => {
+                    _renderContents();
 
-                // TODO: we should limit dragging only to when it's done from the title bar
-                if(!_isResizing) {
-                    GUI.DragWindow();
-                }
-            }, Title());
+                    // TODO: we should limit dragging only to when it's done from the title bar
+                    if(!_isResizing) {
+                        GUI.DragWindow();
+                    }
+                }, Title());
+            } finally {
+                Profiler.EndSample();
+            }
         }
 
         private void Resize()

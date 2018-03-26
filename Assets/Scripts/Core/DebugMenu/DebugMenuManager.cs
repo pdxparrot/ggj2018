@@ -7,6 +7,7 @@ using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace pdxpartyparrot.Core.DebugMenu
 {
@@ -53,8 +54,13 @@ namespace pdxpartyparrot.Core.DebugMenu
                 _enabled = !_enabled;
             }
 
-            if(_enabled) {
-                _window.Update();
+            Profiler.BeginSample("DebugMenuManager.Update");
+            try {
+                if(_enabled) {
+                    _window.Update();
+                }
+            } finally {
+                Profiler.EndSample();
             }
         }
 
@@ -64,7 +70,12 @@ namespace pdxpartyparrot.Core.DebugMenu
                 return;
             }
 
-            _window.Render();
+            Profiler.BeginSample("DebugMenuManager.OnGUI");
+            try {
+                _window.Render();
+            } finally {
+                Profiler.EndSample();
+            }
         }
 #endregion
 
