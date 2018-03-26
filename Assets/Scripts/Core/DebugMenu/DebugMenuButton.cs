@@ -10,16 +10,20 @@ namespace pdxpartyparrot.Core.DebugMenu
         public event EventHandler<EventArgs> OnClick;
 #endregion
 
-        public string Title { get; private set; }
+        public Func<string> Title { get; private set; }
 
-        public DebugMenuButton(string title)
+        public DebugMenuButton(Func<string> title)
         {
             Title = title;
         }
 
         public override void Render()
         {
-            if(GUILayout.Button(Title, GUILayout.Width(100), GUILayout.Height(25))) {
+            string title = Title();
+
+            // TODO: calculate width/height
+
+            if(GUILayout.Button(title, GUILayout.Width(100), GUILayout.Height(25))) {
                 OnClick?.Invoke(this, EventArgs.Empty);
             }
         }

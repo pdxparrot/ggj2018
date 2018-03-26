@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -63,6 +64,8 @@ namespace pdxpartyparrot.Game.Audio
 
             InitAudioMixerGroup(_music2AudioSource, _musicMixerGroupName);
             _music2AudioSource.loop = true;
+
+            InitDebugMenu();
         }
 
         private void Start()
@@ -121,6 +124,17 @@ namespace pdxpartyparrot.Game.Audio
 
                 yield return wait;
             }
+        }
+
+        private void InitDebugMenu()
+        {
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "AudioManager");
+
+            DebugMenuNode sfxNode = debugMenuNode.AddNode(() => "SFX");
+
+            DebugMenuNode musicNode = debugMenuNode.AddNode(() => "Music");
+
+            musicNode.AddLabel(() => $"Music Crossfade: {MusicCrossFade}");
         }
     }
 }

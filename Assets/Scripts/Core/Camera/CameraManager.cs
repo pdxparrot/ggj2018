@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using pdxpartyparrot.Core.Util;
-
 using JetBrains.Annotations;
+
+using pdxpartyparrot.Core.DebugMenu;
+using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
 
@@ -34,6 +35,8 @@ namespace pdxpartyparrot.Core.Camera
         private void Awake()
         {
             _viewerContainer = new GameObject("Viewers");
+
+            InitDebugMenu();
         }
 
         protected override void OnDestroy()
@@ -138,6 +141,16 @@ namespace pdxpartyparrot.Core.Camera
                     viewers.ElementAt(viewerIdx).SetViewport(col, (gridRows - 1) - row, viewportWidth, viewportHeight);
                 }
             }
+        }
+
+        private void InitDebugMenu()
+        {
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "CameraManager");
+            DebugMenuNode viewerNode = debugMenuNode.AddNode(() => "Viewers");
+
+            viewerNode.AddLabel(() => $"Total Viewers: {_viewers.Count}");
+            viewerNode.AddLabel(() => $"Assigned Viewers: {_assignedViewers.Count}");
+            viewerNode.AddLabel(() => $"Unassigned Viewers: {_unassignedViewers.Count}");
         }
     }
 }

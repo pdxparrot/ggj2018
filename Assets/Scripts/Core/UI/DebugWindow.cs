@@ -40,7 +40,7 @@ namespace pdxpartyparrot.Core.UI
         private Vector2 _resizeStartPosition;
 #endregion
 
-        public string Title { get; set; } = "Debug Window";
+        public Func<string> Title { get; set; } = () => "Debug Window";
 
         private readonly Action _renderContents;
 
@@ -64,7 +64,7 @@ namespace pdxpartyparrot.Core.UI
                 if(!_isResizing) {
                     GUI.DragWindow();
                 }
-            }, Title);
+            }, Title());
         }
 
         private void Resize()

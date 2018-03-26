@@ -1,5 +1,7 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.DebugMenu;
+
 using UnityEngine;
 
 namespace pdxpartyparrot.Core.Util
@@ -19,5 +21,20 @@ namespace pdxpartyparrot.Core.Util
         public long CurrentUnixSeconds => (long)DateTime.UtcNow.Subtract(Epoch).TotalSeconds + _offsetSeconds;
 
         public long CurrentUnixMs => (long)DateTime.UtcNow.Subtract(Epoch).TotalMilliseconds + SecondsToMilliseconds(_offsetSeconds);
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            InitDebugMenu();
+        }
+#endregion
+
+        private void InitDebugMenu()
+        {
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "TimeManager");
+
+            debugMenuNode.AddLabel(() => $"Current Unix Seconds: {CurrentUnixSeconds}");
+            debugMenuNode.AddLabel(() => $"Current Unix Milliseconds: {CurrentUnixMs}");
+        }
     }
 }

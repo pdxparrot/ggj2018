@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -6,18 +7,18 @@ namespace pdxpartyparrot.Core.DebugMenu
 {
     public class DebugMenuNode : DebugMenuItem
     {
-        public string Title { get; private set; }
+        public Func<string> Title { get; private set; }
 
         public DebugMenuNode Parent { get; private set; }
 
         private readonly List<DebugMenuItem> _children = new List<DebugMenuItem>();
 
-        public DebugMenuNode(string title)
+        public DebugMenuNode(Func<string> title)
         {
             Title = title;
         }
 
-        public DebugMenuNode(string title, DebugMenuNode parent)
+        public DebugMenuNode(Func<string> title, DebugMenuNode parent)
         {
             Title = title;
             Parent = parent;
@@ -25,7 +26,11 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         public override void Render()
         {
-            if(GUILayout.Button(Title, GUILayout.Width(100), GUILayout.Height(25))) {
+            string title = Title();
+
+            // TODO: calculate width/height
+
+            if(GUILayout.Button(title, GUILayout.Width(100), GUILayout.Height(25))) {
                 DebugMenuManager.Instance.SetCurrentNode(this);
             }
         }
@@ -37,14 +42,21 @@ namespace pdxpartyparrot.Core.DebugMenu
             }
         }
 
-        public DebugMenuNode AddNode(string title)
+        public DebugMenuNode AddNode(Func<string> title)
         {
             DebugMenuNode node = new DebugMenuNode(title, this);
             _children.Add(node);
             return node;
         }
 
-        public DebugMenuButton AddButton(string title)
+        public DebugMenuLabel AddLabel(Func<string> text)
+        {
+            DebugMenuLabel label = new DebugMenuLabel(text);
+            _children.Add(label);
+            return label;
+        }
+
+        public DebugMenuButton AddButton(Func<string> title)
         {
             DebugMenuButton button = new DebugMenuButton(title);
             _children.Add(button);

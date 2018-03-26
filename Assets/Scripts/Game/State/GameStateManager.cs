@@ -1,5 +1,6 @@
 ﻿using System;
 
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -23,6 +24,11 @@ namespace pdxpartyparrot.Game.State
         public GameState CurrentState => _currentGameState;
 
 #region Unity Lifecycle
+        private void Awake()
+        {
+            InitDebugMenu();
+        }
+
         protected override void OnDestroy()
         {
             ExitCurrentState();
@@ -59,6 +65,13 @@ namespace pdxpartyparrot.Game.State
 
             Destroy(_currentGameState?.gameObject);
             _currentGameState = null;
+        }
+
+        private void InitDebugMenu()
+        {
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "GameStateManager");
+
+            debugMenuNode.AddLabel(() => $"Current Game State: {CurrentState.name}");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -157,6 +158,8 @@ namespace pdxpartyparrot.Core.Input
             for(int i=0; i<MaxControllers; ++i) {
                 _controllerStates[i] = new ControllerState();
             }
+
+            InitDebugMenu();
         }
 
         private void Start()
@@ -361,6 +364,44 @@ namespace pdxpartyparrot.Core.Input
             return DPadState.Held == state.DPadStates.ElementAt((int)dir);
         }
 #endregion
+
+        private void InitDebugMenu()
+        {
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "InputManager");
+            DebugMenuNode controllerStatesNode = debugMenuNode.AddNode(() => "Controller States");
+
+            controllerStatesNode.AddLabel(() => $"Controller State Count: {_controllerStates.Length}");
+            for(int i=0; i<_controllerStates.Length; ++i) {
+                int controllerIndex = i;
+                DebugMenuNode controllerStateNode = controllerStatesNode.AddNode(() => $"Controller {controllerIndex}");
+
+                ControllerState controllerState = _controllerStates[i];
+                controllerStateNode.AddLabel(() => $"Acquired: {controllerState.Acquired}");
+
+                controllerStateNode.AddLabel(() => $"Invert Move X: {controllerState.InvertMoveX}");
+                controllerStateNode.AddLabel(() => $"Invert Move Y: {controllerState.InvertMoveY}");
+                controllerStateNode.AddLabel(() => $"Invert Look X: {controllerState.InvertLookX}");
+                controllerStateNode.AddLabel(() => $"Invert Look Y: {controllerState.InvertLookY}");
+                controllerStateNode.AddLabel(() => $"Invert Zoom: {controllerState.InvertZoom}");
+
+                controllerStateNode.AddLabel(() => $"Move Axis: {GetMoveAxes(controllerIndex)}");
+                controllerStateNode.AddLabel(() => $"Look Axis: {GetLookAxes(controllerIndex)}");
+                controllerStateNode.AddLabel(() => $"DPad Axis: {GetDpadAxes(controllerIndex)}");
+
+                controllerStateNode.AddLabel(() => $"Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.Trigger)}");
+                controllerStateNode.AddLabel(() => $"Left Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.LeftTrigger)}");
+                controllerStateNode.AddLabel(() => $"Right Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.RightTrigger)}");
+            }
+
+            // TODO: find a way to make this dynamic
+/*
+            string[] joystickNames = UnityEngine.Input.GetJoystickNames();
+            DebugMenuNode joystickNode = debugMenuNode.AddNode(() => "Joysticks");
+            foreach(string joystickName in joystickNames) {
+                joystickNode.AddLabel(() => joystickName);
+            }
+*/
+        }
     }
 }
 

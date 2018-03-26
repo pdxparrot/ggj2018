@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+using JetBrains.Annotations;
 
 using pdxpartyparrot.Core.UI;
 using pdxpartyparrot.Core.Util;
@@ -7,6 +10,8 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.DebugMenu
 {
+// TODO: collect logs in a log window here also
+
     public sealed class DebugMenuManager : SingletonBehavior<DebugMenuManager>
     {
         [SerializeField]
@@ -19,6 +24,7 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         private readonly List<DebugMenuNode> _nodes = new List<DebugMenuNode>();
 
+        [CanBeNull]
         private DebugMenuNode _currentNode;
 
 #region Unity Lifecycle
@@ -26,10 +32,19 @@ namespace pdxpartyparrot.Core.DebugMenu
         {
             _window = new DebugWindow(new Rect(10, 10, 800, 600), RenderWindowContents)
             {
-                Title = "Debug Menu"
-            };
+                Title = () => {
+                    string title = "Debug Menu";
 
-            AddNode("Test");
+                    if(null != _currentNode) {
+                        if(null != _currentNode.Parent) {
+                            title = $"{_currentNode.Parent.Title()}";
+                        }
+                        title += $" => {_currentNode.Title()}";
+                    }
+
+                    return title;
+                }
+            };
         }
 
         private void Update()
@@ -53,7 +68,7 @@ namespace pdxpartyparrot.Core.DebugMenu
         }
 #endregion
 
-        public DebugMenuNode AddNode(string title)
+        public DebugMenuNode AddNode(Func<string> title)
         {
             DebugMenuNode node = new DebugMenuNode(title);
             _nodes.Add(node);
@@ -63,7 +78,6 @@ namespace pdxpartyparrot.Core.DebugMenu
         public void SetCurrentNode(DebugMenuNode node)
         {
             _currentNode = node;
-            _window.Title = null == _currentNode ? "Debug Menu" : _currentNode.Title;
         }
 
         private void RenderWindowContents()

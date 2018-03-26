@@ -88,7 +88,9 @@ namespace pdxpartyparrot.Game.Loading
             // TODO: this should be initialized by a Core something
             DOTween.Init();
 
+            // should always be first
             DebugMenuManager.Create(ManagersContainer);
+
             TimeManager.Create(ManagersContainer);
             AudioManager.CreateFromPrefab(_audioManagerPrefab, ManagersContainer);
             ObjectPoolManager.Create(ManagersContainer);

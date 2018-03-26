@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using pdxpartyparrot.Core.DebugMenu;
 using pdxpartyparrot.Core.Util;
 
 using UnityEngine;
@@ -21,6 +22,13 @@ namespace pdxpartyparrot.Game.Scenes
         public string DefaultSceneName { get; set; }
 
         private readonly List<string> _loadedScenes = new List<string>();
+
+#region Unity Lifecycle
+        private void Awake()
+        {
+            InitDebugMenu();
+        }
+#endregion
 
 #region Load Scene
         public void SetScene(string sceneName)
@@ -131,5 +139,20 @@ namespace pdxpartyparrot.Game.Scenes
             });
         }
 #endregion
+
+        private void InitDebugMenu()
+        {
+            DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "GameSceneManager");
+
+            debugMenuNode.AddLabel(() => $"Loaded Scenes: {_loadedScenes.Count}");
+
+// TODO: find a way to make this dynamic
+/*
+            DebugMenuNode loadedScenesNode = debugMenuNode.AddNode(() => "Loaded Scenes");
+            foreach(string loadedScene in _loadedScenes) {
+                loadedScenesNode.AddLabel(() => loadedScene);
+            }
+*/
+        }
     }
 }
