@@ -143,16 +143,13 @@ namespace pdxpartyparrot.Game.Scenes
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "GameSceneManager");
-
-            debugMenuNode.AddLabel(() => $"Loaded Scenes: {_loadedScenes.Count}");
-
-// TODO: find a way to make this dynamic
-/*
-            DebugMenuNode loadedScenesNode = debugMenuNode.AddNode(() => "Loaded Scenes");
-            foreach(string loadedScene in _loadedScenes) {
-                loadedScenesNode.AddLabel(() => loadedScene);
-            }
-*/
+            debugMenuNode.RenderContentsAction = () => {
+                GUILayout.BeginVertical("Loaded Scenes", GUI.skin.box);
+                    foreach(string loadedScene in _loadedScenes) {
+                        GUILayout.Label(loadedScene);
+                    }
+                GUILayout.EndVertical();
+            };
         }
     }
 }

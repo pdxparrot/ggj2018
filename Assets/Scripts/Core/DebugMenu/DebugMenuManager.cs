@@ -23,6 +23,10 @@ namespace pdxpartyparrot.Core.DebugMenu
 
         private DebugWindow _window;
 
+        [SerializeField]
+        [ReadOnly]
+        private Vector2 _windowScrollPos;
+
         private readonly List<DebugMenuNode> _nodes = new List<DebugMenuNode>();
 
         [CanBeNull]
@@ -89,20 +93,26 @@ namespace pdxpartyparrot.Core.DebugMenu
         public void SetCurrentNode(DebugMenuNode node)
         {
             _currentNode = node;
+            _windowScrollPos = Vector2.zero;
         }
 
         private void RenderWindowContents()
         {
             if(null == _currentNode) {
-                foreach(DebugMenuNode node in _nodes) {
-                    node.Render();
-                }
+                _windowScrollPos = GUILayout.BeginScrollView(_windowScrollPos);
+                    foreach(DebugMenuNode node in _nodes) {
+                        node.RenderNode();
+                    }
+                GUILayout.EndScrollView();
 
                 if(GUILayout.Button("Quit", GUILayout.Width(100), GUILayout.Height(25))) {
                     Application.Quit();
                 }
             } else {
-                _currentNode.RenderChildren();
+                _windowScrollPos = GUILayout.BeginScrollView(_windowScrollPos);
+                    _currentNode.RenderContents();
+                GUILayout.EndScrollView();
+
                 if(GUILayout.Button("Back", GUILayout.Width(100), GUILayout.Height(25))) {
                     SetCurrentNode(_currentNode.Parent);
                 }

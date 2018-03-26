@@ -368,39 +368,40 @@ namespace pdxpartyparrot.Core.Input
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "InputManager");
+            debugMenuNode.RenderContentsAction = () => {
+                GUILayout.BeginVertical("Joysticks", GUI.skin.box);
+                    string[] joystickNames = UnityEngine.Input.GetJoystickNames();
+                    foreach(string joystickName in joystickNames) {
+                        GUILayout.Label(joystickName);
+                    }
+                GUILayout.EndVertical();
+            };
+
             DebugMenuNode controllerStatesNode = debugMenuNode.AddNode(() => "Controller States");
+            controllerStatesNode.RenderContentsAction = () => {
+                for(int i=0; i<_controllerStates.Length; ++i) {
+                    int controllerIndex = i;
+                    ControllerState controllerState = _controllerStates[controllerIndex];
 
-            controllerStatesNode.AddLabel(() => $"Controller State Count: {_controllerStates.Length}");
-            for(int i=0; i<_controllerStates.Length; ++i) {
-                int controllerIndex = i;
-                DebugMenuNode controllerStateNode = controllerStatesNode.AddNode(() => $"Controller {controllerIndex}");
+                    GUILayout.BeginVertical($"Controller {controllerIndex}", GUI.skin.box);
+                        GUILayout.Label($"Acquired: {controllerState.Acquired}");
 
-                ControllerState controllerState = _controllerStates[i];
-                controllerStateNode.AddLabel(() => $"Acquired: {controllerState.Acquired}");
+                        GUILayout.Label($"Invert Move X: {controllerState.InvertMoveX}");
+                        GUILayout.Label($"Invert Move Y: {controllerState.InvertMoveY}");
+                        GUILayout.Label($"Invert Look X: {controllerState.InvertLookX}");
+                        GUILayout.Label($"Invert Look Y: {controllerState.InvertLookY}");
+                        GUILayout.Label($"Invert Zoom: {controllerState.InvertZoom}");
 
-                controllerStateNode.AddLabel(() => $"Invert Move X: {controllerState.InvertMoveX}");
-                controllerStateNode.AddLabel(() => $"Invert Move Y: {controllerState.InvertMoveY}");
-                controllerStateNode.AddLabel(() => $"Invert Look X: {controllerState.InvertLookX}");
-                controllerStateNode.AddLabel(() => $"Invert Look Y: {controllerState.InvertLookY}");
-                controllerStateNode.AddLabel(() => $"Invert Zoom: {controllerState.InvertZoom}");
+                        GUILayout.Label($"Move Axis: {GetMoveAxes(controllerIndex)}");
+                        GUILayout.Label($"Look Axis: {GetLookAxes(controllerIndex)}");
+                        GUILayout.Label($"DPad Axis: {GetDpadAxes(controllerIndex)}");
 
-                controllerStateNode.AddLabel(() => $"Move Axis: {GetMoveAxes(controllerIndex)}");
-                controllerStateNode.AddLabel(() => $"Look Axis: {GetLookAxes(controllerIndex)}");
-                controllerStateNode.AddLabel(() => $"DPad Axis: {GetDpadAxes(controllerIndex)}");
-
-                controllerStateNode.AddLabel(() => $"Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.Trigger)}");
-                controllerStateNode.AddLabel(() => $"Left Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.LeftTrigger)}");
-                controllerStateNode.AddLabel(() => $"Right Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.RightTrigger)}");
-            }
-
-            // TODO: find a way to make this dynamic
-/*
-            string[] joystickNames = UnityEngine.Input.GetJoystickNames();
-            DebugMenuNode joystickNode = debugMenuNode.AddNode(() => "Joysticks");
-            foreach(string joystickName in joystickNames) {
-                joystickNode.AddLabel(() => joystickName);
-            }
-*/
+                        GUILayout.Label($"Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.Trigger)}");
+                        GUILayout.Label($"Left Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.LeftTrigger)}");
+                        GUILayout.Label($"Right Trigger Axis: {GetTriggerAxis(controllerIndex, TriggerAxis.RightTrigger)}");
+                    GUILayout.EndVertical();
+                }
+            };
         }
     }
 }

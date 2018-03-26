@@ -32,9 +32,10 @@ namespace pdxpartyparrot.Core.Util
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "TimeManager");
-
-            debugMenuNode.AddLabel(() => $"Current Unix Seconds: {CurrentUnixSeconds}");
-            debugMenuNode.AddLabel(() => $"Current Unix Milliseconds: {CurrentUnixMs}");
+            debugMenuNode.RenderContentsAction = () => {
+                GUILayout.Label($"Current Unix Seconds: {CurrentUnixSeconds}");
+                GUILayout.Label($"Current Unix Milliseconds: {CurrentUnixMs}");
+            };
         }
     }
 }

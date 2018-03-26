@@ -70,8 +70,9 @@ namespace pdxpartyparrot.Game.State
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "GameStateManager");
-
-            debugMenuNode.AddLabel(() => $"Current Game State: {CurrentState.name}");
+            debugMenuNode.RenderContentsAction = () => {
+                GUILayout.Label($"Current Game State: {CurrentState.name}");
+            };
         }
     }
 }

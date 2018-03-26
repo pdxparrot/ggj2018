@@ -5,13 +5,15 @@ using UnityEngine;
 
 namespace pdxpartyparrot.Core.DebugMenu
 {
-    public class DebugMenuNode : DebugMenuItem
+    public class DebugMenuNode
     {
         public Func<string> Title { get; private set; }
 
         public DebugMenuNode Parent { get; private set; }
 
-        private readonly List<DebugMenuItem> _children = new List<DebugMenuItem>();
+        public Action RenderContentsAction { get; set; }
+
+        private readonly List<DebugMenuNode> _children = new List<DebugMenuNode>();
 
         public DebugMenuNode(Func<string> title)
         {
@@ -24,7 +26,7 @@ namespace pdxpartyparrot.Core.DebugMenu
             Parent = parent;
         }
 
-        public override void Render()
+        public void RenderNode()
         {
             string title = Title();
 
@@ -35,11 +37,13 @@ namespace pdxpartyparrot.Core.DebugMenu
             }
         }
 
-        public void RenderChildren()
+        public void RenderContents()
         {
-            foreach(DebugMenuItem child in _children) {
-                child.Render();
+            foreach(DebugMenuNode child in _children) {
+                child.RenderNode();
             }
+
+            RenderContentsAction?.Invoke();
         }
 
         public DebugMenuNode AddNode(Func<string> title)
@@ -47,20 +51,6 @@ namespace pdxpartyparrot.Core.DebugMenu
             DebugMenuNode node = new DebugMenuNode(title, this);
             _children.Add(node);
             return node;
-        }
-
-        public DebugMenuLabel AddLabel(Func<string> text)
-        {
-            DebugMenuLabel label = new DebugMenuLabel(text);
-            _children.Add(label);
-            return label;
-        }
-
-        public DebugMenuButton AddButton(Func<string> title)
-        {
-            DebugMenuButton button = new DebugMenuButton(title);
-            _children.Add(button);
-            return button;
         }
     }
 }

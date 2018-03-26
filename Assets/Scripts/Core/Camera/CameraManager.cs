@@ -146,11 +146,13 @@ namespace pdxpartyparrot.Core.Camera
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "CameraManager");
-            DebugMenuNode viewerNode = debugMenuNode.AddNode(() => "Viewers");
-
-            viewerNode.AddLabel(() => $"Total Viewers: {_viewers.Count}");
-            viewerNode.AddLabel(() => $"Assigned Viewers: {_assignedViewers.Count}");
-            viewerNode.AddLabel(() => $"Unassigned Viewers: {_unassignedViewers.Count}");
+            debugMenuNode.RenderContentsAction = () => {
+                GUILayout.BeginVertical("Viewers", GUI.skin.box);
+                    GUILayout.Label($"Total Viewers: {_viewers.Count}");
+                    GUILayout.Label($"Assigned Viewers: {_assignedViewers.Count}");
+                    GUILayout.Label($"Unassigned Viewers: {_unassignedViewers.Count}");
+                GUILayout.EndVertical();
+            };
         }
     }
 }

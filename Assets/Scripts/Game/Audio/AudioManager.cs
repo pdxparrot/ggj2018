@@ -129,12 +129,15 @@ namespace pdxpartyparrot.Game.Audio
         private void InitDebugMenu()
         {
             DebugMenuNode debugMenuNode = DebugMenuManager.Instance.AddNode(() => "AudioManager");
+            debugMenuNode.RenderContentsAction = () => {
+                GUILayout.BeginVertical("SFX", GUI.skin.box);
+                    GUILayout.Label("TODO");
+                GUILayout.EndVertical();
 
-            DebugMenuNode sfxNode = debugMenuNode.AddNode(() => "SFX");
-
-            DebugMenuNode musicNode = debugMenuNode.AddNode(() => "Music");
-
-            musicNode.AddLabel(() => $"Music Crossfade: {MusicCrossFade}");
+                GUILayout.BeginVertical("Music", GUI.skin.box);
+                    GUILayout.Label($"Music Crossfade: {MusicCrossFade}");
+                GUILayout.EndVertical();
+            };
         }
     }
 }
