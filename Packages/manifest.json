@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "com.unity.postprocessing": "2.0.5-preview",
+    "com.unity.assetbundlebrowser": "1.5.0",
+    "com.unity.probuilder": "3.0.6",
+    "com.unity.progrids": "3.0.1-preview"
+  }
+}
